@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/job_completed_dailogbox.dart';
 
@@ -12,6 +14,8 @@ class CompanyOngoingList extends StatefulWidget {
 class _CompanyOngoingListState extends State<CompanyOngoingList> {
   @override
   Widget build(BuildContext context) {
+    final provider =
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: true);
     return Stack(
       children: [
         const FullBackgroundImage(),
@@ -40,7 +44,7 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  itemCount: 2,
+                  itemCount: provider.onGoingRequestsList.length,
                   itemBuilder: (context, index) {
                     return Card(
                       elevation: 5,
@@ -133,9 +137,15 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                                     padding: EdgeInsets.zero,
                                   ),
                                   onPressed: () {
+                                    print(
+                                        provider.onGoingRequestsList[index].id);
                                     showDialog(
                                       context: context,
-                                      builder: (ctxt) => completeJobDialogbox(),
+                                      barrierDismissible: false,
+                                      builder: (ctxt) => completeJobDialogbox(
+                                        ctxt,
+                                        provider.onGoingRequestsList[index].id,
+                                      ),
                                     );
                                   },
                                   child: const Text(
@@ -285,5 +295,21 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
         ),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((value) async {
+      await getData();
+    });
+
+    super.initState();
+  }
+
+  Future<void> getData() async {
+    print('in data');
+    final provider =
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
+    await provider.getOnGoingRequests();
   }
 }

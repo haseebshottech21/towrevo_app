@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
+import 'package:towrevo/number_creator.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 
 class CompanyItem extends StatelessWidget {
@@ -15,8 +16,9 @@ class CompanyItem extends StatelessWidget {
     final provider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
     print(provider.body['service']!);
-    provider.requestToCompany(
-        provider.body['service']!, companyId, notificationId);
+    print(provider.body['address']!);
+    provider.requestToCompany(context,
+        provider.body['longitude']!,provider.body['latitude']!,provider.body['address']!,provider.body['service']!, companyId, notificationId);
   }
 
   @override
@@ -102,40 +104,14 @@ class CompanyItem extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                         onPressed: () {
-                          // sendRequest(
-                          //   companyModel.userId,
-                          //   context,
-                          //   companyModel.notificationId,
-                          // );
-                          showDialog(
-                            context: context,
-                            builder: (ctxt) => AlertDialog(
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    height: 100,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.40,
-                                    child: const CircleAvatar(
-                                      backgroundColor: Colors.green,
-                                      child: FaIcon(FontAwesomeIcons.check),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Text(
-                                    'SuccessFully Send!',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                          sendRequest(
+                            companyModel.userId,
+                            context,
+                            companyModel.notificationId,
                           );
+
+
+
                         },
                         icon: FaIcon(
                           FontAwesomeIcons.paperPlane,

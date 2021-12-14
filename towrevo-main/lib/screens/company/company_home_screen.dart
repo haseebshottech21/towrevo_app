@@ -22,8 +22,6 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider =
-        Provider.of<CompanyHomeScreenViewModel>(context, listen: true);
 
     return DefaultTabController(
       length: 2,
@@ -237,52 +235,5 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
     // );
   }
 
-  @override
-  void initState() {
-    Future.delayed(Duration.zero).then((value) async {
-      setupInteracted();
-      await getData();
-    });
 
-    super.initState();
-  }
-
-  Future<void> getData() async {
-    print('in data');
-    final provider =
-        Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
-    await provider.getRequests();
-  }
-
-  Future<void> setupInteracted() async {
-    // Get any messages which caused the application to open from
-    // a terminated state.
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
-    print('yes');
-    print(initialMessage?.data.toString());
-    // If the message also contains a data property with a "type" of "chat",
-    // navigate to a chat screen
-    if (initialMessage != null) {
-      // Navigator.pushNamed(context, RequestScreen.routeName,);
-      getData();
-    }
-
-    // Also handle any interaction when the app is in the background via a
-    // Stream listener
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-    FirebaseMessaging.onMessage.listen((event) {
-      print(event);
-      getData();
-    });
-  }
-
-  void _handleMessage(RemoteMessage message) {
-    print(message);
-    print(message.data);
-    // if (message.data['type'] == 'chat') {
-    getData();
-    // Navigator.pushNamed(context, RequestScreen.routeName,);
-    // }
-  }
 }

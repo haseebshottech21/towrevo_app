@@ -262,6 +262,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         Provider.of<GetLocationViewModel>(context, listen: false);
     final serviceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
+
     userHomeScreenProvider.body = {
       'longitude': lngLatProvider.latLng!.longitude.toString(),
       'latitude': lngLatProvider.latLng!.latitude.toString(),
@@ -272,7 +273,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       'service': serviceProvider.serviceListViewModel
           .firstWhere((element) =>
               element.name == serviceProvider.serviceSelectedValue!)
-          .id
+          .id,
+      'address' : lngLatProvider.address
     };
     Navigator.of(context).pushNamed(ListingOfCompaniesScreen.routeName);
   }

@@ -1,26 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:towrevo/screens/authentication/login/login_screen.dart';
 import 'package:towrevo/web_services/authentication.dart';
 
-class LoginViewModel with ChangeNotifier{
+class LoginViewModel with ChangeNotifier {
   bool isRememberChecked = false;
 
-  toggleRemember(){
+  toggleRemember() {
     isRememberChecked = !isRememberChecked;
     notifyListeners();
   }
 
   bool obscurePassword = false;
 
-  toggleObscure(){
+  toggleObscure() {
     obscurePassword = !obscurePassword;
     notifyListeners();
   }
 
-  Future<bool> loginRequest(String email,String password)async{
-   bool result = await AuthenticationWebService().login(email,password);
-   return result;
+  Future<bool> loginRequest(String email, String password) async {
+    bool result = await AuthenticationWebService().login(email, password);
+    return result;
   }
 
-
+  Future<void> logoutRequest(BuildContext context) async {
+    final loadedData = await AuthenticationWebService().logout();
+    if (loadedData) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+    }
+  }
 }

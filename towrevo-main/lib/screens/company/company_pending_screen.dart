@@ -1,5 +1,8 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 
 class CompanyPendingList extends StatefulWidget {
@@ -12,6 +15,9 @@ class CompanyPendingList extends StatefulWidget {
 class _CompanyPendingListState extends State<CompanyPendingList> {
   @override
   Widget build(BuildContext context) {
+    final provider =
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: true);
+    print('listen success');
     return Stack(
       children: [
         const FullBackgroundImage(),
@@ -40,7 +46,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  itemCount: 3,
+                  itemCount: provider.requestServiceList.length,
                   itemBuilder: (context, index) {
                     return Card(
                       elevation: 5,
@@ -125,7 +131,15 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                         style: TextButton.styleFrom(
                                           padding: EdgeInsets.zero,
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          await CompanyHomeScreenViewModel()
+                                              .acceptDeclineOrDone(
+                                                  '1',
+                                                  provider
+                                                      .requestServiceList[index]
+                                                      .id,
+                                                  context);
+                                        },
                                         child: const Text(
                                           'Accept',
                                           style: TextStyle(
@@ -140,7 +154,15 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                         style: TextButton.styleFrom(
                                           padding: EdgeInsets.zero,
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          await CompanyHomeScreenViewModel()
+                                              .acceptDeclineOrDone(
+                                                  '2',
+                                                  provider
+                                                      .requestServiceList[index]
+                                                      .id,
+                                                  context);
+                                        },
                                         child: const Text(
                                           'Decline',
                                           style: TextStyle(
@@ -290,5 +312,54 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
         ),
       ],
     );
+  }
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((value) async {
+      setupInteracted();
+      await getData();
+    });
+
+    super.initState();
+  }
+
+  Future<void> getData() async {
+    print('in data');
+    final provider =
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
+    await provider.getRequests();
+  }
+
+  Future<void> setupInteracted() async {
+    // Get any messages which caused the application to open from
+    // a terminated state.
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+    print('yes');
+    print(initialMessage?.data.toString());
+    // If the message also contains a data property with a "type" of "chat",
+    // navigate to a chat screen
+    if (initialMessage != null) {
+      // Navigator.pushNamed(context, RequestScreen.routeName,);
+      getData();
+    }
+
+    // Also handle any interaction when the app is in the background via a
+    // Stream listener
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+    FirebaseMessaging.onMessage.listen((event) {
+      print(event);
+      getData();
+    });
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    print(message);
+    print(message.data);
+    // if (message.data['type'] == 'chat') {
+    getData();
+    // Navigator.pushNamed(context, RequestScreen.routeName,);
+    // }
   }
 }

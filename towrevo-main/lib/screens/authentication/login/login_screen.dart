@@ -54,16 +54,16 @@ class _LoginScreenState extends State<LoginScreen> {
           // Background Image
           const BackgroundImage(),
           // Back Icon
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-            child: IconButton(
-              icon: const Icon(FontAwesomeIcons.arrowLeft,
-                  color: Colors.white, size: 20.0),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 10.0, top: 15.0),
+          //   child: IconButton(
+          //     icon: const Icon(FontAwesomeIcons.arrowLeft,
+          //         color: Colors.white, size: 20.0),
+          //     onPressed: () {
+          //       Navigator.pop(context);
+          //     },
+          //   ),
+          // ),
           Container(
             padding:
             const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
@@ -186,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.of(context).pushReplacementNamed(RegisterMainScreen.routeName);
+                                  Navigator.of(context).pushNamed(RegisterMainScreen.routeName);
                                 }
                             ),
                           ],

@@ -19,7 +19,7 @@ class WelcomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LoginButton('LOGIN', (){
-               Navigator.of(context).pushNamed(LoginScreen.routeName);
+               Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
               },
               ),
               const SizedBox(

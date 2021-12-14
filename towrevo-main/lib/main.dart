@@ -8,7 +8,6 @@ import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/view_model/otp_view_model.dart';
-import 'package:towrevo/screens/company/listing_of_users_screen.dart';
 import 'package:towrevo/screens/get_location_screen.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
@@ -138,8 +137,8 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: const SplashScreen(),
-        home: const TermAndCondition(),
+        home: const SplashScreen(),
+        // home: const TermAndCondition(),
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
@@ -159,7 +158,6 @@ class _MyAppState extends State<MyApp> {
           ListingOfCompaniesScreen.routeName: (ctx) =>
               const ListingOfCompaniesScreen(),
           GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
-          ListingOfUsersScreen.routeName: (ctx) => ListingOfUsersScreen(),
         },
       ),
     );
