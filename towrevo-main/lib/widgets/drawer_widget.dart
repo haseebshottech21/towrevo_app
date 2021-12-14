@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:towrevo/screens/aboutus/about_us_screen.dart';
+import 'package:towrevo/screens/faqs/faqs.dart';
+import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'drawer_list_item_widget.dart';
 import 'form_button_widget.dart';
 
@@ -10,7 +13,7 @@ class DrawerWidget extends StatelessWidget {
     return Drawer(
       child: SingleChildScrollView(
         child: Container(
-          color: Colors.black,
+          color: const Color(0xFF092848),
           child: Container(
             height: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -31,9 +34,21 @@ class DrawerWidget extends StatelessWidget {
                   height: 30,
                 ),
                 DrawerListItem(
-                  title: 'About us',
+                  title: 'Home',
                   iconsData: Icons.play_arrow,
                   onPressed: () {},
+                ),
+                DrawerListItem(
+                  title: 'About us',
+                  iconsData: Icons.play_arrow,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AboutUs(),
+                      ),
+                    );
+                  },
                 ),
                 DrawerListItem(
                   title: 'Contact us',
@@ -43,7 +58,14 @@ class DrawerWidget extends StatelessWidget {
                 DrawerListItem(
                   title: 'FAQ\'s',
                   iconsData: Icons.play_arrow,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FAQs(),
+                      ),
+                    );
+                  },
                 ),
                 DrawerListItem(
                   title: 'Change Password',
@@ -53,7 +75,14 @@ class DrawerWidget extends StatelessWidget {
                 DrawerListItem(
                   title: 'Terms and Condition',
                   iconsData: Icons.play_arrow,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TermAndCondition(),
+                      ),
+                    );
+                  },
                 ),
                 DrawerListItem(
                   title: 'Privacy Policy',

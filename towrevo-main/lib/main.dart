@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/view_model/otp_view_model.dart';
@@ -30,12 +31,13 @@ import '/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-void main() async{
+void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  Stripe.publishableKey ='pk_test_51IdtHCGmNbFgnn00GS9N3SgfZldmDiOvK5WbKahPhImD2ThfzRqUKTMYG3i4xwTcphNBUb9FfeQFmBK37t3h4Ewh00JnMUB9Ul';
+  Stripe.publishableKey =
+      'pk_test_51IdtHCGmNbFgnn00GS9N3SgfZldmDiOvK5WbKahPhImD2ThfzRqUKTMYG3i4xwTcphNBUb9FfeQFmBK37t3h4Ewh00JnMUB9Ul';
   runApp(const MyApp());
 }
 
@@ -44,28 +46,28 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-  Fluttertoast.showToast(msg: 'background message ${message.notification!.body}');
+  Fluttertoast.showToast(
+      msg: 'background message ${message.notification!.body}');
   print("Handling a background message ${message}");
 }
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-  static String notifyToken ='';
+  static String notifyToken = '';
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
   late FirebaseMessaging messaging;
   @override
   void initState() {
     messaging = FirebaseMessaging.instance;
     messaging.getToken().then((value) {
-    // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-      MyApp.notifyToken=value.toString();
-      print("token : "+value.toString());
+      // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+      MyApp.notifyToken = value.toString();
+      print("token : " + value.toString());
     });
 
     //when app open mode
@@ -112,46 +114,52 @@ class _MyAppState extends State<MyApp> {
 
     super.initState();
   }
+
   bool getRequests = false;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (ctx)=>RegisterCompanyViewModel()),
-        ChangeNotifierProvider(create: (ctx)=>RegisterUserViewModel()),
-        ChangeNotifierProvider(create: (ctx)=>LoginViewModel()),
-        ChangeNotifierProvider(create: (ctx)=>GetLocationViewModel()),
-        ChangeNotifierProvider(create: (ctx)=>ServicesAndDaysViewModel()),
-        ChangeNotifierProvider(create: (ctx)=>ServicesAndDaysViewModel()),
-        ChangeNotifierProvider(create: (ctx)=>OTPViewModel()),
-        ChangeNotifierProvider(create: (ctx)=>UserHomeScreenViewModel()),
-        ChangeNotifierProvider(create: (ctx)=>CompanyHomeScreenViewModel()),
-
+        ChangeNotifierProvider(create: (ctx) => RegisterCompanyViewModel()),
+        ChangeNotifierProvider(create: (ctx) => RegisterUserViewModel()),
+        ChangeNotifierProvider(create: (ctx) => LoginViewModel()),
+        ChangeNotifierProvider(create: (ctx) => GetLocationViewModel()),
+        ChangeNotifierProvider(create: (ctx) => ServicesAndDaysViewModel()),
+        ChangeNotifierProvider(create: (ctx) => ServicesAndDaysViewModel()),
+        ChangeNotifierProvider(create: (ctx) => OTPViewModel()),
+        ChangeNotifierProvider(create: (ctx) => UserHomeScreenViewModel()),
+        ChangeNotifierProvider(create: (ctx) => CompanyHomeScreenViewModel()),
       ],
       child: MaterialApp(
-         debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         title: 'Towrevo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home:   const SplashScreen(),
+        // home: const SplashScreen(),
+        home: const TermAndCondition(),
         routes: {
-          RegisterMainScreen.routeName :(ctx) => const RegisterMainScreen(),
-          LoginScreen.routeName :(ctx) => const LoginScreen(),
-          RegistrationNameAndDescScreen.routeName : (ctx) => const RegistrationNameAndDescScreen(),
-          RegistrationCredentialScreen.routeName : (ctx) => const RegistrationCredentialScreen(),
-          RegistrationCategoryAndTimingScreen.routeName : (ctx) => const RegistrationCategoryAndTimingScreen(),
-          RegistrationPaymentScreen.routeName : (ctx) =>  RegistrationPaymentScreen(),
-          RegistrationOTPScreen.routeName : (ctx) => const RegistrationOTPScreen(),
-          CompanyHomeScreen.routeName : (ctx) => const CompanyHomeScreen(),
-          RegisterUserScreen.routeName : (ctx) => const RegisterUserScreen(),
-          UsersHomeScreen.routeName : (ctx) => const UsersHomeScreen(),
-          ListingOfCompaniesScreen.routeName : (ctx) => const ListingOfCompaniesScreen(),
-          GetLocationScreen.routeName : (ctx) => const GetLocationScreen(),
-          ListingOfUsersScreen.routeName : (ctx) =>  ListingOfUsersScreen(),
+          RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
+          LoginScreen.routeName: (ctx) => const LoginScreen(),
+          RegistrationNameAndDescScreen.routeName: (ctx) =>
+              const RegistrationNameAndDescScreen(),
+          RegistrationCredentialScreen.routeName: (ctx) =>
+              const RegistrationCredentialScreen(),
+          RegistrationCategoryAndTimingScreen.routeName: (ctx) =>
+              const RegistrationCategoryAndTimingScreen(),
+          RegistrationPaymentScreen.routeName: (ctx) =>
+              RegistrationPaymentScreen(),
+          RegistrationOTPScreen.routeName: (ctx) =>
+              const RegistrationOTPScreen(),
+          CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
+          RegisterUserScreen.routeName: (ctx) => const RegisterUserScreen(),
+          UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),
+          ListingOfCompaniesScreen.routeName: (ctx) =>
+              const ListingOfCompaniesScreen(),
+          GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
+          ListingOfUsersScreen.routeName: (ctx) => ListingOfUsersScreen(),
         },
       ),
     );
@@ -166,5 +174,3 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
-
-

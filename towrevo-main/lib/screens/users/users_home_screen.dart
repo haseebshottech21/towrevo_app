@@ -66,8 +66,10 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
             ),
             Container(
               alignment: Alignment.center,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 20.0,
+              ),
               child: Column(children: [
                 const SizedBox(
                   height: 15,

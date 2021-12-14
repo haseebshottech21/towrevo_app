@@ -83,8 +83,9 @@ class CompanyItem extends StatelessWidget {
               height: 10,
             ),
             Align(
-                alignment: Alignment.topLeft,
-                child: Text(companyModel.description)),
+              alignment: Alignment.topLeft,
+              child: Text(companyModel.description),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
