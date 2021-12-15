@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TextFieldForAll extends StatelessWidget {
@@ -19,25 +18,31 @@ class TextFieldForAll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      textAlignVertical: TextAlignVertical.center,
       controller: textEditingController,
+      textAlignVertical: TextAlignVertical.center,
       // textAlign: TextAlign.left,
+      // validator: widget.validator,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 20),
+        // contentPadding: const EdgeInsets.all(10.0),
         filled: true,
-        fillColor: const Color(0xFFfff6f7),
+        fillColor: Colors.white,
         border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xFF29abe7)),
-            borderRadius: BorderRadius.circular(30.0)),
+          // borderSide: const BorderSide(color: Color(0xFF000000)),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
         hintText: hintText,
-        hintStyle: GoogleFonts.montserrat(color: Colors.black),
+        hintStyle: const TextStyle(color: Colors.black),
+        // hintStyle: GoogleFonts.montserrat(color: Colors.black),
         // isDense: true,
         // helperText: 'Keep it short, this is just a demo.',
         prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 15),
           child: prefixIcon,
         ),
-        // prefixText: '  ',
+        prefixText: '  ',
+        // suffixIcon: suffixIcon,
+        // suffixText: 'USD',
+        // suffixStyle: const TextStyle(color: Colors.green)),
       ),
       onSaved: (newValue) {
         textEditingController.text = newValue!;
@@ -73,9 +78,11 @@ class CompanyTextAreaField extends StatelessWidget {
       decoration: InputDecoration(
         // contentPadding: const EdgeInsets.all(10.0),
         filled: true,
-        fillColor: const Color(0xFFfff6f7),
+        fillColor: Colors.white,
         border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xFF29abe7)),
+            borderSide: const BorderSide(
+              color: Color(0xFF29abe7),
+            ),
             borderRadius: BorderRadius.circular(30.0)),
         hintText: hintText,
         hintStyle: GoogleFonts.montserrat(color: Colors.black),
@@ -85,7 +92,7 @@ class CompanyTextAreaField extends StatelessWidget {
           padding: const EdgeInsets.only(left: 15, bottom: 75),
           child: prefixIcon,
         ),
-        // prefixText: '  ',
+        prefixText: ' ',
         // suffixIcon: suffixIcon,
         // suffixText: 'USD',
         // suffixStyle: const TextStyle(color: Colors.green)),

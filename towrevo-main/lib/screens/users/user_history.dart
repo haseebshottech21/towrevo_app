@@ -1,58 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:towrevo/widgets/company_history_list.dart';
+import 'package:towrevo/screens/users/users_home_screen.dart';
+import 'package:towrevo/widgets/User/user_history_list.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 
-import 'company_home_screen.dart';
-
-class CompanyHistory extends StatefulWidget {
-  const CompanyHistory({Key? key}) : super(key: key);
+class UserHistory extends StatefulWidget {
+  const UserHistory({Key? key}) : super(key: key);
 
   @override
-  _CompanyHistoryState createState() => _CompanyHistoryState();
+  _UserHistoryState createState() => _UserHistoryState();
 }
 
-class _CompanyHistoryState extends State<CompanyHistory> {
-  List<Map<String, String>> companyHistory = [
+class _UserHistoryState extends State<UserHistory> {
+  List<Map<String, String>> userHistory = [
     {
-      'user-name': 'User Name 1',
-      'user-service': 'Tow Car',
-      'user-image':
+      'company-name': 'Company 1',
+      'company-service': 'Tow Car',
+      'company-image':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Accept',
       'date': '15-Dec-2021',
     },
     {
-      'user-name': 'User Name 2',
-      'user-service': 'Tow Van',
-      'user-image':
+      'company-name': 'Company 2',
+      'company-service': 'Tow Car',
+      'company-image':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Decline',
-      'date': '13-Dec-2021',
+      'date': '15-Dec-2021',
     },
     {
-      'user-name': 'User Name 3',
-      'user-service': 'Tow Truck',
-      'user-image':
+      'company-name': 'Company 3',
+      'company-service': 'Tow Car',
+      'company-image':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Completed',
-      'date': '18-Dec-2021',
+      'date': '15-Dec-2021',
     },
     {
-      'user-name': 'User Name 3',
-      'user-service': 'Tow Truck',
-      'user-image':
+      'company-name': 'Company 4',
+      'company-service': 'Tow Car',
+      'company-image':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Completed',
-      'date': '18-Dec-2021',
+      'date': '15-Dec-2021',
     },
     {
-      'user-name': 'User Name 3',
-      'user-service': 'Tow Truck',
-      'user-image':
+      'company-name': 'Company 5',
+      'company-service': 'Tow Car',
+      'company-image':
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Completed',
-      'date': '18-Dec-2021',
+      'date': '15-Dec-2021',
+    },
+    {
+      'company-name': 'Company 6',
+      'company-service': 'Tow Car',
+      'company-image':
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
+      'date': '15-Dec-2021',
+    },
+    {
+      'company-name': 'Company 7',
+      'company-service': 'Tow Car',
+      'company-image':
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
+      'date': '15-Dec-2021',
     },
   ];
 
@@ -64,7 +72,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
       //   leading: IconButton(
       //     icon: const Icon(Icons.arrow_back, color: Colors.white),
       //     onPressed: () =>
-      //         Navigator.of(context).pushNamed(CompanyHomeScreen.routeName),
+      //         Navigator.of(context).pushNamed(UsersHomeScreen.routeName),
       //   ),
       //   backgroundColor: const Color(0xFF092848),
       //   centerTitle: true,
@@ -103,8 +111,8 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                     ),
                     child: IconButton(
                       onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(CompanyHomeScreen.routeName);
+                        // Navigator.of(context)
+                        //     .pushNamed(UsersHomeScreen.routeName);
                       },
                       icon: const FaIcon(
                         FontAwesomeIcons.arrowLeft,
@@ -128,19 +136,16 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                   physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   shrinkWrap: true,
-                  itemCount: companyHistory.length,
+                  itemCount: userHistory.length,
                   itemBuilder: (ctx, index) {
-                    return CompanyHistoryList(
-                      userImage: companyHistory[index]['user-image'].toString(),
-                      userName: companyHistory[index]['user-name'].toString(),
-                      userService:
-                          companyHistory[index]['user-service'].toString(),
-                      date: companyHistory[index]['date'].toString(),
-                      status: companyHistory[index]['status'].toString(),
-                      colors:
-                          companyHistory[index]['status'].toString() == 'Accept'
-                              ? Colors.green
-                              : Colors.red,
+                    return UserHistoryList(
+                      companyImage:
+                          userHistory[index]['company-image'].toString(),
+                      companyName:
+                          userHistory[index]['company-name'].toString(),
+                      companyService:
+                          userHistory[index]['company-service'].toString(),
+                      date: userHistory[index]['date'].toString(),
                     );
                   },
                 ),

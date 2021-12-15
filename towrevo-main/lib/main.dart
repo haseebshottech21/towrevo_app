@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/authentication/change_password/change_password.dart';
+import 'package:towrevo/screens/authentication/login/forgot_password_screen.dart';
+import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
+import 'package:towrevo/screens/users/user_history.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/view_model/otp_view_model.dart';
@@ -14,7 +18,6 @@ import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
 import 'package:towrevo/view_model/register_user_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'models/services_model.dart';
 import 'screens/users/listing_of_companies_screen.dart';
 import '/screens/users/users_home_screen.dart';
 import 'screens/authentication/signup_user/register_user_screen.dart';
@@ -137,8 +140,9 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SplashScreen(),
-        // home: const TermAndCondition(),
+        // home: const SplashScreen(),
+        home: const MapDistanceScreen(),
+        // home: const ChangePassword(),
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
@@ -158,6 +162,7 @@ class _MyAppState extends State<MyApp> {
           ListingOfCompaniesScreen.routeName: (ctx) =>
               const ListingOfCompaniesScreen(),
           GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
+          MapDistanceScreen.routeName: (ctx) => const MapDistanceScreen(),
         },
       ),
     );

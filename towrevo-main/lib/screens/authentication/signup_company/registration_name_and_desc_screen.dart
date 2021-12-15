@@ -11,38 +11,39 @@ import '/screens/authentication/signup_company/registration_crediential_screen.d
 import '/widgets/company_form_field.dart';
 import '/widgets/form_button_widget.dart';
 import '/widgets/background_image.dart';
-class RegistrationNameAndDescScreen extends StatefulWidget {
 
+class RegistrationNameAndDescScreen extends StatefulWidget {
   const RegistrationNameAndDescScreen({Key? key}) : super(key: key);
   static const routeName = '/name-and-description';
 
   @override
-  State<RegistrationNameAndDescScreen> createState() => _RegistrationNameAndDescScreenState();
+  State<RegistrationNameAndDescScreen> createState() =>
+      _RegistrationNameAndDescScreenState();
 }
 
-class _RegistrationNameAndDescScreenState extends State<RegistrationNameAndDescScreen> {
-
+class _RegistrationNameAndDescScreenState
+    extends State<RegistrationNameAndDescScreen> {
   final companyNameController = TextEditingController();
   final companyDescriptionController = TextEditingController();
-  final  _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-  void validateFromAndSaveData(){
-    final _companySignUpProvider = Provider.of<RegisterCompanyViewModel>(context,listen: false);
-    if(!_formKey.currentState!.validate()){
+  void validateFromAndSaveData() {
+    final _companySignUpProvider =
+        Provider.of<RegisterCompanyViewModel>(context, listen: false);
+    if (!_formKey.currentState!.validate()) {
       return;
-    }else if(_companySignUpProvider.body['image'].toString().isEmpty){
+    } else if (_companySignUpProvider.body['image'].toString().isEmpty) {
       Utilities().showToast('Please Enter Image');
 
       return;
-    }else{
-      _companySignUpProvider.body['first_name'] =  companyNameController.text;
-      _companySignUpProvider.body['description'] = companyDescriptionController.text;
+    } else {
+      _companySignUpProvider.body['first_name'] = companyNameController.text;
+      _companySignUpProvider.body['description'] =
+          companyDescriptionController.text;
       print(_companySignUpProvider.body);
       Navigator.of(context).pushNamed(RegistrationCredentialScreen.routeName);
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class _RegistrationNameAndDescScreenState extends State<RegistrationNameAndDescS
           Container(
             alignment: Alignment.center,
             padding:
-            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
             child: Form(
               key: _formKey,
               child: Column(children: [
@@ -86,9 +87,10 @@ class _RegistrationNameAndDescScreenState extends State<RegistrationNameAndDescS
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Consumer<RegisterCompanyViewModel>(builder: (ctx,imagePicker,neverBuildChild){
+                      Consumer<RegisterCompanyViewModel>(
+                          builder: (ctx, imagePicker, neverBuildChild) {
                         return GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             imagePicker.pickImage();
                           },
                           child: Stack(
@@ -100,9 +102,18 @@ class _RegistrationNameAndDescScreenState extends State<RegistrationNameAndDescS
                                   color: const Color(0xFF09365f),
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
-                                child: imagePicker.body['image'] == ''? Icon(FontAwesomeIcons.building,
-                                    color: Colors.white.withOpacity(0.5), size: 75.0):
-                                ClipRRect(borderRadius: const BorderRadius.all(Radius.circular(20)),child: Image.file(File(imagePicker.imagePath),fit: BoxFit.fill,),),
+                                child: imagePicker.body['image'] == ''
+                                    ? Icon(FontAwesomeIcons.building,
+                                        color: Colors.white.withOpacity(0.5),
+                                        size: 75.0)
+                                    : ClipRRect(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(20)),
+                                        child: Image.file(
+                                          File(imagePicker.imagePath),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
                               ),
                               Positioned(
                                 left: 85,
@@ -122,20 +133,25 @@ class _RegistrationNameAndDescScreenState extends State<RegistrationNameAndDescS
                           ),
                         );
                       }),
-
                       const SizedBox(
                         height: 20,
                       ),
-                      TextFieldForAll(errorGetter: ErrorGetter().companyNameErrorGetter,hintText: 'Company Name', prefixIcon: const Icon(
-                        FontAwesomeIcons.userAlt,
-                        color: Color(0xFF019aff),
-                        size: 20.0,
-                      ),textEditingController: companyNameController,),
+                      TextFieldForAll(
+                        errorGetter: ErrorGetter().companyNameErrorGetter,
+                        hintText: 'Company Name',
+                        prefixIcon: const Icon(
+                          FontAwesomeIcons.userAlt,
+                          color: Color(0xFF019aff),
+                          size: 20.0,
+                        ),
+                        textEditingController: companyNameController,
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
-                       CompanyTextAreaField(
-                         errorGetter: ErrorGetter().companyDescriptionErrorGetter,
+                      CompanyTextAreaField(
+                        errorGetter:
+                            ErrorGetter().companyDescriptionErrorGetter,
                         hintText: 'Company Description',
                         prefixIcon: const Icon(
                           FontAwesomeIcons.solidBuilding,
@@ -167,5 +183,4 @@ class _RegistrationNameAndDescScreenState extends State<RegistrationNameAndDescS
       ),
     );
   }
-
 }

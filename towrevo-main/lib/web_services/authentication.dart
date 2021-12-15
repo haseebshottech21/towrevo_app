@@ -24,6 +24,13 @@ class AuthenticationWebService {
       // await setToken(loadedData['data']['token'],loadedData['data']['user']['type'].toString());
       print('200');
       Utilities().showToast(loadedData.toString());
+      print(loadedData['data']['uniqueId']);
+
+      await Utilities()
+          .setSharedPrefValue('uniqueId', loadedData['data']['uniqueId']);
+      await Utilities().setSharedPrefValue('validate', '0');
+      await Utilities().setSharedPrefValue('resendOTP', '0');
+
       return loadedData;
     } else {
       print('in error');

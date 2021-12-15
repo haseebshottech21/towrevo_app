@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/models/service_request_model.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/web_services/company_web_service.dart';
+import 'package:towrevo/web_services/home_web_service.dart';
 
 class CompanyHomeScreenViewModel with ChangeNotifier {
   List<ServiceRequestModel> requestServiceList = [];
@@ -37,7 +38,8 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   }
 
   Future<void> acceptDeclineOrDone(
-      String type, String requestId, BuildContext context) async {
+      String type, String requestId, BuildContext context,
+      {bool getData = true, String? notificationId}) async {
     final loadedData =
         await CompanyWebService().acceptDeclineOrDone(type, requestId);
     if (loadedData != null) {
@@ -47,10 +49,16 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
             .getOnGoingRequests();
         notifyListeners();
         Navigator.of(context).pop();
+        // HomeWebService()
+        //     .sendNotification('Success', 'Job Completed', 'fcmToken');
       } else {
-        Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-            .getRequests();
-        notifyListeners();
+        if (getData) {
+          Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+              .getRequests();
+          notifyListeners();
+        } else if (!getData) {
+          // HomeWebService().sendNotification('Decline', 'Request Time Over', notificationId!)
+        }
       }
     } else {
       Utilities().showToast('Something Went Wrong');

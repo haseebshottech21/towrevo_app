@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
+import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/web_services/home_web_service.dart';
 
 import '../number_creator.dart';
@@ -41,7 +43,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
     notifyListeners();
     final response = await HomeWebService().sendRequestToCompany(
         longitude, latitude, address, serviceId, companyId, notificationId);
-    if (response) {
+    if (response != null) {
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -53,7 +55,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
             content: StreamBuilder<String>(
               stream: NumberCreator(ctx).stream.map((event) => 'Count $event'),
               builder: (ctx, snapshot) {
-                print(snapshot.connectionState);
+                // print(snapshot.connectionState);
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -82,7 +84,16 @@ class UserHomeScreenViewModel with ChangeNotifier {
             ),
           );
         },
-      );
+      ).then((value) {
+        print(value);
+        if (value == true) {
+          print(response['data']['id'].toString());
+          Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+              .acceptDeclineOrDone(
+                  '2', response['data']['id'].toString(), context,
+                  getData: false);
+        }
+      });
     }
   }
 }

@@ -1,10 +1,6 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:towrevo/screens/company/company_pending_screen.dart';
-import 'package:towrevo/view_model/company_home_screen_view_model.dart';
-import 'package:towrevo/widgets/background_image.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 
 import 'company_ongoing_screen.dart';
@@ -22,7 +18,6 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -234,6 +229,4 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
     //   ),
     // );
   }
-
-
 }

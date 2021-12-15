@@ -24,30 +24,32 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  validateAndSubmitLoginForm()async{
-    if(!_formKey.currentState!.validate()){
+  validateAndSubmitLoginForm() async {
+    if (!_formKey.currentState!.validate()) {
       return;
-    }else{
-      final loginProvider = Provider.of<LoginViewModel>(context,listen: false);
-       final bool response =  await loginProvider.loginRequest(
-           emailController.text.trim(),
-           passwordController.text.trim(),
-       );
-       if(response){
-         final type = await Utilities().getSharedPreferenceValue('type');
-           Navigator.of(context).pushNamedAndRemoveUntil(type == '1'?UsersHomeScreen.routeName:CompanyHomeScreen.routeName, (route) => false);
-       }
+    } else {
+      final loginProvider = Provider.of<LoginViewModel>(context, listen: false);
+      final bool response = await loginProvider.loginRequest(
+        emailController.text.trim(),
+        passwordController.text.trim(),
+      );
+      if (response) {
+        final type = await Utilities().getSharedPreferenceValue('type');
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            type == '1'
+                ? UsersHomeScreen.routeName
+                : CompanyHomeScreen.routeName,
+            (route) => false);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(children: [
@@ -66,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
           // ),
           Container(
             padding:
-            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
             child: Form(
               key: _formKey,
               child: Column(children: [
@@ -100,19 +102,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 35,
                 ),
-                TextFieldForAll(errorGetter: ErrorGetter().emailErrorGetter,hintText: 'Email Address', prefixIcon: const Icon(
-                  FontAwesomeIcons.solidEnvelopeOpen,
-                  color: Color(0xFF019aff),
-                  size: 20.0,
-                ),textEditingController: emailController,),
+                TextFieldForAll(
+                  errorGetter: ErrorGetter().emailErrorGetter,
+                  hintText: 'Email Address',
+                  prefixIcon: const Icon(
+                    FontAwesomeIcons.solidEnvelopeOpen,
+                    color: Color(0xFF019aff),
+                    size: 20.0,
+                  ),
+                  textEditingController: emailController,
+                ),
                 const SizedBox(
                   height: 10,
                 ),
-                 Consumer<LoginViewModel>(builder: (ctx,loginViewModel,neverBuildChild){
-                   return  TextFormIconWidget(errorGetter: ErrorGetter().passwordErrorGetter,textEditingController: passwordController,obscureText: loginViewModel.obscurePassword, hint: 'Password', prefixIcon: const Icon(FontAwesomeIcons.qrcode,
-                       color: Color(0xFF019aff), size: 20.0),onPress: loginViewModel.toggleObscure,);
-                 }),
-
+                Consumer<LoginViewModel>(
+                  builder: (ctx, loginViewModel, neverBuildChild) {
+                    return TextFormIconWidget(
+                      errorGetter: ErrorGetter().passwordErrorGetter,
+                      textEditingController: passwordController,
+                      obscureText: loginViewModel.obscurePassword,
+                      hint: 'Password',
+                      prefixIcon: const Icon(FontAwesomeIcons.qrcode,
+                          color: Color(0xFF019aff), size: 20.0),
+                      onPress: loginViewModel.toggleObscure,
+                    );
+                  },
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -121,37 +136,51 @@ class _LoginScreenState extends State<LoginScreen> {
                   validateAndSubmitLoginForm();
                 }),
                 // Login Button
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Consumer<LoginViewModel>(builder: (ctx,loginViewModel,neverBuildChild){
-                          return Checkbox(
-                            value: loginViewModel.isRememberChecked,
-                            onChanged: (bool? value) {
-                              loginViewModel.toggleRemember();
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Consumer<LoginViewModel>(
+                            builder: (ctx, loginViewModel, neverBuildChild) {
+                              return Checkbox(
+                                value: loginViewModel.isRememberChecked,
+                                onChanged: (bool? value) {
+                                  loginViewModel.toggleRemember();
+                                },
+                              );
                             },
-                          );
-                        }),
-
-                        Text('Remember Me',
+                          ),
+                          Text(
+                            'Remember Me',
                             style: GoogleFonts.montserrat(
-                                color: Colors.white, fontSize: 13.0)),
-                      ],
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Forgot Password?',
-                            style: GoogleFonts.montserrat(
-                                color: Colors.white, fontSize: 13.0),
-                            recognizer: null),
+                              color: Colors.white,
+                              fontSize: 13.0,
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                  ],
+                      GestureDetector(
+                        onTap: () {
+                          print('Forgot');
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Forgot Password ?',
+                                style: GoogleFonts.montserrat(
+                                    color: Colors.white, fontSize: 13.0),
+                                recognizer: null,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
@@ -178,17 +207,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: TextSpan(
                           children: <TextSpan>[
                             TextSpan(
-                              text: 'SIGN-UP',
-                              style: GoogleFonts.montserrat(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16.0),
-
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.of(context).pushNamed(RegisterMainScreen.routeName);
-                                }
-                            ),
+                                text: 'SIGN-UP',
+                                style: GoogleFonts.montserrat(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16.0),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.of(context).pushNamed(
+                                        RegisterMainScreen.routeName);
+                                  }),
                           ],
                         ),
                       ),

@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:towrevo/models/service_request_model.dart';
 import 'package:towrevo/utilities.dart';
@@ -8,7 +6,7 @@ import 'package:towrevo/utilities.dart';
 class CompanyWebService {
   Future<List<ServiceRequestModel>> requestsOfUser(String type) async {
     print(Utilities.baseUrl + 'service-requests');
-    print(await Utilities().headerWithAuth());
+    print(type);
     final response = await http.post(
         Uri.parse(Utilities.baseUrl + 'service-requests/$type'),
         headers: await Utilities().headerWithAuth());
@@ -26,6 +24,8 @@ class CompanyWebService {
   }
 
   Future<dynamic> acceptDeclineOrDone(String status, String requestId) async {
+    print(status);
+    print('req id $requestId');
     final response = await http.post(
         Uri.parse(Utilities.baseUrl + 'respond-request'),
         headers: await Utilities().headerWithAuth(),

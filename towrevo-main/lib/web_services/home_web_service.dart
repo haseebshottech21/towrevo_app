@@ -34,7 +34,7 @@ class HomeWebService {
     }
   }
 
-  Future<bool> sendRequestToCompany(
+  Future<dynamic> sendRequestToCompany(
       String longitude,
       String latitude,
       String address,
@@ -63,9 +63,9 @@ class HomeWebService {
     print(response.body);
     if (response.statusCode == 200) {
       await sendNotification('Request', 'Requested For Tow', notificationId);
-      return true;
+      return json.decode(response.body);
     } else {
-      return false;
+      return null;
     }
   }
 

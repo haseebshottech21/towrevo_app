@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:towrevo/screens/authentication/login/login_screen.dart';
 import 'package:towrevo/web_services/authentication.dart';
 
@@ -11,7 +10,7 @@ class LoginViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  bool obscurePassword = false;
+  bool obscurePassword = true;
 
   toggleObscure() {
     obscurePassword = !obscurePassword;
