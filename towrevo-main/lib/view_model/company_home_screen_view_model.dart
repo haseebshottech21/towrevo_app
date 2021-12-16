@@ -74,6 +74,9 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
         }else if(type =='2'){
           UserWebService().sendNotification('Decline', 'Company Declined Your Request', notificationId!,'decline_from_company');
         }
+        else if(type =='1'){
+          UserWebService().sendNotification('Accepted', 'Your Request has been accepted', notificationId!,'decline_from_company');
+        }
       }
     } else {
       Utilities().showToast('Something Went Wrong');

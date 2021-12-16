@@ -1,4 +1,6 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -317,6 +319,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   @override
   void didChangeDependencies() async{
     if(_init){
+      await setupInteracted();
        final serviceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
     serviceProvider.getServices();
@@ -330,5 +333,62 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     }
     _init=false;
     super.didChangeDependencies();
+  }
+
+    Future<void> setupInteracted() async {
+    // Get any messages which caused the application to open from
+    // a terminated state.
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+    print('yes');
+    print(initialMessage?.data.toString());
+    // If the message also contains a data property with a "type" of "chat",
+    // navigate to a chat screen
+    if (initialMessage != null) {
+      // Navigator.pushNamed(context, RequestScreen.routeName,);
+  
+    }
+
+    // Also handle any interaction when the app is in the background via a
+    // Stream listener
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print(message);
+      if (message.data['screen'] == 'decline_from_user') {
+      Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+  
+    }
+    if (message.data['screen'] == 'accept') {
+      Fluttertoast.showToast(msg: 'Accepted From Company');
+      Navigator.of(context).pushNamedAndRemoveUntil(UsersHomeScreen.routeName, (route) => false);
+    }
+    if (message.data['screen'] == 'decline_from_company') {
+      Fluttertoast.showToast(msg: 'Decline From Company');
+      Navigator.of(context).pop();
+    }
+    if (message.data['screen'] == 'request') {
+      Fluttertoast.showToast(msg: 'User Send Request');
+        
+      // Navigator.pushNamed(context, RequestScreen.routeName,);
+    }
+    });
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    print(message);
+    print(message.data);
+    if (message.data['screen'] == 'decline_from_user') {
+      Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+     
+    }
+    if (message.data['screen'] == 'decline_from_company') {
+      Fluttertoast.showToast(msg: 'Decline From Company');
+     
+    }
+    if (message.data['screen'] == 'request') {
+      Fluttertoast.showToast(msg: 'User Send Request');
+     
+      // Navigator.pushNamed(context, RequestScreen.routeName,);
+    }
   }
 }

@@ -365,15 +365,19 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print(message);
-      if (message.data['screen'] == 'decline') {
-        Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
-        getData();
-      }
-      if (message.data['screen'] == 'request') {
-        Fluttertoast.showToast(msg: 'User Send Request');
-        getData();
-        // Navigator.pushNamed(context, RequestScreen.routeName,);
-      }
+      if (message.data['screen'] == 'decline_from_user') {
+      Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+      getData();
+    }
+    if (message.data['screen'] == 'decline_from_company') {
+      Fluttertoast.showToast(msg: 'Decline From Company');
+      getData();
+    }
+    if (message.data['screen'] == 'request') {
+      Fluttertoast.showToast(msg: 'User Send Request');
+      getData();
+      // Navigator.pushNamed(context, RequestScreen.routeName,);
+    }
     });
   }
 
