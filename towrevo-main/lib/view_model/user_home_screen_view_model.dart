@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
+import 'package:towrevo/models/user_history_model.dart';
+import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
 
@@ -19,6 +21,21 @@ class UserHomeScreenViewModel with ChangeNotifier {
 
   List<CompanyModel> list = [];
   bool isLoading = false;
+  List<UserHistoryModel> userHistoryList = [];
+
+  Future<void> getUserHistory() async {
+    isLoading = true;
+    notifyListeners();
+    userHistoryList
+     = [];
+    final loadedResponse =
+        await UserWebService().requestsOfUserHistory();
+    if (loadedResponse.isNotEmpty) {
+      userHistoryList = loadedResponse;
+    }
+    isLoading = false;
+    notifyListeners();
+  }
 
   Future<void> getCompanies(Map<String, String> requestedBody) async {
     list = [];
@@ -32,7 +49,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
 
 
   Future<void> subimtRating()async{
-    
+
     // final response = await UserWebService().submitRating(serviceRequestId, rate, review);
   }
 
@@ -90,14 +107,15 @@ class UserHomeScreenViewModel with ChangeNotifier {
             ),
           );
         },
-      ).then((value) {
+      ).then((value) async{
         print(value);
         if (value == true) {
           print(response['data']['id'].toString());
-          Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+          await Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
               .acceptDeclineOrDone(
                   '2', response['data']['id'].toString(), context,
                   getData: false,notificationId: notificationId);
+          Utilities().showToast('Company not responad send request again');
         }
       });
     }

@@ -13,6 +13,7 @@ import 'package:towrevo/screens/company/company_history.dart';
 
 import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
+import 'package:towrevo/screens/users/user_history.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/view_model/otp_view_model.dart';
@@ -174,6 +175,7 @@ class _MyAppState extends State<MyApp> {
           ChangePassword.routeName: (ctx) => const ChangePassword(),
           TermAndCondition.routeName: (ctx) => const TermAndCondition(),
           CompanyHistory.routeName: (ctx) => const CompanyHistory(),
+          UserHistory.routeName: (ctx) => const UserHistory(),
 
         },
       ),

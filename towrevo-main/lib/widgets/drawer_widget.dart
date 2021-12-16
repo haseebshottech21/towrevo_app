@@ -5,6 +5,7 @@ import 'package:towrevo/screens/authentication/change_password/change_password.d
 import 'package:towrevo/screens/company/company_history.dart';
 import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
+import 'package:towrevo/screens/users/user_history.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
 import 'drawer_list_item_widget.dart';
 import 'form_button_widget.dart';
@@ -61,7 +62,8 @@ class DrawerWidget extends StatelessWidget {
                   title: 'History',
                   iconsData: Icons.play_arrow,
                   onPressed: () {
-                    Navigator.of(context).pushNamed(CompanyHistory.routeName);
+                    // Navigator.of(context).pushNamed(CompanyHistory.routeName);
+                     Navigator.of(context).pushNamed(UserHistory.routeName);
                   },
                 ),
                 DrawerListItem(

@@ -354,10 +354,11 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print(message);
+      print(message.data['screen']);
       if (message.data['screen'] == 'decline_from_user') {
       Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
-  
-    }
+
+      }
     if (message.data['screen'] == 'accept') {
       Fluttertoast.showToast(msg: 'Accepted From Company');
       Navigator.of(context).pushNamedAndRemoveUntil(UsersHomeScreen.routeName, (route) => false);
@@ -371,7 +372,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         
       // Navigator.pushNamed(context, RequestScreen.routeName,);
     }
-    });
+    },
+  );
   }
 
   void _handleMessage(RemoteMessage message) {
@@ -389,6 +391,10 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       Fluttertoast.showToast(msg: 'User Send Request');
      
       // Navigator.pushNamed(context, RequestScreen.routeName,);
+    }
+     if (message.data['screen'] == 'accept') {
+      Fluttertoast.showToast(msg: 'Accepted From Company');
+     Navigator.of(context).pushNamedAndRemoveUntil(UsersHomeScreen.routeName, (route) => false);
     }
   }
 }

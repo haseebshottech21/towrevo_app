@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:towrevo/models/company_model.dart';
+import 'package:towrevo/models/user_history_model.dart';
 import 'package:towrevo/utilities.dart';
 
 class UserWebService {
@@ -112,5 +113,23 @@ Future<void> submitRating(String serviceRequestId,String rate,String review) asy
       print(response.statusCode);
     }
 }
+
+  Future<List<UserHistoryModel>> requestsOfUserHistory(
+   ) async {    final response = await http.post(
+        Uri.parse(
+           Utilities.baseUrl + 'history'),
+        headers: await Utilities().headerWithAuth());
+    print(response.body);
+    final loadedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      List<UserHistoryModel> list = (loadedData['data'] as List)
+          .map((request) => UserHistoryModel.fromJson(request))
+          .toList();
+      return list;
+    } else {
+      Utilities().showToast('error');
+      return [];
+    }
+  }
 
 }

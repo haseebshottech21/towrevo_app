@@ -1,5 +1,8 @@
 import 'dart:convert';
+
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:towrevo/main.dart';
 import 'package:towrevo/utilities.dart';
 
@@ -83,7 +86,7 @@ class AuthenticationWebService {
 
   Future<void> resetPassword(String token, String password,String confirmPassword, String otp,)async{
   
-    final response = await http.post(Uri.parse(Utilities.baseUrl+'resetPassword'),
+    final response = await http.post(Uri.parse(Utilities.baseUrl+'reset-password'),
       body:{
         'token':token,
         'otp' : otp,
@@ -103,7 +106,7 @@ class AuthenticationWebService {
 
    Future<void> forgotPassword(String email)async{
   
-    final response = await http.post(Uri.parse(Utilities.baseUrl+'resetPassword'),
+    final response = await http.post(Uri.parse(Utilities.baseUrl+'forgot-password'),
       body:{
         'email':email,
       },
@@ -114,7 +117,7 @@ class AuthenticationWebService {
       print('yes 200');
       print(response.statusCode);
     }else{
-        print(response.statusCode);
+      print(response.statusCode);
     }
   }
 
