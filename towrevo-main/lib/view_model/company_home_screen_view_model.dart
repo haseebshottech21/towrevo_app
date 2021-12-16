@@ -70,9 +70,15 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
               .getRequests();
           notifyListeners();
         } else if (!getData) {
-          UserWebService().sendNotification('Decline', 'Request Time Over', notificationId!,'decline_from_user');
-        }else if(type =='2'){
-          UserWebService().sendNotification('Decline', 'Company Declined Your Request', notificationId!,'decline_from_company');
+          UserWebService().sendNotification('Decline', 'Request Time Over',
+              notificationId!, 'decline_from_user');
+        }
+        if (type == '2') {
+          UserWebService().sendNotification(
+              'Decline',
+              'Company Declined Your Request',
+              notificationId!,
+              'decline_from_company');
         }
       }
     } else {

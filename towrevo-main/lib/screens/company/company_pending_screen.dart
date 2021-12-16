@@ -149,11 +149,14 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                         onPressed: () async {
                                           await CompanyHomeScreenViewModel()
                                               .acceptDeclineOrDone(
-                                            '1',
-                                            provider
-                                                .requestServiceList[index].id,
-                                            context,notificationId: provider.requestServiceList[index].notificationId
-                                          );
+                                                  '1',
+                                                  provider
+                                                      .requestServiceList[index]
+                                                      .id,
+                                                  context,
+                                                  notificationId: provider
+                                                      .requestServiceList[index]
+                                                      .notificationId);
                                         },
                                         child: const Text(
                                           'Accept',
@@ -176,7 +179,10 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                                   provider
                                                       .requestServiceList[index]
                                                       .id,
-                                                  context,notificationId: provider.requestServiceList[index].notificationId);
+                                                  context,
+                                                  notificationId: provider
+                                                      .requestServiceList[index]
+                                                      .notificationId);
                                         },
                                         child: const Text(
                                           'Decline',
@@ -365,8 +371,12 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print(message);
-      if (message.data['screen'] == 'decline') {
+      if (message.data['screen'] == 'decline_from_user') {
         Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+        getData();
+      }
+      if (message.data['screen'] == 'decline_from_company') {
+        Fluttertoast.showToast(msg: 'Decline From Company');
         getData();
       }
       if (message.data['screen'] == 'request') {
