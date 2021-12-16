@@ -10,9 +10,6 @@ import 'package:towrevo/view_model/otp_view_model.dart';
 import 'package:towrevo/screens/company/company_home_screen.dart';
 import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
-import 'package:towrevo/view_model/register_company_view_model.dart';
-import 'package:towrevo/view_model/register_user_view_model.dart';
-
 import '/widgets/form_button_widget.dart';
 import '/widgets/towrevo_logo.dart';
 import '/widgets/background_image.dart';
@@ -79,6 +76,7 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
     final response = await provider.resendOTP(provider.resendUniqueId);
     if (response == true) {
       _controller.reset();
+      _controller.repeat();
     }
 
     // _controller.forward();
@@ -138,7 +136,7 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
                         letterSpacing: 0.5),
                   ),
                   Text(
-                    'kumar@shottech.co',
+                    'on Your Email',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
                         color: const Color(0xFF0c355a),
@@ -245,9 +243,12 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
               const SizedBox(
                 height: 35,
               ),
-              FormButtonWidget('VERIFY', () {
-                sendOTPRequest(reqFromCompany);
-              }),
+              FormButtonWidget(
+                'VERIFY',
+                () {
+                  sendOTPRequest(reqFromCompany);
+                },
+              ),
             ]),
           )
         ]),

@@ -39,7 +39,7 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
               //     ),
               //   ),
               // ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,

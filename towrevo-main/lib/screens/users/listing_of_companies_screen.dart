@@ -68,6 +68,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
               ),
               userHomeProvider.isLoading
                   ? circularProgress()
+                  
                   : ListView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,

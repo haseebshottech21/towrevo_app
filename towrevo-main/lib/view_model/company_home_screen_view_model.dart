@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/models/service_request_model.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/web_services/company_web_service.dart';
-import 'package:towrevo/web_services/home_web_service.dart';
+import 'package:towrevo/web_services/user_web_service.dart';
 
 class CompanyHomeScreenViewModel with ChangeNotifier {
   List<ServiceRequestModel> requestServiceList = [];
@@ -24,6 +24,22 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
     notifyListeners();
   }
+
+  List<ServiceRequestModel> companyHistoryList = [];
+
+
+  Future<void> getCompanyHistrory() async {
+    isLoading = true;
+   notifyListeners();
+   companyHistoryList = [];
+   final loadedResponse =
+       await CompanyWebService().requestsOfUser('', history: true);
+   if (loadedResponse.isNotEmpty) {
+     companyHistoryList = loadedResponse;
+   }
+   isLoading = false;
+   notifyListeners();
+ }
 
   Future<void> getOnGoingRequests() async {
     isLoading = true;

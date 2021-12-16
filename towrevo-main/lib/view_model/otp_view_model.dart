@@ -9,21 +9,19 @@ class OTPViewModel with ChangeNotifier {
 
   Future<bool> sendOTP(
       String uniqueId, String otp, BuildContext context) async {
-
     int validate = await getResendOTPOrValidateValue('validate');
     int resendOTP = await getResendOTPOrValidateValue('resendOTP');
     print('validate $validate ');
     print('resend otp $resendOTP ');
-    if (resendOTP >= 2) {
-      Utilities()
-          .showToast('Your attempt many time please click on resend otp');
+    if (resendOTP > 2) {
+      Utilities().showToast('You can\'t atempt more, please contact to admin');
       return false;
-    } else if (validate >= 4) {
+    } else if (validate >= 5) {
       Utilities()
           .showToast('Your attempt many time please click on resend otp');
       return false;
     }
-      otpExpire = false;
+    otpExpire = false;
     resendUniqueId = '';
     final response =
         await OTPWebService().sendOTPConfirmationRequest(uniqueId, otp);
@@ -49,9 +47,9 @@ class OTPViewModel with ChangeNotifier {
   Future<bool> resendOTP(String uniqueId) async {
     int resendOTP = await getResendOTPOrValidateValue('resendOTP');
     print('resend otp $resendOTP ');
-    if (resendOTP >= 2) {
+    if (resendOTP >= 3) {
       Utilities()
-          .showToast('Your attempt many time please click on resend otp');
+          .showToast('Your OTP Reset Limit is Over Please contact to admin');
       return false;
     }
     if (resendUniqueId.isNotEmpty) {
@@ -60,6 +58,7 @@ class OTPViewModel with ChangeNotifier {
       if (response['status']) {
         resendUniqueId = response['uniqueId'];
         Utilities().showToast('OTP Resend Success');
+
         return true;
       } else {
         // resendUniqueId = response['data']['resendId'];
@@ -73,8 +72,7 @@ class OTPViewModel with ChangeNotifier {
   }
 
   getResendOTPOrValidateValue(String key) async {
-    int value =
-        (int.parse(await Utilities().getSharedPreferenceValue(key)) + 1);
+    int value = (int.parse(await Utilities().getSharedPreferenceValue(key)));
     print('$key : $value');
     return value;
   }

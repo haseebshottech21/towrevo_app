@@ -4,11 +4,13 @@ import 'package:towrevo/models/service_request_model.dart';
 import 'package:towrevo/utilities.dart';
 
 class CompanyWebService {
-  Future<List<ServiceRequestModel>> requestsOfUser(String type) async {
+  Future<List<ServiceRequestModel>> requestsOfUser(String type,
+      {bool history = false}) async {
     print(Utilities.baseUrl + 'service-requests');
     print(type);
     final response = await http.post(
-        Uri.parse(Utilities.baseUrl + 'service-requests/$type'),
+        Uri.parse(
+            Utilities.baseUrl + 'service-requests${history ? '' : '/$type'}'),
         headers: await Utilities().headerWithAuth());
     print(response.body);
     final loadedData = json.decode(response.body);

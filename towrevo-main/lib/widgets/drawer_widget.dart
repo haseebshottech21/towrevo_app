@@ -61,12 +61,7 @@ class DrawerWidget extends StatelessWidget {
                   title: 'History',
                   iconsData: Icons.play_arrow,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CompanyHistory(),
-                      ),
-                    );
+                    Navigator.of(context).pushNamed(CompanyHistory.routeName);
                   },
                 ),
                 DrawerListItem(

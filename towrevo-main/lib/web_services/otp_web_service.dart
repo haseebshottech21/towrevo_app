@@ -57,7 +57,9 @@ class OTPWebService {
       print('200');
       print(loadedResponse);
       await Utilities().setSharedPrefValue(
-          'validate', await getResendOTPOrOTPValue('resendOTP'));
+          'resendOTP', await getResendOTPOrOTPValue('resendOTP'));
+      await Utilities().setSharedPrefValue('validate', '0');
+      print(await Utilities().getSharedPreferenceValue('validate'));
       await Utilities()
           .setSharedPrefValue('uniqueId', loadedResponse['uniqueId']);
       return loadedResponse;
