@@ -3,19 +3,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/widgets/background_image.dart';
-import 'package:towrevo/widgets/text_form_field.dart';
+import 'package:towrevo/widgets/company_form_field.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
 
-class ChangePassword extends StatefulWidget {
-  static const routeName = '/change-password';
-  const ChangePassword({Key? key}) : super(key: key);
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({ Key? key }) : super(key: key);
 
   @override
-  _ChangePasswordState createState() => _ChangePasswordState();
+  _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
-  final passwordController = TextEditingController();
+class _ForgotPasswordState extends State<ForgotPassword> {
+  final emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -55,18 +54,19 @@ class _ChangePasswordState extends State<ChangePassword> {
                       height: 45,
                     ),
                     Text(
-                      'CHANGE PASSWORD',
+                      'FORGOT PASSWORD ?',
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        fontSize: 30.0,
+                        fontSize: 25.0,
                         letterSpacing: 1.2,
                       ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    Text('Please change password',
+                    Text(
+                      'We Will Send Verifaction Code To The Email Address You Registered To Regain Your Password',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF0c355a),
@@ -77,32 +77,27 @@ class _ChangePasswordState extends State<ChangePassword> {
                     const SizedBox(
                       height: 20,
                     ),
-                    TextFormIconWidget(
-                      errorGetter: ErrorGetter().passwordErrorGetter,
-                      textEditingController: passwordController,
-                      obscureText: true,
-                      hint: 'Password',
+                    TextFieldForAll(
+                      errorGetter: ErrorGetter().emailErrorGetter,
+                      hintText: 'Email Address',
                       prefixIcon: const Icon(
-                        FontAwesomeIcons.qrcode,
+                        FontAwesomeIcons.solidEnvelopeOpen,
                         color: Color(0xFF019aff),
                         size: 20.0,
                       ),
-                      onPress: () {},
+                      textEditingController: emailController,
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFormIconWidget(
-                      errorGetter: ErrorGetter().passwordErrorGetter,
-                      textEditingController: passwordController,
-                      obscureText: true,
-                      hint: 'Confirm Password',
-                      prefixIcon: const Icon(
-                        FontAwesomeIcons.qrcode,
-                        color: Color(0xFF019aff),
-                        size: 20.0,
+                    Text(
+                      'Email sent to example@email.com',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xFF0c355a),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15.0,
                       ),
-                      onPress: () {},
                     ),
                     const SizedBox(
                       height: 50,
@@ -112,7 +107,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         onTap: () {},
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.060,
-                          width: MediaQuery.of(context).size.width * 0.80,
+                          width: MediaQuery.of(context).size.width * 0.70,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25.0),
                             gradient: const LinearGradient(
@@ -126,13 +121,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                           ),
                           child: Center(
                             child: Text(
-                              'CHANGE PASSWORD',
+                              'SEND',
                               style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18.0,
-                                letterSpacing: 0.5,
-                              ),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18.0,
+                                  letterSpacing: 1.0),
                             ),
                           ),
                         ),

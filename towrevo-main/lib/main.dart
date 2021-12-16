@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 
 import 'package:towrevo/screens/aboutus/about_us_screen.dart';
 import 'package:towrevo/screens/authentication/change_password/change_password.dart';
+import 'package:towrevo/screens/authentication/forgot_password/forgot_password_otp.dart';
+import 'package:towrevo/screens/authentication/login/forgot_password_screen.dart';
 
 import 'package:towrevo/screens/faqs/faqs.dart';
 
@@ -145,10 +147,10 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SplashScreen(),
+        // home: const SplashScreen(),
         // home: const MapDistanceScreen(),
 
-        // home: const ChangePassword(),
+        home: const ChangePassword(),
 
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
