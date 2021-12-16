@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/aboutus/about_us_screen.dart';
+import 'package:towrevo/screens/authentication/change_password/change_password.dart';
 import 'package:towrevo/screens/company/company_history.dart';
 import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
@@ -45,12 +46,16 @@ class DrawerWidget extends StatelessWidget {
                 DrawerListItem(
                   title: 'Home',
                   iconsData: Icons.play_arrow,
-                  onPressed: () {},
+                  onPressed: () {
+                    
+                  },
                 ),
                 DrawerListItem(
                   title: 'About Us',
                   iconsData: Icons.play_arrow,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed(AboutUs.routeName);
+                  },
                 ),
                 DrawerListItem(
                   title: 'History',
@@ -67,22 +72,30 @@ class DrawerWidget extends StatelessWidget {
                 DrawerListItem(
                   title: 'FAQ\'s',
                   iconsData: Icons.play_arrow,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed(FAQs.routeName);
+                  },
                 ),
                 DrawerListItem(
                   title: 'Change Password',
                   iconsData: Icons.play_arrow,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed(ChangePassword.routeName);
+                  },
                 ),
                 DrawerListItem(
                   title: 'Term & Condition',
                   iconsData: Icons.play_arrow,
-                  onPressed: () {},
+                  onPressed: () {
+                     Navigator.of(context).pushReplacementNamed(TermAndCondition.routeName);
+                  },
                 ),
                 DrawerListItem(
                   title: 'Privacy Policy',
                   iconsData: Icons.play_arrow,
-                  onPressed: () {},
+                  onPressed: () {
+                    
+                  },
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 30),

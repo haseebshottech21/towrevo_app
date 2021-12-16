@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+
+import 'package:towrevo/screens/aboutus/about_us_screen.dart';
+import 'package:towrevo/screens/authentication/change_password/change_password.dart';
+
+import 'package:towrevo/screens/faqs/faqs.dart';
+
 import 'package:towrevo/screens/company/company_history.dart';
+
 import 'package:towrevo/screens/map_distance_screen.dart';
+import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/view_model/otp_view_model.dart';
@@ -138,6 +146,9 @@ class _MyAppState extends State<MyApp> {
         ),
         home: const SplashScreen(),
         // home: const MapDistanceScreen(),
+
+        // home: const ChangePassword(),
+
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
@@ -158,7 +169,12 @@ class _MyAppState extends State<MyApp> {
               const ListingOfCompaniesScreen(),
           GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
           MapDistanceScreen.routeName: (ctx) => const MapDistanceScreen(),
+          AboutUs.routeName: (ctx) => const AboutUs(),
+          FAQs.routeName: (ctx) => const FAQs(),
+          ChangePassword.routeName: (ctx) => const ChangePassword(),
+          TermAndCondition.routeName: (ctx) => const TermAndCondition(),
           CompanyHistory.routeName: (ctx) => const CompanyHistory(),
+
         },
       ),
     );

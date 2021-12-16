@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/utilities.dart';
 
-class HomeWebService {
+class UserWebService {
   Future<List<CompanyModel>> getCompaniesList(Map<String, String> body) async {
     print(Utilities.baseUrl + 'companies');
     print(body);
@@ -91,4 +91,26 @@ class HomeWebService {
       print(response.reasonPhrase);
     }
   }
+
+
+Future<void> submitRating(String serviceRequestId,String rate,String review) async{
+   final response = await http.post(
+      Uri.parse(Utilities.baseUrl + 'companies'),
+      body: {
+        'services_request_id': serviceRequestId,
+        'rate': rate,
+        'review': review,
+      },
+      headers: await Utilities().headerWithAuth(),
+    );
+      print(response.body);
+
+     if (response.statusCode == 200) {
+       print('yes in 200');
+      print(response.statusCode);
+    } else {
+      print(response.statusCode);
+    }
+}
+
 }

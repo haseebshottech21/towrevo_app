@@ -518,6 +518,7 @@ class _RegistrationCategoryAndTimingScreenState
       locationProvider.address = '';
       //services e.g car, bike
       serviceProvider.getServices();
+
       // get current location
       await locationProvider.getCurrentLocation(context);
     }

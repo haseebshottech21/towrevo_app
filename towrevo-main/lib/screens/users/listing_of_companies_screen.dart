@@ -57,7 +57,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Near By Services',
+                    'Nearby Services',
                     style: TextStyle(
                       fontSize: 22.0,
                       color: Colors.white,
@@ -68,6 +68,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
               ),
               userHomeProvider.isLoading
                   ? circularProgress()
+                  
                   : ListView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
