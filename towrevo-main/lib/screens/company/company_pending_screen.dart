@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -363,9 +364,12 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
   void _handleMessage(RemoteMessage message) {
     print(message);
     print(message.data);
-    // if (message.data['type'] == 'chat') {
+    if(message.data['screen'] == 'decline'){
+      Fluttertoast.showToast(msg: 'Decline');
+    }
+    if (message.data['screen'] == 'request') {
     getData();
     // Navigator.pushNamed(context, RequestScreen.routeName,);
-    // }
+    }
   }
 }
