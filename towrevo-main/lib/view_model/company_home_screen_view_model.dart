@@ -70,7 +70,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
               .getRequests();
           notifyListeners();
         } else if (!getData) {
-          // HomeWebService().sendNotification('Decline', 'Request Time Over', notificationId!);
+          UserWebService().sendNotification('Decline', 'Request Time Over', notificationId!,'decline');
         }
       }
     } else {

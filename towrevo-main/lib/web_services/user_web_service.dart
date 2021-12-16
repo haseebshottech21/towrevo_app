@@ -62,7 +62,7 @@ class UserWebService {
         });
     print(response.body);
     if (response.statusCode == 200) {
-      await sendNotification('Request', 'Requested For Tow', notificationId);
+      await sendNotification('Request', 'Requested For Tow', notificationId,'request');
       return json.decode(response.body);
     } else {
       return null;
@@ -70,7 +70,7 @@ class UserWebService {
   }
 
   Future<void> sendNotification(
-      String title, String body, String fcmToken) async {
+      String title, String body, String fcmToken,String data) async {
     const String fcmUrl = 'https://fcm.googleapis.com/fcm/send';
     const fcmKey =
         "AAAAaZTXvTc:APA91bHoOPCTghnb4tifuy3ZQBCuEKJvapyQGKk3BFpj_Ec5LNutNv-dH3rYXAHTaTKjuRkxcEIuszj3JonwlYE-LF9aPQK4VOvIwlZHxXiWwvYQxcmIcXjoviJwa9PqqcvkQ9fEMRNs";
@@ -80,7 +80,7 @@ class UserWebService {
     };
     var request = http.Request('POST', Uri.parse(fcmUrl));
     request.body =
-        '''{"to":"$fcmToken","priority":"high","notification":{"title":"$title","body":"$body","sound": "default"},"data":{"screen":"requests"}}''';
+        '''{"to":"$fcmToken","priority":"high","notification":{"title":"$title","body":"$body","sound": "default"},"data":{"screen":"$data"}}''';
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
