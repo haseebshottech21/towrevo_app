@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/widgets/company_history_list.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
-
 import 'company_home_screen.dart';
 
 class CompanyHistory extends StatefulWidget {
   const CompanyHistory({Key? key}) : super(key: key);
+
+  static const routeName = '/comppany-history';
 
   @override
   _CompanyHistoryState createState() => _CompanyHistoryState();
@@ -57,7 +60,16 @@ class _CompanyHistoryState extends State<CompanyHistory> {
   ];
 
   @override
+  void initState() {
+    Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+        .getCompanyHistrory();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final provider =
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: true);
     return Scaffold(
       // appBar: AppBar(
       //   elevation: 2,
@@ -128,7 +140,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                   physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   shrinkWrap: true,
-                  itemCount: companyHistory.length,
+                  itemCount: provider.companyHistoryList.length,
                   itemBuilder: (ctx, index) {
                     return CompanyHistoryList(
                       userImage: companyHistory[index]['user-image'].toString(),
@@ -136,11 +148,16 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                       userService:
                           companyHistory[index]['user-service'].toString(),
                       date: companyHistory[index]['date'].toString(),
-                      status: companyHistory[index]['status'].toString(),
-                      colors:
-                          companyHistory[index]['status'].toString() == 'Accept'
-                              ? Colors.green
-                              : Colors.red,
+                      status: provider.companyHistoryList[index].status == 1
+                          ? 'Accept'
+                          : provider.companyHistoryList[index].status == 2
+                              ? 'Declie'
+                              : 'Completed',
+                      colors: provider.companyHistoryList[index].status == 1
+                          ? Colors.green
+                          : provider.companyHistoryList[index].status == 2
+                              ? Colors.red
+                              : Colors.blueGrey,
                     );
                   },
                 ),

@@ -10,6 +10,7 @@ import 'package:towrevo/web_services/home_web_service.dart';
 class CompanyHomeScreenViewModel with ChangeNotifier {
   List<ServiceRequestModel> requestServiceList = [];
   List<ServiceRequestModel> onGoingRequestsList = [];
+  List<ServiceRequestModel> companyHistoryList = [];
   bool isLoading = true;
 
   Future<void> getRequests() async {
@@ -32,6 +33,19 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     final loadedResponse = await CompanyWebService().requestsOfUser('1');
     if (loadedResponse.isNotEmpty) {
       onGoingRequestsList = loadedResponse;
+    }
+    isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> getCompanyHistrory() async {
+    isLoading = true;
+    notifyListeners();
+    companyHistoryList = [];
+    final loadedResponse =
+        await CompanyWebService().requestsOfUser('', history: true);
+    if (loadedResponse.isNotEmpty) {
+      companyHistoryList = loadedResponse;
     }
     isLoading = false;
     notifyListeners();

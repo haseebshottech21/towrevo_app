@@ -11,7 +11,7 @@ class CompanyItem extends StatelessWidget {
   const CompanyItem({Key? key, required this.companyModel}) : super(key: key);
 
   sendRequest(
-      String companyId, BuildContext context, String notificationId) async {
+      String companyId, BuildContext context, String notificationId,) async {
     print(notificationId);
     final provider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
@@ -108,6 +108,7 @@ class CompanyItem extends StatelessWidget {
                             companyModel.userId,
                             context,
                             companyModel.notificationId,
+                            
                           );
 
 
