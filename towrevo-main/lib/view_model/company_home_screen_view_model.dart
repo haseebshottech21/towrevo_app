@@ -80,6 +80,9 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
               notificationId!,
               'decline_from_company');
         }
+        else if(type =='1'){
+          UserWebService().sendNotification('Accepted', 'Your Request has been accepted', notificationId!,'accept');
+        }
       }
     } else {
       Utilities().showToast('Something Went Wrong');
