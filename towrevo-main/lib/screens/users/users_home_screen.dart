@@ -11,6 +11,7 @@ import 'package:towrevo/screens/users/listing_of_companies_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
+import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
 import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import '../get_location_screen.dart';
@@ -281,6 +282,10 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                       },
                     ),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  UserAcceptBottomSheet(),
                 ],
               ),
             ),

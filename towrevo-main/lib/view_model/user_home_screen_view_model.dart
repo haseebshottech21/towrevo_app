@@ -82,7 +82,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 100,
                       width: MediaQuery.of(context).size.width * 0.40,
                       child: const CircleAvatar(
