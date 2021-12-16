@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
-import 'package:towrevo/web_services/home_web_service.dart';
+import 'package:towrevo/web_services/user_web_service.dart';
 
 import '../number_creator.dart';
 
@@ -26,10 +26,17 @@ class UserHomeScreenViewModel with ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    list = await HomeWebService().getCompaniesList(requestedBody);
+    list = await UserWebService().getCompaniesList(requestedBody);
     isLoading = false;
     notifyListeners();
   }
+
+
+  Future<void> subimtRating()async{
+    
+    // final response = await UserWebService().submitRating(serviceRequestId, rate, review);
+  }
+
 
   Future<void> requestToCompany(
       BuildContext context,
@@ -41,7 +48,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
       String notificationId) async {
     isLoading = false;
     notifyListeners();
-    final response = await HomeWebService().sendRequestToCompany(
+    final response = await UserWebService().sendRequestToCompany(
         longitude, latitude, address, serviceId, companyId, notificationId);
     if (response != null) {
       showDialog(
@@ -91,7 +98,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
           Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
               .acceptDeclineOrDone(
                   '2', response['data']['id'].toString(), context,
-                  getData: false);
+                  getData: false,notificationId: notificationId);
         }
       });
     }

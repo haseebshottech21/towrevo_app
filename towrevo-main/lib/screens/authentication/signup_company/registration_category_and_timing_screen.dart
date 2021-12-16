@@ -459,13 +459,13 @@ class _RegistrationCategoryAndTimingScreenState
   void didChangeDependencies() async{
     if(_init){
       final provider = Provider.of<RegisterCompanyViewModel>(context,listen: true);
-      final locationProvider = Provider.of<GetLocationViewModel>(context,listen: false);
       final serviceProvider = Provider.of<ServicesAndDaysViewModel>(context,listen: false);
       // provider.categoriesList=[{'car': false}, {'bike': false}, {'truck': false},];
       // provider.daysList=[{'Monday':false},{'Tuesday':false},{'Wednesday':false},{'Thursday':false},{'Friday':false},{'Saturday':false},{'Sunday':false},];
+      serviceProvider.getServices();
+      final locationProvider = Provider.of<GetLocationViewModel>(context,listen: false);
         locationProvider.address='';
         //services e.g car, bike
-      serviceProvider.getServices();
       // get current location
         await locationProvider.getCurrentLocation(context);
 

@@ -82,6 +82,11 @@ class Utilities {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(key);
   }
+   Future<dynamic> removeSharedPreferenceValue(String key) async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.remove(key);
+  }
+
 
   Future<String> dayToInt(String day) async{
     if(day == 'Monday'){

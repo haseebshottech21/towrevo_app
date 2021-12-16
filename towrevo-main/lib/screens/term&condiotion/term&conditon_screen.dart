@@ -6,6 +6,7 @@ import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
 
 class TermAndCondition extends StatefulWidget {
+  static const routeName = '/terms-and-condition';
   const TermAndCondition({Key? key}) : super(key: key);
 
   @override

@@ -31,6 +31,7 @@ class RegisterUserViewModel with ChangeNotifier{
     }
   }
 
+  
   toggleTermsAndCondition(){
     isCheckedTermsAndCondition = !isCheckedTermsAndCondition;
     notifyListeners();

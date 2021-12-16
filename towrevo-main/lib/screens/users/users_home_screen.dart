@@ -11,6 +11,7 @@ import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
 import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
+import '../get_location_screen.dart';
 import '/widgets/background_image.dart';
 import '/widgets/form_button_widget.dart';
 import '/widgets/towrevo_logo.dart';
@@ -37,6 +38,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+   
     final primaryColors = Theme.of(context).primaryColor;
     return Scaffold(
       key: scaffoldKey,
@@ -115,7 +117,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                       builder: (ctx, getLocation, neverBuildChild) {
                     return InkWell(
                       onTap: () async {
-                        await getLocation.getCurrentLocation(context);
+                        // await getLocation.getCurrentLocation(context);
+                         Navigator.of(context).pushNamed(
+                            GetLocationScreen.routeName,);
                       },
                       child: Container(
                         height: getLocation.getAddress.isEmpty ? 50 : null,
@@ -309,13 +313,22 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     Navigator.of(context).pushNamed(ListingOfCompaniesScreen.routeName);
   }
 
+  bool _init =true;
   @override
-  void initState() {
-    GetLocationViewModel().setAddress = '';
-    final serviceProvider =
+  void didChangeDependencies() async{
+    if(_init){
+       final serviceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
     serviceProvider.getServices();
+      final locationProvider = Provider.of<GetLocationViewModel>(context,listen: false);
+        locationProvider.address='';
+        //services e.g car, bike
+      // get current location
+        await locationProvider.getCurrentLocation(context);
 
-    super.initState();
+
+    }
+    _init=false;
+    super.didChangeDependencies();
   }
 }

@@ -44,6 +44,7 @@ class GetLocationViewModel with ChangeNotifier {
     List<Placemark> placeMarks = await placemarkFromCoordinates(
         coordinate.latitude, coordinate.longitude);
     setAddress = placeMarks.first.toString();
+    print(placeMarks.first.street);
   }
 
   Future<LatLng?> getCurrentLocation(BuildContext context) async {

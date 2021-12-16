@@ -72,28 +72,54 @@ class AuthenticationWebService {
     final response = await http.post(Uri.parse(Utilities.baseUrl + 'logout'),
         headers: await Utilities().headerWithAuth());
     print(response.body);
+    final loadedResponse = json.decode(response.body);
     if (response.statusCode == 200) {
-      print('true');
+      print('success');
+      await Utilities().removeSharedPreferenceValue('token');
+      await Utilities().removeSharedPreferenceValue('type');
       return true;
     } else {
+      Utilities().showToast(loadedResponse['message'].toString()); 
       return false;
     }
   }
 
-  // Future<void> signUpUser(Map<String,String> body)async{
-  //   print(Utilities.baseUrl+'register');
-  //
-  //
-  //   final response = await http.post(Uri.parse(Utilities.baseUrl+'register'),
-  //     body:body,
-  //     headers: Utilities.header,
-  //   );
-  //   print(response.body);
-  //   if(response.statusCode == 200){print(response.body);
-  //   }else{
-  //
-  //   }
-  // }
+  Future<void> resetPassword(String token, String password,String confirmPassword, String otp,)async{
+  
+    final response = await http.post(Uri.parse(Utilities.baseUrl+'resetPassword'),
+      body:{
+        'token':token,
+        'otp' : otp,
+        'password' : password,
+        'password_confirmation' : confirmPassword,
+      },
+      headers: Utilities.header,
+    );
+    print(response.body);
+    if(response.statusCode == 200){
+      print('200');
+    }else{
+        print(response.statusCode);
+    }
+  }
+
+
+   Future<void> forgotPassword(String email)async{
+  
+    final response = await http.post(Uri.parse(Utilities.baseUrl+'resetPassword'),
+      body:{
+        'email':email,
+      },
+      headers: Utilities.header,
+    );
+    print(response.body);
+    if(response.statusCode == 200){
+      print('yes 200');
+      print(response.statusCode);
+    }else{
+        print(response.statusCode);
+    }
+  }
 
   void signUpErrorHandle(Map<String, dynamic> body) {
     if (body['']) {}

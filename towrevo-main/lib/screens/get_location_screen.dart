@@ -36,7 +36,7 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
       ),
       body: GoogleMap(
         initialCameraPosition:
-            CameraPosition(target: locationViewModelProvider.latLng!, zoom: 0),
+            CameraPosition(target: locationViewModelProvider.latLng!, zoom: 9),
         zoomControlsEnabled: false,
         myLocationButtonEnabled: false,
         onMapCreated: (controller) {

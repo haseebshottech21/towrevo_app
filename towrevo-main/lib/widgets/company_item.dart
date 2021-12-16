@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/number_creator.dart';
+import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 
 class CompanyItem extends StatelessWidget {
@@ -93,7 +95,9 @@ class CompanyItem extends StatelessWidget {
               children: [
                 TextButton(
                   style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                  onPressed: () {},
+                  onPressed: () {
+                     Navigator.of(context).pushNamed(MapDistanceScreen.routeName,arguments: LatLng(double.parse(companyModel.latitude),double.parse(companyModel.longitude),),);
+                  },
                   child: const Text('Get Directions'),
                 ),
                 SizedBox(

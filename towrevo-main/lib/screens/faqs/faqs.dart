@@ -7,6 +7,7 @@ import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
 
 class FAQs extends StatefulWidget {
+  static const routeName = '/faqs';
   const FAQs({Key? key}) : super(key: key);
 
   @override

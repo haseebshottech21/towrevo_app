@@ -57,7 +57,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Near By Services',
+                    'Nearby Services',
                     style: TextStyle(
                       fontSize: 22.0,
                       color: Colors.white,

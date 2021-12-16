@@ -7,6 +7,7 @@ import 'package:towrevo/widgets/text_form_field.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
 
 class ChangePassword extends StatefulWidget {
+  static const routeName = '/change-password';
   const ChangePassword({Key? key}) : super(key: key);
 
   @override
