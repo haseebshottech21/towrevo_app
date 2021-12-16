@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/service_request_model.dart';
@@ -27,19 +25,18 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
   List<ServiceRequestModel> companyHistoryList = [];
 
-
   Future<void> getCompanyHistrory() async {
     isLoading = true;
-   notifyListeners();
-   companyHistoryList = [];
-   final loadedResponse =
-       await CompanyWebService().requestsOfUser('', history: true);
-   if (loadedResponse.isNotEmpty) {
-     companyHistoryList = loadedResponse;
-   }
-   isLoading = false;
-   notifyListeners();
- }
+    notifyListeners();
+    companyHistoryList = [];
+    final loadedResponse =
+        await CompanyWebService().requestsOfUser('', history: true);
+    if (loadedResponse.isNotEmpty) {
+      companyHistoryList = loadedResponse;
+    }
+    isLoading = false;
+    notifyListeners();
+  }
 
   Future<void> getOnGoingRequests() async {
     isLoading = true;

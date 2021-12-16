@@ -126,7 +126,15 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                     padding: EdgeInsets.zero,
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).pushNamed(MapDistanceScreen.routeName,arguments: LatLng(double.parse(provider.requestServiceList[index].latitude),double.parse(provider.requestServiceList[index].longitude)));
+                                    Navigator.of(context).pushNamed(
+                                        MapDistanceScreen.routeName,
+                                        arguments: LatLng(
+                                            double.parse(provider
+                                                .requestServiceList[index]
+                                                .latitude),
+                                            double.parse(provider
+                                                .requestServiceList[index]
+                                                .longitude)));
                                   },
                                   child: const Text('Get Directions'),
                                 ),
@@ -141,11 +149,11 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                         onPressed: () async {
                                           await CompanyHomeScreenViewModel()
                                               .acceptDeclineOrDone(
-                                                  '1',
-                                                  provider
-                                                      .requestServiceList[index]
-                                                      .id,
-                                                  context,);
+                                            '1',
+                                            provider
+                                                .requestServiceList[index].id,
+                                            context,
+                                          );
                                         },
                                         child: const Text(
                                           'Accept',
@@ -355,21 +363,31 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     // Also handle any interaction when the app is in the background via a
     // Stream listener
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-    FirebaseMessaging.onMessage.listen((event) {
-      print(event);
-      getData();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print(message);
+      if (message.data['screen'] == 'decline') {
+        Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+        getData();
+      }
+      if (message.data['screen'] == 'request') {
+        Fluttertoast.showToast(msg: 'User Send Request');
+        getData();
+        // Navigator.pushNamed(context, RequestScreen.routeName,);
+      }
     });
   }
 
   void _handleMessage(RemoteMessage message) {
     print(message);
     print(message.data);
-    if(message.data['screen'] == 'decline'){
-      Fluttertoast.showToast(msg: 'Decline');
+    if (message.data['screen'] == 'decline') {
+      Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+      getData();
     }
     if (message.data['screen'] == 'request') {
-    getData();
-    // Navigator.pushNamed(context, RequestScreen.routeName,);
+      Fluttertoast.showToast(msg: 'User Send Request');
+      getData();
+      // Navigator.pushNamed(context, RequestScreen.routeName,);
     }
   }
 }

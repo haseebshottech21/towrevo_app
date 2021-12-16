@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -8,44 +7,40 @@ import 'package:towrevo/web_services/authentication.dart';
 
 import 'otp_view_model.dart';
 
-class RegisterUserViewModel with ChangeNotifier{
+class RegisterUserViewModel with ChangeNotifier {
   bool isCheckedTermsAndCondition = false;
 
-
-
-
-
-  Future<bool> userSignUp(Map<String,String> body,BuildContext context) async{
-
+  Future<bool> userSignUp(
+      Map<String, String> body, BuildContext context) async {
     final responseBody = await AuthenticationWebService().signUpCompany(body);
-    final otpProvider = Provider.of<OTPViewModel>(context,listen: false);
+    final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
 
     print(responseBody);
-    if(responseBody.isNotEmpty){
+    if (responseBody.isNotEmpty) {
       print(responseBody['data']['uniqueId']);
       otpProvider.resendUniqueId = responseBody['data']['uniqueId'];
       return true;
-    }else {
+    } else {
       otpProvider.resendUniqueId = '';
       return false;
     }
   }
 
-  
-  toggleTermsAndCondition(){
+  toggleTermsAndCondition() {
     isCheckedTermsAndCondition = !isCheckedTermsAndCondition;
     notifyListeners();
   }
+
   bool obscurePassword = false;
 
-  toggleObscure(){
+  toggleObscure() {
     obscurePassword = !obscurePassword;
     notifyListeners();
   }
 
-  bool obscureConfirmPassword=false;
+  bool obscureConfirmPassword = false;
 
-  toggleObscureConfirm(){
+  toggleObscureConfirm() {
     obscureConfirmPassword = !obscureConfirmPassword;
     notifyListeners();
   }
@@ -54,15 +49,14 @@ class RegisterUserViewModel with ChangeNotifier{
   String extension = '';
   String image = '';
 
-  Future<void> pickImage() async{
-    final imageObject = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if(image!=null){
-      imagePath=imageObject!.path;
-      extension= imageObject.path.split('.').last;
+  Future<void> pickImage() async {
+    final imageObject =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      imagePath = imageObject!.path;
+      extension = imageObject.path.split('.').last;
       image = base64Encode(await File(imageObject.path).readAsBytes());
       notifyListeners();
     }
   }
-
-
 }

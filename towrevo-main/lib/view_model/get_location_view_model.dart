@@ -3,10 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
-
-import '../screens/get_location_screen.dart';
 
 class GetLocationViewModel with ChangeNotifier {
   LatLng? latLng;
