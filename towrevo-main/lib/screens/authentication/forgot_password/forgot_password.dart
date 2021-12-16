@@ -7,7 +7,7 @@ import 'package:towrevo/widgets/company_form_field.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
 
 class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({ Key? key }) : super(key: key);
+  const ForgotPassword({Key? key}) : super(key: key);
 
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
@@ -54,7 +54,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       height: 45,
                     ),
                     Text(
-                      'FORGOT PASSWORD ?',
+                      'RESET PASSWORD',
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -66,12 +66,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       height: 20,
                     ),
                     Text(
-                      'We Will Send Verifaction Code To The Email Address You Registered To Regain Your Password',
+                      'Enter the email associated with your account and we\'ll send an email with instructions to reset your password.',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF0c355a),
                         fontWeight: FontWeight.w600,
-                        fontSize: 14.0,
+                        fontSize: 15.0,
                       ),
                     ),
                     const SizedBox(
@@ -91,8 +91,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       height: 10,
                     ),
                     Text(
-                      'Email sent to example@email.com',
-                      textAlign: TextAlign.center,
+                      'Email sents to example@email.com',
+                      textAlign: TextAlign.start,
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF0c355a),
                         fontWeight: FontWeight.w500,
@@ -121,12 +121,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           ),
                           child: Center(
                             child: Text(
-                              'SEND',
+                              'SEND VERIFICATION',
                               style: GoogleFonts.montserrat(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18.0,
-                                  letterSpacing: 1.0),
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17.0,
+                                letterSpacing: 1.0,
+                              ),
                             ),
                           ),
                         ),

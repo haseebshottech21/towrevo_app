@@ -55,23 +55,24 @@ class _ChangePasswordState extends State<ChangePassword> {
                       height: 45,
                     ),
                     Text(
-                      'CHANGE PASSWORD',
+                      'CREATE NEW PASSWORD',
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        fontSize: 30.0,
-                        letterSpacing: 1.2,
+                        fontSize: 25.0,
+                        letterSpacing: 1,
                       ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    Text('Please change password',
+                    Text(
+                      'Your new password must be different from previos password',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF0c355a),
                         fontWeight: FontWeight.w600,
-                        fontSize: 14.0,
+                        fontSize: 15.0,
                       ),
                     ),
                     const SizedBox(
@@ -126,7 +127,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           ),
                           child: Center(
                             child: Text(
-                              'CHANGE PASSWORD',
+                              'RESET PASSWORD',
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
