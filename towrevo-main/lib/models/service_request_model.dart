@@ -8,6 +8,8 @@ class ServiceRequestModel {
   String latitude;
   String address;
   int status;
+  String notificationId;
+  String name;
 
   ServiceRequestModel({
     required this.userId,
@@ -19,6 +21,8 @@ class ServiceRequestModel {
     required this.serviceId,
     required this.serviceName,
     required this.status,
+    required this.notificationId,
+    required this.name
   });
 
   factory ServiceRequestModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +36,8 @@ class ServiceRequestModel {
       serviceId: json['service']['id'].toString(),
       serviceName: json['service']['name'],
       status: json['status'],
+      notificationId: json['user']['notification_id'],
+      name: json['user']['firt_name']+' '+json['user']['last_name']
     );
   }
 }

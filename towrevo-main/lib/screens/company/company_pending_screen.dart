@@ -152,7 +152,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                             '1',
                                             provider
                                                 .requestServiceList[index].id,
-                                            context,
+                                            context,notificationId: provider.requestServiceList[index].notificationId
                                           );
                                         },
                                         child: const Text(
@@ -176,7 +176,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                                   provider
                                                       .requestServiceList[index]
                                                       .id,
-                                                  context);
+                                                  context,notificationId: provider.requestServiceList[index].notificationId);
                                         },
                                         child: const Text(
                                           'Decline',
@@ -380,8 +380,12 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
   void _handleMessage(RemoteMessage message) {
     print(message);
     print(message.data);
-    if (message.data['screen'] == 'decline') {
+    if (message.data['screen'] == 'decline_from_user') {
       Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+      getData();
+    }
+    if (message.data['screen'] == 'decline_from_company') {
+      Fluttertoast.showToast(msg: 'Decline From Company');
       getData();
     }
     if (message.data['screen'] == 'request') {
