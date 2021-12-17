@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -53,144 +54,159 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                   shrinkWrap: true,
                   itemCount: provider.requestServiceList.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 5,
-                      shadowColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      margin:
-                          const EdgeInsets.only(left: 10, right: 10, top: 10),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 15,
-                          right: 10,
-                          top: 15,
+                    return FadeInUp(
+                      from: 30,
+                      child: Card(
+                        elevation: 5,
+                        shadowColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Flexible(
-                                  fit: FlexFit.tight,
-                                  flex: 9,
-                                  child: Column(
-                                    children: [
-                                      // Container(
-                                      //   alignment: Alignment.centerLeft,
-                                      //   child: Text('acas'),
-                                      // ),
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        child: const Text(
-                                          'User Name',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
+                        margin:
+                            const EdgeInsets.only(left: 10, right: 10, top: 10),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 15,
+                            right: 10,
+                            top: 15,
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Flexible(
+                                    fit: FlexFit.tight,
+                                    flex: 9,
+                                    child: Column(
+                                      children: [
+                                        // Container(
+                                        //   alignment: Alignment.centerLeft,
+                                        //   child: Text('acas'),
+                                        // ),
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: const Text(
+                                            'User Name',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const Flexible(
-                                  fit: FlexFit.tight,
-                                  flex: 1,
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.black,
-                                    child: Icon(
-                                      Icons.home_work_outlined,
-                                      color: Colors.white,
+                                      ],
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.75,
-                                child: const Text(
-                                  '1 Zuelke Road, Three Forks,mt, 59352  United States',
-                                  textAlign: TextAlign.start,
+                                  const Flexible(
+                                    fit: FlexFit.tight,
+                                    flex: 1,
+                                    child: CircleAvatar(
+                                      backgroundColor: Colors.black,
+                                      child: Icon(
+                                        Icons.home_work_outlined,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.75,
+                                  child: const Text(
+                                    '1 Zuelke Road, Three Forks,mt, 59352  United States',
+                                    textAlign: TextAlign.start,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TextButton(
+                                    style: TextButton.styleFrom(
+                                      padding: EdgeInsets.zero,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed(
+                                          MapDistanceScreen.routeName,
+                                          arguments: LatLng(
+                                              double.parse(provider
+                                                  .requestServiceList[index]
+                                                  .latitude),
+                                              double.parse(provider
+                                                  .requestServiceList[index]
+                                                  .longitude)));
+                                    },
+                                    child: const Text('Get Directions'),
                                   ),
-                                  onPressed: () {
-                                    Navigator.of(context).pushNamed(
-                                        MapDistanceScreen.routeName,
-                                        arguments: LatLng(
-                                            double.parse(provider
-                                                .requestServiceList[index]
-                                                .latitude),
-                                            double.parse(provider
-                                                .requestServiceList[index]
-                                                .longitude)));
-                                  },
-                                  child: const Text('Get Directions'),
-                                ),
-                                SizedBox(
-                                  width: 135,
-                                  child: Row(
-                                    children: [
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          padding: EdgeInsets.zero,
-                                        ),
-                                        onPressed: () async {
-                                          await CompanyHomeScreenViewModel()
-                                              .acceptDeclineOrDone(
-                                            '1',
-                                            provider
-                                                .requestServiceList[index].id,
-                                            context,notificationId: provider.requestServiceList[index].notificationId
-                                          );
-                                        },
-                                        child: const Text(
-                                          'Accept',
-                                          style: TextStyle(
-                                            color: Colors.green,
+                                  SizedBox(
+                                    width: 135,
+                                    child: Row(
+                                      children: [
+                                        TextButton(
+                                          style: TextButton.styleFrom(
+                                            padding: EdgeInsets.zero,
+                                          ),
+                                          onPressed: () async {
+                                            await CompanyHomeScreenViewModel()
+                                                .acceptDeclineOrDone(
+                                                    '1',
+                                                    provider
+                                                        .requestServiceList[
+                                                            index]
+                                                        .id,
+                                                    context,
+                                                    notificationId: provider
+                                                        .requestServiceList[
+                                                            index]
+                                                        .notificationId);
+                                          },
+                                          child: const Text(
+                                            'Accept',
+                                            style: TextStyle(
+                                              color: Colors.green,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          padding: EdgeInsets.zero,
+                                        const SizedBox(
+                                          width: 5,
                                         ),
-                                        onPressed: () async {
-                                          await CompanyHomeScreenViewModel()
-                                              .acceptDeclineOrDone(
-                                                  '2',
-                                                  provider
-                                                      .requestServiceList[index]
-                                                      .id,
-                                                  context,notificationId: provider.requestServiceList[index].notificationId);
-                                        },
-                                        child: const Text(
-                                          'Decline',
-                                          style: TextStyle(
-                                            color: Colors.red,
+                                        TextButton(
+                                          style: TextButton.styleFrom(
+                                            padding: EdgeInsets.zero,
+                                          ),
+                                          onPressed: () async {
+                                            await CompanyHomeScreenViewModel()
+                                                .acceptDeclineOrDone(
+                                                    '2',
+                                                    provider
+                                                        .requestServiceList[
+                                                            index]
+                                                        .id,
+                                                    context,
+                                                    notificationId: provider
+                                                        .requestServiceList[
+                                                            index]
+                                                        .notificationId);
+                                          },
+                                          child: const Text(
+                                            'Decline',
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -366,18 +382,18 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print(message);
       if (message.data['screen'] == 'decline_from_user') {
-      Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
-      getData();
-    }
-    if (message.data['screen'] == 'decline_from_company') {
-      Fluttertoast.showToast(msg: 'Decline From Company');
-      getData();
-    }
-    if (message.data['screen'] == 'request') {
-      Fluttertoast.showToast(msg: 'User Send Request');
-      getData();
-      // Navigator.pushNamed(context, RequestScreen.routeName,);
-    }
+        Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+        getData();
+      }
+      if (message.data['screen'] == 'decline_from_company') {
+        Fluttertoast.showToast(msg: 'Decline From Company');
+        getData();
+      }
+      if (message.data['screen'] == 'request') {
+        Fluttertoast.showToast(msg: 'User Send Request');
+        getData();
+        // Navigator.pushNamed(context, RequestScreen.routeName,);
+      }
     });
   }
 
