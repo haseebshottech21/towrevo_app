@@ -36,8 +36,8 @@ class ServiceRequestModel {
         serviceName: json['service']['name'],
         status: json['status'],
         notificationId: json['user']['notification_id'],
-        name: json['user']['firt_name'].toString() +
-            ' ' +
-            json['user']['last_name'].toString());
+        name: (json['user']['firt_name']) ??
+            ''.toString() + ' ' + (json['user']['last_name']) ??
+            ''.toString());
   }
 }

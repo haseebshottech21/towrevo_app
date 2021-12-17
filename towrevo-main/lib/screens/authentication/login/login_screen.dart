@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
+import 'package:towrevo/screens/authentication/forgot_password/forgot_password.dart';
 import 'package:towrevo/screens/company/company_home_screen.dart';
 import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
@@ -197,7 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              print('Forgot');
+                             Navigator.of(context).pushNamed(ForgotPassword.routeName);
                             },
                             child: RichText(
                               text: TextSpan(

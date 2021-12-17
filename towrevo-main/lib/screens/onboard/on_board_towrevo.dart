@@ -55,24 +55,46 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // PageView.builder(
-                //   onPageChanged: (value) {
-                //     setState(() {
-                //       currentPage = value;
-                //     });
-                //   },
-                //   itemCount: splashData.length,
-                //   itemBuilder: (context, index) => OnBoardWidget(
-                //     backimg: splashData[index]["image"].toString(),
-                //     title: splashData[index]["text"].toString(),
-                //     desc: splashData[index]["descripttion"].toString(),
-                //   ),
-                // ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    splashData.length,
-                    (index) => builDot(index),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20,),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: List.generate(
+                      splashData.length,
+                      (index) => builDot(index),
+                    ),
+                  ),
+                ElevatedButton(
+                    onPressed: () {
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const WelcomeBizhubScreen(),
+                      //   ),
+                      // );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black,
+                      minimumSize: const Size(150, 45),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Get Started',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -88,10 +110,10 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
 
   AnimatedContainer builDot(int index) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 250),
       margin: const EdgeInsets.only(right: 8),
-      height: 10,
-      width: 10,
+      height: 8,
+      width: currentPage == index ? 20 : 15,
       decoration: BoxDecoration(
         color: currentPage == index ? Colors.white : const Color(0xFF404040),
         borderRadius: BorderRadius.circular(10),

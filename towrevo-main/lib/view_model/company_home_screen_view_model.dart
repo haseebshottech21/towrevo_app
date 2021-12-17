@@ -51,37 +51,48 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   }
 
   Future<void> acceptDeclineOrDone(
-      String type, String requestId, BuildContext context,
-      {bool getData = true, String? notificationId}) async {
+    String type,
+    String requestId,
+    BuildContext context, {
+    bool getData = true,
+    required String notificationId,
+  }) async {
+    final companyProvider =
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
+
     final loadedData =
         await CompanyWebService().acceptDeclineOrDone(type, requestId);
     if (loadedData != null) {
       print(loadedData);
       if (type == '3') {
-        Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-            .getOnGoingRequests();
+        companyProvider.getOnGoingRequests();
         notifyListeners();
+        await UserWebService().sendNotification('Job Complete',
+            'Your Job Has Been Compataed', notificationId, 'complete',
+            requestId: requestId);
         Navigator.of(context).pop();
-        // HomeWebService()
-        //     .sendNotification('Success', 'Job Completed', 'fcmToken');
       } else {
         if (getData) {
-          Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-              .getRequests();
+          companyProvider.getRequests();
           notifyListeners();
         } else if (!getData) {
           UserWebService().sendNotification('Decline', 'Request Time Over',
-              notificationId!, 'decline_from_user');
+              notificationId, 'decline_from_user');
         }
         if (type == '2') {
           UserWebService().sendNotification(
               'Decline',
               'Company Declined Your Request',
-              notificationId!,
+              notificationId,
               'decline_from_company');
-        }
-        else if(type =='1'){
-          UserWebService().sendNotification('Accepted', 'Your Request has been accepted', notificationId!,'accept');
+        } else if (type == '1') {
+          UserWebService().sendNotification(
+            'Accepted',
+            'Your Request has been accepted',
+            notificationId,
+            'accept',
+            requestId: requestId,
+          );
         }
       }
     } else {

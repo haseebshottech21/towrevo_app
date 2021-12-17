@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:towrevo/widgets/background_image.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 
 class OnBoardWidget extends StatelessWidget {
@@ -17,7 +18,7 @@ class OnBoardWidget extends StatelessWidget {
         children: [
           const FullBackgroundImage(),
           Align(
-            alignment: Alignment.topRight,
+            alignment: Alignment.topLeft,
             child: TextButton(
               onPressed: () {
                 // Navigator.pushReplacement(
@@ -34,8 +35,8 @@ class OnBoardWidget extends StatelessWidget {
                 ),
                 child: Text(
                   'SKIP',
-                  textAlign: TextAlign.end,
-                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  textAlign: TextAlign.start,
+                  style: TextStyle(color: Colors.white, fontSize: 16,),
                 ),
               ),
             ),
@@ -44,11 +45,11 @@ class OnBoardWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 50),
             child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
+                      horizontal: 15,
                       vertical: 15,
                     ),
                     width: MediaQuery.of(context).size.width * 0.90,
@@ -61,8 +62,8 @@ class OnBoardWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.70,
-                          height: 80,
+                          width: MediaQuery.of(context).size.width * 0.75,
+                          height: 100,
                           child: Image.asset(backimg),
                         ),
                         Text(
@@ -77,8 +78,8 @@ class OnBoardWidget extends StatelessWidget {
                           desc,
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -86,31 +87,31 @@ class OnBoardWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const WelcomeBizhubScreen(),
-                      //   ),
-                      // );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      minimumSize: const Size(300, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      'Get Started',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
+                  // ElevatedButton(
+                  //   onPressed: () {
+                  //     // Navigator.pushReplacement(
+                  //     //   context,
+                  //     //   MaterialPageRoute(
+                  //     //     builder: (context) => const WelcomeBizhubScreen(),
+                  //     //   ),
+                  //     // );
+                  //   },
+                  //   style: ElevatedButton.styleFrom(
+                  //     primary: Colors.black,
+                  //     minimumSize: const Size(300, 50),
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //     ),
+                  //   ),
+                  //   child: const Text(
+                  //     'Get Started',
+                  //     style: TextStyle(
+                  //       color: Colors.white,
+                  //       fontSize: 22,
+                  //       letterSpacing: 0.5,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

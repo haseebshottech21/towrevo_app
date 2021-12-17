@@ -84,7 +84,7 @@ class AuthenticationWebService {
     }
   }
 
-  Future<void> resetPassword(String token, String password,String confirmPassword, String otp,)async{
+  Future<dynamic> validateOTPAndResetPassword(String token, String password,String confirmPassword, String otp,)async{
   
     final response = await http.post(Uri.parse(Utilities.baseUrl+'reset-password'),
       body:{
@@ -96,15 +96,20 @@ class AuthenticationWebService {
       headers: Utilities.header,
     );
     print(response.body);
+       final loadedData = json.decode(response.body);
     if(response.statusCode == 200){
-      print('200');
+       Fluttertoast.showToast(msg: loadedData['message'].toString());
+      print(response.statusCode);
+      return loadedData;
     }else{
-        print(response.statusCode);
+      Fluttertoast.showToast(msg: loadedData['errors'].toString());
+      print(response.statusCode);
+      return null;
     }
   }
 
 
-   Future<void> forgotPassword(String email)async{
+   Future<dynamic> forgotPassword(String email)async{
   
     final response = await http.post(Uri.parse(Utilities.baseUrl+'forgot-password'),
       body:{
@@ -113,11 +118,17 @@ class AuthenticationWebService {
       headers: Utilities.header,
     );
     print(response.body);
+    final loadedData = json.decode(response.body);
     if(response.statusCode == 200){
-      print('yes 200');
+       Fluttertoast.showToast(msg: loadedData['message'].toString());
       print(response.statusCode);
+      return loadedData;
     }else{
+      if(response.statusCode == 422){
+      Fluttertoast.showToast(msg: loadedData['errors']['email'].toString());
+      }
       print(response.statusCode);
+      return null;
     }
   }
 

@@ -39,9 +39,44 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  // Future<void> openBottomSheet() async{
+  //           await showBottomSheet(context)
+  // }
+
   @override
   Widget build(BuildContext context) {
-   
+    final provider =
+        Provider.of<UserHomeScreenViewModel>(context, listen: false);
+    // print('bottom sheet : ${UsersHomeScreen.showBottomSheet}');
+    // print('Dialog : ${UsersHomeScreen.showDialog}');
+    print(provider.bottomSheetData['requestedId']);
+    if (provider.bottomSheetData['requested']) {
+      Future.delayed(Duration.zero).then((value) async {
+        String name = await provider.getRequestStatusData(
+            provider.bottomSheetData['requestedId'].toString());
+        if (name.isNotEmpty) {
+          await openBottomSheet(context, name);
+        }
+      });
+    }
+
+    if (provider.ratingData['requested']) {
+      print('yar hojao');
+      print(provider.ratingData['requestedId'].toString());
+      Future.delayed(Duration.zero).then(
+        (value) async {
+          await showDialog(
+            context: context,
+            builder: (_) {
+              return UserRatingDialog(
+                reqId: provider.ratingData['requestedId'].toString(),
+              );
+            },
+          );
+        },
+      );
+    }
+
     final primaryColors = Theme.of(context).primaryColor;
     return Scaffold(
       key: scaffoldKey,
@@ -121,8 +156,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                     return InkWell(
                       onTap: () async {
                         // await getLocation.getCurrentLocation(context);
-                         Navigator.of(context).pushNamed(
-                            GetLocationScreen.routeName,);
+                        Navigator.of(context).pushNamed(
+                          GetLocationScreen.routeName,
+                        );
                       },
                       child: Container(
                         height: getLocation.getAddress.isEmpty ? 50 : null,
@@ -172,36 +208,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  // InkWell(
-                  //   onTap: ()async{
-                  //     await showCategories();
-                  //   },
-                  //   child: Container(
-                  //     height: 50,
-                  //     padding: const EdgeInsets.symmetric(horizontal: 10),
-                  //     decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(30),),),
-                  //     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //       children: [
-                  //         Row(
-                  //           children: [
-                  //              Icon(Icons.category_outlined,color: primaryColors,),
-                  //             const SizedBox(
-                  //               width: 10,
-                  //             ),
-                  //              if(categories.isEmpty)
-                  //                Text('Select Categories',style: GoogleFonts.montserrat(color: Colors.black,),),
-                  //              // if(categories.isNotEmpty)
-                  //                // Wrap(children: categories.map((e) => Text(e[''])).toList(),)
-                  //              // Container(padding: const EdgeInsets.symmetric(vertical: 8),width: MediaQuery.of(context).size.width*0.65,child: categories.isEmpty?'Select Categories':categories,style: GoogleFonts.montserrat(color: Colors.black,),maxLines: 3,overflow: TextOverflow.ellipsis,)),
-                  //           ],
-                  //         ),
-                  //         Icon(Icons.arrow_drop_down_circle_outlined,color: primaryColors,),
-                  //
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-
                   Consumer<ServicesAndDaysViewModel>(
                     builder: (ctx, service, neverBuildChild) {
                       return Container(
@@ -269,23 +275,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  Center(
-                    child: ElevatedButton(
-                      child: Text('Rating Dialog Box'),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) {
-                            return UserRatingDialog();
-                          },
-                        );
-                      },
-                    ),
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  UserAcceptBottomSheet(),
                 ],
               ),
             ),
@@ -320,27 +312,28 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     Navigator.of(context).pushNamed(ListingOfCompaniesScreen.routeName);
   }
 
-  bool _init =true;
+  bool _init = true;
   @override
-  void didChangeDependencies() async{
-    if(_init){
+  void didChangeDependencies() async {
+    if (_init) {
       await setupInteracted();
-       final serviceProvider =
-        Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-    serviceProvider.getServices();
-      final locationProvider = Provider.of<GetLocationViewModel>(context,listen: false);
-        locationProvider.address='';
-        //services e.g car, bike
+      final serviceProvider =
+          Provider.of<ServicesAndDaysViewModel>(context, listen: false);
+      serviceProvider.getServices();
+      final locationProvider =
+          Provider.of<GetLocationViewModel>(context, listen: false);
+      locationProvider.address = '';
+      //services e.g car, bike
       // get current location
-        await locationProvider.getCurrentLocation(context);
-
-
+      await locationProvider.getCurrentLocation(context);
     }
-    _init=false;
+    _init = false;
     super.didChangeDependencies();
   }
 
-    Future<void> setupInteracted() async {
+  Future<void> setupInteracted() async {
+    final provider =
+        Provider.of<UserHomeScreenViewModel>(context, listen: false);
     // Get any messages which caused the application to open from
     // a terminated state.
     RemoteMessage? initialMessage =
@@ -351,34 +344,62 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     // navigate to a chat screen
     if (initialMessage != null) {
       // Navigator.pushNamed(context, RequestScreen.routeName,);
-  
+
     }
 
     // Also handle any interaction when the app is in the background via a
     // Stream listener
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print(message);
-      print(message.data['screen']);
-      if (message.data['screen'] == 'decline_from_user') {
-      Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+    FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) {
+        print(message);
+        print(message.data['screen']);
+        if (message.data['screen'] == 'decline_from_user') {
+          Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+        }
+        if (message.data['screen'] == 'accept') {
+          print(message.data['name']);
+          Fluttertoast.showToast(
+              msg: 'Accepted From Company ${message.data['id'].toString()}');
 
-      }
-    if (message.data['screen'] == 'accept') {
-      Fluttertoast.showToast(msg: 'Accepted From Company');
-      Navigator.of(context).pushNamedAndRemoveUntil(UsersHomeScreen.routeName, (route) => false);
-    }
-    if (message.data['screen'] == 'decline_from_company') {
-      Fluttertoast.showToast(msg: 'Decline From Company');
-      Navigator.of(context).pop();
-    }
-    if (message.data['screen'] == 'request') {
-      Fluttertoast.showToast(msg: 'User Send Request');
-        
-      // Navigator.pushNamed(context, RequestScreen.routeName,);
-    }
-    },
-  );
+          provider.bottomSheetData = {
+            'requestedId': message.data['id'],
+            'requested': true,
+          };
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            UsersHomeScreen.routeName,
+            (route) => false,
+          );
+        }
+        if (message.data['screen'] == 'decline_from_company') {
+          Fluttertoast.showToast(msg: 'Decline From Company');
+          Navigator.of(context).pop();
+        }
+        if (message.data['screen'] == 'request') {
+          Fluttertoast.showToast(msg: 'User Send Request');
+
+          // Navigator.pushNamed(context, RequestScreen.routeName,);
+        }
+        if (message.data['screen'] == 'complete') {
+          Fluttertoast.showToast(
+              msg: 'Job Complete  ${message.data['id'].toString()}');
+
+          provider.ratingData = {
+            'requestedId': message.data['id'],
+            'requested': true,
+          };
+          provider.bottomSheetData = {
+            'requestedId': '',
+            'requested': false,
+          };
+
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            UsersHomeScreen.routeName,
+            (route) => false,
+          );
+        }
+      },
+    );
   }
 
   void _handleMessage(RemoteMessage message) {
@@ -386,20 +407,19 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     print(message.data);
     if (message.data['screen'] == 'decline_from_user') {
       Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
-     
     }
     if (message.data['screen'] == 'decline_from_company') {
       Fluttertoast.showToast(msg: 'Decline From Company');
-     
     }
     if (message.data['screen'] == 'request') {
       Fluttertoast.showToast(msg: 'User Send Request');
-     
+
       // Navigator.pushNamed(context, RequestScreen.routeName,);
     }
-     if (message.data['screen'] == 'accept') {
+    if (message.data['screen'] == 'accept') {
       Fluttertoast.showToast(msg: 'Accepted From Company');
-     Navigator.of(context).pushNamedAndRemoveUntil(UsersHomeScreen.routeName, (route) => false);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(UsersHomeScreen.routeName, (route) => false);
     }
   }
 }

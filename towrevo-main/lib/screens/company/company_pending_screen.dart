@@ -137,9 +137,11 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                               double.parse(provider
                                                   .requestServiceList[index]
                                                   .latitude),
-                                              double.parse(provider
-                                                  .requestServiceList[index]
-                                                  .longitude)));
+                                              double.parse(
+                                                provider
+                                                    .requestServiceList[index]
+                                                    .longitude,
+                                              )));
                                     },
                                     child: const Text('Get Directions'),
                                   ),
@@ -154,16 +156,14 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                           onPressed: () async {
                                             await CompanyHomeScreenViewModel()
                                                 .acceptDeclineOrDone(
-                                                    '1',
-                                                    provider
-                                                        .requestServiceList[
-                                                            index]
-                                                        .id,
-                                                    context,
-                                                    notificationId: provider
-                                                        .requestServiceList[
-                                                            index]
-                                                        .notificationId);
+                                              '1',
+                                              provider
+                                                  .requestServiceList[index].id,
+                                              context,
+                                              notificationId: provider
+                                                  .requestServiceList[index]
+                                                  .notificationId,
+                                            );
                                           },
                                           child: const Text(
                                             'Accept',

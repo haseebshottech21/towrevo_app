@@ -46,6 +46,7 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                   shrinkWrap: true,
                   itemCount: provider.onGoingRequestsList.length,
                   itemBuilder: (context, index) {
+                    print(provider.onGoingRequestsList[index].notificationId);
                     return Card(
                       elevation: 5,
                       shadowColor: Colors.black,
@@ -137,14 +138,16 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                                     padding: EdgeInsets.zero,
                                   ),
                                   onPressed: () {
-                                    print(
-                                        provider.onGoingRequestsList[index].id);
+                                    print(provider.onGoingRequestsList[index]
+                                        .notificationId);
                                     showDialog(
                                       context: context,
                                       barrierDismissible: false,
                                       builder: (ctxt) => completeJobDialogbox(
                                         ctxt,
                                         provider.onGoingRequestsList[index].id,
+                                        provider.onGoingRequestsList[index]
+                                            .notificationId,
                                       ),
                                     );
                                   },

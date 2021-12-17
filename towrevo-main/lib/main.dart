@@ -152,11 +152,7 @@ class _MyAppState extends State<MyApp> {
         home: const SplashScreen(),
         // home: const MapDistanceScreen(),
 
-<<<<<<< HEAD
-        // home: const ChangePassword(),
-=======
         // home: OnBoardTowrevo(),
->>>>>>> 2aaa2982bd64f783904cdfc7599d5264cfbdcba8
 
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
@@ -184,6 +180,8 @@ class _MyAppState extends State<MyApp> {
           TermAndCondition.routeName: (ctx) => const TermAndCondition(),
           CompanyHistory.routeName: (ctx) => const CompanyHistory(),
           UserHistory.routeName: (ctx) => const UserHistory(),
+          ForgotPassword.routeName: (ctx) => const ForgotPassword(),
+          ForgotPasswordOTP.routeName: (ctx) => const ForgotPasswordOTP(),
         },
       ),
     );

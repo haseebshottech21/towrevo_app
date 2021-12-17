@@ -1,22 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 
-class UserRatingDialog extends StatefulWidget {
-  const UserRatingDialog({Key? key}) : super(key: key);
+class UserRatingDialog extends StatelessWidget {
+  const UserRatingDialog({Key? key, required this.reqId}) : super(key: key);
 
-  @override
-  _UserRatingDialogState createState() => _UserRatingDialogState();
-}
-
-class _UserRatingDialogState extends State<UserRatingDialog> {
-  int rating = 0;
-
-  void rate(int rate) {
-    setState(() {
-      rating = rate;
-      print(rating);
-    });
-  }
+  final String reqId;
 
   @override
   Widget build(BuildContext context) {
@@ -45,70 +35,83 @@ class _UserRatingDialogState extends State<UserRatingDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Company Name'),
-              Text('Company Service'),
-              SizedBox(
+              const Text('Company Name'),
+              const Text('Company Service'),
+              const SizedBox(
                 height: 10,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      rate(1);
-                    },
-                    child: Icon(
-                      Icons.star,
-                      color: rating >= 1 ? Colors.orange : Colors.grey,
-                      size: 45,
+              Consumer<UserHomeScreenViewModel>(
+                  builder: (ctx, userViewModel, neverBuildChild) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        userViewModel.updateRating(1);
+                      },
+                      child: Icon(
+                        Icons.star,
+                        color: userViewModel.rating >= 1
+                            ? Colors.orange
+                            : Colors.grey,
+                        size: 45,
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      rate(2);
-                    },
-                    child: Icon(
-                      Icons.star,
-                      color: rating >= 2 ? Colors.orange : Colors.grey,
-                      size: 45,
+                    GestureDetector(
+                      onTap: () {
+                        userViewModel.updateRating(2);
+                      },
+                      child: Icon(
+                        Icons.star,
+                        color: userViewModel.rating >= 2
+                            ? Colors.orange
+                            : Colors.grey,
+                        size: 45,
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      rate(3);
-                    },
-                    child: Icon(
-                      Icons.star,
-                      color: rating >= 3 ? Colors.orange : Colors.grey,
-                      size: 45,
+                    GestureDetector(
+                      onTap: () {
+                        userViewModel.updateRating(3);
+                      },
+                      child: Icon(
+                        Icons.star,
+                        color: userViewModel.rating >= 3
+                            ? Colors.orange
+                            : Colors.grey,
+                        size: 45,
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      rate(4);
-                    },
-                    child: Icon(
-                      Icons.star,
-                      color: rating >= 4 ? Colors.orange : Colors.grey,
-                      size: 45,
+                    GestureDetector(
+                      onTap: () {
+                        userViewModel.updateRating(4);
+                      },
+                      child: Icon(
+                        Icons.star,
+                        color: userViewModel.rating >= 4
+                            ? Colors.orange
+                            : Colors.grey,
+                        size: 45,
+                      ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      rate(5);
-                    },
-                    child: Icon(
-                      Icons.star,
-                      color: rating >= 5 ? Colors.orange : Colors.grey,
-                      size: 45,
+                    GestureDetector(
+                      onTap: () {
+                        userViewModel.updateRating(5);
+                      },
+                      child: Icon(
+                        Icons.star,
+                        color: userViewModel.rating >= 5
+                            ? Colors.orange
+                            : Colors.grey,
+                        size: 45,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
+                  ],
+                );
+              }),
+              const SizedBox(
                 height: 10,
               ),
-              Center(
+              const Center(
                 child: Text('Love It'),
               ),
             ],
@@ -116,7 +119,11 @@ class _UserRatingDialogState extends State<UserRatingDialog> {
         ),
         actions: [
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              final provider =
+                  Provider.of<UserHomeScreenViewModel>(context, listen: false);
+              provider.subimtRating(reqId, provider.rating.toString(), context);
+            },
             style: ElevatedButton.styleFrom(
               primary: const Color(0xFF092848),
               shape: const StadiumBorder(),

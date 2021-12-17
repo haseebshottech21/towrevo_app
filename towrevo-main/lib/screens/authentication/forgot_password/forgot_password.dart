@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
+import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/widgets/background_image.dart';
 import 'package:towrevo/widgets/company_form_field.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
+  static const routeName = '/forget-password';
 
   @override
   _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final emailController = TextEditingController();
+  final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+void validateAndSendForgotPassword(BuildContext context) async {
+  if(!_formKey.currentState!.validate()){
+    return;
+  }
+  final loginProvider = Provider.of<LoginViewModel>(context,listen: false);
+  await loginProvider.forgotPassword(_emailController.text.trim(),context);
+  
+}
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +97,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         color: Color(0xFF019aff),
                         size: 20.0,
                       ),
-                      textEditingController: emailController,
+                      textEditingController: _emailController,
                     ),
                     const SizedBox(
                       height: 10,
@@ -104,7 +116,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     ),
                     Center(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          validateAndSendForgotPassword(context);
+                        },
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.060,
                           width: MediaQuery.of(context).size.width * 0.70,

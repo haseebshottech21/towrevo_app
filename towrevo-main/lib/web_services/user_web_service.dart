@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:ffi';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/models/user_history_model.dart';
@@ -63,7 +65,8 @@ class UserWebService {
         });
     print(response.body);
     if (response.statusCode == 200) {
-      await sendNotification('Request', 'Requested For Tow', notificationId,'request');
+      await sendNotification(
+          'Request', 'Requested For Tow', notificationId, 'request');
       return json.decode(response.body);
     } else {
       return null;
@@ -71,7 +74,8 @@ class UserWebService {
   }
 
   Future<void> sendNotification(
-      String title, String body, String fcmToken,String data) async {
+      String title, String body, String fcmToken, String data,
+      {String requestId = ''}) async {
     const String fcmUrl = 'https://fcm.googleapis.com/fcm/send';
     const fcmKey =
         "AAAAaZTXvTc:APA91bHoOPCTghnb4tifuy3ZQBCuEKJvapyQGKk3BFpj_Ec5LNutNv-dH3rYXAHTaTKjuRkxcEIuszj3JonwlYE-LF9aPQK4VOvIwlZHxXiWwvYQxcmIcXjoviJwa9PqqcvkQ9fEMRNs";
@@ -81,7 +85,7 @@ class UserWebService {
     };
     var request = http.Request('POST', Uri.parse(fcmUrl));
     request.body =
-        '''{"to":"$fcmToken","priority":"high","notification":{"title":"$title","body":"$body","sound": "default"},"data":{"screen":"$data"}}''';
+        '''{"to":"$fcmToken","priority":"high","notification":{"title":"$title","body":"$body","sound": "default"},"data":{"screen":"$data","id":"$requestId"}}''';
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
@@ -93,31 +97,31 @@ class UserWebService {
     }
   }
 
-
-Future<void> submitRating(String serviceRequestId,String rate,String review) async{
-   final response = await http.post(
-      Uri.parse(Utilities.baseUrl + 'companies'),
+  Future<dynamic> submitRating(
+      String serviceRequestId, String rate, String review) async {
+    final response = await http.post(
+      Uri.parse(Utilities.baseUrl + 'submit-rating'),
       body: {
-        'services_request_id': serviceRequestId,
+        'service_request_id': serviceRequestId,
         'rate': rate,
-        'review': review,
+        // 'review': review,
       },
       headers: await Utilities().headerWithAuth(),
     );
-      print(response.body);
-
-     if (response.statusCode == 200) {
-       print('yes in 200');
-      print(response.statusCode);
+    print(response.body);
+    final loadedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      print('yes in 200');
+      return loadedData;
     } else {
+      Fluttertoast.showToast(msg: loadedData['message'].toString());
       print(response.statusCode);
+      return null;
     }
-}
+  }
 
-  Future<List<UserHistoryModel>> requestsOfUserHistory(
-   ) async {    final response = await http.post(
-        Uri.parse(
-           Utilities.baseUrl + 'history'),
+  Future<List<UserHistoryModel>> requestsOfUserHistory() async {
+    final response = await http.post(Uri.parse(Utilities.baseUrl + 'history'),
         headers: await Utilities().headerWithAuth());
     print(response.body);
     final loadedData = json.decode(response.body);
@@ -132,4 +136,18 @@ Future<void> submitRating(String serviceRequestId,String rate,String review) asy
     }
   }
 
+  Future<dynamic> getRequestStatusData(String requestId) async {
+    final response = await http.post(
+        Uri.parse(
+          Utilities.baseUrl + 'request-status/$requestId',
+        ),
+        headers: await Utilities().headerWithAuth());
+    print(response.body);
+    final loadedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      return loadedData;
+    } else {
+      return null;
+    }
+  }
 }

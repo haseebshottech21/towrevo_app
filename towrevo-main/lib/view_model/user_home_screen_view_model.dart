@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
@@ -10,6 +11,22 @@ import 'package:towrevo/web_services/user_web_service.dart';
 import '../number_creator.dart';
 
 class UserHomeScreenViewModel with ChangeNotifier {
+  Map<String, dynamic> ratingData = {
+    'requestedId': '',
+    'requested': false,
+  };
+  Map<String, dynamic> bottomSheetData = {
+    'requestedId': '',
+    'requested': false,
+  };
+
+  int rating = 0;
+
+  updateRating(int curretRating) {
+    rating = curretRating;
+    notifyListeners();
+  }
+
   Map<String, String> body = {
     'longitude': '',
     'latitude': '',
@@ -26,10 +43,8 @@ class UserHomeScreenViewModel with ChangeNotifier {
   Future<void> getUserHistory() async {
     isLoading = true;
     notifyListeners();
-    userHistoryList
-     = [];
-    final loadedResponse =
-        await UserWebService().requestsOfUserHistory();
+    userHistoryList = [];
+    final loadedResponse = await UserWebService().requestsOfUserHistory();
     if (loadedResponse.isNotEmpty) {
       userHistoryList = loadedResponse;
     }
@@ -47,12 +62,23 @@ class UserHomeScreenViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-
-  Future<void> subimtRating()async{
-
-    // final response = await UserWebService().submitRating(serviceRequestId, rate, review);
+  Future<void> subimtRating(
+      String reqId, String rate, BuildContext context) async {
+    final loadedData = await UserWebService().submitRating(reqId, rate, '');
+    if (loadedData != null) {
+      Navigator.of(context).pop();
+      Fluttertoast.showToast(msg: 'Success');
+    }
   }
 
+  Future<String> getRequestStatusData(String reqId) async {
+    final loadedData = await UserWebService().getRequestStatusData(reqId);
+    if (loadedData != null) {
+      return loadedData['data']['company']['first_name'];
+    } else {
+      return '';
+    }
+  }
 
   Future<void> requestToCompany(
       BuildContext context,
@@ -107,14 +133,14 @@ class UserHomeScreenViewModel with ChangeNotifier {
             ),
           );
         },
-      ).then((value) async{
+      ).then((value) async {
         print(value);
         if (value == true) {
           print(response['data']['id'].toString());
           await Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
               .acceptDeclineOrDone(
                   '2', response['data']['id'].toString(), context,
-                  getData: false,notificationId: notificationId);
+                  getData: false, notificationId: notificationId);
           Utilities().showToast('Company not responad send request again');
         }
       });

@@ -69,7 +69,10 @@ class _UserHistoryState extends State<UserHistory> {
 
   @override
   void initState() {
-    Provider.of<UserHomeScreenViewModel>(context, listen: false).getUserHistory();
+    Future.delayed(Duration.zero).then((value) async {
+      await Provider.of<UserHomeScreenViewModel>(context, listen: false).getUserHistory();
+    });
+    
     super.initState();
   }
 
