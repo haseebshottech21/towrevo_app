@@ -15,6 +15,7 @@ import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/company/company_history.dart';
 
 import 'package:towrevo/screens/map_distance_screen.dart';
+import 'package:towrevo/screens/onboard/on_board_towrevo.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
@@ -151,7 +152,7 @@ class _MyAppState extends State<MyApp> {
         home: const SplashScreen(),
         // home: const MapDistanceScreen(),
 
-        // home: RegistrationPaymentScreen(),
+        // home: OnBoardTowrevo(),
 
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
