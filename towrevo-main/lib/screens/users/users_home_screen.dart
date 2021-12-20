@@ -29,13 +29,6 @@ class UsersHomeScreen extends StatefulWidget {
 
 class _UsersHomeScreenState extends State<UsersHomeScreen> {
   final getLocation = GetLocationViewModel();
-  int rating = 0;
-  void rate(int rate) {
-    //Other actions based on rating such as api calls.
-    setState(() {
-      rating = rate;
-    });
-  }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -51,17 +44,18 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     // print('Dialog : ${UsersHomeScreen.showDialog}');
     print(provider.bottomSheetData['requestedId']);
     if (provider.bottomSheetData['requested']) {
-      Future.delayed(Duration.zero).then((value) async {
-        String name = await provider.getRequestStatusData(
-            provider.bottomSheetData['requestedId'].toString());
-        if (name.isNotEmpty) {
-          await openBottomSheet(context, name);
-        }
-      });
+      Future.delayed(Duration.zero).then(
+        (value) async {
+          String name = await provider.getRequestStatusData(
+              provider.bottomSheetData['requestedId'].toString());
+          if (name.isNotEmpty) {
+            await openBottomSheet(context, name);
+          }
+        },
+      );
     }
 
     if (provider.ratingData['requested']) {
-      print('yar hojao');
       print(provider.ratingData['requestedId'].toString());
       Future.delayed(Duration.zero).then(
         (value) async {
@@ -152,34 +146,34 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                     height: 20,
                   ),
                   Consumer<GetLocationViewModel>(
-                      builder: (ctx, getLocation, neverBuildChild) {
-                    return InkWell(
-                      onTap: () async {
-                        // await getLocation.getCurrentLocation(context);
-                        Navigator.of(context).pushNamed(
-                          GetLocationScreen.routeName,
-                        );
-                      },
-                      child: Container(
-                        height: getLocation.getAddress.isEmpty ? 50 : null,
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.location_on,
-                                  color: primaryColors,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
+                    builder: (ctx, getLocation, neverBuildChild) {
+                      return InkWell(
+                        onTap: () async {
+                          // await getLocation.getCurrentLocation(context);
+                          Navigator.of(context).pushNamed(
+                            GetLocationScreen.routeName,
+                          );
+                        },
+                        child: Container(
+                          height: getLocation.getAddress.isEmpty ? 50 : null,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: primaryColors,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
                                     padding:
                                         const EdgeInsets.symmetric(vertical: 8),
                                     width: MediaQuery.of(context).size.width *
@@ -193,18 +187,20 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                                       ),
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
-                                    )),
-                              ],
-                            ),
-                            Icon(
-                              Icons.my_location,
-                              color: primaryColors,
-                            ),
-                          ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Icon(
+                                Icons.my_location,
+                                color: primaryColors,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    },
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -249,13 +245,14 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                             borderRadius: BorderRadius.circular(20),
                             dropdownColor:
                                 const Color(0xFF019aff).withOpacity(0.9),
-                            items: service.serviceListViewModel
-                                .map((ServicesModel value) {
-                              return DropdownMenuItem<String>(
-                                value: value.name,
-                                child: Text(value.name),
-                              );
-                            }).toList(),
+                            items: service.serviceListViewModel.map(
+                              (ServicesModel value) {
+                                return DropdownMenuItem<String>(
+                                  value: value.name,
+                                  child: Text(value.name),
+                                );
+                              },
+                            ).toList(),
                             onChanged: (value) =>
                                 service.changeServiceSelectedValue(value!),
                           ),
@@ -296,6 +293,11 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     final serviceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
 
+    if (serviceProvider.serviceSelectedValue == null ||
+        lngLatProvider.latLng == null) {
+      Fluttertoast.showToast(msg: 'Please Fill Required Fields');
+      return;
+    }
     userHomeScreenProvider.body = {
       'longitude': lngLatProvider.latLng!.longitude.toString(),
       'latitude': lngLatProvider.latLng!.latitude.toString(),

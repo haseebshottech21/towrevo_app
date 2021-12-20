@@ -26,7 +26,7 @@ void validateAndSendForgotPassword(BuildContext context) async {
   }
   final loginProvider = Provider.of<LoginViewModel>(context,listen: false);
   await loginProvider.forgotPassword(_emailController.text.trim(),context);
-  
+
 }
 
   @override
@@ -156,4 +156,5 @@ void validateAndSendForgotPassword(BuildContext context) async {
       ),
     );
   }
+
 }

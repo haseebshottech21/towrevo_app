@@ -72,6 +72,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late FirebaseMessaging messaging;
+
   @override
   void initState() {
     messaging = FirebaseMessaging.instance;
@@ -79,7 +80,7 @@ class _MyAppState extends State<MyApp> {
       // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
       MyApp.notifyToken = value.toString();
       print("token : " + value.toString());
-    });
+    },);
 
     //when app open mode
     // FirebaseMessaging.onMessage.listen((event) {
@@ -126,7 +127,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  bool getRequests = false;
 
   // This widget is the root of your application.
   @override
@@ -157,21 +157,15 @@ class _MyAppState extends State<MyApp> {
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
-          RegistrationNameAndDescScreen.routeName: (ctx) =>
-              const RegistrationNameAndDescScreen(),
-          RegistrationCredentialScreen.routeName: (ctx) =>
-              const RegistrationCredentialScreen(),
-          RegistrationCategoryAndTimingScreen.routeName: (ctx) =>
-              const RegistrationCategoryAndTimingScreen(),
-          RegistrationPaymentScreen.routeName: (ctx) =>
-              RegistrationPaymentScreen(),
-          RegistrationOTPScreen.routeName: (ctx) =>
-              const RegistrationOTPScreen(),
+          RegistrationNameAndDescScreen.routeName: (ctx) => const RegistrationNameAndDescScreen(),
+          RegistrationCredentialScreen.routeName: (ctx) => const RegistrationCredentialScreen(),
+          RegistrationCategoryAndTimingScreen.routeName: (ctx) => const RegistrationCategoryAndTimingScreen(),
+          RegistrationPaymentScreen.routeName: (ctx) => RegistrationPaymentScreen(),
+          RegistrationOTPScreen.routeName: (ctx) => const RegistrationOTPScreen(),
           CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
           RegisterUserScreen.routeName: (ctx) => const RegisterUserScreen(),
           UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),
-          ListingOfCompaniesScreen.routeName: (ctx) =>
-              const ListingOfCompaniesScreen(),
+          ListingOfCompaniesScreen.routeName: (ctx) => const ListingOfCompaniesScreen(),
           GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
           MapDistanceScreen.routeName: (ctx) => const MapDistanceScreen(),
           AboutUs.routeName: (ctx) => const AboutUs(),
