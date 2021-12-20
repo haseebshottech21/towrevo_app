@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 25,
                   ),
                   FadeInDown(
-                    from: 40,
+                    from: 30,
                     delay: const Duration(milliseconds: 600),
                     child: TextFieldForAll(
                       errorGetter: ErrorGetter().emailErrorGetter,
@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Consumer<LoginViewModel>(
                     builder: (ctx, loginViewModel, neverBuildChild) {
                       return FadeInDown(
-                        from: 40,
+                        from: 35,
                         delay: const Duration(milliseconds: 650),
                         child: TextFormIconWidget(
                           errorGetter: ErrorGetter().passwordErrorGetter,
@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   // Login Button
                   FadeInDown(
-                    from: 55,
+                    from: 45,
                     delay: const Duration(milliseconds: 750),
                     child: FormButtonWidget('LOGIN', () {
                       validateAndSubmitLoginForm();
@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   // Login Button
                   FadeInDown(
-                    from: 40,
+                    from: 25,
                     delay: const Duration(milliseconds: 800),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -198,7 +198,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                             Navigator.of(context).pushNamed(ForgotPassword.routeName);
+                              Navigator.of(context)
+                                  .pushNamed(ForgotPassword.routeName);
                             },
                             child: RichText(
                               text: TextSpan(
@@ -245,16 +246,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: TextSpan(
                               children: <TextSpan>[
                                 TextSpan(
-                                    text: 'SIGN-UP',
-                                    style: GoogleFonts.montserrat(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16.0),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-                                        Navigator.of(context).pushNamed(
-                                            RegisterMainScreen.routeName);
-                                      }),
+                                  text: 'SIGN-UP',
+                                  style: GoogleFonts.montserrat(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16.0),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.of(context).pushNamed(
+                                          RegisterMainScreen.routeName);
+                                    },
+                                ),
                               ],
                             ),
                           ),
