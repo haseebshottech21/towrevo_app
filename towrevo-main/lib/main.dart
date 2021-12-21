@@ -21,6 +21,7 @@ import 'package:towrevo/screens/users/user_history.dart';
 import 'package:towrevo/screens/users/user_profile_update.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
+import 'package:towrevo/view_model/edit_profile_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/view_model/otp_view_model.dart';
 import 'package:towrevo/screens/get_location_screen.dart';
@@ -152,6 +153,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (ctx) => OTPViewModel()),
         ChangeNotifierProvider(create: (ctx) => UserHomeScreenViewModel()),
         ChangeNotifierProvider(create: (ctx) => CompanyHomeScreenViewModel()),
+        ChangeNotifierProvider(create: (ctx) => EditProfileViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -159,10 +161,10 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: const SplashScreen(),
+        home: const SplashScreen(),
         // home: const MapDistanceScreen(),
 
-        home: UserProfileUpdate(),
+        // home: UserProfileUpdate(),
 
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
@@ -192,6 +194,7 @@ class _MyAppState extends State<MyApp> {
           UserHistory.routeName: (ctx) => const UserHistory(),
           ForgotPassword.routeName: (ctx) => const ForgotPassword(),
           ForgotPasswordOTP.routeName: (ctx) => const ForgotPasswordOTP(),
+          UserProfileUpdate.routeName: (ctx) => const UserProfileUpdate(),
         },
       ),
     );

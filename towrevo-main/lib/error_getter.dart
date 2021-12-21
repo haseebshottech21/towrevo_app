@@ -72,7 +72,7 @@ class ErrorGetter {
   dynamic confirmPasswordErrorGetter(String confirmPassword, String password) {
     if (confirmPassword.isEmpty) {
       return 'PLease Enter Confirm Password';
-    } else if (confirmPassword != password) {
+    } else if (confirmPassword.trim() != password.trim()) {
       return 'Confirm Password Should be Same as Password';
     }
     return null;

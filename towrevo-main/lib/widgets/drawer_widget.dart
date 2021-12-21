@@ -8,6 +8,7 @@ import 'package:towrevo/screens/company/company_home_screen.dart';
 import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history.dart';
+import 'package:towrevo/screens/users/user_profile_update.dart';
 import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
@@ -36,7 +37,10 @@ class DrawerWidget extends StatelessWidget {
                       'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
                   profileName: 'Profile Name',
                   profileEmail: 'example@gmail.com',
-                  editOnPressed: () {},
+                  editOnPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(UserProfileUpdate.routeName);
+                  },
                 ),
                 const Divider(
                   color: Colors.white,
@@ -118,8 +122,8 @@ class DrawerWidget extends StatelessWidget {
                         title: 'Change Password',
                         iconsData: Icons.play_arrow,
                         onPressed: () {
-                          // Navigator.of(context)
-                          //     .pushReplacementNamed(ChangePassword.routeName);
+                          Navigator.of(context)
+                              .pushNamed(ChangePassword.routeName);
                         },
                       ),
                       DrawerListItem(

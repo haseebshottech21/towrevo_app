@@ -2,15 +2,20 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
+import 'package:towrevo/utilities.dart';
+import 'package:towrevo/view_model/edit_profile_view_model.dart';
 import 'package:towrevo/widgets/company_form_field.dart';
 import 'package:towrevo/widgets/form_button_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
+import 'package:towrevo/widgets/profile_widget.dart';
 
 import '../../error_getter.dart';
 
 class UserProfileUpdate extends StatefulWidget {
   const UserProfileUpdate({Key? key}) : super(key: key);
+  static const routeName = '/edit-profile';
 
   @override
   _UserProfileUpdateState createState() => _UserProfileUpdateState();
@@ -23,13 +28,46 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    final provider = Provider.of<EditProfileViewModel>(context, listen: false);
+    provider.body = {};
+    provider.getEditData();
+    super.initState();
+  }
+
+  setFields(EditProfileViewModel provider) {
+    print('in');
+    firstNameController.text = (provider.body['first_name'] ?? '').toString();
+    lastNameController.text = (provider.body['last_name'] ?? '').toString();
+    emailController.text = (provider.body['email'] ?? '').toString();
+    phoneNumberController.text = (provider.body['phone'] ?? '').toString();
+  }
+
+  validateAndUpdateForm() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    } else {
+      final provider =
+          Provider.of<EditProfileViewModel>(context, listen: false);
+      provider.editProfileFields({
+        'first_name': firstNameController.text.trim(),
+        'last_name': lastNameController.text.trim(),
+        'type': await Utilities().getSharedPreferenceValue('type')
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final editProvider =
+        Provider.of<EditProfileViewModel>(context, listen: true);
+
+    setFields(editProvider);
 
     return Scaffold(
       body: Stack(
@@ -84,122 +122,95 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
                     horizontal: 15,
                     vertical: 10,
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Stack(
-                        children: [
-                          Container(
-                            height: size.height * 0.15,
-                            width: size.width * 0.30,
-                            decoration: BoxDecoration(
-                              color: AppColors.primaryColor,
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Icon(
-                              FontAwesomeIcons.user,
-                              color: Colors.white.withOpacity(0.5),
-                              size: 70.0,
-                            ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 5,
+                        ),
+
+                        const ProfileTowrevo(),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFieldForAll(
+                          errorGetter: ErrorGetter().firstNameErrorGetter,
+                          hintText: 'First Name',
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.userAlt,
+                            color: Color(0xFF019aff),
+                            size: 20.0,
                           ),
-                          Positioned(
-                            right: 0,
-                            bottom: 0,
-                            child: Container(
-                              width: size.width * 0.09,
-                              height: size.height * 0.045,
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryColor2.withOpacity(0.7),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: const Icon(
-                                FontAwesomeIcons.camera,
-                                color: Colors.white,
-                                size: 15.0,
-                              ),
-                            ),
+                          textEditingController: firstNameController,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldForAll(
+                          errorGetter: ErrorGetter().lastNameErrorGetter,
+                          hintText: 'Last Name',
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.userAlt,
+                            color: Color(0xFF019aff),
+                            size: 20.0,
                           ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFieldForAll(
-                        errorGetter: ErrorGetter().firstNameErrorGetter,
-                        hintText: 'First Name',
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.userAlt,
-                          color: Color(0xFF019aff),
-                          size: 20.0,
+                          textEditingController: lastNameController,
                         ),
-                        textEditingController: firstNameController,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      // TextFieldForAll(
-                      //   errorGetter: ErrorGetter().firstNameErrorGetter,
-                      //   hintText: 'Last Name',
-                      //   prefixIcon: const Icon(
-                      //     FontAwesomeIcons.userAlt,
-                      //     color: Color(0xFF019aff),
-                      //     size: 20.0,
-                      //   ),
-                      //   textEditingController: firstNameController,
-                      // ),
-                      CompanyTextAreaField(
-                        errorGetter:
-                            ErrorGetter().companyDescriptionErrorGetter,
-                        hintText: 'Company Description',
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.solidBuilding,
-                          color: Color(0xFF019aff),
-                          size: 20.0,
+                        // CompanyTextAreaField(
+                        //   errorGetter:
+                        //       ErrorGetter().companyDescriptionErrorGetter,
+                        //   hintText: 'Company Description',
+                        //   prefixIcon: const Icon(
+                        //     FontAwesomeIcons.solidBuilding,
+                        //     color: Color(0xFF019aff),
+                        //     size: 20.0,
+                        //   ),
+                        //   textEditingController: controller1,
+                        // ),
+                        const SizedBox(
+                          height: 10,
                         ),
-                        textEditingController: controller1,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFieldForAll(
-                        errorGetter: ErrorGetter().firstNameErrorGetter,
-                        hintText: 'Email Address',
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.solidEnvelopeOpen,
-                          color: Color(0xFF019aff),
-                          size: 20.0,
+                        TextFieldForAll(
+                          errorGetter: ErrorGetter().emailErrorGetter,
+                          hintText: 'Email Address',
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.solidEnvelopeOpen,
+                            color: Color(0xFF019aff),
+                            size: 20.0,
+                          ),
+                          textEditingController: emailController,
+                          fieldDisable: true,
                         ),
-                        textEditingController: firstNameController,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFieldForAll(
-                        errorGetter: ErrorGetter().firstNameErrorGetter,
-                        hintText: 'Phone',
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.phoneAlt,
-                          color: Color(0xFF019aff),
-                          size: 20.0,
+                        const SizedBox(
+                          height: 10,
                         ),
-                        textEditingController: firstNameController,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      FormButtonWidget(
-                        'UPDATE',
-                        () {
-                          // validateForm();
-                          // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: false);
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ],
+                        TextFieldForAll(
+                          errorGetter: ErrorGetter().phoneNumberErrorGetter,
+                          fieldDisable: true,
+                          hintText: 'Phone',
+                          prefixIcon: const Icon(
+                            FontAwesomeIcons.phoneAlt,
+                            color: Color(0xFF019aff),
+                            size: 20.0,
+                          ),
+                          textEditingController: phoneNumberController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        FormButtonWidget(
+                          'UPDATE',
+                          () {
+                            validateAndUpdateForm();
+                            // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: false);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
