@@ -97,7 +97,8 @@ class RegistrationPaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<RegisterCompanyViewModel>(context, listen: false).body);
+    final provider =
+        Provider.of<RegisterCompanyViewModel>(context, listen: false);
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(children: [
@@ -168,7 +169,7 @@ class RegistrationPaymentScreen extends StatelessWidget {
                             children: [
                               paymentDetail(
                                 'Comapny Name :',
-                                'ABC Company',
+                                provider.body['first_name'],
                               ),
                               const SizedBox(height: 3),
                               const Divider(
@@ -177,7 +178,7 @@ class RegistrationPaymentScreen extends StatelessWidget {
                               const SizedBox(height: 3),
                               paymentDetail(
                                 'Email :',
-                                'abcd123@gmail.com',
+                                provider.body['email'],
                               ),
                               const SizedBox(height: 3),
                               const Divider(
@@ -186,7 +187,7 @@ class RegistrationPaymentScreen extends StatelessWidget {
                               const SizedBox(height: 3),
                               paymentDetail(
                                 'Phone :',
-                                '+1 (429) 708-1634',
+                                provider.body['phone'],
                               ),
                               // const SizedBox(height: 3),
                               // const Divider(

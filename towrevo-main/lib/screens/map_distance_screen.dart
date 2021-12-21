@@ -53,8 +53,10 @@ class _MapDistanceScreenState extends State<MapDistanceScreen> {
         ],
       ),
       body: GoogleMap(
-        initialCameraPosition:
-            CameraPosition(target: locationViewModelProvider.latLng!, zoom: 9),
+        initialCameraPosition: CameraPosition(
+          target: locationViewModelProvider.latLng!,
+          zoom: 17,
+        ),
         zoomControlsEnabled: false,
         myLocationButtonEnabled: false,
         onMapCreated: (controller) {

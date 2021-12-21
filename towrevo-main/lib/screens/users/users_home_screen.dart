@@ -11,7 +11,6 @@ import 'package:towrevo/screens/users/listing_of_companies_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
 import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
@@ -47,27 +46,39 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     if (provider.bottomSheetData['requested']) {
       Future.delayed(Duration.zero).then(
         (value) async {
-          String name = await provider.getRequestStatusData(
+          Map<String, String> map = await provider.getRequestStatusData(
               provider.bottomSheetData['requestedId'].toString());
-          if (name.isNotEmpty) {
-            await openBottomSheet(context, name);
+          if (map.isNotEmpty) {
+            await openBottomSheet(
+              context,
+              map['companyName'].toString(),
+            );
           }
         },
       );
     }
 
     if (provider.ratingData['requested']) {
-      print(provider.ratingData['requestedId'].toString());
       Future.delayed(Duration.zero).then(
         (value) async {
+          Map<String, String> map = await provider.getRequestStatusData(
+            provider.ratingData['requestedId'].toString(),
+          );
           await showDialog(
             context: context,
             builder: (_) {
               return UserRatingDialog(
                 reqId: provider.ratingData['requestedId'].toString(),
+                companyName: map['companyName'].toString(),
+                serviceName: map['serviceName'].toString(),
               );
             },
-          );
+          ).then((value) {
+            provider.ratingData = {
+              'requestedId': '',
+              'requested': false,
+            };
+          });
         },
       );
     }
@@ -82,11 +93,31 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         child: Stack(
           children: [
             const BackgroundImage(),
-            drawerIcon(
-              context,
-              () {
-                scaffoldKey.currentState!.openDrawer();
-              },
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                top: 30.0,
+              ),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.095,
+                padding: const EdgeInsets.all(0.5),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF092848).withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: const FaIcon(
+                    FontAwesomeIcons.bars,
+                    color: Colors.white,
+                    size: 15.0,
+                  ),
+                  onPressed: () {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
+                ),
+              ),
             ),
             Container(
               alignment: Alignment.center,
@@ -342,9 +373,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         }
         if (message.data['screen'] == 'accept') {
           print(message.data['name']);
-          // Fluttertoast.showToast(
-          //   msg: 'Accepted From Company ${message.data['id'].toString()}',
-          // );
+          Fluttertoast.showToast(
+              msg: 'Accepted From Company ${message.data['id'].toString()}');
+
           provider.bottomSheetData = {
             'requestedId': message.data['id'],
             'requested': true,
@@ -386,6 +417,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   }
 
   void _handleMessage(RemoteMessage message) {
+    final provider =
+        Provider.of<UserHomeScreenViewModel>(context, listen: false);
     print(message);
     print(message.data);
     if (message.data['screen'] == 'decline_from_user') {
@@ -393,6 +426,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     }
     if (message.data['screen'] == 'decline_from_company') {
       Fluttertoast.showToast(msg: 'Decline From Company');
+      Navigator.of(context).pop();
     }
     if (message.data['screen'] == 'request') {
       Fluttertoast.showToast(msg: 'User Send Request');
@@ -403,6 +437,24 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       Fluttertoast.showToast(msg: 'Accepted From Company');
       Navigator.of(context)
           .pushNamedAndRemoveUntil(UsersHomeScreen.routeName, (route) => false);
+    }
+    if (message.data['screen'] == 'complete') {
+      Fluttertoast.showToast(
+          msg: 'Job Complete  ${message.data['id'].toString()}');
+
+      provider.ratingData = {
+        'requestedId': message.data['id'],
+        'requested': true,
+      };
+      provider.bottomSheetData = {
+        'requestedId': '',
+        'requested': false,
+      };
+
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        UsersHomeScreen.routeName,
+        (route) => false,
+      );
     }
   }
 }

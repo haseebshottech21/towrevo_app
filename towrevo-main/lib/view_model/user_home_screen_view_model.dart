@@ -77,12 +77,16 @@ class UserHomeScreenViewModel with ChangeNotifier {
     }
   }
 
-  Future<String> getRequestStatusData(String reqId) async {
+  Future<Map<String, String>> getRequestStatusData(String reqId) async {
     final loadedData = await UserWebService().getRequestStatusData(reqId);
     if (loadedData != null) {
-      return loadedData['data']['company']['first_name'];
+      print(loadedData['data']);
+      return {
+        'companyName': loadedData['data']['company']['first_name'],
+        'serviceName': loadedData['data']['service']['name'],
+      };
     } else {
-      return '';
+      return {};
     }
   }
 

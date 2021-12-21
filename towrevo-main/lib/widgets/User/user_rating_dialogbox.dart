@@ -4,9 +4,16 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 
 class UserRatingDialog extends StatelessWidget {
-  const UserRatingDialog({Key? key, required this.reqId}) : super(key: key);
+  const UserRatingDialog({
+    Key? key,
+    required this.reqId,
+    required this.companyName,
+    required this.serviceName,
+  }) : super(key: key);
 
   final String reqId;
+  final String companyName;
+  final String serviceName;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +42,8 @@ class UserRatingDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Company Name'),
-              const Text('Company Service'),
+              Text(companyName),
+              Text(serviceName),
               const SizedBox(
                 height: 10,
               ),

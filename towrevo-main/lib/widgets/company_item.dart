@@ -7,6 +7,7 @@ import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/number_creator.dart';
 import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CompanyItem extends StatelessWidget {
   final CompanyModel companyModel;
@@ -31,6 +32,14 @@ class CompanyItem extends StatelessWidget {
         provider.body['service']!,
         companyId,
         notificationId);
+  }
+
+  openDialPad(String phoneNumber) {
+    if (phoneNumber.isNotEmpty) {
+      launch("tel://$phoneNumber");
+    } else {
+      print('phone Number is empty : ' + phoneNumber);
+    }
   }
 
   @override
@@ -165,7 +174,9 @@ class CompanyItem extends StatelessWidget {
                         IconButton(
                           padding: EdgeInsets.zero,
                           constraints: const BoxConstraints(),
-                          onPressed: () {},
+                          onPressed: () {
+                            openDialPad(companyModel.phoneNumber);
+                          },
                           icon: Icon(
                             Icons.phone_in_talk,
                             color: primaryColor,
