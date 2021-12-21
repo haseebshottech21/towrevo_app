@@ -6,13 +6,15 @@ class TextFieldForAll extends StatelessWidget {
   final Icon? prefixIcon;
   final TextEditingController textEditingController;
   final Function errorGetter;
+  final bool fieldDisable;
 
   const TextFieldForAll(
       {required this.hintText,
       required this.errorGetter,
       required this.prefixIcon,
       required this.textEditingController,
-      Key? key})
+      Key? key,
+      this.fieldDisable = false})
       : super(key: key);
 
   @override
@@ -20,6 +22,7 @@ class TextFieldForAll extends StatelessWidget {
     return TextFormField(
       controller: textEditingController,
       textAlignVertical: TextAlignVertical.center,
+      enabled: fieldDisable ? false : true,
       // textAlign: TextAlign.left,
       // validator: widget.validator,
       decoration: InputDecoration(

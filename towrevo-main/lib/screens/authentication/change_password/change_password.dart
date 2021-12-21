@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
+import 'package:towrevo/view_model/edit_profile_view_model.dart';
 import 'package:towrevo/widgets/background_image.dart';
 import 'package:towrevo/widgets/text_form_field.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
@@ -16,7 +18,20 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   final passwordController = TextEditingController();
+  final confirmPassword = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  validateAndChangePassword(BuildContext context) {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    } else {
+      final provider =
+          Provider.of<EditProfileViewModel>(context, listen: false);
+
+      provider.changePassword(
+          passwordController.text.trim(), confirmPassword.text.trim(), context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +109,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                       height: 10,
                     ),
                     TextFormIconWidget(
-                      errorGetter: ErrorGetter().passwordErrorGetter,
-                      textEditingController: passwordController,
+                      errorGetter: ErrorGetter().confirmPasswordErrorGetter,
+                      confirmPassword: passwordController,
+                      textEditingController: confirmPassword,
                       obscureText: true,
                       hint: 'Confirm Password',
                       prefixIcon: const Icon(
@@ -110,7 +126,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                     ),
                     Center(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          validateAndChangePassword(context);
+                        },
                         child: Container(
                           height: MediaQuery.of(context).size.height * 0.060,
                           width: MediaQuery.of(context).size.width * 0.80,
