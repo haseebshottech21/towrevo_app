@@ -18,7 +18,7 @@ Padding backIcon(
       child: IconButton(
         padding: EdgeInsets.zero,
         icon: const FaIcon(
-          FontAwesomeIcons.backward,
+          FontAwesomeIcons.arrowLeft,
           color: Colors.white,
           size: 15.0,
         ),

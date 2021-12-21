@@ -435,12 +435,18 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     }
     if (message.data['screen'] == 'accept') {
       Fluttertoast.showToast(msg: 'Accepted From Company');
+      provider.bottomSheetData = {
+        'requestedId': message.data['id'],
+        'requested': true,
+      };
       Navigator.of(context)
           .pushNamedAndRemoveUntil(UsersHomeScreen.routeName, (route) => false);
     }
     if (message.data['screen'] == 'complete') {
       Fluttertoast.showToast(
           msg: 'Job Complete  ${message.data['id'].toString()}');
+
+      provider.rating = 0;
 
       provider.ratingData = {
         'requestedId': message.data['id'],

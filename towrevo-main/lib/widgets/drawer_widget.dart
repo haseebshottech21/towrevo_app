@@ -126,8 +126,10 @@ class DrawerWidget extends StatelessWidget {
                         title: 'Term & Condition',
                         iconsData: Icons.play_arrow,
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(TermAndCondition.routeName);
+                          Navigator.of(context).pushReplacementNamed(
+                            TermAndCondition.routeName,
+                            arguments: false,
+                          );
                         },
                       ),
                       // DrawerListItem(

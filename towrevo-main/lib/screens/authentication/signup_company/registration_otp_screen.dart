@@ -264,8 +264,8 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
 }
 
 class Countdown extends AnimatedWidget {
-  Animation<int> animation;
-  Countdown({Key? key, required this.animation})
+  final Animation<int> animation;
+  const Countdown({Key? key, required this.animation})
       : super(key: key, listenable: animation);
 
   @override

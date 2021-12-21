@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/main.dart';
+import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
 import '/view_model/register_user_view_model.dart';
@@ -322,9 +323,15 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                                     fontSize: 13.0,
                                                     decoration: TextDecoration
                                                         .underline),
-                                                recognizer: TapGestureRecognizer()
-                                                  ..onTap = () => print(
-                                                      'click Term & Condition')
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () =>
+                                                          Navigator.of(context)
+                                                              .pushNamed(
+                                                            TermAndCondition
+                                                                .routeName,
+                                                            arguments: true,
+                                                          )
                                                 // Navigator.of(context).pushReplacement(MaterialPageRoute(
                                                 // builder: (BuildContext context) => const RegisterAsScreen())),
                                                 ),

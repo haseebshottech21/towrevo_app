@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
@@ -47,6 +48,7 @@ class _TermAndConditionState extends State<TermAndCondition> {
 
   @override
   Widget build(BuildContext context) {
+    bool reqFromSignUp = ModalRoute.of(context)!.settings.arguments as bool;
     return Scaffold(
       key: scaffoldKey,
       drawerEnableOpenDragGesture: false,
@@ -55,12 +57,17 @@ class _TermAndConditionState extends State<TermAndCondition> {
         child: Stack(
           children: [
             const FullBackgroundImage(),
-            drawerIcon(
-              context,
-              () {
-                scaffoldKey.currentState!.openDrawer();
-              },
-            ),
+            if (!reqFromSignUp)
+              drawerIcon(
+                context,
+                () {
+                  scaffoldKey.currentState!.openDrawer();
+                },
+              ),
+            if (reqFromSignUp)
+              backIcon(context, () {
+                Navigator.of(context).pop();
+              }),
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(

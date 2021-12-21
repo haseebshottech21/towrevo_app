@@ -53,7 +53,7 @@ void main() async {
   if (onBoarding == '0') {
     MyApp.onBoard = '0';
     await Utilities().setSharedPrefValue('onboarding', '1');
-  } else {}
+  }
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   Stripe.publishableKey =
       'pk_test_51IdtHCGmNbFgnn00GS9N3SgfZldmDiOvK5WbKahPhImD2ThfzRqUKTMYG3i4xwTcphNBUb9FfeQFmBK37t3h4Ewh00JnMUB9Ul';
