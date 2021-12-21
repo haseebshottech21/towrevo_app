@@ -4,9 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/screens/aboutus/about_us_screen.dart';
 import 'package:towrevo/screens/authentication/change_password/change_password.dart';
 import 'package:towrevo/screens/company/company_history.dart';
+import 'package:towrevo/screens/company/company_home_screen.dart';
 import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history.dart';
+import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
 import 'drawer_list_item_widget.dart';
@@ -64,7 +66,17 @@ class DrawerWidget extends StatelessWidget {
                       DrawerListItem(
                         title: 'Home',
                         iconsData: Icons.play_arrow,
-                        onPressed: () {},
+                        onPressed: () async {
+                          String type = await Utilities()
+                              .getSharedPreferenceValue('type');
+                          // print(type);
+                          // Navigator.of(context).pushNamed(CompanyHistory.routeName);
+                          Navigator.of(context).pushNamed(
+                            type == '1'
+                                ? UsersHomeScreen.routeName
+                                : CompanyHomeScreen.routeName,
+                          );
+                        },
                       ),
                       DrawerListItem(
                         title: 'About Us',
@@ -80,11 +92,13 @@ class DrawerWidget extends StatelessWidget {
                         onPressed: () async {
                           String type = await Utilities()
                               .getSharedPreferenceValue('type');
-                          print(type);
+                          // print(type);
                           // Navigator.of(context).pushNamed(CompanyHistory.routeName);
-                          Navigator.of(context).pushNamed(type == '1'
-                              ? UserHistory.routeName
-                              : CompanyHistory.routeName);
+                          Navigator.of(context).pushNamed(
+                            type == '1'
+                                ? UserHistory.routeName
+                                : CompanyHistory.routeName,
+                          );
                         },
                       ),
                       DrawerListItem(
@@ -104,8 +118,8 @@ class DrawerWidget extends StatelessWidget {
                         title: 'Change Password',
                         iconsData: Icons.play_arrow,
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(ChangePassword.routeName);
+                          // Navigator.of(context)
+                          //     .pushReplacementNamed(ChangePassword.routeName);
                         },
                       ),
                       DrawerListItem(

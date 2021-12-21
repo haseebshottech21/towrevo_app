@@ -27,8 +27,8 @@ class TowrevoLogoSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.10,
-        width: MediaQuery.of(context).size.width * 0.28,
+        height: MediaQuery.of(context).size.height * 0.15,
+        width: MediaQuery.of(context).size.width * 0.34,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/logo.png'),

@@ -7,7 +7,6 @@ import 'package:towrevo/models/user_history_model.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
-
 import '../number_creator.dart';
 
 class UserHomeScreenViewModel with ChangeNotifier {
@@ -63,8 +62,15 @@ class UserHomeScreenViewModel with ChangeNotifier {
   }
 
   Future<void> subimtRating(
-      String reqId, String rate, BuildContext context) async {
-    final loadedData = await UserWebService().submitRating(reqId, rate, '');
+    String reqId,
+    String rate,
+    BuildContext context,
+  ) async {
+    final loadedData = await UserWebService().submitRating(
+      reqId,
+      rate,
+      '',
+    );
     if (loadedData != null) {
       Navigator.of(context).pop();
       Fluttertoast.showToast(msg: 'Success');

@@ -23,7 +23,8 @@ class AuthenticationWebService {
     if (response.statusCode == 200) {
       // await setToken(loadedData['data']['token'],loadedData['data']['user']['type'].toString());
       print('200');
-      Utilities().showToast(loadedData.toString());
+      Utilities().showToast('OTP Successfully Sent on Email');
+
       print(loadedData['data']['uniqueId']);
 
       await Utilities()
@@ -35,7 +36,7 @@ class AuthenticationWebService {
     } else {
       print('in error');
       print(loadedData);
-      Utilities().showToast(loadedData.toString());
+      Utilities().showToast(signUpErrorHandle(loadedData));
       return {};
     }
     // } catch (e) {
@@ -79,60 +80,75 @@ class AuthenticationWebService {
       await Utilities().removeSharedPreferenceValue('type');
       return true;
     } else {
-      Utilities().showToast(loadedResponse['message'].toString()); 
+      Utilities().showToast(loadedResponse['message'].toString());
       return false;
     }
   }
 
-  Future<dynamic> validateOTPAndResetPassword(String token, String password,String confirmPassword, String otp,)async{
-  
-    final response = await http.post(Uri.parse(Utilities.baseUrl+'reset-password'),
-      body:{
-        'token':token,
-        'otp' : otp,
-        'password' : password,
-        'password_confirmation' : confirmPassword,
+  Future<dynamic> validateOTPAndResetPassword(
+    String token,
+    String password,
+    String confirmPassword,
+    String otp,
+  ) async {
+    final response = await http.post(
+      Uri.parse(Utilities.baseUrl + 'reset-password'),
+      body: {
+        'token': token,
+        'otp': otp,
+        'password': password,
+        'password_confirmation': confirmPassword,
       },
       headers: Utilities.header,
     );
     print(response.body);
-       final loadedData = json.decode(response.body);
-    if(response.statusCode == 200){
-       Fluttertoast.showToast(msg: loadedData['message'].toString());
+    final loadedData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(msg: loadedData['message'].toString());
       print(response.statusCode);
       return loadedData;
-    }else{
+    } else {
       Fluttertoast.showToast(msg: loadedData['errors'].toString());
       print(response.statusCode);
       return null;
     }
   }
 
-
-   Future<dynamic> forgotPassword(String email)async{
-  
-    final response = await http.post(Uri.parse(Utilities.baseUrl+'forgot-password'),
-      body:{
-        'email':email,
+  Future<dynamic> forgotPassword(String email) async {
+    final response = await http.post(
+      Uri.parse(Utilities.baseUrl + 'forgot-password'),
+      body: {
+        'email': email,
       },
       headers: Utilities.header,
     );
     print(response.body);
     final loadedData = json.decode(response.body);
-    if(response.statusCode == 200){
-       Fluttertoast.showToast(msg: loadedData['message'].toString());
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(msg: loadedData['message'].toString());
       print(response.statusCode);
       return loadedData;
-    }else{
-      if(response.statusCode == 422){
-      Fluttertoast.showToast(msg: loadedData['errors']['email'].toString());
+    } else {
+      if (response.statusCode == 422) {
+        Fluttertoast.showToast(msg: loadedData['errors']['email'].toString());
       }
       print(response.statusCode);
       return null;
     }
   }
 
-  void signUpErrorHandle(Map<String, dynamic> body) {
-    if (body['']) {}
+  String signUpErrorHandle(Map<String, dynamic> body) {
+    var errorMessage = '';
+    if (body['errors']['email'] != null) {
+      for (var error in body['errors']['email']) {
+        errorMessage += error + '\n';
+      }
+    }
+    if (body['errors']['phone'] != null) {
+      for (var error in body['errors']['phone']) {
+        errorMessage += error + '\n';
+      }
+    }
+    return errorMessage.trim();
   }
 }

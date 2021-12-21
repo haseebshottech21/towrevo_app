@@ -11,6 +11,7 @@ import 'package:towrevo/screens/users/listing_of_companies_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
+import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
 import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
@@ -81,31 +82,11 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         child: Stack(
           children: [
             const BackgroundImage(),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 10.0,
-                top: 30.0,
-              ),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.05,
-                width: MediaQuery.of(context).size.width * 0.095,
-                padding: const EdgeInsets.all(0.5),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF092848).withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  icon: const FaIcon(
-                    FontAwesomeIcons.bars,
-                    color: Colors.white,
-                    size: 15.0,
-                  ),
-                  onPressed: () {
-                    scaffoldKey.currentState!.openDrawer();
-                  },
-                ),
-              ),
+            drawerIcon(
+              context,
+              () {
+                scaffoldKey.currentState!.openDrawer();
+              },
             ),
             Container(
               alignment: Alignment.center,
@@ -361,9 +342,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         }
         if (message.data['screen'] == 'accept') {
           print(message.data['name']);
-          Fluttertoast.showToast(
-              msg: 'Accepted From Company ${message.data['id'].toString()}');
-
+          // Fluttertoast.showToast(
+          //   msg: 'Accepted From Company ${message.data['id'].toString()}',
+          // );
           provider.bottomSheetData = {
             'requestedId': message.data['id'],
             'requested': true,

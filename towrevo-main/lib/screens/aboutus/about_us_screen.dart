@@ -1,12 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
 
 class AboutUs extends StatefulWidget {
-  static const routeName ='/about-us';
+  static const routeName = '/about-us';
   const AboutUs({Key? key}) : super(key: key);
 
   @override
@@ -41,34 +42,15 @@ class _AboutUsState extends State<AboutUs> {
       drawerEnableOpenDragGesture: false,
       drawer: const DrawerWidget(),
       body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Stack(
           children: [
             const FullBackgroundImage(),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 10.0,
-                top: 30.0,
-              ),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.05,
-                width: MediaQuery.of(context).size.width * 0.095,
-                padding: const EdgeInsets.all(0.5),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF092848).withOpacity(0.6),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  icon: const FaIcon(
-                    FontAwesomeIcons.bars,
-                    color: Colors.white,
-                    size: 15.0,
-                  ),
-                  onPressed: () {
-                    scaffoldKey.currentState!.openDrawer();
-                  },
-                ),
-              ),
+            drawerIcon(
+              context,
+              () {
+                scaffoldKey.currentState!.openDrawer();
+              },
             ),
             Container(
               alignment: Alignment.center,
@@ -83,7 +65,7 @@ class _AboutUsState extends State<AboutUs> {
                   ),
                   FadeInDown(
                     duration: const Duration(milliseconds: 600),
-                    child: const TowrevoLogo(),
+                    child: const TowrevoLogoSmall(),
                   ),
                   const SizedBox(
                     height: 15,
@@ -96,7 +78,7 @@ class _AboutUsState extends State<AboutUs> {
                         vertical: 10.0,
                       ),
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.73,
+                      height: MediaQuery.of(context).size.height * 0.75,
                       decoration: BoxDecoration(
                         color: const Color(0xFF092848).withOpacity(0.8),
                         borderRadius: BorderRadius.circular(10),
@@ -104,7 +86,7 @@ class _AboutUsState extends State<AboutUs> {
                       child: Column(
                         children: [
                           const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                            padding: EdgeInsets.symmetric(vertical: 5),
                             child: Center(
                               child: Text(
                                 'Why TowRevo?',
@@ -118,10 +100,11 @@ class _AboutUsState extends State<AboutUs> {
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.63,
+                            height: MediaQuery.of(context).size.height * 0.65,
                             child: ListView.builder(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
+                              physics: const ScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: aboutUs.length,
                               itemBuilder: (ctx, index) {

@@ -19,6 +19,7 @@ import 'package:towrevo/screens/onboard/on_board_towrevo.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history.dart';
 import 'package:towrevo/screens/users/user_profile_update.dart';
+import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/view_model/otp_view_model.dart';
@@ -47,6 +48,12 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  var onBoarding =
+      await Utilities().getSharedPreferenceValue('onboarding') ?? '0';
+  if (onBoarding == '0') {
+    MyApp.onBoard = '0';
+    await Utilities().setSharedPrefValue('onboarding', '1');
+  } else {}
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   Stripe.publishableKey =
       'pk_test_51IdtHCGmNbFgnn00GS9N3SgfZldmDiOvK5WbKahPhImD2ThfzRqUKTMYG3i4xwTcphNBUb9FfeQFmBK37t3h4Ewh00JnMUB9Ul';
@@ -66,6 +73,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   static String notifyToken = '';
+  static String onBoard = '';
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -77,11 +85,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     messaging = FirebaseMessaging.instance;
-    messaging.getToken().then((value) {
-      // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-      MyApp.notifyToken = value.toString();
-      print("token : " + value.toString());
-    },);
+    messaging.getToken().then(
+      (value) {
+        // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+        MyApp.notifyToken = value.toString();
+        print("token : " + value.toString());
+      },
+    );
 
     //when app open mode
     // FirebaseMessaging.onMessage.listen((event) {
@@ -128,7 +138,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -153,20 +162,26 @@ class _MyAppState extends State<MyApp> {
         home: const SplashScreen(),
         // home: const MapDistanceScreen(),
 
-        // home: UserProfileUpdate(),
+        // home: OnBoardTowrevo(),
 
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
-          RegistrationNameAndDescScreen.routeName: (ctx) => const RegistrationNameAndDescScreen(),
-          RegistrationCredentialScreen.routeName: (ctx) => const RegistrationCredentialScreen(),
-          RegistrationCategoryAndTimingScreen.routeName: (ctx) => const RegistrationCategoryAndTimingScreen(),
-          RegistrationPaymentScreen.routeName: (ctx) => RegistrationPaymentScreen(),
-          RegistrationOTPScreen.routeName: (ctx) => const RegistrationOTPScreen(),
+          RegistrationNameAndDescScreen.routeName: (ctx) =>
+              const RegistrationNameAndDescScreen(),
+          RegistrationCredentialScreen.routeName: (ctx) =>
+              const RegistrationCredentialScreen(),
+          RegistrationCategoryAndTimingScreen.routeName: (ctx) =>
+              const RegistrationCategoryAndTimingScreen(),
+          RegistrationPaymentScreen.routeName: (ctx) =>
+              RegistrationPaymentScreen(),
+          RegistrationOTPScreen.routeName: (ctx) =>
+              const RegistrationOTPScreen(),
           CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
           RegisterUserScreen.routeName: (ctx) => const RegisterUserScreen(),
           UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),
-          ListingOfCompaniesScreen.routeName: (ctx) => const ListingOfCompaniesScreen(),
+          ListingOfCompaniesScreen.routeName: (ctx) =>
+              const ListingOfCompaniesScreen(),
           GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
           MapDistanceScreen.routeName: (ctx) => const MapDistanceScreen(),
           AboutUs.routeName: (ctx) => const AboutUs(),

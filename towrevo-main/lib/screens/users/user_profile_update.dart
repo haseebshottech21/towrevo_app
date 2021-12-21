@@ -39,7 +39,7 @@ class _UserProfileUpdateState extends State<UserProfileUpdate> {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: const [
                     Text('Cancel'),
                     Text('Edit Profile'),
                     Text('Update'),

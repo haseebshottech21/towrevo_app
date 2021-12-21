@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:towrevo/screens/authentication/welcome_screen.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/widgets/background_image.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
@@ -19,40 +20,40 @@ class OnBoardWidget extends StatelessWidget {
     return Stack(
       children: [
         // const FullBackgroundImage(),
-        Align(
-          alignment: Alignment.topLeft,
-          child: TextButton(
-            onPressed: () {
-              // Navigator.pushReplacement(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const WelcomeBizhubScreen(),
-              //   ),
-              // );
-            },
-            child: const Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 10,
-              ),
-              child: Text(
-                'SKIP',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-        ),
+        // Align(
+        //   alignment: Alignment.topLeft,
+        //   child: TextButton(
+        //     onPressed: () {
+        //       Navigator.pushReplacement(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) => const WelcomeScreen(),
+        //         ),
+        //       );
+        //     },
+        //     child: const Padding(
+        //       padding: EdgeInsets.symmetric(
+        //         horizontal: 20,
+        //         vertical: 10,
+        //       ),
+        //       child: Text(
+        //         'SKIP',
+        //         textAlign: TextAlign.start,
+        //         style: TextStyle(
+        //           color: Colors.white,
+        //           fontSize: 16,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             const Spacer(),
             FadeInDown(
-              from: 30,
-              child: const TowrevoLogo(),
+              from: 25,
+              child: const TowrevoLogoSmall(),
             ),
             const Spacer(),
             FadeInRight(

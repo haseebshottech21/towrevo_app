@@ -1,9 +1,13 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
+import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_history_list.dart';
+import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
+import 'package:towrevo/widgets/towrevo_logo.dart';
 
 class UserHistory extends StatefulWidget {
   const UserHistory({Key? key}) : super(key: key);
@@ -66,112 +70,171 @@ class _UserHistoryState extends State<UserHistory> {
   //   },
   // ];
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) async {
-      await Provider.of<UserHomeScreenViewModel>(context, listen: false).getUserHistory();
+      await Provider.of<UserHomeScreenViewModel>(context, listen: false)
+          .getUserHistory();
     });
-    
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<UserHomeScreenViewModel>(context, listen: true);
+    final provider = Provider.of<UserHomeScreenViewModel>(
+      context,
+      listen: true,
+    );
 
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 2,
-      //   leading: IconButton(
-      //     icon: const Icon(Icons.arrow_back, color: Colors.white),
-      //     onPressed: () =>
-      //         Navigator.of(context).pushNamed(UsersHomeScreen.routeName),
-      //   ),
-      //   backgroundColor: const Color(0xFF092848),
-      //   centerTitle: true,
-      //   title: const Text(
-      //     'History',
-      //     style: TextStyle(
-      //       fontSize: 22.0,
-      //       color: Colors.white,
-      //       fontWeight: FontWeight.w700,
-      //     ),
-      //   ),
-      // ),
-      body: Stack(
-        children: [
-          const FullBackgroundImage(),
-          SingleChildScrollView(
-            physics: const ScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 10.0,
-                    top: 20.0,
+      key: scaffoldKey,
+      drawerEnableOpenDragGesture: false,
+      drawer: const DrawerWidget(),
+      body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: Stack(
+          children: [
+            const FullBackgroundImage(),
+            drawerIcon(
+              context,
+              () {
+                scaffoldKey.currentState!.openDrawer();
+              },
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 20.0,
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 30,
                   ),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    width: MediaQuery.of(context).size.width * 0.095,
-                    padding: const EdgeInsets.all(0.5),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF092848).withOpacity(0.6),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        // Navigator.of(context)
-                        //     .pushNamed(UsersHomeScreen.routeName);
-                      },
-                      icon: const FaIcon(
-                        FontAwesomeIcons.arrowLeft,
+                  const Center(
+                    child: Text(
+                      'My History',
+                      style: TextStyle(
+                        fontSize: 22.0,
                         color: Colors.white,
-                        size: 15,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-                ),
-                const Center(
-                  child: Text(
-                    'History',
-                    style: TextStyle(
-                      fontSize: 22.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
+                  FadeInUp(
+                    from: 10,
+                    duration: const Duration(milliseconds: 500),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5.0,
+                        vertical: 5.0,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.90,
+                      // decoration: BoxDecoration(
+                      //   color: const Color(0xFF092848).withOpacity(0.8),
+                      //   borderRadius: BorderRadius.circular(10),
+                      // ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.85,
+                            child: ListView.builder(
+                              physics: const ScrollPhysics(),
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              shrinkWrap: true,
+                              itemCount: provider.userHistoryList.length,
+                              itemBuilder: (ctx, index) {
+                                print(' length : ' +
+                                    provider.userHistoryList.length.toString());
+                                return UserHistoryList(
+                                  companyImage:
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
+                                  companyName: provider
+                                      .userHistoryList[index].companyName,
+                                  companyService: provider
+                                      .userHistoryList[index].serviceName,
+                                  date: '12-12-2021',
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-                ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  shrinkWrap: true,
-                  itemCount: provider.userHistoryList.length,
-                  itemBuilder: (ctx, index) {
-                    return UserHistoryList(
-                      companyImage:
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-                      companyName:
-                          provider.userHistoryList[index].companyName,
-                      companyService:
-                                                    provider.userHistoryList[index].serviceName,
-
-                      date:                           '12-12-2021',
-
-                    );
-                  },
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+
+    // return Scaffold(
+    //   key: scaffoldKey,
+    //   drawerEnableOpenDragGesture: false,
+    //   drawer: const DrawerWidget(),
+    //   body: SingleChildScrollView(
+    //     physics: const ScrollPhysics(),
+    //     child: Stack(
+    //       children: [
+    //         const FullBackgroundImage(),
+    //         drawerIcon(
+    //           context,
+    //           () {
+    //             scaffoldKey.currentState!.openDrawer();
+    //           },
+    //         ),
+    //         Container(
+    //           alignment: Alignment.center,
+    //           padding: const EdgeInsets.symmetric(
+    //             horizontal: 10.0,
+    //             vertical: 15.0,
+    //           ),
+    //           child: Column(
+    //             children: [
+    //               const SizedBox(
+    //                 height: 30,
+    //               ),
+    //               const Center(
+    //                 child: Text(
+    //                   'History',
+    //                   style: TextStyle(
+    //                     fontSize: 22.0,
+    //                     color: Colors.white,
+    //                     fontWeight: FontWeight.w700,
+    //                   ),
+    //                 ),
+    //               ),
+    //               ListView.builder(
+    //                 physics: const NeverScrollableScrollPhysics(),
+    //                 padding: const EdgeInsets.symmetric(vertical: 15),
+    //                 shrinkWrap: true,
+    //                 itemCount: provider.userHistoryList.length,
+    //                 itemBuilder: (ctx, index) {
+    //                   return UserHistoryList(
+    //                     companyImage:
+    //                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
+    //                     companyName:
+    //                         provider.userHistoryList[index].companyName,
+    //                     companyService:
+    //                         provider.userHistoryList[index].serviceName,
+    //                     date: '12-12-2021',
+    //                   );
+    //                 },
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
-
-
 }

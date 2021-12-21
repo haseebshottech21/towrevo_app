@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +41,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
       return;
     } else if (registerUserViewModel.image.isEmpty ||
         registerUserViewModel.extension.isEmpty) {
+      Fluttertoast.showToast(msg: 'Image must be not Empty');
       print('image is empty');
       return;
     } else {

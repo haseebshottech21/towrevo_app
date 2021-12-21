@@ -23,24 +23,11 @@ class DrawerProfile extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.14,
       child: Row(
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.15,
-            height: MediaQuery.of(context).size.height * 0.08,
-            decoration: BoxDecoration(
-              border:
-                  Border.all(color: Theme.of(context).primaryColor, width: 1.5),
-              borderRadius: BorderRadius.circular(50),
-              image: DecorationImage(
-                image: NetworkImage(
-                  profileImage,
-                ),
-                fit: BoxFit.fill,
-              ),
-            ),
-            // child: Image.network(
-            //   'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-            //   fit: BoxFit.fill,
-            // ),
+          CircleAvatar(
+            radius: 30.0,
+            foregroundColor: Colors.white,
+            backgroundImage: NetworkImage(profileImage),
+            backgroundColor: Colors.transparent,
           ),
           const SizedBox(width: 12),
           Column(
