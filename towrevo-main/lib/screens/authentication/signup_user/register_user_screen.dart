@@ -70,7 +70,10 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          const FullBackgroundImage(),
+          const SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: FullBackgroundImage(),
+          ),
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

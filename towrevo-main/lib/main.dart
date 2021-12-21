@@ -159,10 +159,10 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: const SplashScreen(),
+        home: const SplashScreen(),
         // home: const MapDistanceScreen(),
 
-        home: UserProfileUpdate(),
+        // home: UserProfileUpdate(),
 
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
