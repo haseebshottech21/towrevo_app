@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/authentication/signup_company/signup_company_widegts/title_widget.dart';
+import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
@@ -420,7 +421,10 @@ class _RegistrationCategoryAndTimingScreenState
                                                 TextDecoration.underline),
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () =>
-                                              print('click Term & Condition')
+                                              Navigator.of(context).pushNamed(
+                                                TermAndCondition.routeName,
+                                                arguments: true,
+                                              )
                                         // Navigator.of(context).pushReplacement(MaterialPageRoute(
                                         // builder: (BuildContext context) => const RegisterAsScreen())),
                                         ),

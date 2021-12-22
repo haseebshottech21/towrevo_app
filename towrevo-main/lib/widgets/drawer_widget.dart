@@ -12,12 +12,28 @@ import 'package:towrevo/screens/users/user_history.dart';
 import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
+import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'drawer_list_item_widget.dart';
 import 'drawer_profile.dart';
 import 'form_button_widget.dart';
 
-class DrawerWidget extends StatelessWidget {
+class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
+
+  @override
+  State<DrawerWidget> createState() => _DrawerWidgetState();
+}
+
+class _DrawerWidgetState extends State<DrawerWidget> {
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((value) {
+      Provider.of<UserHomeScreenViewModel>(context, listen: false)
+          .updateDrawerInfo();
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +48,24 @@ class DrawerWidget extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DrawerProfile(
-                  profileImage:
-                      'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                  profileName: 'Profile Name',
-                  profileEmail: 'example@gmail.com',
-                  editOnPressed: () {
-                    Navigator.of(context).pushNamed(UpdateProfile.routeName);
-                  },
-                ),
+                Consumer<UserHomeScreenViewModel>(
+                    builder: (ctx, drawer, neverBuildChild) {
+                  print(drawer.drawerInfo['email']);
+                  return DrawerProfile(
+                    profileImage:
+                        'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+                    profileName: drawer.drawerInfo['name'].toString().isNotEmpty
+                        ? drawer.drawerInfo['name'].toString().trim()
+                        : 'Profile Name',
+                    profileEmail:
+                        drawer.drawerInfo['email'].toString().isNotEmpty
+                            ? drawer.drawerInfo['email'].toString()
+                            : 'example@gmail.com',
+                    editOnPressed: () {
+                      Navigator.of(context).pushNamed(UpdateProfile.routeName);
+                    },
+                  );
+                }),
                 const Divider(
                   color: Colors.white,
                 ),

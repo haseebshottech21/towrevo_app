@@ -16,8 +16,8 @@ class RegisterUserViewModel with ChangeNotifier {
     final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
 
     print(responseBody);
-    if (responseBody.isNotEmpty) {
-      print(responseBody['data']['uniqueId']);
+    if (responseBody != null) {
+      // print(responseBody['data']['uniqueId']);
       otpProvider.resendUniqueId = responseBody['data']['uniqueId'];
       return true;
     } else {

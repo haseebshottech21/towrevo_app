@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:towrevo/utilities.dart';
 
 class OTPWebService {
+  Utilities utilities = Utilities();
   Future<dynamic> sendOTPConfirmationRequest(
       String uniqueId, String otp) async {
     print({'uniqueId': uniqueId, 'otp': otp});
@@ -17,22 +18,37 @@ class OTPWebService {
     print(loadedData);
     if (response.statusCode == 200) {
       print('200');
-      print(loadedData['data']['type']);
-      print(loadedData['data']['user']['token']);
-      await Utilities()
-          .setSharedPrefValue('token', loadedData['data']['token']);
-      await Utilities()
-          .setSharedPrefValue('type', loadedData['data']['user']['type']);
+      print(response.body);
+      // print(loadedData['data']['type']);
+      // print(loadedData['data']['user']['token']);
+      await utilities.setSharedPrefValue('token', loadedData['data']['token']);
+      await utilities.setSharedPrefValue(
+          'type', loadedData['data']['user']['type']);
 
-      Utilities().showToast('success');
+      await utilities.setSharedPrefValue(
+        'email',
+        loadedData['data']['user']['email'],
+      );
+      await utilities.setSharedPrefValue(
+        'image',
+        loadedData['data']['user']['image'] ?? '',
+      );
+      await utilities.setSharedPrefValue(
+        'name',
+        loadedData['data']['user']['first_name'].toString() +
+            ' ' +
+            (loadedData['data']['user']['last_name'] ?? '').toString(),
+      );
+
+      utilities.showToast('success');
       return loadedData;
     } else if (loadedData['success'] == false) {
       print('error vialidate ${loadedData['data']['resendId']}');
-      await Utilities().setSharedPrefValue(
+      await utilities.setSharedPrefValue(
           'validate', await getResendOTPOrOTPValue('validate'));
-      await Utilities()
-          .setSharedPrefValue('uniqueId', loadedData['data']['resendId']);
-      Utilities().showToast(loadedData['message'].toString());
+      await utilities.setSharedPrefValue(
+          'uniqueId', loadedData['data']['resendId']);
+      utilities.showToast(loadedData['message'].toString());
       return loadedData;
     }
   }
@@ -56,10 +72,10 @@ class OTPWebService {
       print(loadedResponse);
       await Utilities().setSharedPrefValue(
           'resendOTP', await getResendOTPOrOTPValue('resendOTP'));
-      await Utilities().setSharedPrefValue('validate', '0');
-      print(await Utilities().getSharedPreferenceValue('validate'));
-      await Utilities()
-          .setSharedPrefValue('uniqueId', loadedResponse['uniqueId']);
+      await utilities.setSharedPrefValue('validate', '0');
+      print(await utilities.getSharedPreferenceValue('validate'));
+      await utilities.setSharedPrefValue(
+          'uniqueId', loadedResponse['uniqueId']);
       return loadedResponse;
       //return loadedResponse['id'].toString();
     } else {
@@ -69,7 +85,7 @@ class OTPWebService {
 
   getResendOTPOrOTPValue(String key) async {
     String value =
-        (int.parse(await Utilities().getSharedPreferenceValue(key)) + 1)
+        (int.parse(await utilities.getSharedPreferenceValue(key)) + 1)
             .toString();
     print('$key : $value');
     return value;

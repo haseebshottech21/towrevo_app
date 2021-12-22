@@ -36,6 +36,9 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
     }
   ];
 
+  PageController controller =
+      PageController(viewportFraction: 1, keepPage: true);
+
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
@@ -56,6 +59,7 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
           children: [
             const FullBackgroundImage(),
             PageView.builder(
+              controller: controller,
               onPageChanged: (value) {
                 setState(() {
                   currentPage = value;
@@ -142,15 +146,11 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
                             )
                           : ElevatedButton(
                               onPressed: () {
-                                // currentPage == 2
-                                //     ? Navigator.pushReplacement(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //           builder: (context) =>
-                                //               const WelcomeScreen(),
-                                //         ),
-                                //       )
-                                //     : print('Next');
+                                if (currentPage == 0) {
+                                  controller.jumpToPage(1);
+                                } else if (currentPage == 1) {
+                                  controller.jumpToPage(2);
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: const Color(0xFF092848),

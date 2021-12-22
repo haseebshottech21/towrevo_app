@@ -7,6 +7,7 @@ import 'package:towrevo/main.dart';
 import 'package:towrevo/utilities.dart';
 
 class AuthenticationWebService {
+  final utilities = Utilities();
   Future<dynamic> signUpCompany(Map<String, dynamic> body) async {
     print(Utilities.baseUrl + 'register');
     print(body);
@@ -21,23 +22,22 @@ class AuthenticationWebService {
     final loadedData = json.decode(response.body);
     print(loadedData);
     if (response.statusCode == 200) {
-      // await setToken(loadedData['data']['token'],loadedData['data']['user']['type'].toString());
-      print('200');
-      Utilities().showToast('OTP Successfully Sent on Email');
-
-      print(loadedData['data']['uniqueId']);
-
-      await Utilities()
-          .setSharedPrefValue('uniqueId', loadedData['data']['uniqueId']);
-      await Utilities().setSharedPrefValue('validate', '0');
-      await Utilities().setSharedPrefValue('resendOTP', '0');
+      // Utilities().showToast('OTP Successfully Sent on Email');
+      // print(loadedData['data']['uniqueId']);
+      Fluttertoast.showToast(
+        msg: loadedData['message'].toString(),
+      );
+      await utilities.setSharedPrefValue(
+          'uniqueId', loadedData['data']['uniqueId']);
+      await utilities.setSharedPrefValue('validate', '0');
+      await utilities.setSharedPrefValue('resendOTP', '0');
 
       return loadedData;
     } else {
       print('in error');
       print(loadedData);
-      Utilities().showToast(signUpErrorHandle(loadedData));
-      return {};
+      utilities.showToast(signUpErrorHandle(loadedData));
+      return null;
     }
     // } catch (e) {
     //   Utilities().showToast('Something Went wrong');
@@ -57,14 +57,32 @@ class AuthenticationWebService {
     final responseLoaded = json.decode(response.body);
     // print(responseLoaded['data']['user']);
     if (response.statusCode == 200) {
-      await Utilities()
-          .setSharedPrefValue('token', responseLoaded['data']['token']);
-      await Utilities()
-          .setSharedPrefValue('type', responseLoaded['data']['user']['type']);
-      Utilities().showToast('Success');
+      await utilities.setSharedPrefValue(
+        'token',
+        responseLoaded['data']['token'],
+      );
+      await utilities.setSharedPrefValue(
+        'type',
+        responseLoaded['data']['user']['type'],
+      );
+      await utilities.setSharedPrefValue(
+        'email',
+        responseLoaded['data']['user']['email'],
+      );
+      await utilities.setSharedPrefValue(
+        'image',
+        responseLoaded['data']['user']['image'] ?? '',
+      );
+      await utilities.setSharedPrefValue(
+        'name',
+        responseLoaded['data']['user']['first_name'].toString() +
+            ' ' +
+            (responseLoaded['data']['user']['last_name'] ?? '').toString(),
+      );
+      utilities.showToast('Success');
       return true;
     } else {
-      Utilities().showToast(responseLoaded['message'].toString());
+      utilities.showToast(responseLoaded['message'].toString());
       return false;
     }
   }
@@ -76,11 +94,14 @@ class AuthenticationWebService {
     final loadedResponse = json.decode(response.body);
     if (response.statusCode == 200) {
       print('success');
-      await Utilities().removeSharedPreferenceValue('token');
-      await Utilities().removeSharedPreferenceValue('type');
+      await utilities.removeSharedPreferenceValue('token');
+      await utilities.removeSharedPreferenceValue('type');
+      await utilities.removeSharedPreferenceValue('email');
+      await utilities.removeSharedPreferenceValue('image');
+      await utilities.removeSharedPreferenceValue('name');
       return true;
     } else {
-      Utilities().showToast(loadedResponse['message'].toString());
+      utilities.showToast(loadedResponse['message'].toString());
       return false;
     }
   }

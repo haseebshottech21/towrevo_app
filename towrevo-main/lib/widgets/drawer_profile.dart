@@ -19,7 +19,7 @@ class DrawerProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      width: MediaQuery.of(context).size.width,
+      // width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.14,
       child: Row(
         children: [
@@ -43,12 +43,17 @@ class DrawerProfile extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 5),
-              Text(
-                profileEmail,
-                style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w400,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: Text(
+                  profileEmail,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.montserrat(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ],

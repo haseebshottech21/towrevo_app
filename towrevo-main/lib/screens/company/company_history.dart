@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
+import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/company_history_list.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
@@ -17,53 +19,14 @@ class CompanyHistory extends StatefulWidget {
 }
 
 class _CompanyHistoryState extends State<CompanyHistory> {
-  List<Map<String, String>> companyHistory = [
-    {
-      'user-name': 'User Name 1',
-      'user-service': 'Tow Car',
-      'user-image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Accept',
-      'date': '15-Dec-2021',
-    },
-    {
-      'user-name': 'User Name 2',
-      'user-service': 'Tow Van',
-      'user-image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Decline',
-      'date': '13-Dec-2021',
-    },
-    {
-      'user-name': 'User Name 3',
-      'user-service': 'Tow Truck',
-      'user-image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Completed',
-      'date': '18-Dec-2021',
-    },
-    {
-      'user-name': 'User Name 3',
-      'user-service': 'Tow Truck',
-      'user-image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Completed',
-      'date': '18-Dec-2021',
-    },
-    {
-      'user-name': 'User Name 3',
-      'user-service': 'Tow Truck',
-      'user-image':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-      'status': 'Completed',
-      'date': '18-Dec-2021',
-    },
-  ];
-
   @override
   void initState() {
-    Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-        .getCompanyHistrory();
+    Future.delayed(Duration.zero).then(
+      (value) {
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+            .getCompanyHistrory();
+      },
+    );
     super.initState();
   }
 
@@ -127,47 +90,78 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                       // ),
                       child: Column(
                         children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.85,
-                            child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: provider.companyHistoryList.length,
-                              itemBuilder: (ctx, index) {
-                                return CompanyHistoryList(
-                                  userImage: companyHistory[index]['user-image']
-                                      .toString(),
-                                  userName: companyHistory[index]['user-name']
-                                      .toString(),
-                                  userService: companyHistory[index]
-                                          ['user-service']
-                                      .toString(),
-                                  date:
-                                      companyHistory[index]['date'].toString(),
-                                  status: provider.companyHistoryList[index]
-                                              .status ==
-                                          1
-                                      ? 'Accept'
-                                      : provider.companyHistoryList[index]
-                                                  .status ==
-                                              2
-                                          ? 'Declie'
-                                          : 'Completed',
-                                  colors: provider.companyHistoryList[index]
-                                              .status ==
-                                          1
-                                      ? Colors.green
-                                      : provider.companyHistoryList[index]
-                                                  .status ==
-                                              2
-                                          ? Colors.red
-                                          : Colors.blueGrey,
-                                );
-                              },
-                            ),
-                          ),
+                          (provider.isLoading ||
+                                  provider.companyHistoryList.isEmpty)
+                              ? Align(
+                                  alignment: Alignment.center,
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.65,
+                                    child: provider.isLoading
+                                        ? const GlowCircle(
+                                            glowHeight: 50,
+                                            glowWidth: 50,
+                                            glowbegin: 0,
+                                            glowend: 50,
+                                            miliseconds: 800,
+                                          )
+                                        : Container(
+                                            alignment: Alignment.center,
+                                            child: const Text('No Data Found'),
+                                          ),
+                                  ),
+                                )
+                              : Expanded(
+                                  // width: MediaQuery.of(context).size.width,
+                                  // height:
+                                  //     MediaQuery.of(context).size.height * 0.85,
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        provider.companyHistoryList.length,
+                                    itemBuilder: (ctx, index) {
+                                      // print(provider
+                                      //     .companyHistoryList[index].image);
+
+                                      print(provider
+                                          .companyHistoryList[index].createdAt
+                                          .split('T')
+                                          .first);
+                                      return CompanyHistoryList(
+                                        userImage:
+                                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
+                                        userName: provider
+                                            .companyHistoryList[index].name,
+                                        userService: provider
+                                            .companyHistoryList[index]
+                                            .serviceName,
+                                        date: provider.companyHistoryList[index]
+                                            .createdAt,
+                                        status: provider
+                                                    .companyHistoryList[index]
+                                                    .status ==
+                                                1
+                                            ? 'Accept'
+                                            : provider.companyHistoryList[index]
+                                                        .status ==
+                                                    2
+                                                ? 'Decline'
+                                                : 'Completed',
+                                        colors: provider
+                                                    .companyHistoryList[index]
+                                                    .status ==
+                                                1
+                                            ? Colors.green
+                                            : provider.companyHistoryList[index]
+                                                        .status ==
+                                                    2
+                                                ? Colors.red
+                                                : Colors.blueGrey,
+                                      );
+                                    },
+                                  ),
+                                ),
                         ],
                       ),
                     ),

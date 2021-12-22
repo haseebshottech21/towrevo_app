@@ -26,19 +26,31 @@ class _GlowCircleState extends State<GlowCircle>
   AnimationController? _animationController;
   Animation? _animation;
 
+  bool init = true;
+
   @override
-  void initState() {
-    _animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: widget.miliseconds));
-    _animationController!.repeat(reverse: true);
-    _animation = Tween(
-      begin: widget.glowbegin,
-      end: widget.glowend,
-    ).animate(_animationController!)
-      ..addListener(() {
-        setState(() {});
-      });
-    super.initState();
+  void didChangeDependencies() {
+    if (init) {
+      _animationController = AnimationController(
+          vsync: this, duration: Duration(milliseconds: widget.miliseconds));
+      _animationController!.repeat(reverse: true);
+      _animation = Tween(
+        begin: widget.glowbegin,
+        end: widget.glowend,
+      ).animate(_animationController!)
+        ..addListener(() {
+          setState(() {});
+        });
+    }
+    init = false;
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _animationController!.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -46,6 +58,7 @@ class _GlowCircleState extends State<GlowCircle>
     return Container(
       width: widget.glowWidth,
       height: widget.glowHeight,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: AppColors.primaryColor,

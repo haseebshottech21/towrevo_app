@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
+import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_history_list.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
@@ -139,33 +140,50 @@ class _UserHistoryState extends State<UserHistory> {
                       //   color: const Color(0xFF092848).withOpacity(0.8),
                       //   borderRadius: BorderRadius.circular(10),
                       // ),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.85,
-                            child: ListView.builder(
-                              physics: const ScrollPhysics(),
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              shrinkWrap: true,
-                              itemCount: provider.userHistoryList.length,
-                              itemBuilder: (ctx, index) {
-                                print(' length : ' +
-                                    provider.userHistoryList.length.toString());
-                                return UserHistoryList(
-                                  companyImage:
-                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-                                  companyName: provider
-                                      .userHistoryList[index].companyName,
-                                  companyService: provider
-                                      .userHistoryList[index].serviceName,
-                                  date: '12-12-2021',
-                                );
-                              },
+                      child: (provider.isLoading ||
+                              provider.userHistoryList.isEmpty)
+                          ? Align(
+                              alignment: Alignment.center,
+                              child: SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.65,
+                                child: provider.isLoading
+                                    ? const GlowCircle(
+                                        glowHeight: 50,
+                                        glowWidth: 50,
+                                        glowbegin: 0,
+                                        glowend: 50,
+                                        miliseconds: 800,
+                                      )
+                                    : Container(
+                                        alignment: Alignment.center,
+                                        child: const Text('No Data Found'),
+                                      ),
+                              ),
+                            )
+                          : Expanded(
+                              child: ListView.builder(
+                                physics: const ScrollPhysics(),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                shrinkWrap: true,
+                                itemCount: provider.userHistoryList.length,
+                                itemBuilder: (ctx, index) {
+                                  print(' length : ' +
+                                      provider.userHistoryList.length
+                                          .toString());
+                                  return UserHistoryList(
+                                    companyImage:
+                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
+                                    companyName: provider
+                                        .userHistoryList[index].companyName,
+                                    companyService: provider
+                                        .userHistoryList[index].serviceName,
+                                    date: '12-12-2021',
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
                     ),
                   )
                 ],

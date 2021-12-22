@@ -68,8 +68,9 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                 ),
               ),
               userHomeProvider.isLoading
-                  ? const Center(
-                      child: GlowCircle(
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: const GlowCircle(
                         glowHeight: 50,
                         glowWidth: 50,
                         glowbegin: 0,

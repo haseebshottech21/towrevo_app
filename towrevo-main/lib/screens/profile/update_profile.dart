@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,18 +27,30 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
 
+  String type = '';
+
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     final provider = Provider.of<EditProfileViewModel>(context, listen: false);
     provider.body = {};
-    provider.getEditData();
+    provider.extension = '';
+    provider.image = '';
+    provider.imagePath = '';
+    provider.getEditData(context);
+    Future.delayed(Duration.zero).then(
+      (value) async {
+        type = await Utilities().getSharedPreferenceValue('type');
+      },
+    );
+
     super.initState();
   }
 
-  setFields(EditProfileViewModel provider) {
+  setFields(EditProfileViewModel provider) async {
     // print('in');
+
     firstNameController.text = (provider.body['first_name'] ?? '').toString();
     lastNameController.text = (provider.body['last_name'] ?? '').toString();
     emailController.text = (provider.body['email'] ?? '').toString();
@@ -49,16 +63,54 @@ class _UpdateProfileState extends State<UpdateProfile> {
     } else {
       final provider =
           Provider.of<EditProfileViewModel>(context, listen: false);
-      provider.editProfileFields({
-        'first_name': firstNameController.text.trim(),
-        'last_name': lastNameController.text.trim(),
-        'type': await Utilities().getSharedPreferenceValue('type')
-      });
+      provider.editProfileFields(
+        {
+          'first_name': firstNameController.text.trim(),
+          'last_name': lastNameController.text.trim(),
+          if (provider.imagePath.isNotEmpty) 'image': provider.image,
+          if (provider.imagePath.isNotEmpty) 'image': provider.extension,
+          'type': await Utilities().getSharedPreferenceValue('type')
+        },
+      );
+    }
+  }
+
+  Widget image(EditProfileViewModel imagePicker) {
+    if (imagePicker.imagePath.isEmpty) {
+      if (imagePicker.body['image'] != null) {
+        return ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(20),
+          ),
+          child: Image.network(
+            'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            fit: BoxFit.fill,
+          ),
+        );
+      } else {
+        return Icon(
+          FontAwesomeIcons.building,
+          color: Colors.white.withOpacity(0.5),
+          size: 75.0,
+        );
+      }
+    } else {
+      return ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        child: Image.file(
+          File(imagePicker.imagePath),
+          fit: BoxFit.fill,
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<EditProfileViewModel>(context, listen: true);
+    final serviceProvider =
+        Provider.of<EditProfileViewModel>(context, listen: false);
+    setFields(provider);
     return Scaffold(
       body: Stack(
         children: [
@@ -122,7 +174,49 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         const SizedBox(
                           height: 5,
                         ),
-                        const ProfileTowrevo(),
+                        Consumer<EditProfileViewModel>(
+                            builder: (ctx, imagePicker, neverBuildChild) {
+                          print(imagePicker.body['image']);
+                          return FadeInDown(
+                            from: 20,
+                            delay: const Duration(milliseconds: 600),
+                            child: GestureDetector(
+                              onTap: () {
+                                imagePicker.pickImage();
+                              },
+                              child: Stack(
+                                children: [
+                                  Container(
+                                      width: 120,
+                                      height: 120,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF09365f),
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      child: image(imagePicker)),
+                                  Positioned(
+                                    left: 85,
+                                    top: 85,
+                                    child: Container(
+                                      width: 35,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF019aff),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: const Icon(FontAwesomeIcons.camera,
+                                          color: Colors.white, size: 18.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+
+                        // const ProfileTowrevo(),
                         const SizedBox(
                           height: 20,
                         ),
@@ -139,27 +233,30 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         const SizedBox(
                           height: 10,
                         ),
-                        // TextFieldForAll(
-                        //   errorGetter: ErrorGetter().lastNameErrorGetter,
-                        //   hintText: 'Last Name',
-                        //   prefixIcon: const Icon(
-                        //     FontAwesomeIcons.userAlt,
-                        //     color: Color(0xFF019aff),
-                        //     size: 20.0,
-                        //   ),
-                        //   textEditingController: lastNameController,
-                        // ),
-                        CompanyTextAreaField(
-                          errorGetter:
-                              ErrorGetter().companyDescriptionErrorGetter,
-                          hintText: 'Company Description',
-                          prefixIcon: const Icon(
-                            FontAwesomeIcons.solidBuilding,
-                            color: Color(0xFF019aff),
-                            size: 20.0,
+                        if (type == '1')
+                          TextFieldForAll(
+                            errorGetter: ErrorGetter().lastNameErrorGetter,
+                            hintText: 'Last Name',
+                            prefixIcon: const Icon(
+                              FontAwesomeIcons.userAlt,
+                              color: Color(0xFF019aff),
+                              size: 20.0,
+                            ),
+                            textEditingController: lastNameController,
                           ),
-                          textEditingController: firstNameController,
-                        ),
+                        if (type == '2')
+                          CompanyTextAreaField(
+                            errorGetter:
+                                ErrorGetter().companyDescriptionErrorGetter,
+                            hintText: 'Company Description',
+                            prefixIcon: const Icon(
+                              FontAwesomeIcons.solidBuilding,
+                              color: Color(0xFF019aff),
+                              size: 20.0,
+                            ),
+                            textEditingController: firstNameController,
+                          ),
+
                         const SizedBox(
                           height: 10,
                         ),
@@ -191,195 +288,207 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Container(
-                          // height: getLocation.getAddress.isEmpty ? 50 : null,
-                          height: 60,
-                          padding: const EdgeInsets.symmetric(horizontal: 18),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(50),
+                        if (type == '2')
+                          Container(
+                            // height: getLocation.getAddress.isEmpty ? 50 : null,
+                            height: 60,
+                            padding: const EdgeInsets.symmetric(horizontal: 18),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(50),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      FontAwesomeIcons.mapMarkerAlt,
+                                      color: Color(0xFF019aff),
+                                      size: 20,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 8,
+                                      ),
+                                      // child: Text(
+                                      //   getLocation.getAddress.isEmpty
+                                      //       ? 'Get Location'
+                                      //       : getLocation.getAddress,
+                                      //   style: GoogleFonts.montserrat(
+                                      //     color: Colors.black,
+                                      //   ),
+                                      //   maxLines: 3,
+                                      //   // textAlign: TextAlign.left,
+                                      //   overflow: TextOverflow.ellipsis,
+                                      // ),
+                                      child: const Text('Get Location'),
+                                    ),
+                                  ],
+                                ),
+                                const Icon(
+                                  Icons.my_location,
+                                  color: Color(0xFF019aff),
+                                ),
+                              ],
                             ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(
-                                    FontAwesomeIcons.mapMarkerAlt,
-                                    color: Color(0xFF019aff),
-                                    size: 20,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 8,
+                        if (type == '2')
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        if (type == '2')
+                          Container(
+                            height: 60,
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      FontAwesomeIcons.solidClock,
+                                      color: Color(0xFF019aff),
+                                      size: 20.0,
                                     ),
-                                    // child: Text(
-                                    //   getLocation.getAddress.isEmpty
-                                    //       ? 'Get Location'
-                                    //       : getLocation.getAddress,
-                                    //   style: GoogleFonts.montserrat(
-                                    //     color: Colors.black,
-                                    //   ),
-                                    //   maxLines: 3,
-                                    //   // textAlign: TextAlign.left,
-                                    //   overflow: TextOverflow.ellipsis,
-                                    // ),
-                                    child: Text('Get Location'),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 8,
+                                        horizontal: 5,
+                                      ),
+                                      // width: MediaQuery.of(context).size.width *
+                                      //     0.65,
+                                      child: Text(
+                                        // (timer.timerValues['from'] != '' ||
+                                        //         timer.timerValues['to'] != '')
+                                        //     ? '${(timer.timerValues['from'])} - ${(timer.timerValues['to'])}'
+                                        //     :
+                                        'Select Time',
+                                        style: GoogleFonts.montserrat(
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (type == '2')
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        if (type == '2')
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              height: 60,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 18),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(50),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        FontAwesomeIcons.calendarDay,
+                                        color: Color(0xFF019aff),
+                                        size: 20.0,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 8,
+                                          horizontal: 5,
+                                        ),
+                                        // width: MediaQuery.of(context).size.width *
+                                        //     0.65,
+                                        child: Text(
+                                          'Select Days',
+                                          // days.getDays(),
+                                          style: GoogleFonts.montserrat(
+                                            color: Colors.black,
+                                          ),
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                              const Icon(
-                                Icons.my_location,
-                                color: Color(0xFF019aff),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 60,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30),
                             ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(
-                                    FontAwesomeIcons.solidClock,
-                                    color: Color(0xFF019aff),
-                                    size: 20.0,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 8,
-                                      horizontal: 5,
+                        if (type == '2')
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        if (type == '2')
+                          Container(
+                            height: 60,
+                            padding: const EdgeInsets.symmetric(horizontal: 18),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(50),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.category_outlined,
+                                      color: Color(0xFF019aff),
                                     ),
-                                    // width: MediaQuery.of(context).size.width *
-                                    //     0.65,
-                                    child: Text(
-                                      // (timer.timerValues['from'] != '' ||
-                                      //         timer.timerValues['to'] != '')
-                                      //     ? '${(timer.timerValues['from'])} - ${(timer.timerValues['to'])}'
-                                      //     :
-                                      'Select Time',
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      'Select Services',
+                                      // categories.getService(),
                                       style: GoogleFonts.montserrat(
                                         color: Colors.black,
                                       ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 60,
-                          padding: const EdgeInsets.symmetric(horizontal: 18),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(50),
+                                    // if(categories.isNotEmpty)
+                                    // Wrap(children: categories.map((e) => Text(e[''])).toList(),)
+                                    // Container(padding: const EdgeInsets.symmetric(vertical: 8),width: MediaQuery.of(context).size.width*0.65,child: categories.isEmpty?'Select Categories':categories,style: GoogleFonts.montserrat(color: Colors.black,),maxLines: 3,overflow: TextOverflow.ellipsis,)),
+                                  ],
+                                ),
+                                const Icon(
+                                  FontAwesomeIcons.caretDown,
+                                  color: Color(0xFF019aff),
+                                ),
+                              ],
                             ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(
-                                    FontAwesomeIcons.calendarDay,
-                                    color: Color(0xFF019aff),
-                                    size: 20.0,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 8,
-                                      horizontal: 5,
-                                    ),
-                                    // width: MediaQuery.of(context).size.width *
-                                    //     0.65,
-                                    child: Text(
-                                      'Select Days',
-                                      // days.getDays(),
-                                      style: GoogleFonts.montserrat(
-                                        color: Colors.black,
-                                      ),
-                                      maxLines: 3,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 60,
-                          padding: const EdgeInsets.symmetric(horizontal: 18),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(50),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.category_outlined,
-                                    color: Color(0xFF019aff),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Select Services',
-                                    // categories.getService(),
-                                    style: GoogleFonts.montserrat(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // if(categories.isNotEmpty)
-                                  // Wrap(children: categories.map((e) => Text(e[''])).toList(),)
-                                  // Container(padding: const EdgeInsets.symmetric(vertical: 8),width: MediaQuery.of(context).size.width*0.65,child: categories.isEmpty?'Select Categories':categories,style: GoogleFonts.montserrat(color: Colors.black,),maxLines: 3,overflow: TextOverflow.ellipsis,)),
-                                ],
-                              ),
-                              const Icon(
-                                FontAwesomeIcons.caretDown,
-                                color: Color(0xFF019aff),
-                              ),
-                            ],
-                          ),
-                        ),
                         const SizedBox(
                           height: 20,
                         ),

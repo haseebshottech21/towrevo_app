@@ -12,80 +12,80 @@ import 'package:towrevo/web_services/authentication.dart';
 import '../models/days_model.dart';
 import '../utilities.dart';
 
-class RegisterCompanyViewModel with ChangeNotifier{
+class RegisterCompanyViewModel with ChangeNotifier {
   bool isCheckedTermsAndCondition = false;
 
-  Map<String,dynamic> body ={
-    'first_name' : '',
-    'description' : '',
-    'type' : '2',
-    'email' : '',
-    'phone' : '',
-    'password' : '',
-    'password_confirmation' : '',
-    'latitude' : '',
-    'longitude' : '',
-    'from' : '',
-    'to' : '',
-    'extension' : '',
-    'transaction_id' : '',
-    'days' : [],
-    'services' : [],
-    'notification_id' : MyApp.notifyToken,
-    'image' : '',
+  Map<String, dynamic> body = {
+    'first_name': '',
+    'description': '',
+    'type': '2',
+    'email': '',
+    'phone': '',
+    'password': '',
+    'password_confirmation': '',
+    'latitude': '',
+    'longitude': '',
+    'from': '',
+    'to': '',
+    'extension': '',
+    'transaction_id': '',
+    'days': [],
+    'services': [],
+    'notification_id': MyApp.notifyToken,
+    'image': '',
     // 'from_day' : '',
     // 'to_day' : '',
   };
 
   // String uniqueId ='';
 
-  Future<bool> registerCompany(BuildContext context) async{
-      // uniqueId = '';
-     final responseBody = await AuthenticationWebService().signUpCompany(body);
-     final otpProvider = Provider.of<OTPViewModel>(context,listen: false);
-     print(responseBody);
-     if(responseBody.isNotEmpty){
+  Future<bool> registerCompany(BuildContext context) async {
+    // uniqueId = '';
+    final responseBody = await AuthenticationWebService().signUpCompany(body);
+    final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
+    print(responseBody);
+    if (responseBody != null) {
       otpProvider.resendUniqueId = responseBody['data']['uniqueId'];
       return true;
-     }else{
-       otpProvider.resendUniqueId = '';
-       return false;
-     }
+    } else {
+      otpProvider.resendUniqueId = '';
+      return false;
+    }
   }
 
-
-  toggleTermsAndCondition(){
+  toggleTermsAndCondition() {
     isCheckedTermsAndCondition = !isCheckedTermsAndCondition;
     notifyListeners();
   }
 
   bool obscurePassword = false;
 
-  toggleObscure(){
+  toggleObscure() {
     obscurePassword = !obscurePassword;
     notifyListeners();
   }
 
-  bool obscureConfirmPassword=false;
+  bool obscureConfirmPassword = false;
 
-  toggleObscureConfirm(){
+  toggleObscureConfirm() {
     obscureConfirmPassword = !obscureConfirmPassword;
     notifyListeners();
   }
 
-  Map<String,String> timerValues ={
-    'from' : '',
-    'to' : '',
+  Map<String, String> timerValues = {
+    'from': '',
+    'to': '',
   };
 
-  Future<void> setTimer(BuildContext context)async{
-    final provider = Provider.of<RegisterCompanyViewModel>(context,listen: false);
+  Future<void> setTimer(BuildContext context) async {
+    final provider =
+        Provider.of<RegisterCompanyViewModel>(context, listen: false);
     final time = await Utilities().setTimer(context);
     provider.body['from'] = time!['from']!;
-    provider.body['to']=time['to']!;
-    timerValues ={
-      'from' : time['fromUtilize']!,
-      'to' : time['toUtilize']!,
+    provider.body['to'] = time['to']!;
+    timerValues = {
+      'from': time['fromUtilize']!,
+      'to': time['toUtilize']!,
     };
     notifyListeners();
   }
@@ -105,14 +105,10 @@ class RegisterCompanyViewModel with ChangeNotifier{
   //   return daysList;
   // }
 
-
-
-
-
   String imagePath = '';
-  Future<void> pickImage() async{
+  Future<void> pickImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if(image!=null){
+    if (image != null) {
       imagePath = image.path;
       print(image.path);
       body['extension'] = image.path.split('.').last;
@@ -120,5 +116,4 @@ class RegisterCompanyViewModel with ChangeNotifier{
       notifyListeners();
     }
   }
-
 }

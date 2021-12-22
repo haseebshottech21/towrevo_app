@@ -8,7 +8,7 @@ import 'package:towrevo/web_services/user_web_service.dart';
 class CompanyHomeScreenViewModel with ChangeNotifier {
   List<ServiceRequestModel> requestServiceList = [];
   List<ServiceRequestModel> onGoingRequestsList = [];
-  bool isLoading = true;
+  bool isLoading = false;
 
   Future<void> getRequests() async {
     isLoading = true;

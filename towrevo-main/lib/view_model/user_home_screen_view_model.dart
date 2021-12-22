@@ -26,6 +26,18 @@ class UserHomeScreenViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Map<String, String> drawerInfo = {'image': '', 'name': '', 'email': ''};
+  updateDrawerInfo() async {
+    Utilities utilities = Utilities();
+    drawerInfo['image'] =
+        await utilities.getSharedPreferenceValue('image') ?? '';
+    drawerInfo['name'] = await utilities.getSharedPreferenceValue('name') ?? '';
+    drawerInfo['email'] =
+        await utilities.getSharedPreferenceValue('email') ?? '';
+
+    notifyListeners();
+  }
+
   Map<String, String> body = {
     'longitude': '',
     'latitude': '',
