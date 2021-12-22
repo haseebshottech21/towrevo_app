@@ -111,6 +111,9 @@ class UserHomeScreenViewModel with ChangeNotifier {
           //   Navigator.of(context).pop();
           // });
           return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
             content: StreamBuilder<String>(
               stream: NumberCreator(ctx).stream.map((event) => 'Count $event'),
               builder: (ctx, snapshot) {
@@ -118,16 +121,18 @@ class UserHomeScreenViewModel with ChangeNotifier {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width * 0.40,
-                      child: const CircleAvatar(
-                        backgroundColor: Colors.green,
-                        child: FaIcon(FontAwesomeIcons.check),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
+                    // SizedBox(
+                    //   height: 100,
+                    //   width: MediaQuery.of(context).size.width * 0.40,
+                    //   child: const CircleAvatar(
+                    //     backgroundColor: Colors.green,
+                    //     child: FaIcon(FontAwesomeIcons.check),
+                    //   ),
+                    // ),
+                    Image.asset(
+                      'assets/images/checked.gif',
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      width: MediaQuery.of(context).size.width * 0.20,
                     ),
                     Text(
                       snapshot.data.toString(),

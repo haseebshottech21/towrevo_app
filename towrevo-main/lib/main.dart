@@ -16,9 +16,9 @@ import 'package:towrevo/screens/company/company_history.dart';
 
 import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/screens/onboard/on_board_towrevo.dart';
+import 'package:towrevo/screens/profile/update_profile.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history.dart';
-import 'package:towrevo/screens/users/user_profile_update.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/edit_profile_view_model.dart';
@@ -30,6 +30,8 @@ import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
 import 'package:towrevo/view_model/register_user_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
+import 'package:towrevo/widgets/Dialogs/dialog_box_towrevo.dart';
+import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'screens/users/listing_of_companies_screen.dart';
 import '/screens/users/users_home_screen.dart';
 import 'screens/authentication/signup_user/register_user_screen.dart';
@@ -164,7 +166,7 @@ class _MyAppState extends State<MyApp> {
         home: const SplashScreen(),
         // home: const MapDistanceScreen(),
 
-        // home: UserProfileUpdate(),
+        // home: DialogBoxTowrevo(),
 
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
@@ -194,7 +196,7 @@ class _MyAppState extends State<MyApp> {
           UserHistory.routeName: (ctx) => const UserHistory(),
           ForgotPassword.routeName: (ctx) => const ForgotPassword(),
           ForgotPasswordOTP.routeName: (ctx) => const ForgotPasswordOTP(),
-          UserProfileUpdate.routeName: (ctx) => const UserProfileUpdate(),
+          UpdateProfile.routeName: (ctx) => const UpdateProfile(),
         },
       ),
     );

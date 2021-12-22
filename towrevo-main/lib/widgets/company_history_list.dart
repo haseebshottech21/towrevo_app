@@ -76,6 +76,16 @@ class CompanyHistoryList extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
+                        Row(
+                          children: List.generate(
+                            5,
+                            (index) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 15,
+                            ),
+                          ),
+                        )
                       ],
                     )
                   ],

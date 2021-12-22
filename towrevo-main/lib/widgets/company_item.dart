@@ -9,6 +9,8 @@ import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'Dialogs/success_dialog.dart';
+
 class CompanyItem extends StatelessWidget {
   final CompanyModel companyModel;
 
@@ -25,13 +27,14 @@ class CompanyItem extends StatelessWidget {
     print(provider.body['service']!);
     print(provider.body['address']!);
     provider.requestToCompany(
-        context,
-        provider.body['longitude']!,
-        provider.body['latitude']!,
-        provider.body['address']!,
-        provider.body['service']!,
-        companyId,
-        notificationId);
+      context,
+      provider.body['longitude']!,
+      provider.body['latitude']!,
+      provider.body['address']!,
+      provider.body['service']!,
+      companyId,
+      notificationId,
+    );
   }
 
   openDialPad(String phoneNumber) {
@@ -162,6 +165,14 @@ class CompanyItem extends StatelessWidget {
                               companyModel.notificationId,
                             );
                           },
+                          //   showDialog(
+                          //       context: context,
+                          //       builder: (context) => CustomDialog(
+                          //             title: 'Success',
+                          //             description:
+                          //                 'loripas asjbjbac jkabsdbk;dkv asdjkkascd',
+                          //           ));
+                          // },
                           icon: FaIcon(
                             FontAwesomeIcons.paperPlane,
                             color: primaryColor,

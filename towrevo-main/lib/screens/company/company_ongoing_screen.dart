@@ -116,7 +116,7 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                               height: 5,
                             ),
                             Image.asset(
-                              "assets/images/load.gif",
+                              "assets/images/spinner.gif",
                               height: 35.0,
                               width: 35.0,
                             ),

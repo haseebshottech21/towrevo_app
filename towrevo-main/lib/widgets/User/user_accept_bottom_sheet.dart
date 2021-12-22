@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
+import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 
 Future openBottomSheet(BuildContext context, String companyName) {
   return showModalBottomSheet(
@@ -20,14 +22,27 @@ Future openBottomSheet(BuildContext context, String companyName) {
     builder: (BuildContext context) {
       return Container(
         padding: const EdgeInsets.all(20.0),
-        height: MediaQuery.of(context).size.height * 0.22,
+        height: MediaQuery.of(context).size.height * 0.25,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const SizedBox(
+                  width: 5,
+                ),
+                const GlowCircle(
+                  glowHeight: 8,
+                  glowWidth: 8,
+                  glowbegin: 0,
+                  glowend: 10,
+                  miliseconds: 600,
+                ),
+                const SizedBox(
+                  width: 25,
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -43,6 +58,7 @@ Future openBottomSheet(BuildContext context, String companyName) {
                     const Text('Towing On The Way'),
                   ],
                 ),
+                const Spacer(),
                 Container(
                   width: 100,
                   height: 35,
@@ -70,7 +86,7 @@ Future openBottomSheet(BuildContext context, String companyName) {
                 width: MediaQuery.of(context).size.width,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: AppColors.primaryColor,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Center(
