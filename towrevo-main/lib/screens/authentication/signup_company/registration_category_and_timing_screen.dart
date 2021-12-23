@@ -205,63 +205,67 @@ class _RegistrationCategoryAndTimingScreenState
                       height: 10,
                     ),
                     Consumer<RegisterCompanyViewModel>(
-                        builder: (ctx, timer, neverBuildChild) {
-                      return InkWell(
-                        onTap: () async {
-                          await timer.setTimer(context);
-                        },
-                        child: FadeInDown(
-                          from: 25,
-                          delay: const Duration(milliseconds: 570),
-                          child: Container(
-                            height: 50,
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(30),
+                      builder: (ctx, timer, neverBuildChild) {
+                        return InkWell(
+                          onTap: () async {
+                            await timer.setTimer(context);
+                          },
+                          child: FadeInDown(
+                            from: 25,
+                            delay: const Duration(milliseconds: 570),
+                            child: Container(
+                              height: 50,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(30),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        FontAwesomeIcons.solidClock,
+                                        color: Color(0xFF019aff),
+                                        size: 20.0,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 8,
+                                          horizontal: 5,
+                                        ),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.65,
+                                        child: Text(
+                                          (timer.timerValues['from'] != '' ||
+                                                  timer.timerValues['to'] != '')
+                                              ? '${(timer.timerValues['from'])} - ${(timer.timerValues['to'])}'
+                                              : 'Select Time',
+                                          style: GoogleFonts.montserrat(
+                                            color: Colors.black,
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      FontAwesomeIcons.solidClock,
-                                      color: Color(0xFF019aff),
-                                      size: 20.0,
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 8,
-                                        horizontal: 5,
-                                      ),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.65,
-                                      child: Text(
-                                        (timer.timerValues['from'] != '' ||
-                                                timer.timerValues['to'] != '')
-                                            ? '${(timer.timerValues['from'])} - ${(timer.timerValues['to'])}'
-                                            : 'Select Time',
-                                        style: GoogleFonts.montserrat(
-                                          color: Colors.black,
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      },
+                    ),
                     const SizedBox(
                       height: 10,
                     ),

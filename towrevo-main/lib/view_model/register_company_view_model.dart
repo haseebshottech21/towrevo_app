@@ -90,6 +90,8 @@ class RegisterCompanyViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  
+
   // filterDays(int index,String key){
   //   daysList[index] = {
   //     key: !daysList[index].values.first

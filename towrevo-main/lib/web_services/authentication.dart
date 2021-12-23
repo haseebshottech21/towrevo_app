@@ -21,12 +21,16 @@ class AuthenticationWebService {
     print(response.body);
     final loadedData = json.decode(response.body);
     print(loadedData);
+    Fluttertoast.showToast(
+      msg: loadedData.toString(),
+    );
     if (response.statusCode == 200) {
       // Utilities().showToast('OTP Successfully Sent on Email');
       // print(loadedData['data']['uniqueId']);
-      Fluttertoast.showToast(
-        msg: loadedData['message'].toString(),
-      );
+      // Fluttertoast.showToast(
+      //   msg: loadedData['message'].toString(),
+      // );
+
       await utilities.setSharedPrefValue(
           'uniqueId', loadedData['data']['uniqueId']);
       await utilities.setSharedPrefValue('validate', '0');

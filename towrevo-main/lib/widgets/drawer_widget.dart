@@ -27,10 +27,12 @@ class DrawerWidget extends StatefulWidget {
 class _DrawerWidgetState extends State<DrawerWidget> {
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((value) {
-      Provider.of<UserHomeScreenViewModel>(context, listen: false)
-          .updateDrawerInfo();
-    });
+    Future.delayed(Duration.zero).then(
+      (value) {
+        Provider.of<UserHomeScreenViewModel>(context, listen: false)
+            .updateDrawerInfo();
+      },
+    );
 
     super.initState();
   }

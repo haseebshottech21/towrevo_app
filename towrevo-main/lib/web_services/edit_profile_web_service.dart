@@ -32,7 +32,7 @@ class EditProfileWebService {
       return loadedData;
     } else {
       print(response.body);
-      Fluttertoast.showToast(msg: 'Failed');
+      Fluttertoast.showToast(msg: loadedData['errors'].toString());
       return null;
     }
   }

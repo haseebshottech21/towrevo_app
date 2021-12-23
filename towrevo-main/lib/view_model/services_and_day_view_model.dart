@@ -26,6 +26,31 @@ class ServicesAndDaysViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> setServicesAndDaysSelectedWhileCompamyEditOperationPerform(
+    List<dynamic> serviceList,
+    List<dynamic> daysList,
+  ) async {
+    daysId.clear();
+    servicesId.clear();
+    for (var item in serviceList) {
+      serviceListViewModel.firstWhere((element) {
+        if (element.id == item['id'].toString()) {
+          servicesId.add(element.id);
+        }
+        return element.id == item['id'].toString();
+      }).serviceAvailable = true;
+    }
+
+    for (var item in daysList) {
+      daysListViewModel.firstWhere((element) {
+        if (element.id == item['id'].toString()) {
+          daysId.add(element.id);
+        }
+        return element.id == item['id'].toString();
+      }).dayAvailable = true;
+    }
+  }
+
   void changeServiceSelectedValue(String value) {
     serviceSelectedValue = value;
     notifyListeners();

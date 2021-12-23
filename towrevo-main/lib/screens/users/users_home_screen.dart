@@ -53,7 +53,10 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
             await openBottomSheet(
               context,
               map['companyName'].toString(),
-            );
+            ).then((value) {
+              provider.bottomSheetData['requested'] = false;
+              provider.bottomSheetData['requestedId'] = '';
+            });
           }
         },
       );
@@ -79,6 +82,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
               'requestedId': '',
               'requested': false,
             };
+            provider.updateRating(0);
           });
         },
       );
@@ -419,6 +423,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           msg: 'Job Complete  ${message.data['id'].toString()}');
 
       provider.rating = 0;
+      print('rating ${provider.rating}');
 
       provider.ratingData = {
         'requestedId': message.data['id'],
