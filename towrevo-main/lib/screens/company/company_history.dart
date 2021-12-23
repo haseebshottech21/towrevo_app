@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
+import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/company_history_list.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
@@ -58,7 +59,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(
                 horizontal: 10.0,
-                vertical: 20.0,
+                vertical: 15.0,
               ),
               child: Column(
                 children: [
@@ -67,7 +68,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                   ),
                   const Center(
                     child: Text(
-                      'History',
+                      'My History',
                       style: TextStyle(
                         fontSize: 22.0,
                         color: Colors.white,
@@ -76,7 +77,8 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                     ),
                   ),
                   FadeInUp(
-                    duration: const Duration(milliseconds: 600),
+                    from: 40,
+                    duration: const Duration(milliseconds: 500),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 5.0,
@@ -98,13 +100,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                                     height: MediaQuery.of(context).size.height *
                                         0.65,
                                     child: provider.isLoading
-                                        ? const GlowCircle(
-                                            glowHeight: 50,
-                                            glowWidth: 50,
-                                            glowbegin: 0,
-                                            glowend: 50,
-                                            miliseconds: 800,
-                                          )
+                                        ? circularProgress()
                                         : Container(
                                             alignment: Alignment.center,
                                             child: const Text('No Data Found'),

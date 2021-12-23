@@ -7,7 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/edit_profile_view_model.dart';
+import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/company_form_field.dart';
+import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/form_button_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/profile_widget.dart';
@@ -26,6 +28,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   String type = '';
 
@@ -112,6 +115,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
         Provider.of<EditProfileViewModel>(context, listen: false);
     setFields(provider);
     return Scaffold(
+      key: scaffoldKey,
+      drawerEnableOpenDragGesture: false,
+      drawer: const DrawerWidget(),
       body: Stack(
         children: [
           const SingleChildScrollView(
@@ -122,29 +128,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(
-                //     horizontal: 20,
-                //     vertical: 30,
-                //   ),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: const [
-                //       Text('Cancel'),
-                //       Text('Edit Profile'),
-                //       Text('Update'),
-                //     ],
-                //   ),
-                // ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-                  child: IconButton(
-                    icon: const Icon(FontAwesomeIcons.arrowLeft,
-                        color: Colors.white, size: 20.0),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                drawerIcon(
+                  context,
+                  () {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
                 ),
                 FadeInDown(
                   from: 15,
@@ -157,15 +145,17 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: 30.0,
-                        letterSpacing: 1.5,
+                        letterSpacing: 1,
                       ),
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 15,
-                    vertical: 10,
                   ),
                   child: Form(
                     key: _formKey,

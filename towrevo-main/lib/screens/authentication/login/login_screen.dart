@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: _formKey,
                 child: Column(children: [
                   const SizedBox(
-                    height: 5,
+                    height: 15,
                   ),
                   FadeInDown(
                     from: 40,

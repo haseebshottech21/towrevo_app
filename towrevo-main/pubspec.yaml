@@ -52,8 +52,6 @@ dependencies:
   firebase_analytics: ^8.3.0
   flutter_polyline_points: ^1.0.0
   url_launcher: ^6.0.17
-  avatar_glow: ^1.1.0
-  cool_alert: ^1.1.0
 #  geocoder: ^0.2.1
 
 

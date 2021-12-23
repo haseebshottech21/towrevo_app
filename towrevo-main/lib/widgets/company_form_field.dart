@@ -23,6 +23,14 @@ class TextFieldForAll extends StatelessWidget {
       controller: textEditingController,
       textAlignVertical: TextAlignVertical.center,
       enabled: fieldDisable ? false : true,
+      enableInteractiveSelection: true,
+      readOnly: false,
+      toolbarOptions: const ToolbarOptions(
+        paste: true,
+        cut: true,
+        selectAll: true,
+        copy: true,
+      ),
       // textAlign: TextAlign.left,
       // validator: widget.validator,
       decoration: InputDecoration(

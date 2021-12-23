@@ -74,7 +74,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                         glowHeight: 50,
                         glowWidth: 50,
                         glowbegin: 0,
-                        glowend: 50,
+                        glowend: 100,
                         miliseconds: 800,
                       ),
                     )

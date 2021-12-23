@@ -6,6 +6,7 @@ import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_history_list.dart';
+import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
@@ -109,7 +110,7 @@ class _UserHistoryState extends State<UserHistory> {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(
                 horizontal: 10.0,
-                vertical: 20.0,
+                vertical: 15.0,
               ),
               child: Column(
                 children: [
@@ -132,7 +133,7 @@ class _UserHistoryState extends State<UserHistory> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 5.0,
-                        vertical: 5.0,
+                        vertical: 15.0,
                       ),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.90,
@@ -146,15 +147,9 @@ class _UserHistoryState extends State<UserHistory> {
                               alignment: Alignment.center,
                               child: SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.65,
+                                    MediaQuery.of(context).size.height * 0.50,
                                 child: provider.isLoading
-                                    ? const GlowCircle(
-                                        glowHeight: 50,
-                                        glowWidth: 50,
-                                        glowbegin: 0,
-                                        glowend: 50,
-                                        miliseconds: 800,
-                                      )
+                                    ? circularProgress()
                                     : Container(
                                         alignment: Alignment.center,
                                         child: const Text('No Data Found'),
@@ -164,8 +159,7 @@ class _UserHistoryState extends State<UserHistory> {
                           : Expanded(
                               child: ListView.builder(
                                 physics: const ScrollPhysics(),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
+                                padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 itemCount: provider.userHistoryList.length,
                                 itemBuilder: (ctx, index) {

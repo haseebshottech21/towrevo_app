@@ -4,7 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/view_model/edit_profile_view_model.dart';
+import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/background_image.dart';
+import 'package:towrevo/widgets/drawer_widget.dart';
+import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/text_form_field.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
 
@@ -19,6 +22,8 @@ class ChangePassword extends StatefulWidget {
 class _ChangePasswordState extends State<ChangePassword> {
   final passwordController = TextEditingController();
   final confirmPassword = TextEditingController();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   final _formKey = GlobalKey<FormState>();
 
   validateAndChangePassword(BuildContext context) {
@@ -36,21 +41,30 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      drawerEnableOpenDragGesture: false,
+      drawer: const DrawerWidget(),
       body: SingleChildScrollView(
         child: Stack(
           children: [
             // Background Image
-            const BackgroundImage(),
+            const FullBackgroundImage(),
             // Back Icon
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, top: 20.0),
-              child: IconButton(
-                icon: const Icon(FontAwesomeIcons.arrowLeft,
-                    color: Colors.white, size: 20.0),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 10.0, top: 20.0),
+            //   child: IconButton(
+            //     icon: const Icon(FontAwesomeIcons.arrowLeft,
+            //         color: Colors.white, size: 20.0),
+            //     onPressed: () {
+            //       Navigator.of(context).pop();
+            //     },
+            //   ),
+            // ),
+            drawerIcon(
+              context,
+              () {
+                scaffoldKey.currentState!.openDrawer();
+              },
             ),
             Container(
               alignment: Alignment.center,
@@ -130,8 +144,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                           validateAndChangePassword(context);
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.060,
-                          width: MediaQuery.of(context).size.width * 0.80,
+                          height: MediaQuery.of(context).size.height * 0.065,
+                          width: MediaQuery.of(context).size.width * 0.85,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25.0),
                             gradient: const LinearGradient(

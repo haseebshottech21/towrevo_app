@@ -25,6 +25,14 @@ class TextFormIconWidget extends StatelessWidget {
     return TextFormField(
         controller: textEditingController,
         obscureText: obscureText,
+        enableInteractiveSelection: true,
+        readOnly: false,
+        toolbarOptions: const ToolbarOptions(
+          paste: true,
+          cut: true,
+          selectAll: true,
+          copy: true,
+        ),
         // maxLength: 8,
         // onSaved: (val) => _password = val,
         textAlignVertical: TextAlignVertical.center,

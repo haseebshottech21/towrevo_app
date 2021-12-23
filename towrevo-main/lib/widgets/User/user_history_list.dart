@@ -21,13 +21,14 @@ class UserHistoryList extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         height: MediaQuery.of(context).size.height * 0.15,
         width: MediaQuery.of(context).size.width,
+        // decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
         child: Card(
           elevation: 5,
           color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
-              vertical: 10,
+              vertical: 5,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

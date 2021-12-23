@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 
-AlertDialog completeJobDialogbox(BuildContext context, String id,String notificationId) {
+AlertDialog completeJobDialogbox(
+    BuildContext context, String id, String notificationId) {
   return AlertDialog(
     backgroundColor: const Color(0xFF092848),
     content: Column(
@@ -35,8 +36,9 @@ AlertDialog completeJobDialogbox(BuildContext context, String id,String notifica
             ),
             ElevatedButton(
               onPressed: () async {
-                await CompanyHomeScreenViewModel()
-                    .acceptDeclineOrDone('3', id, context,notificationId: notificationId);
+                await CompanyHomeScreenViewModel().acceptDeclineOrDone(
+                    '3', id, context,
+                    notificationId: notificationId);
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.green,

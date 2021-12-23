@@ -77,7 +77,7 @@ class _TermAndConditionState extends State<TermAndCondition> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
                   FadeInDown(
                     duration: const Duration(milliseconds: 600),
@@ -94,7 +94,7 @@ class _TermAndConditionState extends State<TermAndCondition> {
                         vertical: 5.0,
                       ),
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.75,
+                      height: MediaQuery.of(context).size.height * 0.72,
                       decoration: BoxDecoration(
                         color: const Color(0xFF092848).withOpacity(0.8),
                         borderRadius: BorderRadius.circular(10),

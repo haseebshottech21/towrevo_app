@@ -93,7 +93,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     children: [
                       DrawerListItem(
                         title: 'Home',
-                        iconsData: Icons.play_arrow,
+                        iconsData: FontAwesomeIcons.home,
                         onPressed: () async {
                           String type = await Utilities()
                               .getSharedPreferenceValue('type');
@@ -108,7 +108,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                       DrawerListItem(
                         title: 'About Us',
-                        iconsData: Icons.play_arrow,
+                        iconsData: FontAwesomeIcons.infoCircle,
                         onPressed: () {
                           Navigator.of(context)
                               .pushReplacementNamed(AboutUs.routeName);
@@ -116,7 +116,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                       DrawerListItem(
                         title: 'History',
-                        iconsData: Icons.play_arrow,
+                        iconsData: FontAwesomeIcons.history,
                         onPressed: () async {
                           String type = await Utilities()
                               .getSharedPreferenceValue('type');
@@ -131,12 +131,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                       DrawerListItem(
                         title: 'Contact Us',
-                        iconsData: Icons.play_arrow,
+                        iconsData: FontAwesomeIcons.solidAddressBook,
                         onPressed: () {},
                       ),
                       DrawerListItem(
                         title: 'FAQ\'s',
-                        iconsData: Icons.play_arrow,
+                        iconsData: FontAwesomeIcons.solidQuestionCircle,
                         onPressed: () {
                           Navigator.of(context)
                               .pushReplacementNamed(FAQs.routeName);
@@ -144,7 +144,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                       DrawerListItem(
                         title: 'Change Password',
-                        iconsData: Icons.play_arrow,
+                        iconsData: FontAwesomeIcons.lock,
                         onPressed: () {
                           Navigator.of(context)
                               .pushNamed(ChangePassword.routeName);
@@ -152,7 +152,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                       DrawerListItem(
                         title: 'Term & Condition',
-                        iconsData: Icons.play_arrow,
+                        iconsData: FontAwesomeIcons.clipboardCheck,
                         onPressed: () {
                           Navigator.of(context).pushReplacementNamed(
                             TermAndCondition.routeName,
