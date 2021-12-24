@@ -58,7 +58,7 @@ class _TermAndConditionState extends State<TermAndCondition> {
           children: [
             const FullBackgroundImage(),
             if (!reqFromSignUp)
-              drawerIcon(
+              drawerIconSecond(
                 context,
                 () {
                   scaffoldKey.currentState!.openDrawer();
@@ -94,7 +94,7 @@ class _TermAndConditionState extends State<TermAndCondition> {
                         vertical: 5.0,
                       ),
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.72,
+                      height: MediaQuery.of(context).size.height * 0.73,
                       decoration: BoxDecoration(
                         color: const Color(0xFF092848).withOpacity(0.8),
                         borderRadius: BorderRadius.circular(10),
@@ -105,18 +105,19 @@ class _TermAndConditionState extends State<TermAndCondition> {
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Center(
                               child: Text(
-                                'Term & Condition',
+                                'Term & Condition \nPrivacy Policy',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 25,
                                 ),
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.62,
+                            height: MediaQuery.of(context).size.height * 0.60,
                             child: ListView.builder(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,

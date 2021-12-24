@@ -29,7 +29,7 @@ class _AboutUsState extends State<AboutUs> {
           'Waiting hours for your towing company can be troublesome. Have a flat tire, a battery or engine failure, or a lockout; with TowRevo’s prompt and affordable service, our nearest towing agent will get to you in just 15 minutes. To us, you are our priority.',
     },
     {
-      'title': 'TSign up for free',
+      'title': 'Sign up for free',
       'description':
           'Sign up today for free without any membership fees or hidden charges to get full towing and transportation service across the United States, operating 24/7. We deal with various vehicles ranging from light-duty motorbikes & sedans to heavy-duty tractors and cranes.',
     },
@@ -46,7 +46,7 @@ class _AboutUsState extends State<AboutUs> {
         child: Stack(
           children: [
             const FullBackgroundImage(),
-            drawerIcon(
+            drawerIconSecond(
               context,
               () {
                 scaffoldKey.currentState!.openDrawer();

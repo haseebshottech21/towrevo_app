@@ -73,9 +73,19 @@ class UserHistoryList extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
+                        Row(
+                          children: List.generate(
+                            5,
+                            (index) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 15,
+                            ),
+                          ),
+                        )
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Text(
                       date,
                       style: const TextStyle(
@@ -89,35 +99,6 @@ class UserHistoryList extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Text(
-                //       date,
-                //       style: const TextStyle(
-                //         color: Colors.black87,
-                //         fontWeight: FontWeight.w400,
-                //         fontSize: 12.0,
-                //       ),
-                //     ),
-                //     // Container(
-                //     //   width: 100,
-                //     //   height: 35,
-                //     //   decoration: BoxDecoration(
-                //     //     color: Colors.grey[100],
-                //     //     borderRadius: BorderRadius.circular(50),
-                //     //   ),
-                //     //   child: Center(
-                //     //     child: Text(
-                //     //       status,
-                //     //       style: TextStyle(
-                //     //         color: colors,
-                //     //       ),
-                //     //     ),
-                //     //   ),
-                //     // )
-                //   ],
-                // )
               ],
             ),
           ),

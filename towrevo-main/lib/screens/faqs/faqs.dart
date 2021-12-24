@@ -67,7 +67,7 @@ class _FAQsState extends State<FAQs> {
         child: Stack(
           children: [
             const FullBackgroundImage(),
-            drawerIcon(
+            drawerIconSecond(
               context,
               () {
                 scaffoldKey.currentState!.openDrawer();

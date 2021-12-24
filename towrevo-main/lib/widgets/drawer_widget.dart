@@ -5,6 +5,7 @@ import 'package:towrevo/screens/aboutus/about_us_screen.dart';
 import 'package:towrevo/screens/authentication/change_password/change_password.dart';
 import 'package:towrevo/screens/company/company_history.dart';
 import 'package:towrevo/screens/company/company_home_screen.dart';
+import 'package:towrevo/screens/contactus/contact_us.dart';
 import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/profile/update_profile.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
@@ -134,7 +135,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       DrawerListItem(
                         title: 'Contact Us',
                         iconsData: FontAwesomeIcons.solidAddressBook,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushReplacementNamed(ContactUs.routeName);
+                        },
                       ),
                       DrawerListItem(
                         title: 'FAQ\'s',

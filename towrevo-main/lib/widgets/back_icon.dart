@@ -6,7 +6,9 @@ Padding backIcon(
   VoidCallback onPressed,
 ) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 35),
+    // padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 35),
+    padding: const EdgeInsets.only(top: 30, left: 20),
+
     child: Container(
       height: MediaQuery.of(context).size.height * 0.05,
       width: MediaQuery.of(context).size.width * 0.095,

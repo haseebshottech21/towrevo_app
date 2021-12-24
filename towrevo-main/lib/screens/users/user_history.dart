@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/glowCircle.dart';
+import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_history_list.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
@@ -150,9 +151,10 @@ class _UserHistoryState extends State<UserHistory> {
                                     MediaQuery.of(context).size.height * 0.50,
                                 child: provider.isLoading
                                     ? circularProgress()
-                                    : Container(
-                                        alignment: Alignment.center,
-                                        child: const Text('No Data Found'),
+                                    : noDataImage(
+                                        context,
+                                        'NO USER HISTORY',
+                                        'assets/images/towing.png',
                                       ),
                               ),
                             )

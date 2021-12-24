@@ -106,7 +106,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);
       final locationProvider =
           Provider.of<GetLocationViewModel>(context, listen: false);
-          
+
       provider.editProfileFields(
         {
           'first_name': firstNameController.text.trim(),
@@ -262,30 +262,35 @@ class _UpdateProfileState extends State<UpdateProfile> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                drawerIcon(
-                  context,
-                  () {
-                    scaffoldKey.currentState!.openDrawer();
-                  },
-                ),
-                FadeInDown(
-                  from: 15,
-                  delay: const Duration(milliseconds: 500),
-                  child: Center(
-                    child: Text(
-                      'EDIT PROFILE',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 30.0,
-                        letterSpacing: 1,
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      drawerIcon(
+                        context,
+                        () {
+                          scaffoldKey.currentState!.openDrawer();
+                        },
                       ),
-                    ),
+                      const SizedBox(width: 35),
+                      Center(
+                        child: Text(
+                          'EDIT PROFILE',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 28.0,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 provider.isLoading
                     ? Align(
@@ -316,7 +321,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   builder: (ctx, imagePicker, neverBuildChild) {
                                 print(imagePicker.body['image']);
                                 return FadeInDown(
-                                  from: 20,
+                                  from: 10,
                                   delay: const Duration(milliseconds: 600),
                                   child: GestureDetector(
                                     onTap: () {
@@ -345,9 +350,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                                   BorderRadius.circular(5.0),
                                             ),
                                             child: const Icon(
-                                                FontAwesomeIcons.camera,
-                                                color: Colors.white,
-                                                size: 18.0),
+                                              FontAwesomeIcons.camera,
+                                              color: Colors.white,
+                                              size: 18.0,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -360,72 +366,94 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              TextFieldForAll(
-                                errorGetter: ErrorGetter().firstNameErrorGetter,
-                                hintText: 'First Name',
-                                prefixIcon: const Icon(
-                                  FontAwesomeIcons.userAlt,
-                                  color: Color(0xFF019aff),
-                                  size: 20.0,
-                                ),
-                                textEditingController: firstNameController,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              if (type == '1')
-                                TextFieldForAll(
+                              FadeInDown(
+                                from: 10,
+                                delay: const Duration(milliseconds: 650),
+                                child: TextFieldForAll(
                                   errorGetter:
-                                      ErrorGetter().lastNameErrorGetter,
-                                  hintText: 'Last Name',
+                                      ErrorGetter().firstNameErrorGetter,
+                                  hintText: 'First Name',
                                   prefixIcon: const Icon(
                                     FontAwesomeIcons.userAlt,
                                     color: Color(0xFF019aff),
                                     size: 20.0,
                                   ),
-                                  textEditingController: lastNameController,
+                                  textEditingController: firstNameController,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              if (type == '1')
+                                FadeInDown(
+                                  from: 20,
+                                  delay: const Duration(milliseconds: 670),
+                                  child: TextFieldForAll(
+                                    errorGetter:
+                                        ErrorGetter().lastNameErrorGetter,
+                                    hintText: 'Last Name',
+                                    prefixIcon: const Icon(
+                                      FontAwesomeIcons.userAlt,
+                                      color: Color(0xFF019aff),
+                                      size: 20.0,
+                                    ),
+                                    textEditingController: lastNameController,
+                                  ),
                                 ),
                               if (type == '2')
-                                CompanyTextAreaField(
-                                  errorGetter: ErrorGetter()
-                                      .companyDescriptionErrorGetter,
-                                  hintText: 'Company Description',
-                                  prefixIcon: const Icon(
-                                    FontAwesomeIcons.solidBuilding,
-                                    color: Color(0xFF019aff),
-                                    size: 20.0,
+                                FadeInDown(
+                                  from: 20,
+                                  delay: const Duration(milliseconds: 670),
+                                  child: CompanyTextAreaField(
+                                    errorGetter: ErrorGetter()
+                                        .companyDescriptionErrorGetter,
+                                    hintText: 'Company Description',
+                                    prefixIcon: const Icon(
+                                      FontAwesomeIcons.solidBuilding,
+                                      color: Color(0xFF019aff),
+                                      size: 20.0,
+                                    ),
+                                    textEditingController:
+                                        descriptionController,
                                   ),
-                                  textEditingController: descriptionController,
                                 ),
 
                               const SizedBox(
                                 height: 10,
                               ),
-                              TextFieldForAll(
-                                errorGetter: ErrorGetter().emailErrorGetter,
-                                hintText: 'Email Address',
-                                prefixIcon: const Icon(
-                                  FontAwesomeIcons.solidEnvelopeOpen,
-                                  color: Color(0xFF019aff),
-                                  size: 20.0,
+                              FadeInDown(
+                                from: 25,
+                                delay: const Duration(milliseconds: 690),
+                                child: TextFieldForAll(
+                                  errorGetter: ErrorGetter().emailErrorGetter,
+                                  hintText: 'Email Address',
+                                  prefixIcon: const Icon(
+                                    FontAwesomeIcons.solidEnvelopeOpen,
+                                    color: Color(0xFF019aff),
+                                    size: 20.0,
+                                  ),
+                                  textEditingController: emailController,
+                                  fieldDisable: true,
                                 ),
-                                textEditingController: emailController,
-                                fieldDisable: true,
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
-                              TextFieldForAll(
-                                errorGetter:
-                                    ErrorGetter().phoneNumberErrorGetter,
-                                fieldDisable: true,
-                                hintText: 'Phone',
-                                prefixIcon: const Icon(
-                                  FontAwesomeIcons.phoneAlt,
-                                  color: Color(0xFF019aff),
-                                  size: 20.0,
+                              FadeInDown(
+                                from: 30,
+                                delay: const Duration(milliseconds: 710),
+                                child: TextFieldForAll(
+                                  errorGetter:
+                                      ErrorGetter().phoneNumberErrorGetter,
+                                  fieldDisable: true,
+                                  hintText: 'Phone',
+                                  prefixIcon: const Icon(
+                                    FontAwesomeIcons.phoneAlt,
+                                    color: Color(0xFF019aff),
+                                    size: 20.0,
+                                  ),
+                                  textEditingController: phoneNumberController,
                                 ),
-                                textEditingController: phoneNumberController,
                               ),
                               const SizedBox(
                                 height: 10,
@@ -441,8 +469,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       );
                                     },
                                     child: FadeInDown(
-                                      from: 20,
-                                      delay: const Duration(milliseconds: 550),
+                                      from: 35,
+                                      delay: const Duration(milliseconds: 730),
                                       child: Container(
                                         height: getLocation.getAddress.isEmpty
                                             ? 50
@@ -518,9 +546,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         await timer.setTimer(context);
                                       },
                                       child: FadeInDown(
-                                        from: 25,
+                                        from: 40,
                                         delay:
-                                            const Duration(milliseconds: 570),
+                                            const Duration(milliseconds: 750),
                                         child: Container(
                                           height: 50,
                                           padding: const EdgeInsets.symmetric(
@@ -596,9 +624,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         await showDays(context);
                                       },
                                       child: FadeInDown(
-                                        from: 25,
+                                        from: 40,
                                         delay:
-                                            const Duration(milliseconds: 570),
+                                            const Duration(milliseconds: 770),
                                         child: Container(
                                           height: 50,
                                           padding: const EdgeInsets.symmetric(
@@ -667,8 +695,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       await showCategories(context);
                                     },
                                     child: FadeInDown(
-                                      from: 30,
-                                      delay: const Duration(milliseconds: 590),
+                                      from: 50,
+                                      delay: const Duration(milliseconds: 800),
                                       child: Container(
                                         height: 55,
                                         padding: const EdgeInsets.symmetric(
@@ -717,16 +745,20 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              FormButtonWidget(
-                                'UPDATE',
-                                () {
-                                  if (type == '1') {
-                                    validateAndUpdateUserForm();
-                                  } else if (type == '2') {
-                                    validateAndUpdateCompanyForm();
-                                  }
-                                  // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: false);
-                                },
+                              FadeInUp(
+                                from: 20,
+                                duration: const Duration(milliseconds: 1200),
+                                child: FormButtonWidget(
+                                  'UPDATE',
+                                  () {
+                                    if (type == '1') {
+                                      validateAndUpdateUserForm();
+                                    } else if (type == '2') {
+                                      validateAndUpdateCompanyForm();
+                                    }
+                                    // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: false);
+                                  },
+                                ),
                               ),
                               const SizedBox(
                                 height: 10,

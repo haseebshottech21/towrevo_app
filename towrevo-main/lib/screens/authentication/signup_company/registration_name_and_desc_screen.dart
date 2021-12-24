@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import '/screens/authentication/signup_company/registration_crediential_screen.dart';
 import '/widgets/company_form_field.dart';
 import '/widgets/form_button_widget.dart';
@@ -54,16 +55,9 @@ class _RegistrationNameAndDescScreenState
         child: Stack(
           children: [
             const BackgroundImage(),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-              child: IconButton(
-                icon: const Icon(FontAwesomeIcons.arrowLeft,
-                    color: Colors.white, size: 20.0),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
+            backIcon(context, () {
+              Navigator.pop(context);
+            }),
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(

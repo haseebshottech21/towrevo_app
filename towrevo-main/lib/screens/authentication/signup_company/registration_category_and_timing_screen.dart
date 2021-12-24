@@ -6,9 +6,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/authentication/signup_company/signup_company_widegts/title_widget.dart';
+import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
 import '../../get_location_screen.dart';
@@ -108,16 +110,9 @@ class _RegistrationCategoryAndTimingScreenState
       body: SingleChildScrollView(
         child: Stack(children: [
           const BackgroundImage(),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-            child: IconButton(
-              icon: const Icon(FontAwesomeIcons.arrowLeft,
-                  color: Colors.white, size: 20.0),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
+          backIcon(context, () {
+            Navigator.pop(context);
+          }),
           Container(
             alignment: Alignment.center,
             padding:
@@ -393,6 +388,7 @@ class _RegistrationCategoryAndTimingScreenState
                           Consumer<RegisterCompanyViewModel>(builder:
                               (ctx, registerViewModel, _neverBuildChild) {
                             return Checkbox(
+                              activeColor: const Color(0xFF092848),
                               value:
                                   registerViewModel.isCheckedTermsAndCondition,
                               onChanged: (bool? value) {
@@ -405,9 +401,10 @@ class _RegistrationCategoryAndTimingScreenState
                               Text(
                                 'I Accept',
                                 style: GoogleFonts.montserrat(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 13.0),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12.0,
+                                ),
                               ),
                               const SizedBox(
                                 width: 3,
@@ -416,52 +413,20 @@ class _RegistrationCategoryAndTimingScreenState
                                 text: TextSpan(
                                   children: <TextSpan>[
                                     TextSpan(
-                                        text: 'Term & Condition',
+                                        text:
+                                            'Term & Condition and Privacy Policay',
                                         style: GoogleFonts.montserrat(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 13.0,
-                                            decoration:
-                                                TextDecoration.underline),
+                                          color: AppColors.primaryColor,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12.0,
+                                          decoration: TextDecoration.underline,
+                                        ),
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () =>
                                               Navigator.of(context).pushNamed(
                                                 TermAndCondition.routeName,
                                                 arguments: true,
                                               )
-                                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                        // builder: (BuildContext context) => const RegisterAsScreen())),
-                                        ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                'and',
-                                style: GoogleFonts.montserrat(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 13.0),
-                              ),
-                              const SizedBox(
-                                width: 3,
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text: 'Privacy Policy',
-                                        style: GoogleFonts.montserrat(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 13.0,
-                                            decoration:
-                                                TextDecoration.underline),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () =>
-                                              print('click Privacy Policy')
                                         // Navigator.of(context).pushReplacement(MaterialPageRoute(
                                         // builder: (BuildContext context) => const RegisterAsScreen())),
                                         ),
