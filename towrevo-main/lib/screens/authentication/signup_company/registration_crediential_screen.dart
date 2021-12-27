@@ -93,6 +93,7 @@ class _RegistrationCredentialScreenState
                               size: 20.0,
                             ),
                             textEditingController: emailController,
+                            textInputType: TextInputType.emailAddress,
                           ),
                         ),
                         const SizedBox(
@@ -110,6 +111,7 @@ class _RegistrationCredentialScreenState
                               size: 20.0,
                             ),
                             textEditingController: phoneNumberController,
+                            textInputType: TextInputType.phone,
                           ),
                         ),
                         const SizedBox(

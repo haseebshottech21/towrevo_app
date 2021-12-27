@@ -152,6 +152,7 @@ class _RegistrationNameAndDescScreenState
                                 size: 20.0,
                               ),
                               textEditingController: companyNameController,
+                              textInputType: TextInputType.name,
                             ),
                           ),
                           const SizedBox(

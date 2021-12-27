@@ -370,6 +370,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     size: 20.0,
                                   ),
                                   textEditingController: firstNameController,
+                                  textInputType: TextInputType.name,
                                 ),
                               ),
                               const SizedBox(
@@ -389,6 +390,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       size: 20.0,
                                     ),
                                     textEditingController: lastNameController,
+                                    textInputType: TextInputType.name,
                                   ),
                                 ),
                               if (type == '2')
@@ -425,6 +427,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   ),
                                   textEditingController: emailController,
                                   fieldDisable: true,
+                                  textInputType: TextInputType.emailAddress,
                                 ),
                               ),
                               const SizedBox(
@@ -444,6 +447,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     size: 20.0,
                                   ),
                                   textEditingController: phoneNumberController,
+                                  textInputType: TextInputType.phone,
                                 ),
                               ),
                               const SizedBox(

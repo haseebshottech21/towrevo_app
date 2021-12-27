@@ -189,6 +189,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                               size: 20.0,
                             ),
                             textEditingController: firstNameController,
+                            textInputType: TextInputType.name,
                           ),
                         ),
                         const SizedBox(
@@ -206,6 +207,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                               size: 20.0,
                             ),
                             textEditingController: lastNameController,
+                            textInputType: TextInputType.name,
                           ),
                         ),
                         const SizedBox(
@@ -223,6 +225,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                               size: 20.0,
                             ),
                             textEditingController: emailController,
+                            textInputType: TextInputType.emailAddress,
                           ),
                         ),
                         const SizedBox(
@@ -233,13 +236,15 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           delay: const Duration(milliseconds: 660),
                           child: TextFieldForAll(
                             errorGetter: ErrorGetter().phoneNumberErrorGetter,
-                            hintText: 'Phone Number',
+                            hintText: '',
                             prefixIcon: const Icon(
                               FontAwesomeIcons.phoneAlt,
                               color: Color(0xFF019aff),
                               size: 20.0,
                             ),
                             textEditingController: phoneNumberController,
+                            textInputType: TextInputType.phone,
+                            prefixPhone: true,
                           ),
                         ),
                         const SizedBox(
