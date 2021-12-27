@@ -345,6 +345,20 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     super.didChangeDependencies();
   }
 
+  Future<void> setUpRequestNotification() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+  }
+
   Future<void> setupInteracted() async {
     final provider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);

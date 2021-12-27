@@ -83,7 +83,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             Radius.circular(20),
           ),
           child: Image.network(
-            'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            Utilities.imageBaseUrl + imagePicker.body['image'].toString(),
             fit: BoxFit.fill,
           ),
         );

@@ -6,6 +6,7 @@ import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_history_list.dart';
+import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
@@ -145,16 +146,24 @@ class _UserHistoryState extends State<UserHistory> {
                           ? Align(
                               alignment: Alignment.center,
                               child: SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.65,
+                                // height:
+                                //     MediaQuery.of(context).size.height * 0.20,
                                 child: provider.isLoading
-                                    ? const GlowCircle(
-                                        glowHeight: 50,
-                                        glowWidth: 50,
-                                        glowbegin: 0,
-                                        glowend: 50,
-                                        miliseconds: 800,
-                                      )
+                                    ? Container(
+                                        height: 100,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.5),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Container(
+                                          height: 50,
+                                          width: 50,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
+                                        ))
                                     : Container(
                                         alignment: Alignment.center,
                                         child: const Text('No Data Found'),

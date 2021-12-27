@@ -373,7 +373,8 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) async {
-      setupInteracted();
+      await setupInteracted();
+      await setUpRequestNotification();
       await getData();
     });
 
@@ -385,6 +386,20 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     final provider =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
     await provider.getRequests();
+  }
+
+  Future<void> setUpRequestNotification() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
   }
 
   Future<void> setupInteracted() async {

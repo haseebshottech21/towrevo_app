@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -81,6 +82,11 @@ class _RegistrationCategoryAndTimingScreenState
         Provider.of<GetLocationViewModel>(context, listen: false);
     final registerProvider =
         Provider.of<RegisterCompanyViewModel>(context, listen: false);
+    if (!registerProvider.isCheckedTermsAndCondition) {
+      Fluttertoast.showToast(
+          msg: 'You Can\'t Sign up witthout accepting term and conditions.');
+      return;
+    }
     final daysAndServiceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
     if (locationProvider.latLng != null &&
@@ -520,6 +526,7 @@ class _RegistrationCategoryAndTimingScreenState
       // provider.categoriesList=[{'car': false}, {'bike': false}, {'truck': false},];
       // provider.daysList=[{'Monday':false},{'Tuesday':false},{'Wednesday':false},{'Thursday':false},{'Friday':false},{'Saturday':false},{'Sunday':false},];
       locationProvider.address = '';
+      provider.initializeValues();
       //services e.g car, bike
       serviceProvider.getServices();
 

@@ -31,14 +31,23 @@ class RegisterUserViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  bool obscurePassword = false;
+  bool obscurePassword = true;
 
   toggleObscure() {
     obscurePassword = !obscurePassword;
     notifyListeners();
   }
 
-  bool obscureConfirmPassword = false;
+  initializeValues() {
+    obscureConfirmPassword = true;
+    isCheckedTermsAndCondition = false;
+    obscurePassword = true;
+    imagePath = '';
+    extension = '';
+    image = '';
+  }
+
+  bool obscureConfirmPassword = true;
 
   toggleObscureConfirm() {
     obscureConfirmPassword = !obscureConfirmPassword;

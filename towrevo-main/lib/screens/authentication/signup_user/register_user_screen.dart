@@ -40,23 +40,33 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
 
     if (!_formKey.currentState!.validate()) {
       return;
-    } else if (registerUserViewModel.image.isEmpty ||
-        registerUserViewModel.extension.isEmpty) {
-      Fluttertoast.showToast(msg: 'Image must be not Empty');
-      print('image is empty');
+    }
+    //  else if (registerUserViewModel.image.isEmpty ||
+    //     registerUserViewModel.extension.isEmpty) {
+    //   Fluttertoast.showToast(msg: 'Image must not be Empty');
+    //   print('image is empty');
+    //   return;
+    // }
+    else if (!registerUserViewModel.isCheckedTermsAndCondition) {
+      Fluttertoast.showToast(
+          msg: 'You Can\'t Sign up witthout accepting terms and conditions.');
       return;
     } else {
       bool response = await registerUserViewModel.userSignUp({
         'first_name': firstNameController.text.trim(),
         'last_name': lastNameController.text.trim(),
         'type': '1',
-        'email': emailController.text.trim(),
+        'email': emailController.text.trim().toLowerCase(),
         'phone': phoneNumberController.text.trim(),
         'password': passwordController.text.trim(),
         'password_confirmation': confirmPasswordController.text.trim(),
         'notification_id': MyApp.notifyToken,
-        'extension': registerUserViewModel.extension,
-        'image': registerUserViewModel.image,
+        if (registerUserViewModel.image.isNotEmpty &&
+            registerUserViewModel.extension.isNotEmpty)
+          'extension': registerUserViewModel.extension,
+        if (registerUserViewModel.image.isNotEmpty &&
+            registerUserViewModel.extension.isNotEmpty)
+          'image': registerUserViewModel.image,
       }, context);
       if (response) {
         Navigator.of(context)
@@ -427,5 +437,12 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    final provider = Provider.of<RegisterUserViewModel>(context, listen: false);
+    provider.initializeValues();
+    super.initState();
   }
 }

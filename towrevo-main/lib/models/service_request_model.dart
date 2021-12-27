@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:towrevo/models/review_model.dart';
 import 'package:towrevo/utilities.dart';
 
 class ServiceRequestModel {
@@ -15,6 +16,7 @@ class ServiceRequestModel {
   String name;
   String image;
   String createdAt;
+  ReviewModel? reviewModel;
 
   ServiceRequestModel({
     required this.userId,
@@ -30,6 +32,7 @@ class ServiceRequestModel {
     required this.name,
     required this.image,
     required this.createdAt,
+    this.reviewModel,
   });
 
   factory ServiceRequestModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +54,11 @@ class ServiceRequestModel {
       createdAt: json['created_at'] == null
           ? Utilities().outputDate(json['created_at'])
           : '',
+      reviewModel: json['rating'] == null
+          ? null
+          : ReviewModel.fromJson(
+              json['rating'],
+            ),
     );
   }
 }

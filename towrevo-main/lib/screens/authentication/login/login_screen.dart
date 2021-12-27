@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       final loginProvider = Provider.of<LoginViewModel>(context, listen: false);
       final bool response = await loginProvider.loginRequest(
-        emailController.text.trim(),
+        emailController.text.trim().toLowerCase(),
         passwordController.text.trim(),
       );
       if (response) {

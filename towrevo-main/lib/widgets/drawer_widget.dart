@@ -5,6 +5,7 @@ import 'package:towrevo/screens/aboutus/about_us_screen.dart';
 import 'package:towrevo/screens/authentication/change_password/change_password.dart';
 import 'package:towrevo/screens/company/company_history.dart';
 import 'package:towrevo/screens/company/company_home_screen.dart';
+import 'package:towrevo/screens/contact_us.dart';
 import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/profile/update_profile.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
@@ -52,8 +53,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     builder: (ctx, drawer, neverBuildChild) {
                   print(drawer.drawerInfo['email']);
                   return DrawerProfile(
-                    profileImage:
-                        'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+                    profileImage: drawer.drawerInfo['image']
+                            .toString()
+                            .isNotEmpty
+                        ? Utilities.imageBaseUrl +
+                            drawer.drawerInfo['image'].toString()
+                        : 'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
                     profileName: drawer.drawerInfo['name'].toString().isNotEmpty
                         ? drawer.drawerInfo['name'].toString().trim()
                         : 'Profile Name',
@@ -132,7 +137,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       DrawerListItem(
                         title: 'Contact Us',
                         iconsData: Icons.play_arrow,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(ContactUs.routeName);
+                        },
                       ),
                       DrawerListItem(
                         title: 'FAQ\'s',
