@@ -85,7 +85,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
           'first_name': firstNameController.text.trim(),
           'last_name': lastNameController.text.trim(),
           if (provider.imagePath.isNotEmpty) 'image': provider.image,
-          if (provider.imagePath.isNotEmpty) 'image': provider.extension,
+          if (provider.imagePath.isNotEmpty) 'extension': provider.extension,
           'type': type,
         },
         context,
@@ -109,7 +109,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
           'first_name': firstNameController.text.trim(),
           'description': descriptionController.text.trim(),
           if (provider.imagePath.isNotEmpty) 'image': provider.image,
-          if (provider.imagePath.isNotEmpty) 'image': provider.extension,
+          if (provider.imagePath.isNotEmpty) 'extension': provider.extension,
           if (provider.timerValues['from'].toString().isNotEmpty)
             'from': provider.timerValues['from'].toString(),
           if (provider.timerValues['to'].toString().isNotEmpty)

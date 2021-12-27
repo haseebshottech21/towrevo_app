@@ -23,11 +23,20 @@ class DrawerProfile extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.14,
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 30.0,
-            foregroundColor: Colors.white,
-            backgroundImage: NetworkImage(profileImage),
-            backgroundColor: Colors.transparent,
+          // CircleAvatar(
+          //   radius: 30.0,
+          //   foregroundColor: Colors.white,
+          //   // backgroundImage: NetworkImage(profileImage),
+          //   backgroundColor: Colors.transparent,
+          //   child: Image.network(profileImage),
+          // ),
+          ClipOval(
+            child: Image.network(
+              profileImage,
+              width: 50,
+              height: 50,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(width: 12),
           Column(
@@ -42,7 +51,7 @@ class DrawerProfile extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 3),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: Text(

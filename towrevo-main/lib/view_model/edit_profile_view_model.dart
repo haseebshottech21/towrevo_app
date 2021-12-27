@@ -116,9 +116,10 @@ class EditProfileViewModel with ChangeNotifier {
     if (loadedData != null) {
       Provider.of<UserHomeScreenViewModel>(context, listen: false)
           .setDrawerInfo(
-        name:
-            body['first_name'].toString() + ' ' + body['last_name'].toString(),
-      );
+              name: body['first_name'].toString() +
+                  ' ' +
+                  (body['last_name'] ?? '').toString(),
+              image: loadedData['data']['user']['image'] ?? '');
     }
     isLoading = false;
     notifyListeners();
