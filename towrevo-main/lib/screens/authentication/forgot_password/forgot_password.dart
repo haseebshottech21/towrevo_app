@@ -97,6 +97,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         size: 20.0,
                       ),
                       textEditingController: _emailController,
+                      textInputType: TextInputType.emailAddress,
                     ),
                     const SizedBox(
                       height: 10,

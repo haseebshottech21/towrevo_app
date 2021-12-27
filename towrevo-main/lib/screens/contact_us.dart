@@ -89,6 +89,7 @@ class ContactUs extends StatelessWidget {
                                 size: 20.0,
                               ),
                               textEditingController: firstNameController,
+                              textInputType: TextInputType.name,
                             ),
                           ),
                           const SizedBox(
@@ -106,6 +107,7 @@ class ContactUs extends StatelessWidget {
                                 size: 20.0,
                               ),
                               textEditingController: lastNameController,
+                              textInputType: TextInputType.name,
                             ),
                           ),
                           const SizedBox(
@@ -123,6 +125,7 @@ class ContactUs extends StatelessWidget {
                                 size: 20.0,
                               ),
                               textEditingController: emailController,
+                              textInputType: TextInputType.emailAddress,
                             ),
                           ),
                           const SizedBox(
@@ -140,6 +143,7 @@ class ContactUs extends StatelessWidget {
                                 size: 20.0,
                               ),
                               textEditingController: phoneNumberController,
+                              textInputType: TextInputType.phone,
                             ),
                           ),
                           const SizedBox(

@@ -7,15 +7,19 @@ class TextFieldForAll extends StatelessWidget {
   final TextEditingController textEditingController;
   final Function errorGetter;
   final bool fieldDisable;
+  final bool prefixPhone;
+  final TextInputType textInputType;
 
-  const TextFieldForAll(
-      {required this.hintText,
-      required this.errorGetter,
-      required this.prefixIcon,
-      required this.textEditingController,
-      Key? key,
-      this.fieldDisable = false})
-      : super(key: key);
+  const TextFieldForAll({
+    required this.hintText,
+    required this.errorGetter,
+    required this.prefixIcon,
+    required this.textEditingController,
+    required this.textInputType,
+    Key? key,
+    this.fieldDisable = false,
+    this.prefixPhone = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,7 @@ class TextFieldForAll extends StatelessWidget {
       textAlignVertical: TextAlignVertical.center,
       enabled: fieldDisable ? false : true,
       enableInteractiveSelection: true,
+      keyboardType: textInputType,
       readOnly: false,
       toolbarOptions: const ToolbarOptions(
         paste: true,
@@ -46,11 +51,33 @@ class TextFieldForAll extends StatelessWidget {
         // hintStyle: GoogleFonts.montserrat(color: Colors.black),
         // isDense: true,
         // helperText: 'Keep it short, this is just a demo.',
-        prefixIcon: Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: prefixIcon,
+        prefixIcon:
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 15),
+            //   child: prefixIcon,
+            // ),
+            SizedBox(
+          width: prefixPhone ? 70 : 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: prefixIcon,
+              ),
+              if (prefixPhone)
+                const Padding(
+                  padding: EdgeInsets.zero,
+                  child: Text(
+                    ' +1',
+                    style: TextStyle(color: Colors.black54, fontSize: 17),
+                  ),
+                ),
+            ],
+          ),
         ),
-        prefixText: '  ',
+        prefixText: prefixPhone ? '' : ' ',
+        prefixStyle: const TextStyle(color: Colors.black, fontSize: 16),
         // suffixIcon: suffixIcon,
         // suffixText: 'USD',
         // suffixStyle: const TextStyle(color: Colors.green)),
