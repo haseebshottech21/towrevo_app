@@ -55,14 +55,31 @@ class RegisterCompanyViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  bool obscurePassword = false;
+  initializeValues() {
+    obscurePassword = true;
+    obscureConfirmPassword = true;
+    isCheckedTermsAndCondition = false;
+
+    timerValues = {
+      'from': '',
+      'to': '',
+    };
+  }
+
+  initalizeImageValues() {
+    imagePath = '';
+    body['image'] = '';
+    body['extension'] = '';
+  }
+
+  bool obscurePassword = true;
 
   toggleObscure() {
     obscurePassword = !obscurePassword;
     notifyListeners();
   }
 
-  bool obscureConfirmPassword = false;
+  bool obscureConfirmPassword = true;
 
   toggleObscureConfirm() {
     obscureConfirmPassword = !obscureConfirmPassword;

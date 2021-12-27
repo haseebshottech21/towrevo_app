@@ -120,7 +120,7 @@ class _UserHistoryState extends State<UserHistory> {
                                         .userHistoryList[index].companyName,
                                     companyService: provider
                                         .userHistoryList[index].serviceName,
-                                    date: '12-12-2021',
+                                    date: provider.userHistoryList[index].date,
                                   );
                                 },
                               ),

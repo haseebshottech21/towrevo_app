@@ -36,7 +36,8 @@ class _RegistrationCredentialScreenState
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      _companySignUpProvider.body['email'] = emailController.text.trim();
+      _companySignUpProvider.body['email'] =
+          emailController.text.trim().toLowerCase();
       _companySignUpProvider.body['phone'] = phoneNumberController.text.trim();
       _companySignUpProvider.body['password'] = passwordController.text.trim();
       _companySignUpProvider.body['password_confirmation'] =

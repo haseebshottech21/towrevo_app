@@ -205,4 +205,12 @@ class _RegistrationNameAndDescScreenState
       ),
     );
   }
+
+  @override
+  void initState() {
+    final provider =
+        Provider.of<RegisterCompanyViewModel>(context, listen: false);
+    provider.initalizeImageValues();
+    super.initState();
+  }
 }
