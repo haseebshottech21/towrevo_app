@@ -9,7 +9,7 @@ import 'package:towrevo/screens/authentication/change_password/change_password.d
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password.dart';
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password_otp.dart';
 import 'package:towrevo/screens/authentication/login/forgot_password_screen.dart';
-import 'package:towrevo/screens/contact_us.dart';
+import 'package:towrevo/screens/contactus/contact_us.dart';
 
 import 'package:towrevo/screens/faqs/faqs.dart';
 
@@ -167,7 +167,7 @@ class _MyAppState extends State<MyApp> {
         home: const SplashScreen(),
         // home: const MapDistanceScreen(),
 
-        // home: DialogBoxTowrevo(),
+        // home: ContactUs(),
 
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
@@ -198,7 +198,7 @@ class _MyAppState extends State<MyApp> {
           ForgotPassword.routeName: (ctx) => const ForgotPassword(),
           ForgotPasswordOTP.routeName: (ctx) => const ForgotPasswordOTP(),
           UpdateProfile.routeName: (ctx) => const UpdateProfile(),
-          ContactUs.routeName: (ctx) => ContactUs(),
+          ContactUs.routeName: (ctx) => const ContactUs(),
         },
       ),
     );

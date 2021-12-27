@@ -29,7 +29,7 @@ class _AboutUsState extends State<AboutUs> {
           'Waiting hours for your towing company can be troublesome. Have a flat tire, a battery or engine failure, or a lockout; with TowRevo’s prompt and affordable service, our nearest towing agent will get to you in just 15 minutes. To us, you are our priority.',
     },
     {
-      'title': 'TSign up for free',
+      'title': 'Sign up for free',
       'description':
           'Sign up today for free without any membership fees or hidden charges to get full towing and transportation service across the United States, operating 24/7. We deal with various vehicles ranging from light-duty motorbikes & sedans to heavy-duty tractors and cranes.',
     },
@@ -46,7 +46,7 @@ class _AboutUsState extends State<AboutUs> {
         child: Stack(
           children: [
             const FullBackgroundImage(),
-            drawerIcon(
+            drawerIconSecond(
               context,
               () {
                 scaffoldKey.currentState!.openDrawer();
@@ -56,12 +56,12 @@ class _AboutUsState extends State<AboutUs> {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(
                 horizontal: 10.0,
-                vertical: 15.0,
+                vertical: 20.0,
               ),
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
                   FadeInDown(
                     duration: const Duration(milliseconds: 600),
@@ -78,7 +78,7 @@ class _AboutUsState extends State<AboutUs> {
                         vertical: 10.0,
                       ),
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.75,
+                      height: MediaQuery.of(context).size.height * 0.72,
                       decoration: BoxDecoration(
                         color: const Color(0xFF092848).withOpacity(0.8),
                         borderRadius: BorderRadius.circular(10),
@@ -100,7 +100,7 @@ class _AboutUsState extends State<AboutUs> {
                           ),
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.65,
+                            height: MediaQuery.of(context).size.height * 0.62,
                             child: ListView.builder(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,

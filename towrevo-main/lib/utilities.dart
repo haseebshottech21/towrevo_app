@@ -14,7 +14,7 @@ class Utilities {
       );
 
       if (result != null) {
-        print(timeConverter(result.startTime.format(context)));
+        print(result.startTime.format(context));
         return {
           'fromUtilize': result.startTime.format(context).toString(),
           'toUtilize': result.endTime.format(context).toString(),
@@ -23,7 +23,7 @@ class Utilities {
         };
       }
     } catch (e) {
-      return {};
+      return null;
     }
   }
 

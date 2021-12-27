@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/glowCircle.dart';
+import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_history_list.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
@@ -110,7 +111,7 @@ class _UserHistoryState extends State<UserHistory> {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(
                 horizontal: 10.0,
-                vertical: 20.0,
+                vertical: 15.0,
               ),
               child: Column(
                 children: [
@@ -133,7 +134,7 @@ class _UserHistoryState extends State<UserHistory> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 5.0,
-                        vertical: 5.0,
+                        vertical: 15.0,
                       ),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.90,
@@ -146,6 +147,7 @@ class _UserHistoryState extends State<UserHistory> {
                           ? Align(
                               alignment: Alignment.center,
                               child: SizedBox(
+<<<<<<< HEAD
                                 // height:
                                 //     MediaQuery.of(context).size.height * 0.20,
                                 child: provider.isLoading
@@ -167,14 +169,23 @@ class _UserHistoryState extends State<UserHistory> {
                                     : Container(
                                         alignment: Alignment.center,
                                         child: const Text('No Data Found'),
+=======
+                                height:
+                                    MediaQuery.of(context).size.height * 0.50,
+                                child: provider.isLoading
+                                    ? circularProgress()
+                                    : noDataImage(
+                                        context,
+                                        'NO USER HISTORY',
+                                        'assets/images/towing.png',
+>>>>>>> c5420fb97cf3248df77ac17ecd30b8494d6794cb
                                       ),
                               ),
                             )
                           : Expanded(
                               child: ListView.builder(
                                 physics: const ScrollPhysics(),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
+                                padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 itemCount: provider.userHistoryList.length,
                                 itemBuilder: (ctx, index) {

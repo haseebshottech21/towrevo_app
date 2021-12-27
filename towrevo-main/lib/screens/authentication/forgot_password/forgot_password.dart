@@ -20,14 +20,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-void validateAndSendForgotPassword(BuildContext context) async {
-  if(!_formKey.currentState!.validate()){
-    return;
+  void validateAndSendForgotPassword(BuildContext context) async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    final loginProvider = Provider.of<LoginViewModel>(context, listen: false);
+    await loginProvider.forgotPassword(_emailController.text.trim(), context);
   }
-  final loginProvider = Provider.of<LoginViewModel>(context,listen: false);
-  await loginProvider.forgotPassword(_emailController.text.trim(),context);
-
-}
 
   @override
   Widget build(BuildContext context) {
@@ -156,5 +155,4 @@ void validateAndSendForgotPassword(BuildContext context) async {
       ),
     );
   }
-
 }

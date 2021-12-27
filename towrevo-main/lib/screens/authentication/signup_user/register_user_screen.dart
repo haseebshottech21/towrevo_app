@@ -8,7 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/main.dart';
+import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
 import '/view_model/register_user_view_model.dart';
@@ -88,16 +90,9 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-                  child: IconButton(
-                    icon: const Icon(FontAwesomeIcons.arrowLeft,
-                        color: Colors.white, size: 20.0),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
+                backIcon(context, () {
+                  Navigator.pop(context);
+                }),
                 FadeInDown(
                   from: 15,
                   delay: const Duration(milliseconds: 500),
@@ -231,7 +226,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             textEditingController: emailController,
                           ),
                         ),
-
                         const SizedBox(
                           height: 10,
                         ),
@@ -249,7 +243,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             textEditingController: phoneNumberController,
                           ),
                         ),
-
                         const SizedBox(
                           height: 10,
                         ),
@@ -303,8 +296,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                   Consumer<RegisterUserViewModel>(builder: (ctx,
                                       userRegisterViewModel, neverBuildChild) {
                                     return Checkbox(
-                                      // checkColor: Colors.white,
-                                      // fillColor: MaterialStateProperty.resolveWith(getColor),
+                                      activeColor: const Color(0xFF092848),
                                       value: userRegisterViewModel
                                           .isCheckedTermsAndCondition,
                                       onChanged: (bool? value) {
@@ -318,9 +310,10 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                       Text(
                                         'I Accept',
                                         style: GoogleFonts.montserrat(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13.0),
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12.0,
+                                        ),
                                       ),
                                       const SizedBox(
                                         width: 3,
@@ -329,13 +322,15 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                         text: TextSpan(
                                           children: <TextSpan>[
                                             TextSpan(
-                                                text: 'Term & Condition',
+                                                text:
+                                                    'Term & Condition and Privacy Policay',
                                                 style: GoogleFonts.montserrat(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 13.0,
-                                                    decoration: TextDecoration
-                                                        .underline),
+                                                  color: AppColors.primaryColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12.0,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
                                                 recognizer:
                                                     TapGestureRecognizer()
                                                       ..onTap = () =>
@@ -345,40 +340,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                                                 .routeName,
                                                             arguments: true,
                                                           )
-                                                // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                                // builder: (BuildContext context) => const RegisterAsScreen())),
-                                                ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                      Text(
-                                        'and',
-                                        style: GoogleFonts.montserrat(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 13.0),
-                                      ),
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                                text: 'Privacy Policy',
-                                                style: GoogleFonts.montserrat(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 13.0,
-                                                    decoration: TextDecoration
-                                                        .underline),
-                                                recognizer:
-                                                    TapGestureRecognizer()
-                                                      ..onTap = () => print(
-                                                          'click Privacy Policy')
                                                 // Navigator.of(context).pushReplacement(MaterialPageRoute(
                                                 // builder: (BuildContext context) => const RegisterAsScreen())),
                                                 ),
@@ -406,26 +367,6 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        // This Button use temporary
-                        //     IconButton(
-                        //     icon: const Icon(FontAwesomeIcons.arrowRight, color: Colors.white, size: 20.0),
-                        //     onPressed: (){
-                        //       Navigator.push(
-                        //       context,
-                        //       PageTransition(
-                        //       type: PageTransitionType.rightToLeft,
-                        //       // duration: const Duration(seconds: 2),
-                        //       child: const OTPUserScreen(),
-                        //      ),
-                        //     );
-                        //     // Navigator.push(
-                        //     //   context,
-                        //     //   PageTransition(type: PageTransitionType.fade, child: const OTPUserScreen())
-                        //     //   );
-                        //     // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        //     //     builder: (BuildContext context) => const OTPUserScreen()));
-                        //   },
-                        //  ),
                       ],
                     ),
                   ),

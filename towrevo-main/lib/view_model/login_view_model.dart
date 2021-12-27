@@ -32,20 +32,25 @@ class LoginViewModel with ChangeNotifier {
     }
   }
 
-  String token ='';
+  String token = '';
 
-  Future<void> forgotPassword(String email,BuildContext context)async{
-   final loadedData = await AuthenticationWebService().forgotPassword(email);
-   if(loadedData!=null){
+  Future<void> forgotPassword(String email, BuildContext context) async {
+    final loadedData = await AuthenticationWebService().forgotPassword(email);
+    if (loadedData != null) {
       token = loadedData['data']['token'].toString();
-     Navigator.of(context).pushNamed(ForgotPasswordOTP.routeName);
-   }
+      Navigator.of(context)
+          .pushNamed(ForgotPasswordOTP.routeName, arguments: email);
+    }
   }
 
-  Future<void> sendOTP(String otp, String token,String password,String confirmationPassword,BuildContext context)async{
-     final loadedData = await AuthenticationWebService().validateOTPAndResetPassword(token, password, confirmationPassword, otp);
-    if(loadedData!=null){
-     Navigator.of(context).pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+  Future<void> sendOTP(String otp, String token, String password,
+      String confirmationPassword, BuildContext context) async {
+    final loadedData = await AuthenticationWebService()
+        .validateOTPAndResetPassword(
+            token, password, confirmationPassword, otp);
+    if (loadedData != null) {
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
     }
   }
 }

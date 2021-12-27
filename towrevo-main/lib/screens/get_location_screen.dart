@@ -45,7 +45,6 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
         },
         markers: {if (_origin != null) _origin!},
         onLongPress: _addMarker,
-      
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

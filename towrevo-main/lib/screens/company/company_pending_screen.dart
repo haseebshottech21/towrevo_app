@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/glowCircle.dart';
+import 'package:towrevo/widgets/Loaders/no_user.dart';
+import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 
 class CompanyPendingList extends StatefulWidget {
@@ -52,18 +55,15 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                   ? Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.65,
-                          child: provider.isLoading
-                              ? const GlowCircle(
-                                  glowHeight: 50,
-                                  glowWidth: 50,
-                                  glowbegin: 0,
-                                  glowend: 50,
-                                  miliseconds: 800,
-                                )
-                              : Container(
-                                  alignment: Alignment.center,
-                                  child: const Text('No Data Found'))),
+                        height: MediaQuery.of(context).size.height * 0.65,
+                        child: provider.isLoading
+                            ? circularProgress()
+                            : noDataImage(
+                                context,
+                                'No User Found',
+                                'assets/images/towing.png',
+                              ),
+                      ),
                     )
                   : SizedBox(
                       height: MediaQuery.of(context).size.height,

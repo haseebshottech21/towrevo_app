@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/glowCircle.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import '/widgets/company_item.dart';
@@ -34,38 +35,39 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
           const FullBackgroundImage(),
           Column(
             children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  onPressed: () {
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: IconButton(
+              //     onPressed: () {
+              //       Navigator.of(context).pop();
+              //     },
+              //     icon: const FaIcon(
+              //       FontAwesomeIcons.arrowLeft,
+              //       color: Colors.white,
+              //       size: 15,
+              //     ),
+              //   ),
+              // ),
+              Row(
+                children: [
+                  backIcon(context, () {
                     Navigator.of(context).pop();
-                  },
-                  icon: const FaIcon(
-                    FontAwesomeIcons.arrowLeft,
-                    color: Colors.white,
-                    size: 15,
+                  }),
+                  const SizedBox(
+                    width: 20,
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Nearby Services',
-                    style: TextStyle(
-                      fontSize: 22.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
+                  const Padding(
+                    padding: EdgeInsets.only(top: 32),
+                    child: Text(
+                      'Near By Companies',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 22.0,
+                      ),
                     ),
-                  ),
-                ),
+                  )
+                ],
               ),
               userHomeProvider.isLoading
                   ? SizedBox(
@@ -74,7 +76,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                         glowHeight: 50,
                         glowWidth: 50,
                         glowbegin: 0,
-                        glowend: 50,
+                        glowend: 100,
                         miliseconds: 800,
                       ),
                     )

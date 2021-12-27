@@ -19,6 +19,7 @@ class DrawerListItem extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       leading: Icon(
         iconsData,
+        size: 22,
         color: Theme.of(context).primaryColor,
       ),
       title: Text(

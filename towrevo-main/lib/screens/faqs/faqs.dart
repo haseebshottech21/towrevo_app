@@ -63,11 +63,11 @@ class _FAQsState extends State<FAQs> {
       drawerEnableOpenDragGesture: false,
       drawer: const DrawerWidget(),
       body: SingleChildScrollView(
-        physics: const ScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         child: Stack(
           children: [
             const FullBackgroundImage(),
-            drawerIcon(
+            drawerIconSecond(
               context,
               () {
                 scaffoldKey.currentState!.openDrawer();
@@ -82,7 +82,7 @@ class _FAQsState extends State<FAQs> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
                   FadeInDown(
                     duration: const Duration(milliseconds: 600),
