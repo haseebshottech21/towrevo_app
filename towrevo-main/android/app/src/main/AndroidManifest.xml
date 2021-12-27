@@ -2,7 +2,7 @@
     package="com.android.towrevo">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application
-        android:label="towrevo"
+        android:label="Towrevo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

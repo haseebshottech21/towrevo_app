@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
@@ -133,68 +132,6 @@ class _FAQsState extends State<FAQs> {
         ),
       ),
     );
-
-    // return Scaffold(
-    //   key: scaffoldKey,
-    //   drawerEnableOpenDragGesture: false,
-    //   drawer: const DrawerWidget(),
-    //   body: Stack(
-    //     children: [
-    //       const FullBackgroundImage(),
-    //       SingleChildScrollView(
-    //         physics: const ScrollPhysics(),
-    //         child: Column(
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             drawerIcon(
-    //               context,
-    //               () {
-    //                 scaffoldKey.currentState!.openDrawer();
-    //               },
-    //             ),
-    //             FadeInDown(
-    //               duration: const Duration(milliseconds: 600),
-    //               child: const TowrevoLogoSmall(),
-    //             ),
-    //             Padding(
-    //               padding: const EdgeInsets.symmetric(
-    //                 vertical: 15,
-    //                 horizontal: 5,
-    //               ),
-    //               child: Column(
-    //                 children: [
-    //                   // const Text(
-    //                   //   'FAQ\'s',
-    //                   //   style: TextStyle(
-    //                   //     color: Colors.black,
-    //                   //     fontWeight: FontWeight.bold,
-    //                   //     fontSize: 25,
-    //                   //   ),
-    //                   // ),
-    //                   const SizedBox(
-    //                     height: 5,
-    //                   ),
-    //                   ListView.builder(
-    //                     physics: const NeverScrollableScrollPhysics(),
-    //                     padding: EdgeInsets.zero,
-    //                     shrinkWrap: true,
-    //                     itemCount: faqs.length,
-    //                     itemBuilder: (ctx, index) {
-    //                       return faqContent(
-    //                         faqs[index]['question'].toString(),
-    //                         faqs[index]['answer'].toString(),
-    //                       );
-    //                     },
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       )
-    //     ],
-    //   ),
-    // );
   }
 }
 

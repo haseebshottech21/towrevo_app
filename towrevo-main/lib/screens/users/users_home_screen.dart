@@ -98,7 +98,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         child: Stack(
           children: [
             const BackgroundImage(),
-            drawerIcon(context, () {
+            drawerIconSecond(context, () {
               scaffoldKey.currentState!.openDrawer();
             }),
             Container(

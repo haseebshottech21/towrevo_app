@@ -41,7 +41,7 @@ class FormButtonWidget extends StatelessWidget {
             bottom: 10,
           ),
           child: Text(
-            '$formBtnTxt',
+            formBtnTxt,
             style: GoogleFonts.montserrat(
               color: Colors.white,
               fontWeight: FontWeight.w500,

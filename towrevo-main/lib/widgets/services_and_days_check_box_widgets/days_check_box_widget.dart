@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/days_model.dart';
-import 'package:towrevo/models/services_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
 
 class DaysCheckBoxWidget extends StatelessWidget {

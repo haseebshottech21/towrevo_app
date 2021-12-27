@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,15 +8,13 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/edit_profile_view_model.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
-import 'package:towrevo/view_model/register_company_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
+import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/company_form_field.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/form_button_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/profile_widget.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
 import '../../error_getter.dart';
@@ -297,13 +294,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         alignment: Alignment.center,
                         child: SizedBox(
                           height: MediaQuery.of(context).size.height * 0.7,
-                          child: const GlowCircle(
-                            glowHeight: 50,
-                            glowWidth: 50,
-                            glowbegin: 0,
-                            glowend: 100,
-                            miliseconds: 800,
-                          ),
+                          child: circularProgress(),
                         ),
                       )
                     : Padding(

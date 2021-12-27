@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/web_services/authentication.dart';
-
 import 'otp_view_model.dart';
 
 class RegisterUserViewModel with ChangeNotifier {

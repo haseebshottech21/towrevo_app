@@ -15,7 +15,6 @@ import 'package:towrevo/widgets/full_background_image.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
 import '/view_model/register_user_view_model.dart';
 import '/widgets/company_form_field.dart';
-import '/widgets/background_image.dart';
 import '/widgets/form_button_widget.dart';
 import '/widgets/text_form_field.dart';
 

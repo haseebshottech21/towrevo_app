@@ -9,16 +9,16 @@ class TextFormIconWidget extends StatelessWidget {
   final String hint;
   final Function() onPress;
   final Function errorGetter;
-  const TextFormIconWidget(
-      {this.confirmPassword,
-      required this.errorGetter,
-      required this.textEditingController,
-      required this.obscureText,
-      required this.hint,
-      required this.prefixIcon,
-      required this.onPress,
-      Key? key})
-      : super(key: key);
+  const TextFormIconWidget({
+    this.confirmPassword,
+    required this.errorGetter,
+    required this.textEditingController,
+    required this.obscureText,
+    required this.hint,
+    required this.prefixIcon,
+    required this.onPress,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

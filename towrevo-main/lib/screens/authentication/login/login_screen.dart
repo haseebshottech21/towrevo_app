@@ -180,6 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder:
                                     (ctx, loginViewModel, neverBuildChild) {
                                   return Checkbox(
+                                    activeColor: const Color(0xFF092848),
                                     value: loginViewModel.isRememberChecked,
                                     onChanged: (bool? value) {
                                       loginViewModel.toggleRemember();

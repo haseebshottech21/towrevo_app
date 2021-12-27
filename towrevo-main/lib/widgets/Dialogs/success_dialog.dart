@@ -39,15 +39,10 @@ class CustomDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            // decoration: BoxDecoration(
-            //   borderRadius: BorderRadius.circular(50),
-            // ),
-            child: Image.asset(
-              'assets/images/checked.gif',
-              height: MediaQuery.of(context).size.height * 0.20,
-              width: MediaQuery.of(context).size.width * 0.20,
-            ),
+          Image.asset(
+            'assets/images/checked.gif',
+            height: MediaQuery.of(context).size.height * 0.20,
+            width: MediaQuery.of(context).size.width * 0.20,
           ),
           Text(
             title,

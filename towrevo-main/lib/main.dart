@@ -8,7 +8,6 @@ import 'package:towrevo/screens/aboutus/about_us_screen.dart';
 import 'package:towrevo/screens/authentication/change_password/change_password.dart';
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password.dart';
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password_otp.dart';
-import 'package:towrevo/screens/authentication/login/forgot_password_screen.dart';
 import 'package:towrevo/screens/contactus/contact_us.dart';
 
 import 'package:towrevo/screens/faqs/faqs.dart';
@@ -16,7 +15,6 @@ import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/company/company_history.dart';
 
 import 'package:towrevo/screens/map_distance_screen.dart';
-import 'package:towrevo/screens/onboard/on_board_towrevo.dart';
 import 'package:towrevo/screens/profile/update_profile.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history.dart';
@@ -31,8 +29,6 @@ import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
 import 'package:towrevo/view_model/register_user_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/Dialogs/dialog_box_towrevo.dart';
-import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'screens/users/listing_of_companies_screen.dart';
 import '/screens/users/users_home_screen.dart';
 import 'screens/authentication/signup_user/register_user_screen.dart';

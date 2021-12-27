@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
-import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
@@ -123,7 +122,7 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                                   ),
                                   Align(
                                     alignment: Alignment.topLeft,
-                                    child: Container(
+                                    child: SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.75,
                                       child: const Text(
@@ -194,131 +193,6 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                         },
                       ),
                     ),
-
-              // Container(
-              //   child: ListView.builder(
-              //     padding: EdgeInsets.zero,
-              //     shrinkWrap: true,
-              //     itemCount: 5,
-              //     itemBuilder: (ctx, index) {
-              //       return Card(
-              //         elevation: 5,
-              //         shadowColor: Colors.black,
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(15.0),
-              //         ),
-              //         margin:
-              //             const EdgeInsets.only(left: 10, right: 10, top: 10),
-              //         child: Padding(
-              //           padding: const EdgeInsets.only(
-              //             left: 15,
-              //             right: 10,
-              //             top: 15,
-              //           ),
-              //           child: Column(
-              //             children: [
-              //               Row(
-              //                 children: [
-              //                   Flexible(
-              //                     fit: FlexFit.tight,
-              //                     flex: 9,
-              //                     child: Column(
-              //                       children: [
-              //                         // Container(
-              //                         //   alignment: Alignment.centerLeft,
-              //                         //   child: Text('acas'),
-              //                         // ),
-              //                         Container(
-              //                           alignment: Alignment.centerLeft,
-              //                           child: const Text(
-              //                             'User Name',
-              //                             style: TextStyle(
-              //                                 fontSize: 20,
-              //                                 fontWeight: FontWeight.bold),
-              //                           ),
-              //                         ),
-              //                       ],
-              //                     ),
-              //                   ),
-              //                   const Flexible(
-              //                     fit: FlexFit.tight,
-              //                     flex: 1,
-              //                     child: CircleAvatar(
-              //                       backgroundColor: Colors.black,
-              //                       child: Icon(
-              //                         Icons.home_work_outlined,
-              //                         color: Colors.white,
-              //                       ),
-              //                     ),
-              //                   ),
-              //                 ],
-              //               ),
-              //               const SizedBox(
-              //                 height: 5,
-              //               ),
-              //               Align(
-              //                 alignment: Alignment.topLeft,
-              //                 child: Container(
-              //                   width: MediaQuery.of(context).size.width * 0.75,
-              //                   child: const Text(
-              //                     '1 Zuelke Road, Three Forks,mt, 59352  United States',
-              //                     textAlign: TextAlign.start,
-              //                   ),
-              //                 ),
-              //               ),
-              //               Row(
-              //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //                 children: [
-              //                   TextButton(
-              //                     style: TextButton.styleFrom(
-              //                       padding: EdgeInsets.zero,
-              //                     ),
-              //                     onPressed: () {},
-              //                     child: const Text('Get Directions'),
-              //                   ),
-              //                   SizedBox(
-              //                     width: 135,
-              //                     child: Row(
-              //                       children: [
-              //                         TextButton(
-              //                           style: TextButton.styleFrom(
-              //                             padding: EdgeInsets.zero,
-              //                           ),
-              //                           onPressed: () {},
-              //                           child: const Text(
-              //                             'Accept',
-              //                             style: TextStyle(
-              //                               color: Colors.green,
-              //                             ),
-              //                           ),
-              //                         ),
-              //                         const SizedBox(
-              //                           width: 5,
-              //                         ),
-              //                         TextButton(
-              //                           style: TextButton.styleFrom(
-              //                             padding: EdgeInsets.zero,
-              //                           ),
-              //                           onPressed: () {},
-              //                           child: const Text(
-              //                             'Decline',
-              //                             style: TextStyle(
-              //                               color: Colors.red,
-              //                             ),
-              //                           ),
-              //                         ),
-              //                       ],
-              //                     ),
-              //                   )
-              //                 ],
-              //               ),
-              //             ],
-              //           ),
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // ),
             ],
           ),
         ),

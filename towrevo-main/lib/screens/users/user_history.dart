@@ -1,16 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
-import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_history_list.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/towrevo_logo.dart';
 
 class UserHistory extends StatefulWidget {
   const UserHistory({Key? key}) : super(key: key);
@@ -21,58 +18,6 @@ class UserHistory extends StatefulWidget {
 }
 
 class _UserHistoryState extends State<UserHistory> {
-  // List<Map<String, String>> userHistory = [
-  //   {
-  //     'company-name': 'Company 1',
-  //     'company-service': 'Tow Car',
-  //     'company-image':
-  //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-  //     'date': '15-Dec-2021',
-  //   },
-  //   {
-  //     'company-name': 'Company 2',
-  //     'company-service': 'Tow Car',
-  //     'company-image':
-  //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-  //     'date': '15-Dec-2021',
-  //   },
-  //   {
-  //     'company-name': 'Company 3',
-  //     'company-service': 'Tow Car',
-  //     'company-image':
-  //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-  //     'date': '15-Dec-2021',
-  //   },
-  //   {
-  //     'company-name': 'Company 4',
-  //     'company-service': 'Tow Car',
-  //     'company-image':
-  //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-  //     'date': '15-Dec-2021',
-  //   },
-  //   {
-  //     'company-name': 'Company 5',
-  //     'company-service': 'Tow Car',
-  //     'company-image':
-  //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-  //     'date': '15-Dec-2021',
-  //   },
-  //   {
-  //     'company-name': 'Company 6',
-  //     'company-service': 'Tow Car',
-  //     'company-image':
-  //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-  //     'date': '15-Dec-2021',
-  //   },
-  //   {
-  //     'company-name': 'Company 7',
-  //     'company-service': 'Tow Car',
-  //     'company-image':
-  //         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-  //     'date': '15-Dec-2021',
-  //   },
-  // ];
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -101,7 +46,7 @@ class _UserHistoryState extends State<UserHistory> {
         child: Stack(
           children: [
             const FullBackgroundImage(),
-            drawerIcon(
+            drawerIconSecond(
               context,
               () {
                 scaffoldKey.currentState!.openDrawer();
@@ -189,66 +134,5 @@ class _UserHistoryState extends State<UserHistory> {
         ),
       ),
     );
-
-    // return Scaffold(
-    //   key: scaffoldKey,
-    //   drawerEnableOpenDragGesture: false,
-    //   drawer: const DrawerWidget(),
-    //   body: SingleChildScrollView(
-    //     physics: const ScrollPhysics(),
-    //     child: Stack(
-    //       children: [
-    //         const FullBackgroundImage(),
-    //         drawerIcon(
-    //           context,
-    //           () {
-    //             scaffoldKey.currentState!.openDrawer();
-    //           },
-    //         ),
-    //         Container(
-    //           alignment: Alignment.center,
-    //           padding: const EdgeInsets.symmetric(
-    //             horizontal: 10.0,
-    //             vertical: 15.0,
-    //           ),
-    //           child: Column(
-    //             children: [
-    //               const SizedBox(
-    //                 height: 30,
-    //               ),
-    //               const Center(
-    //                 child: Text(
-    //                   'History',
-    //                   style: TextStyle(
-    //                     fontSize: 22.0,
-    //                     color: Colors.white,
-    //                     fontWeight: FontWeight.w700,
-    //                   ),
-    //                 ),
-    //               ),
-    //               ListView.builder(
-    //                 physics: const NeverScrollableScrollPhysics(),
-    //                 padding: const EdgeInsets.symmetric(vertical: 15),
-    //                 shrinkWrap: true,
-    //                 itemCount: provider.userHistoryList.length,
-    //                 itemBuilder: (ctx, index) {
-    //                   return UserHistoryList(
-    //                     companyImage:
-    //                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-    //                     companyName:
-    //                         provider.userHistoryList[index].companyName,
-    //                     companyService:
-    //                         provider.userHistoryList[index].serviceName,
-    //                     date: '12-12-2021',
-    //                   );
-    //                 },
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
