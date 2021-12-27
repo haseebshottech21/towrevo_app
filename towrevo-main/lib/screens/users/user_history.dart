@@ -147,29 +147,6 @@ class _UserHistoryState extends State<UserHistory> {
                           ? Align(
                               alignment: Alignment.center,
                               child: SizedBox(
-<<<<<<< HEAD
-                                // height:
-                                //     MediaQuery.of(context).size.height * 0.20,
-                                child: provider.isLoading
-                                    ? Container(
-                                        height: 100,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black.withOpacity(0.5),
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Container(
-                                          height: 50,
-                                          width: 50,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                          ),
-                                        ))
-                                    : Container(
-                                        alignment: Alignment.center,
-                                        child: const Text('No Data Found'),
-=======
                                 height:
                                     MediaQuery.of(context).size.height * 0.50,
                                 child: provider.isLoading
@@ -178,7 +155,6 @@ class _UserHistoryState extends State<UserHistory> {
                                         context,
                                         'NO USER HISTORY',
                                         'assets/images/towing.png',
->>>>>>> c5420fb97cf3248df77ac17ecd30b8494d6794cb
                                       ),
                               ),
                             )
@@ -199,7 +175,7 @@ class _UserHistoryState extends State<UserHistory> {
                                         .userHistoryList[index].companyName,
                                     companyService: provider
                                         .userHistoryList[index].serviceName,
-                                    date: '12-12-2021',
+                                    date: provider.userHistoryList[index].date,
                                   );
                                 },
                               ),
