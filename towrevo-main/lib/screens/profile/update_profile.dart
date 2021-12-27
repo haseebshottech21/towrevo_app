@@ -270,7 +270,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           scaffoldKey.currentState!.openDrawer();
                         },
                       ),
-                      const SizedBox(width: 35),
+                      const SizedBox(width: 45),
                       Center(
                         child: Text(
                           'EDIT PROFILE',

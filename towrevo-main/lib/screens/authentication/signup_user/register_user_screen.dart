@@ -49,8 +49,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
     //   return;
     // }
     else if (!registerUserViewModel.isCheckedTermsAndCondition) {
-      Fluttertoast.showToast(
-          msg: 'You Can\'t Sign up witthout accepting terms and conditions.');
+      Fluttertoast.showToast(msg: 'Please Accept Term&Conditon');
       return;
     } else {
       bool response = await registerUserViewModel.userSignUp({
@@ -236,7 +235,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           delay: const Duration(milliseconds: 660),
                           child: TextFieldForAll(
                             errorGetter: ErrorGetter().phoneNumberErrorGetter,
-                            hintText: '',
+                            hintText: 'Phone Number',
                             prefixIcon: const Icon(
                               FontAwesomeIcons.phoneAlt,
                               color: Color(0xFF019aff),

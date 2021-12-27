@@ -62,7 +62,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                           scaffoldKey.currentState!.openDrawer();
                         },
                       ),
-                      const SizedBox(width: 35),
+                      const SizedBox(width: 45),
                       Center(
                         child: Text(
                           'MY HISTORY',

@@ -14,19 +14,19 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "image": "assets/images/truck.png",
+      "image": "assets/images/LightDutyTowing.png",
       "text": "Light Duty Towing",
       "descripttion":
           "The range in towing services begins with the light-duty, involving towing of small sedans and cars within wide reach.",
     },
     {
-      "image": "assets/images/truck1.png",
+      "image": "assets/images/MediumDutyTowing.png",
       "text": "Medium Duty Towing",
       "descripttion":
           "The truckloads ranging from 9,000 to 22,000 pounds are also catered by the services of medium-duty towing which also includes flatbeds.",
     },
     {
-      "image": "assets/images/truck2.png",
+      "image": "assets/images/HeavyDutyTowing.png",
       "text": "Heavy Duty Towing",
       "descripttion":
           "For heavy-duty towing the range varies from dumps truck to farm equipment and machinery, along with the quality control system.",

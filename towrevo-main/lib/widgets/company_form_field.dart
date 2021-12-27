@@ -47,36 +47,35 @@ class TextFieldForAll extends StatelessWidget {
           borderRadius: BorderRadius.circular(30.0),
         ),
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.black),
+        hintStyle: const TextStyle(color: Colors.black87),
         // hintStyle: GoogleFonts.montserrat(color: Colors.black),
         // isDense: true,
         // helperText: 'Keep it short, this is just a demo.',
-        prefixIcon:
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 15),
-            //   child: prefixIcon,
-            // ),
-            SizedBox(
-          width: prefixPhone ? 70 : 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: prefixIcon,
-              ),
-              if (prefixPhone)
-                const Padding(
-                  padding: EdgeInsets.zero,
-                  child: Text(
-                    ' +1',
-                    style: TextStyle(color: Colors.black54, fontSize: 17),
-                  ),
-                ),
-            ],
-          ),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: prefixIcon,
         ),
-        prefixText: prefixPhone ? '' : ' ',
+        //     SizedBox(
+        //   width: prefixPhone ? 70 : 50,
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     children: [
+        //       Padding(
+        //         padding: const EdgeInsets.only(left: 20),
+        //         child: prefixIcon,
+        //       ),
+        //       if (prefixPhone)
+        //         const Padding(
+        //           padding: EdgeInsets.zero,
+        //           child: Text(
+        //             ' +1',
+        //             style: TextStyle(color: Colors.black54, fontSize: 17),
+        //           ),
+        //         ),
+        //     ],
+        //   ),
+        // ),
+        prefixText: '  ',
         prefixStyle: const TextStyle(color: Colors.black, fontSize: 16),
         // suffixIcon: suffixIcon,
         // suffixText: 'USD',

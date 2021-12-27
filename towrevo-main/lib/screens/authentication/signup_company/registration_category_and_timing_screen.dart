@@ -12,6 +12,7 @@ import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
 import 'package:towrevo/widgets/back_icon.dart';
+import 'package:towrevo/widgets/services_and_days_check_box_widgets/check_list.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
 import '../../get_location_screen.dart';
@@ -125,7 +126,7 @@ class _RegistrationCategoryAndTimingScreenState
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
             child: Column(children: [
               const SizedBox(
-                height: 50,
+                height: 55,
               ),
               FadeInDown(
                 from: 15,
@@ -383,6 +384,13 @@ class _RegistrationCategoryAndTimingScreenState
                         ),
                       );
                     }),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // const showCheckboxList(),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
                     const SizedBox(
                       height: 5,
                     ),

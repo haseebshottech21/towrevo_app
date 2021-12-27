@@ -19,39 +19,40 @@ class _FAQsState extends State<FAQs> {
 
   List<Map<String, String>> faqs = [
     {
-      'question': 'Question',
+      'question': 'What services I can request ?',
       'answer':
-          'Please read these Terms of Service ("Agreement", "Terms of Service") carefully before using TowRevo (the site) and TowRevo App (associated application) operated by TowRevo LLC. \n\nBy accessing or using the Site or App in any manner, including, but not limited to, visiting or browsing the Site or the App or contributing content or other materials to the Site or App, you agree to be bound by these Terms of Service. Capitalized terms are defined in this Agreement.',
+          '• Towing \n• Battery jump \n• Flat tire replacement \n• Door lock \n• Roadside assistance',
     },
     {
-      'question': 'Question',
-      'answer':
-          'Please read these Terms of Service ("Agreement", "Terms of Service") carefully before using TowRevo (the site) and TowRevo App (associated application) operated by TowRevo LLC. \n\nBy accessing or using the Site or App in any manner, including, but not limited to, visiting or browsing the Site or the App or contributing content or other materials to the Site or App, you agree to be bound by these Terms of Service. Capitalized terms are defined in this Agreement.',
+      'question': 'What type of service available ?',
+      'answer': '• Hook-Towing \n• Flatbed-Towing \n• Heavy-duty Towing',
     },
     {
-      'question': 'Question',
+      'question': 'How many times I can request ?',
       'answer':
-          'Please read these Terms of Service ("Agreement", "Terms of Service") carefully before using TowRevo (the site) and TowRevo App (associated application) operated by TowRevo LLC. \n\nBy accessing or using the Site or App in any manner, including, but not limited to, visiting or browsing the Site or the App or contributing content or other materials to the Site or App, you agree to be bound by these Terms of Service. Capitalized terms are defined in this Agreement.',
+          '• Request is limited 3 time per session.  Otherwise you will blocked ',
     },
     {
-      'question': 'Question',
-      'answer':
-          'Please read these Terms of Service ("Agreement", "Terms of Service") carefully before using TowRevo (the site) and TowRevo App (associated application) operated by TowRevo LLC. \n\nBy accessing or using the Site or App in any manner, including, but not limited to, visiting or browsing the Site or the App or contributing content or other materials to the Site or App, you agree to be bound by these Terms of Service. Capitalized terms are defined in this Agreement.',
+      'question': 'Sign up per person ?',
+      'answer': '• Each customer can sign up One time. No account sharing. ',
     },
     {
-      'question': 'Question',
+      'question': 'Company with multiple towing drivers ?',
       'answer':
-          'Please read these Terms of Service ("Agreement", "Terms of Service") carefully before using TowRevo (the site) and TowRevo App (associated application) operated by TowRevo LLC. \n\nBy accessing or using the Site or App in any manner, including, but not limited to, visiting or browsing the Site or the App or contributing content or other materials to the Site or App, you agree to be bound by these Terms of Service. Capitalized terms are defined in this Agreement.',
+          '• One account each company required. You can dispatch your drivers when you receive a job request',
     },
     {
-      'question': 'Question',
+      'question': 'Is there free trial ?',
       'answer':
-          'Please read these Terms of Service ("Agreement", "Terms of Service") carefully before using TowRevo (the site) and TowRevo App (associated application) operated by TowRevo LLC. \n\nBy accessing or using the Site or App in any manner, including, but not limited to, visiting or browsing the Site or the App or contributing content or other materials to the Site or App, you agree to be bound by these Terms of Service. Capitalized terms are defined in this Agreement.',
+          '• We do run different promotions throughout the year \n• Customer pay as you go \n• Tow companies monthly subscription. ',
     },
     {
-      'question': 'Question',
-      'answer':
-          'Please read these Terms of Service ("Agreement", "Terms of Service") carefully before using TowRevo (the site) and TowRevo App (associated application) operated by TowRevo LLC. \n\nBy accessing or using the Site or App in any manner, including, but not limited to, visiting or browsing the Site or the App or contributing content or other materials to the Site or App, you agree to be bound by these Terms of Service. Capitalized terms are defined in this Agreement.',
+      'question': 'How to cancel your account ?',
+      'answer': 'Please email us at support@towrevo.com ',
+    },
+    {
+      'question': 'How to contact us ? ',
+      'answer': 'Please email us at support@towrevo.com ',
     },
   ];
 
@@ -159,7 +160,7 @@ FadeInUp faqContent(
           collapsed: Text(
             answer,
             softWrap: true,
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               color: Colors.white,

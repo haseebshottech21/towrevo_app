@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,6 +10,7 @@ import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/screens/authentication/signup_company/registration_otp_screen.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/view_model/register_user_view_model.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/background_image.dart';
 import 'package:towrevo/widgets/form_button_widget.dart';
 import 'package:towrevo/widgets/text_form_field.dart';
@@ -78,39 +78,35 @@ class _ForgotPasswordOTPState extends State<ForgotPasswordOTP>
         child: Stack(
           children: [
             // Background Image
-            const BackgroundImage(),
+            const FormBackgroundImage(),
             // Back Icon
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-              child: IconButton(
-                icon: const Icon(FontAwesomeIcons.arrowLeft,
-                    color: Colors.white, size: 20.0),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
+            backIcon(context, () {
+              Navigator.pop(context);
+            }),
             Form(
               key: _formKey,
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 30.0),
+                  horizontal: 20.0,
+                  vertical: 30.0,
+                ),
                 child: Column(children: [
                   const SizedBox(
                     height: 5,
                   ),
                   const TowrevoLogo(),
                   const SizedBox(
-                    height: 45,
+                    height: 20,
                   ),
                   Text(
                     'FORGOT PASSWORD \nVERIFICATION',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 30.0,
-                        letterSpacing: 1),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 28.0,
+                      letterSpacing: 1,
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -127,18 +123,19 @@ class _ForgotPasswordOTPState extends State<ForgotPasswordOTP>
                             letterSpacing: 0.5),
                       ),
                       Text(
-                        'on Your Email : $email',
+                        'on this Email : $email',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
-                            color: const Color(0xFF0c355a),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20.0,
-                            letterSpacing: 0.5),
+                          color: const Color(0xFF0c355a),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18.0,
+                          letterSpacing: 0.5,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(
-                    height: 35,
+                    height: 20,
                   ),
                   OTPTextField(
                     length: 5,
@@ -164,7 +161,7 @@ class _ForgotPasswordOTPState extends State<ForgotPasswordOTP>
                     },
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -197,45 +194,36 @@ class _ForgotPasswordOTPState extends State<ForgotPasswordOTP>
                   const SizedBox(
                     height: 20,
                   ),
-                  FadeInDown(
-                    from: 60,
-                    delay: const Duration(milliseconds: 680),
-                    child: Consumer<RegisterUserViewModel>(
-                        builder: (ctx, registerUserViewModel, neverBuildChild) {
-                      return TextFormIconWidget(
-                        errorGetter: ErrorGetter().passwordErrorGetter,
-                        textEditingController: password,
-                        obscureText: registerUserViewModel.obscurePassword,
-                        hint: 'Password',
-                        prefixIcon: const Icon(FontAwesomeIcons.qrcode,
-                            color: Color(0xFF019aff), size: 20.0),
-                        onPress: registerUserViewModel.toggleObscure,
-                      );
-                    }),
-                  ),
+                  Consumer<RegisterUserViewModel>(
+                      builder: (ctx, registerUserViewModel, neverBuildChild) {
+                    return TextFormIconWidget(
+                      errorGetter: ErrorGetter().passwordErrorGetter,
+                      textEditingController: password,
+                      obscureText: registerUserViewModel.obscurePassword,
+                      hint: 'Password',
+                      prefixIcon: const Icon(FontAwesomeIcons.qrcode,
+                          color: Color(0xFF019aff), size: 20.0),
+                      onPress: registerUserViewModel.toggleObscure,
+                    );
+                  }),
                   const SizedBox(
                     height: 10,
                   ),
-                  FadeInDown(
-                    from: 65,
-                    delay: const Duration(milliseconds: 700),
-                    child: Consumer<RegisterUserViewModel>(
-                        builder: (ctx, registerUserViewModel, neverBuildChild) {
-                      return TextFormIconWidget(
-                        confirmPassword: confirmPassword,
-                        errorGetter: ErrorGetter().confirmPasswordErrorGetter,
-                        textEditingController: confirmPassword,
-                        obscureText:
-                            registerUserViewModel.obscureConfirmPassword,
-                        hint: 'Confirm Password',
-                        prefixIcon: const Icon(FontAwesomeIcons.qrcode,
-                            color: Color(0xFF019aff), size: 20.0),
-                        onPress: registerUserViewModel.toggleObscureConfirm,
-                      );
-                    }),
-                  ),
+                  Consumer<RegisterUserViewModel>(
+                      builder: (ctx, registerUserViewModel, neverBuildChild) {
+                    return TextFormIconWidget(
+                      confirmPassword: confirmPassword,
+                      errorGetter: ErrorGetter().confirmPasswordErrorGetter,
+                      textEditingController: confirmPassword,
+                      obscureText: registerUserViewModel.obscureConfirmPassword,
+                      hint: 'Confirm Password',
+                      prefixIcon: const Icon(FontAwesomeIcons.qrcode,
+                          color: Color(0xFF019aff), size: 20.0),
+                      onPress: registerUserViewModel.toggleObscureConfirm,
+                    );
+                  }),
                   const SizedBox(
-                    height: 35,
+                    height: 25,
                   ),
                   FormButtonWidget(
                     'VERIFY',

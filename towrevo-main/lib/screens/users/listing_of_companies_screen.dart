@@ -55,7 +55,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                     width: 20,
                   ),
                   const Padding(
-                    padding: EdgeInsets.only(top: 32),
+                    padding: EdgeInsets.only(top: 35),
                     child: Text(
                       'Near By Companies',
                       style: TextStyle(

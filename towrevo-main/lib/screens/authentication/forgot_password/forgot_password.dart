@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/background_image.dart';
 import 'package:towrevo/widgets/company_form_field.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
@@ -37,16 +38,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             // Background Image
             const BackgroundImage(),
             // Back Icon
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0, top: 20.0),
-              child: IconButton(
-                icon: const Icon(FontAwesomeIcons.arrowLeft,
-                    color: Colors.white, size: 20.0),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
+            backIcon(context, () {
+              Navigator.pop(context);
+            }),
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(

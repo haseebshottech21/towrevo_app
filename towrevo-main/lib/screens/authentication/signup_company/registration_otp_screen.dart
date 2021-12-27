@@ -10,6 +10,7 @@ import 'package:towrevo/view_model/otp_view_model.dart';
 import 'package:towrevo/screens/company/company_home_screen.dart';
 import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import '/widgets/form_button_widget.dart';
 import '/widgets/towrevo_logo.dart';
 import '/widgets/background_image.dart';
@@ -91,16 +92,9 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
           // Background Image
           const BackgroundImage(),
           // Back Icon
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-            child: IconButton(
-              icon: const Icon(FontAwesomeIcons.arrowLeft,
-                  color: Colors.white, size: 20.0),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
+          backIcon(context, () {
+            Navigator.pop(context);
+          }),
           Container(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),

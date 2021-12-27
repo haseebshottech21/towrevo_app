@@ -66,7 +66,7 @@ class _RegistrationCredentialScreenState
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 50,
+                    height: 55,
                   ),
                   FadeInDown(
                     from: 15,

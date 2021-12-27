@@ -22,7 +22,7 @@ Future openBottomSheet(BuildContext context, String companyName) {
     builder: (BuildContext context) {
       return Container(
         padding: const EdgeInsets.all(20.0),
-        height: MediaQuery.of(context).size.height * 0.25,
+        height: MediaQuery.of(context).size.height * 0.22,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
