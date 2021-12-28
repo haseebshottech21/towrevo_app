@@ -412,6 +412,16 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         if (message.data['screen'] == 'complete') {
           Fluttertoast.showToast(msg: 'Job Complete.').then(
             (value) {
+              provider.rating = 0;
+
+              provider.ratingData = {
+                'requestedId': message.data['id'],
+                'requested': true,
+              };
+              provider.bottomSheetData = {
+                'requestedId': '',
+                'requested': false,
+              };
               Navigator.of(context).pushNamedAndRemoveUntil(
                 UsersHomeScreen.routeName,
                 (route) => false,
