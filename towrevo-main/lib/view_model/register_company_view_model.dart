@@ -25,7 +25,7 @@ class RegisterCompanyViewModel with ChangeNotifier {
     'from': '',
     'to': '',
     'extension': '',
-    'transaction_id': '',
+    // 'transaction_id': '',
     'days': [],
     'services': [],
     'notification_id': MyApp.notifyToken,

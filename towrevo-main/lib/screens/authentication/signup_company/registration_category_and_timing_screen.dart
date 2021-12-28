@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/authentication/signup_company/registration_otp_screen.dart';
 import 'package:towrevo/screens/authentication/signup_company/signup_company_widegts/title_widget.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
@@ -35,35 +36,102 @@ class RegistrationCategoryAndTimingScreen extends StatefulWidget {
 class _RegistrationCategoryAndTimingScreenState
     extends State<RegistrationCategoryAndTimingScreen> {
   Future<void> showDays(BuildContext context) async {
+    final daysProvider =
+        Provider.of<ServicesAndDaysViewModel>(context, listen: false);
     await showDialog(
-        context: context,
-        //Notice the use of ChangeNotifierProvider<ReportState>.value
-        builder: (_) {
-          // final provider = Provider.of<RegisterCompanyViewModel>(context,listen: true);
-          print('there');
-          return AlertDialog(
-            content: Consumer<ServicesAndDaysViewModel>(
-                builder: (ctx, provider, neverBuildChild) {
-              return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: provider.daysListViewModel.map((item) {
-                    return ChangeNotifierProvider.value(
-                      value: provider.daysListViewModel[
-                          provider.daysListViewModel.indexOf(item)],
-                      child: const DaysCheckBoxWidget(),
-                    );
-                  }).toList());
-            }),
-          );
-        });
+      barrierDismissible: false,
+      context: context,
+      //Notice the use of ChangeNotifierProvider<ReportState>.value
+      builder: (_) {
+        // final provider = Provider.of<RegisterCompanyViewModel>(context,listen: true);
+        print('there');
+        return AlertDialog(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text(
+                'Select Days',
+              ),
+              FaIcon(FontAwesomeIcons.calendarDay)
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                daysProvider.clearDaysList();
+                Navigator.pop(context, null);
+              },
+              child: const Text(
+                'Cancle',
+                // style: TextStyle(color: AppColors.primaryColor),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, cityList);
+              },
+              child: const Text(
+                'Done',
+                // style: TextStyle(color: AppColors.primaryColor),
+              ),
+            ),
+          ],
+          content: Consumer<ServicesAndDaysViewModel>(
+              builder: (ctx, provider, neverBuildChild) {
+            return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: provider.daysListViewModel.map((item) {
+                  return ChangeNotifierProvider.value(
+                    value: provider.daysListViewModel[
+                        provider.daysListViewModel.indexOf(item)],
+                    child: const DaysCheckBoxWidget(),
+                  );
+                }).toList());
+          }),
+        );
+      },
+    );
   }
 
   Future<void> showCategories(BuildContext context) async {
+    final servicesProvider =
+        Provider.of<ServicesAndDaysViewModel>(context, listen: false);
     await showDialog(
         context: context,
+        barrierDismissible: false,
         //Notice the use of ChangeNotifierProvider<ReportState>.value
         builder: (_) {
           return AlertDialog(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  'Select Categories',
+                ),
+                FaIcon(FontAwesomeIcons.servicestack)
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  servicesProvider.clearServicesList();
+                  Navigator.pop(context, null);
+                },
+                child: const Text(
+                  'Cancel',
+                  // style: TextStyle(color: AppColors.primaryColor),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, cityList);
+                },
+                child: const Text(
+                  'Done',
+                  // style: TextStyle(color: AppColors.primaryColor),
+                ),
+              ),
+            ],
             content: Consumer<ServicesAndDaysViewModel>(
                 builder: (ctx, provider, neverBuildChild) {
               return Column(
@@ -80,7 +148,7 @@ class _RegistrationCategoryAndTimingScreenState
         });
   }
 
-  void validate() {
+  void validate() async {
     final locationProvider =
         Provider.of<GetLocationViewModel>(context, listen: false);
     final registerProvider =
@@ -102,9 +170,14 @@ class _RegistrationCategoryAndTimingScreenState
           json.encode(daysAndServiceProvider.servicesId);
       registerProvider.body['days'] =
           json.encode(daysAndServiceProvider.daysId);
-      // registerProvider.body['services'] = daysAndServiceProvider.servicesId;
-      // registerProvider.body['days'] = daysAndServiceProvider.daysId;
-      Navigator.of(context).pushNamed(RegistrationPaymentScreen.routeName);
+
+      // Navigator.of(context).pushNamed(RegistrationPaymentScreen.routeName);
+
+      bool response = await registerProvider.registerCompany(context);
+      if (response) {
+        Navigator.of(context)
+            .pushNamed(RegistrationOTPScreen.routeName, arguments: true);
+      }
     } else {
       Utilities().showToast('Please Fill All Required Fields');
     }
@@ -504,6 +577,7 @@ class _RegistrationCategoryAndTimingScreenState
       // provider.daysList=[{'Monday':false},{'Tuesday':false},{'Wednesday':false},{'Thursday':false},{'Friday':false},{'Saturday':false},{'Sunday':false},];
       locationProvider.address = '';
       provider.initializeValues();
+      serviceProvider.initializeValues();
       //services e.g car, bike
       serviceProvider.getServices();
 

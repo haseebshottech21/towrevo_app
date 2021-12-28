@@ -19,15 +19,15 @@ class AuthenticationWebService {
     print(response.body);
     final loadedData = json.decode(response.body);
     print(loadedData);
-    Fluttertoast.showToast(
-      msg: loadedData.toString(),
-    );
+    // Fluttertoast.showToast(
+    //   msg: loadedData.toString(),
+    // );
     if (response.statusCode == 200) {
       // Utilities().showToast('OTP Successfully Sent on Email');
       // print(loadedData['data']['uniqueId']);
-      // Fluttertoast.showToast(
-      //   msg: loadedData['message'].toString(),
-      // );
+      Fluttertoast.showToast(
+        msg: loadedData['message'].toString(),
+      );
 
       await utilities.setSharedPrefValue(
           'uniqueId', loadedData['data']['uniqueId']);
@@ -46,41 +46,44 @@ class AuthenticationWebService {
     // }
   }
 
-  Future<bool> login(String email, String password) async {
-    final response = await http.post(Uri.parse(Utilities.baseUrl + 'login'),
-        body: {
-          'email': email,
-          'password': password,
-          'notification_id': MyApp.notifyToken,
-        },
-        headers: Utilities.header);
+  Future<bool> login(String email, String password, bool remember) async {
+    final response = await http.post(
+      Uri.parse(Utilities.baseUrl + 'login'),
+      body: {
+        'email': email,
+        'password': password,
+        'notification_id': MyApp.notifyToken,
+      },
+      headers: Utilities.header,
+    );
     print(response.body);
 
     final responseLoaded = json.decode(response.body);
     // print(responseLoaded['data']['user']);
     if (response.statusCode == 200) {
       await utilities.setSharedPrefValue(
-        'token',
-        responseLoaded['data']['token'],
-      );
+          'token', responseLoaded['data']['token']);
       await utilities.setSharedPrefValue(
-        'type',
-        responseLoaded['data']['user']['type'],
-      );
+          'type', responseLoaded['data']['user']['type']);
       await utilities.setSharedPrefValue(
-        'email',
-        responseLoaded['data']['user']['email'],
-      );
+          'email', responseLoaded['data']['user']['email']);
       await utilities.setSharedPrefValue(
-        'image',
-        responseLoaded['data']['user']['image'] ?? '',
-      );
+          'image', responseLoaded['data']['user']['image'] ?? '');
       await utilities.setSharedPrefValue(
         'name',
         responseLoaded['data']['user']['first_name'].toString() +
             ' ' +
             (responseLoaded['data']['user']['last_name'] ?? '').toString(),
       );
+
+      if (remember) {
+        await utilities.setSharedPrefValue('remember_email', email);
+        await utilities.setSharedPrefValue('remember_password', password);
+      } else {
+        await utilities.removeSharedPreferenceValue('remember_email');
+        await utilities.removeSharedPreferenceValue('remember_password');
+      }
+
       utilities.showToast('Success');
       return true;
     } else {
@@ -101,6 +104,7 @@ class AuthenticationWebService {
       await utilities.removeSharedPreferenceValue('email');
       await utilities.removeSharedPreferenceValue('image');
       await utilities.removeSharedPreferenceValue('name');
+
       return true;
     } else {
       utilities.showToast(loadedResponse['message'].toString());

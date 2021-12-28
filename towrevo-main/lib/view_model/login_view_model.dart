@@ -19,7 +19,8 @@ class LoginViewModel with ChangeNotifier {
   }
 
   Future<bool> loginRequest(String email, String password) async {
-    bool result = await AuthenticationWebService().login(email, password);
+    bool result = await AuthenticationWebService()
+        .login(email, password, isRememberChecked);
     return result;
   }
 

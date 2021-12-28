@@ -14,6 +14,12 @@ class ServicesAndDaysViewModel with ChangeNotifier {
     DaysModel(id: '7', name: 'Sunday'),
   ];
 
+  initializeValues() {
+    for (var element in daysListViewModel) {
+      element.dayAvailable = false;
+    }
+  }
+
   List<ServicesModel> serviceListViewModel = [];
   List<String> daysId = [];
   List<String> servicesId = [];
@@ -53,6 +59,22 @@ class ServicesAndDaysViewModel with ChangeNotifier {
 
   void changeServiceSelectedValue(String value) {
     serviceSelectedValue = value;
+    notifyListeners();
+  }
+
+  void clearDaysList() {
+    daysId.clear();
+    for (var days in daysListViewModel) {
+      days.dayAvailable = false;
+    }
+    notifyListeners();
+  }
+
+  void clearServicesList() {
+    servicesId.clear();
+    for (var days in serviceListViewModel) {
+      days.serviceAvailable = false;
+    }
     notifyListeners();
   }
 
