@@ -65,7 +65,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
     userHistoryList = [];
     final loadedResponse = await UserWebService().requestsOfUserHistory();
     if (loadedResponse.isNotEmpty) {
-      userHistoryList = loadedResponse;
+      userHistoryList = loadedResponse.reversed.toList();
     }
     isLoading = false;
     notifyListeners();

@@ -122,10 +122,10 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                                     // print(provider
                                     //     .companyHistoryList[index].image);
 
-                                    print(provider
-                                        .companyHistoryList[index].createdAt
-                                        .split('T')
-                                        .first);
+                                    // print(provider
+                                    //     .companyHistoryList[index].createdAt
+                                    //     .split('T')
+                                    //     .first);
                                     return CompanyHistoryList(
                                       userImage:
                                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
@@ -154,6 +154,12 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                                                   2
                                               ? Colors.red
                                               : Colors.blueGrey,
+                                      rating: provider.companyHistoryList[index]
+                                                  .reviewModel ==
+                                              null
+                                          ? 0
+                                          : provider.companyHistoryList[index]
+                                              .reviewModel!.rate,
                                     );
                                   },
                                 ),

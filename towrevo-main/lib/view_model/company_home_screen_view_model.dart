@@ -32,7 +32,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     final loadedResponse =
         await CompanyWebService().requestsOfUser('', history: true);
     if (loadedResponse.isNotEmpty) {
-      companyHistoryList = loadedResponse;
+      companyHistoryList = loadedResponse.reversed.toList();
     }
     isLoading = false;
     notifyListeners();
