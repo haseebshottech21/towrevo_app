@@ -11,7 +11,6 @@ import 'package:towrevo/screens/users/listing_of_companies_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
 import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
@@ -53,10 +52,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
             await openBottomSheet(
               context,
               map['companyName'].toString(),
-            ).then((value) {
-              provider.bottomSheetData['requested'] = false;
-              provider.bottomSheetData['requestedId'] = '';
-            });
+            );
           }
         },
       );
@@ -82,7 +78,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
               'requestedId': '',
               'requested': false,
             };
-            provider.updateRating(0);
           });
         },
       );
@@ -98,14 +93,37 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         child: Stack(
           children: [
             const BackgroundImage(),
-            drawerIconSecond(context, () {
-              scaffoldKey.currentState!.openDrawer();
-            }),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                top: 30.0,
+              ),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.095,
+                padding: const EdgeInsets.all(0.5),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF092848).withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: const FaIcon(
+                    FontAwesomeIcons.bars,
+                    color: Colors.white,
+                    size: 15.0,
+                  ),
+                  onPressed: () {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
+                ),
+              ),
+            ),
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(
                 horizontal: 20.0,
-                vertical: 25.0,
+                vertical: 20.0,
               ),
               child: Column(
                 children: [
@@ -114,7 +132,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                   ),
                   const TowrevoLogo(),
                   const SizedBox(
-                    height: 30,
+                    height: 50,
                   ),
                   Text(
                     'PICKUP LOCATION',
@@ -137,7 +155,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 20,
                   ),
                   Consumer<GetLocationViewModel>(
                     builder: (ctx, getLocation, neverBuildChild) {
@@ -255,13 +273,19 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                     },
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   FormButtonWidget(
                     'Next',
                     () {
                       navigateUserHomeScreen();
                     },
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                 ],
               ),
@@ -306,7 +330,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   @override
   void didChangeDependencies() async {
     if (_init) {
+      await setUpRequestNotification();
       await setupInteracted();
+
       final serviceProvider =
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);
       serviceProvider.getServices();
@@ -363,17 +389,16 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         }
         if (message.data['screen'] == 'accept') {
           print(message.data['name']);
-          Fluttertoast.showToast(
-              msg: 'Accepted From Company ${message.data['id'].toString()}');
-
-          provider.bottomSheetData = {
-            'requestedId': message.data['id'],
-            'requested': true,
-          };
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            UsersHomeScreen.routeName,
-            (route) => false,
-          );
+          Fluttertoast.showToast(msg: 'Accepted From Company.').then((value) {
+            provider.bottomSheetData = {
+              'requestedId': message.data['id'],
+              'requested': true,
+            };
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              UsersHomeScreen.routeName,
+              (route) => false,
+            );
+          });
         }
         if (message.data['screen'] == 'decline_from_company') {
           Fluttertoast.showToast(msg: 'Decline From Company');
@@ -385,21 +410,13 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           // Navigator.pushNamed(context, RequestScreen.routeName,);
         }
         if (message.data['screen'] == 'complete') {
-          Fluttertoast.showToast(
-              msg: 'Job Complete  ${message.data['id'].toString()}');
-
-          provider.ratingData = {
-            'requestedId': message.data['id'],
-            'requested': true,
-          };
-          provider.bottomSheetData = {
-            'requestedId': '',
-            'requested': false,
-          };
-
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            UsersHomeScreen.routeName,
-            (route) => false,
+          Fluttertoast.showToast(msg: 'Job Complete.').then(
+            (value) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                UsersHomeScreen.routeName,
+                (route) => false,
+              );
+            },
           );
         }
       },
@@ -424,33 +441,36 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       // Navigator.pushNamed(context, RequestScreen.routeName,);
     }
     if (message.data['screen'] == 'accept') {
-      Fluttertoast.showToast(msg: 'Accepted From Company');
-      provider.bottomSheetData = {
-        'requestedId': message.data['id'],
-        'requested': true,
-      };
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(UsersHomeScreen.routeName, (route) => false);
+      Fluttertoast.showToast(msg: 'Accepted From Company').then(
+        (value) {
+          provider.bottomSheetData = {
+            'requestedId': message.data['id'],
+            'requested': true,
+          };
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              UsersHomeScreen.routeName, (route) => false);
+        },
+      );
     }
     if (message.data['screen'] == 'complete') {
-      Fluttertoast.showToast(
-          msg: 'Job Complete  ${message.data['id'].toString()}');
+      Fluttertoast.showToast(msg: 'Job Complete ').then(
+        (value) {
+          provider.rating = 0;
 
-      provider.rating = 0;
-      print('rating ${provider.rating}');
+          provider.ratingData = {
+            'requestedId': message.data['id'],
+            'requested': true,
+          };
+          provider.bottomSheetData = {
+            'requestedId': '',
+            'requested': false,
+          };
 
-      provider.ratingData = {
-        'requestedId': message.data['id'],
-        'requested': true,
-      };
-      provider.bottomSheetData = {
-        'requestedId': '',
-        'requested': false,
-      };
-
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        UsersHomeScreen.routeName,
-        (route) => false,
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            UsersHomeScreen.routeName,
+            (route) => false,
+          );
+        },
       );
     }
   }

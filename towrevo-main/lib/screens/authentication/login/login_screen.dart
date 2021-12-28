@@ -274,4 +274,19 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then(
+      (value) async {
+        final utilities = Utilities();
+        emailController.text =
+            await utilities.getSharedPreferenceValue('remember_email') ?? '';
+        passwordController.text =
+            await utilities.getSharedPreferenceValue('remember_password') ?? '';
+      },
+    );
+
+    super.initState();
+  }
 }

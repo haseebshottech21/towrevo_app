@@ -1,4 +1,6 @@
-class UserHistoryModel{
+import '../utilities.dart';
+
+class UserHistoryModel {
   String id;
   String userId;
   String companyId;
@@ -10,7 +12,6 @@ class UserHistoryModel{
   int status;
   String companyName;
   String date;
-
 
   UserHistoryModel({
     required this.userId,
@@ -26,7 +27,6 @@ class UserHistoryModel{
     required this.date,
   });
 
-
   factory UserHistoryModel.fromJson(Map<String, dynamic> json) {
     return UserHistoryModel(
       id: json['id'].toString(),
@@ -39,7 +39,7 @@ class UserHistoryModel{
       serviceName: json['service']['name'],
       status: json['status'],
       companyName: json['company']['first_name'],
-      date: json['created_at'],
+      date: Utilities().outputDate(json['created_at']),
     );
   }
 }
