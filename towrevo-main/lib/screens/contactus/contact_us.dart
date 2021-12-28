@@ -42,144 +42,142 @@ class _ContactUsState extends State<ContactUs> {
       key: scaffoldKey,
       drawerEnableOpenDragGesture: false,
       drawer: const DrawerWidget(),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            const SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
-              child: FullBackgroundImage(),
+      body: Stack(
+        children: [
+          const SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: FullBackgroundImage(),
+          ),
+          drawerIconSecond(
+            context,
+            () {
+              scaffoldKey.currentState!.openDrawer();
+            },
+          ),
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20.0,
+              vertical: 30.0,
             ),
-            drawerIconSecond(
-              context,
-              () {
-                scaffoldKey.currentState!.openDrawer();
-              },
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const TowrevoLogo(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'CONTACT US',
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 25.0,
+                      letterSpacing: 1,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  FadeInDown(
+                    from: 10,
+                    delay: const Duration(milliseconds: 650),
+                    child: TextFieldForAll(
+                      errorGetter: ErrorGetter().firstNameErrorGetter,
+                      hintText: 'First Name',
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.userAlt,
+                        color: Color(0xFF019aff),
+                        size: 20.0,
+                      ),
+                      textEditingController: firstNameController,
+                      textInputType: TextInputType.name,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  FadeInDown(
+                    from: 15,
+                    delay: const Duration(milliseconds: 670),
+                    child: TextFieldForAll(
+                      errorGetter: ErrorGetter().lastNameErrorGetter,
+                      hintText: 'Last Name',
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.userAlt,
+                        color: Color(0xFF019aff),
+                        size: 20.0,
+                      ),
+                      textEditingController: lastNameController,
+                      textInputType: TextInputType.name,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  FadeInDown(
+                    from: 25,
+                    delay: const Duration(milliseconds: 710),
+                    child: TextFieldForAll(
+                      errorGetter: ErrorGetter().phoneNumberErrorGetter,
+                      hintText: 'Email',
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.solidEnvelopeOpen,
+                        color: Color(0xFF019aff),
+                        size: 20.0,
+                      ),
+                      textEditingController: emailController,
+                      textInputType: TextInputType.emailAddress,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  FadeInDown(
+                    from: 20,
+                    delay: const Duration(milliseconds: 690),
+                    child: TextFieldForAll(
+                      errorGetter: ErrorGetter().phoneNumberErrorGetter,
+                      hintText: 'Phone',
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.phoneAlt,
+                        color: Color(0xFF019aff),
+                        size: 20.0,
+                      ),
+                      textEditingController: phoneNumberController,
+                      textInputType: TextInputType.phone,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  FadeInDown(
+                    from: 20,
+                    delay: const Duration(milliseconds: 730),
+                    child: CompanyTextAreaField(
+                      errorGetter: ErrorGetter().companyDescriptionErrorGetter,
+                      hintText: 'Send Feedback',
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.solidCommentDots,
+                        color: Color(0xFF019aff),
+                        size: 20.0,
+                      ),
+                      textEditingController: descriptionController,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  FadeInUp(
+                    from: 20,
+                    duration: const Duration(milliseconds: 1200),
+                    child: FormButtonWidget(
+                      'SEND FEEDBACK',
+                      () {
+                        validateAndSubmitQuery();
+                        // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: false);
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 30.0,
-              ),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const TowrevoLogo(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'CONTACT US',
-                      style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 25.0,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    FadeInDown(
-                      from: 10,
-                      delay: const Duration(milliseconds: 650),
-                      child: TextFieldForAll(
-                        errorGetter: ErrorGetter().firstNameErrorGetter,
-                        hintText: 'First Name',
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.userAlt,
-                          color: Color(0xFF019aff),
-                          size: 20.0,
-                        ),
-                        textEditingController: firstNameController,
-                        textInputType: TextInputType.name,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    FadeInDown(
-                      from: 15,
-                      delay: const Duration(milliseconds: 670),
-                      child: TextFieldForAll(
-                        errorGetter: ErrorGetter().lastNameErrorGetter,
-                        hintText: 'Last Name',
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.userAlt,
-                          color: Color(0xFF019aff),
-                          size: 20.0,
-                        ),
-                        textEditingController: lastNameController,
-                        textInputType: TextInputType.name,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    FadeInDown(
-                      from: 25,
-                      delay: const Duration(milliseconds: 710),
-                      child: TextFieldForAll(
-                        errorGetter: ErrorGetter().phoneNumberErrorGetter,
-                        hintText: 'Email',
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.solidEnvelopeOpen,
-                          color: Color(0xFF019aff),
-                          size: 20.0,
-                        ),
-                        textEditingController: emailController,
-                        textInputType: TextInputType.emailAddress,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    FadeInDown(
-                      from: 20,
-                      delay: const Duration(milliseconds: 690),
-                      child: TextFieldForAll(
-                        errorGetter: ErrorGetter().phoneNumberErrorGetter,
-                        hintText: 'Phone',
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.phoneAlt,
-                          color: Color(0xFF019aff),
-                          size: 20.0,
-                        ),
-                        textEditingController: phoneNumberController,
-                        textInputType: TextInputType.phone,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    FadeInDown(
-                      from: 20,
-                      delay: const Duration(milliseconds: 730),
-                      child: CompanyTextAreaField(
-                        errorGetter:
-                            ErrorGetter().companyDescriptionErrorGetter,
-                        hintText: 'Send Feedback',
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.solidCommentDots,
-                          color: Color(0xFF019aff),
-                          size: 20.0,
-                        ),
-                        textEditingController: descriptionController,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    FadeInUp(
-                      from: 20,
-                      duration: const Duration(milliseconds: 1200),
-                      child: FormButtonWidget(
-                        'SEND FEEDBACK',
-                        () {
-                          // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: false);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
