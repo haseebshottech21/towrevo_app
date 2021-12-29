@@ -110,7 +110,7 @@ class CompanyHistoryList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '12-12-21',
+                      date,
                       style: const TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.w400,

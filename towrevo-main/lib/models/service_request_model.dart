@@ -50,8 +50,8 @@ class ServiceRequestModel {
           ' ' +
           (json['user']['last_name'] ?? ''),
       image: json['user']['image'] ?? '',
-      createdAt: json['created_at'] == null
-          ? Utilities().outputDate(json['created_at'])
+      createdAt: json['created_at'] != null
+          ? Utilities().companyHistoryDateFormat(json['created_at'])
           : '',
       reviewModel: json['rating'] == null
           ? null

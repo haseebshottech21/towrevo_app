@@ -40,7 +40,7 @@ class UserHistoryModel {
       serviceName: json['service']['name'],
       status: json['status'],
       companyName: json['company']['first_name'],
-      date: Utilities().outputDate(json['created_at']),
+      date: Utilities().userHistoryDateFormat(json['created_at']),
     );
   }
 }

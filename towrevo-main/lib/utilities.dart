@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -120,11 +122,19 @@ class Utilities {
 
 //time stamp to dd/MM/yyyy
   final outputFormat = DateFormat('dd/MM/yyyy');
-  String outputDate(String date) {
-    // final inputDate =
-    //     DateFormat('yyyy-MM-dd HH:mm').parse(date.split('T').first);
+  String userHistoryDateFormat(String date) {
+    final inputDate = DateFormat('yyyy-MM-dd').parse(date.split('T').first);
+
     // print(inputDate);
     // return outputFormat.format(inputDate);
-    return date.split('T').first;
+    return DateFormat.yMMMd().format(inputDate);
+  }
+
+  String companyHistoryDateFormat(String date) {
+    final inputDate = DateFormat('yyyy-MM-dd').parse(date.split('T').first);
+
+    // print(inputDate);
+    // return outputFormat.format(inputDate);
+    return DateFormat.MMMMEEEEd().format(inputDate);
   }
 }
