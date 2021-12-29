@@ -172,7 +172,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         );
       } else {
         return Icon(
-          FontAwesomeIcons.building,
+          FontAwesomeIcons.user,
           color: Colors.white.withOpacity(0.5),
           size: 75.0,
         );

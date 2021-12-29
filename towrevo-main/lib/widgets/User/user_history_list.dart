@@ -18,24 +18,22 @@ class UserHistoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return FadeInUp(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        height: MediaQuery.of(context).size.height * 0.15,
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+        height: MediaQuery.of(context).size.height * 0.16,
         width: MediaQuery.of(context).size.width,
-        // decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
         child: Card(
           elevation: 5,
           color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
-              vertical: 5,
+              vertical: 15,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CircleAvatar(
                       backgroundColor: Colors.black,
@@ -78,7 +76,7 @@ class UserHistoryList extends StatelessWidget {
                             5,
                             (index) => const Icon(
                               Icons.star,
-                              color: Colors.amber,
+                              color: Colors.grey,
                               size: 15,
                             ),
                           ),
@@ -97,7 +95,7 @@ class UserHistoryList extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
               ],
             ),

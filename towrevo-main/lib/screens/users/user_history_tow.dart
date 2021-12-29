@@ -2,30 +2,29 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/view_model/company_home_screen_view_model.dart';
+import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
+import 'package:towrevo/widgets/User/user_history_list.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
-import 'package:towrevo/widgets/company_history_list.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 
-class CompanyHistory extends StatefulWidget {
-  const CompanyHistory({Key? key}) : super(key: key);
-
-  static const routeName = '/company-history';
+class UserHistoryTow extends StatefulWidget {
+  const UserHistoryTow({Key? key}) : super(key: key);
+  static const routeName = '/user-history';
 
   @override
-  _CompanyHistoryState createState() => _CompanyHistoryState();
+  _UserHistoryTowState createState() => _UserHistoryTowState();
 }
 
-class _CompanyHistoryState extends State<CompanyHistory> {
+class _UserHistoryTowState extends State<UserHistoryTow> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then(
       (value) {
-        Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-            .getCompanyHistrory();
+        Provider.of<UserHomeScreenViewModel>(context, listen: false)
+            .getUserHistory();
       },
     );
     super.initState();
@@ -35,7 +34,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<CompanyHomeScreenViewModel>(
+    final provider = Provider.of<UserHomeScreenViewModel>(
       context,
       listen: true,
     );
@@ -90,8 +89,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                     height: MediaQuery.of(context).size.height * 0.90,
                     child: Column(
                       children: [
-                        (provider.isLoading ||
-                                provider.companyHistoryList.isEmpty)
+                        (provider.isLoading || provider.userHistoryList.isEmpty)
                             ? Align(
                                 alignment: Alignment.center,
                                 child: SizedBox(
@@ -110,42 +108,18 @@ class _CompanyHistoryState extends State<CompanyHistory> {
                                 child: ListView.builder(
                                   padding: EdgeInsets.zero,
                                   shrinkWrap: true,
-                                  itemCount: provider.companyHistoryList.length,
+                                  itemCount: provider.userHistoryList.length,
                                   itemBuilder: (ctx, index) {
-                                    return CompanyHistoryList(
-                                      userImage:
+                                    return UserHistoryList(
+                                      companyImage:
                                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-                                      userName: provider
-                                          .companyHistoryList[index].name,
-                                      userService: provider
-                                          .companyHistoryList[index]
-                                          .serviceName,
-                                      date: provider
-                                          .companyHistoryList[index].createdAt,
-                                      status: provider.companyHistoryList[index]
-                                                  .status ==
-                                              1
-                                          ? 'Accept'
-                                          : provider.companyHistoryList[index]
-                                                      .status ==
-                                                  2
-                                              ? 'Decline'
-                                              : 'Completed',
-                                      colors: provider.companyHistoryList[index]
-                                                  .status ==
-                                              1
-                                          ? Colors.green
-                                          : provider.companyHistoryList[index]
-                                                      .status ==
-                                                  2
-                                              ? Colors.red
-                                              : Colors.blueGrey,
-                                      rating: provider.companyHistoryList[index]
-                                                  .reviewModel ==
-                                              null
-                                          ? 0
-                                          : provider.companyHistoryList[index]
-                                              .reviewModel!.rate,
+                                      companyName: provider
+                                          .userHistoryList[index].companyName,
+                                      companyService: provider
+                                          .userHistoryList[index].serviceName,
+                                      date:
+                                          provider.userHistoryList[index].date,
+                                      // date: '12-12-31',
                                     );
                                   },
                                 ),

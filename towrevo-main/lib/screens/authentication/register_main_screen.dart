@@ -168,8 +168,11 @@ class RegisterMainScreen extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(FontAwesomeIcons.user,
-                                color: Colors.white, size: 80.0),
+                            const Icon(
+                              FontAwesomeIcons.user,
+                              color: Colors.white,
+                              size: 80.0,
+                            ),
                             const SizedBox(
                               height: 30,
                             ),

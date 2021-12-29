@@ -17,7 +17,6 @@ import 'package:towrevo/widgets/services_and_days_check_box_widgets/check_list.d
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
 import '../../get_location_screen.dart';
-import '/screens/authentication/signup_company/registration_payment_screen.dart';
 import '/widgets/background_image.dart';
 import '/widgets/form_button_widget.dart';
 import '/view_model/get_location_view_model.dart';
@@ -46,6 +45,11 @@ class _RegistrationCategoryAndTimingScreenState
         // final provider = Provider.of<RegisterCompanyViewModel>(context,listen: true);
         print('there');
         return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
+            ),
+          ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
@@ -102,6 +106,11 @@ class _RegistrationCategoryAndTimingScreenState
         //Notice the use of ChangeNotifierProvider<ReportState>.value
         builder: (_) {
           return AlertDialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.0),
+              ),
+            ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
@@ -154,8 +163,7 @@ class _RegistrationCategoryAndTimingScreenState
     final registerProvider =
         Provider.of<RegisterCompanyViewModel>(context, listen: false);
     if (!registerProvider.isCheckedTermsAndCondition) {
-      Fluttertoast.showToast(
-          msg: 'You Can\'t Sign up witthout accepting term and conditions.');
+      Fluttertoast.showToast(msg: 'Please Accept Term&Conditions');
       return;
     }
     final daysAndServiceProvider =
@@ -457,13 +465,6 @@ class _RegistrationCategoryAndTimingScreenState
                         ),
                       );
                     }),
-                    // const SizedBox(
-                    //   height: 10,
-                    // ),
-                    // const showCheckboxList(),
-                    // const SizedBox(
-                    //   height: 10,
-                    // ),
                     const SizedBox(
                       height: 5,
                     ),

@@ -9,11 +9,13 @@ import 'package:towrevo/screens/contactus/contact_us.dart';
 import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/profile/update_profile.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
-import 'package:towrevo/screens/users/user_history.dart';
+import 'package:towrevo/screens/users/user_history_tow.dart';
 import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
+import 'package:towrevo/widgets/User/user_empty_icon.dart';
+import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'drawer_list_item_widget.dart';
 import 'drawer_profile.dart';
 import 'form_button_widget.dart';
@@ -55,12 +57,20 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     builder: (ctx, drawer, neverBuildChild) {
                   print(drawer.drawerInfo['email']);
                   return DrawerProfile(
-                    profileImage: drawer.drawerInfo['image']
-                            .toString()
-                            .isNotEmpty
-                        ? Utilities.imageBaseUrl +
-                            drawer.drawerInfo['image'].toString()
-                        : 'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+                    // profileImage: drawer.drawerInfo['image']
+                    //         .toString()
+                    //         .isNotEmpty
+                    //     ? Utilities.imageBaseUrl +
+                    //         drawer.drawerInfo['image'].toString()
+                    //     : 'https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+                    profileImage:
+                        drawer.drawerInfo['image'].toString().isNotEmpty
+                            ? profileImageCircle(
+                                context,
+                                Utilities.imageBaseUrl +
+                                    drawer.drawerInfo['image'].toString(),
+                              )
+                            : userEmptyProfile(context),
                     profileName: drawer.drawerInfo['name'].toString().isNotEmpty
                         ? drawer.drawerInfo['name'].toString().trim()
                         : 'Profile Name',
@@ -131,7 +141,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           // Navigator.of(context).pushNamed(CompanyHistory.routeName);
                           Navigator.of(context).pushNamed(
                             type == '1'
-                                ? UserHistory.routeName
+                                ? UserHistoryTow.routeName
                                 : CompanyHistory.routeName,
                           );
                         },

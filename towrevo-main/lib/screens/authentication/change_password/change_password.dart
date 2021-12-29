@@ -95,7 +95,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       height: 20,
                     ),
                     Text(
-                      'Your new password must be different from previos password',
+                      'Your new password must be different from previous password',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF0c355a),

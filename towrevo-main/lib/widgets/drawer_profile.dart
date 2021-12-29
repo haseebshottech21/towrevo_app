@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 
 class DrawerProfile extends StatelessWidget {
-  final String profileImage;
+  final Widget profileImage;
   final String profileName;
   final String profileEmail;
   final VoidCallback editOnPressed;
@@ -23,21 +24,9 @@ class DrawerProfile extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.14,
       child: Row(
         children: [
-          // CircleAvatar(
-          //   radius: 30.0,
-          //   foregroundColor: Colors.white,
-          //   // backgroundImage: NetworkImage(profileImage),
-          //   backgroundColor: Colors.transparent,
-          //   child: Image.network(profileImage),
-          // ),
-          ClipOval(
-            child: Image.network(
-              profileImage,
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            ),
-          ),
+          profileImage,
+          // Empty Image Widget
+
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

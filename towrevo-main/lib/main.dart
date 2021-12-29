@@ -17,7 +17,7 @@ import 'package:towrevo/screens/company/company_history.dart';
 import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/screens/profile/update_profile.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
-import 'package:towrevo/screens/users/user_history.dart';
+import 'package:towrevo/screens/users/user_history_tow.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/edit_profile_view_model.dart';
@@ -163,8 +163,6 @@ class _MyAppState extends State<MyApp> {
         home: const SplashScreen(),
         // home: const MapDistanceScreen(),
 
-        // home: ForgotPasswordOTP(),
-
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
@@ -190,7 +188,7 @@ class _MyAppState extends State<MyApp> {
           ChangePassword.routeName: (ctx) => const ChangePassword(),
           TermAndCondition.routeName: (ctx) => const TermAndCondition(),
           CompanyHistory.routeName: (ctx) => const CompanyHistory(),
-          UserHistory.routeName: (ctx) => const UserHistory(),
+          UserHistoryTow.routeName: (ctx) => const UserHistoryTow(),
           ForgotPassword.routeName: (ctx) => const ForgotPassword(),
           ForgotPasswordOTP.routeName: (ctx) => const ForgotPasswordOTP(),
           UpdateProfile.routeName: (ctx) => const UpdateProfile(),
