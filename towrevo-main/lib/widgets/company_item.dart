@@ -6,7 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
+import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../utilities.dart';
 
 class CompanyItem extends StatelessWidget {
   final CompanyModel companyModel;
@@ -100,9 +103,9 @@ class CompanyItem extends StatelessWidget {
                               size: 17,
                             ),
                             const SizedBox(width: 2),
-                            const Text(
-                              '5.0',
-                              style: TextStyle(
+                            Text(
+                              companyModel.avgRating,
+                              style: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -112,17 +115,20 @@ class CompanyItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black,
-                      child: Icon(
-                        Icons.home_work_outlined,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  companyModel.image.isNotEmpty
+                      ? profileImageCircle(
+                          context, Utilities.imageBaseUrl + companyModel.image)
+                      : const Flexible(
+                          fit: FlexFit.tight,
+                          flex: 1,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.black,
+                            child: Icon(
+                              Icons.home_work_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
                 ],
               ),
               const SizedBox(

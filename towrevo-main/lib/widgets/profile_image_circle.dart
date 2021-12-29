@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 Container profileImageCircle(BuildContext context, String image) {
+  print(image);
   return Container(
     width: 55,
     height: 55,

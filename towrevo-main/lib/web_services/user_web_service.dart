@@ -12,7 +12,9 @@ class UserWebService {
     print(await Utilities().headerWithAuth());
     final response = await http.post(
       Uri.parse(Utilities.baseUrl + 'companies'),
-      body: {
+      body:
+          // body,
+          {
         'longitude': '67.059928',
         'latitude': '24.871800',
         'time': '16:08',

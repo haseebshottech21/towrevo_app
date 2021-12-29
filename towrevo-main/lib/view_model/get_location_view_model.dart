@@ -40,8 +40,19 @@ class GetLocationViewModel with ChangeNotifier {
   Future<void> getLocationFromCoordinates(LatLng coordinate) async {
     List<Placemark> placeMarks = await placemarkFromCoordinates(
         coordinate.latitude, coordinate.longitude);
-    setAddress = placeMarks.first.toString();
-    print(placeMarks.first.street);
+    final address = placeMarks.first;
+    setAddress = address.street.toString() +
+        ', ' +
+        address.subLocality.toString() +
+        ', ' +
+        address.locality.toString() +
+        ', ' +
+        address.administrativeArea.toString() +
+        ', ' +
+        address.postalCode.toString() +
+        ', ' +
+        address.country.toString();
+    print(placeMarks.first);
   }
 
   Future<LatLng?> getCurrentLocation(BuildContext context) async {

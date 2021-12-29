@@ -56,6 +56,13 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
             );
           }
         },
+      ).then(
+        (value) {
+          provider.bottomSheetData = {
+            'requestedId': '',
+            'requested': false,
+          };
+        },
       );
     }
 

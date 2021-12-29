@@ -14,21 +14,24 @@ class CompanyModel {
   String phoneNumber;
   String image;
   String notificationId;
+  String avgRating;
 
-  CompanyModel(
-      {required this.id,
-      required this.userId,
-      required this.description,
-      required this.latitude,
-      required this.longitude,
-      required this.from,
-      required this.to,
-      required this.distance,
-      required this.firstName,
-      required this.email,
-      required this.phoneNumber,
-      required this.image,
-      required this.notificationId});
+  CompanyModel({
+    required this.id,
+    required this.userId,
+    required this.description,
+    required this.latitude,
+    required this.longitude,
+    required this.from,
+    required this.to,
+    required this.distance,
+    required this.firstName,
+    required this.email,
+    required this.phoneNumber,
+    required this.image,
+    required this.notificationId,
+    required this.avgRating,
+  });
 
   factory CompanyModel.fromJson(Map<String, dynamic> json) {
     return CompanyModel(
@@ -37,14 +40,19 @@ class CompanyModel {
       description: json['description'],
       latitude: json['latitude'].toString(),
       longitude: json['longitude'].toString(),
-      from: DateFormat("h:mm a").format(DateFormat("hh:mm").parse(json['from'].toString())),
-      to: DateFormat("h:mm a").format(DateFormat("hh:mm").parse(json['to'].toString())),
+      from: DateFormat("h:mm a")
+          .format(DateFormat("hh:mm").parse(json['from'].toString())),
+      to: DateFormat("h:mm a")
+          .format(DateFormat("hh:mm").parse(json['to'].toString())),
       distance: double.parse((json['distance']).toStringAsFixed(2)).toString(),
       firstName: json['user']['first_name'],
       email: json['user']['email'],
       phoneNumber: json['user']['phone'],
       image: json['user']['image'] ?? '',
       notificationId: json['user']['notification_id'].toString(),
+      avgRating: double.parse(
+        (json['user']['avg_rating'] ?? 0.0).toStringAsFixed(1),
+      ).toString(),
     );
   }
 }

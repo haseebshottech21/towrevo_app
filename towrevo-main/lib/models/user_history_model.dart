@@ -28,6 +28,7 @@ class UserHistoryModel {
   });
 
   factory UserHistoryModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     return UserHistoryModel(
       id: json['id'].toString(),
       userId: json['user_id'].toString(),

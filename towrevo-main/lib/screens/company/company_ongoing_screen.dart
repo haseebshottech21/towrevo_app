@@ -5,6 +5,9 @@ import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/job_completed_dailogbox.dart';
+import 'package:towrevo/widgets/profile_image_circle.dart';
+
+import '../../utilities.dart';
 
 class CompanyOngoingList extends StatefulWidget {
   const CompanyOngoingList({Key? key}) : super(key: key);
@@ -93,9 +96,11 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                                             // ),
                                             Container(
                                               alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'User Name',
-                                                style: TextStyle(
+                                              child: Text(
+                                                provider
+                                                    .onGoingRequestsList[index]
+                                                    .name,
+                                                style: const TextStyle(
                                                     fontSize: 20,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -104,17 +109,26 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                                           ],
                                         ),
                                       ),
-                                      const Flexible(
-                                        fit: FlexFit.tight,
-                                        flex: 1,
-                                        child: CircleAvatar(
-                                          backgroundColor: Colors.black,
-                                          child: Icon(
-                                            Icons.home_work_outlined,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
+                                      provider.onGoingRequestsList[index].image
+                                              .isNotEmpty
+                                          ? profileImageCircle(
+                                              context,
+                                              Utilities.imageBaseUrl +
+                                                  provider
+                                                      .onGoingRequestsList[
+                                                          index]
+                                                      .image)
+                                          : const Flexible(
+                                              fit: FlexFit.tight,
+                                              flex: 1,
+                                              child: CircleAvatar(
+                                                backgroundColor: Colors.black,
+                                                child: Icon(
+                                                  Icons.home_work_outlined,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
                                     ],
                                   ),
                                   const SizedBox(
@@ -125,8 +139,12 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                                     child: SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.75,
-                                      child: const Text(
-                                        '1 Zuelke Road, Three Forks,mt, 59352  United States',
+                                      child: Text(
+                                        provider
+                                            .onGoingRequestsList[index].address
+                                            .trim(),
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.start,
                                       ),
                                     ),

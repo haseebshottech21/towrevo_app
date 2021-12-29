@@ -9,6 +9,9 @@ import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
+import 'package:towrevo/widgets/profile_image_circle.dart';
+
+import '../../utilities.dart';
 
 class CompanyPendingList extends StatefulWidget {
   const CompanyPendingList({Key? key}) : super(key: key);
@@ -98,28 +101,39 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                               // ),
                                               Container(
                                                 alignment: Alignment.centerLeft,
-                                                child: const Text(
-                                                  'User Name',
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                child: Text(
+                                                  provider
+                                                      .requestServiceList[index]
+                                                      .name,
+                                                  style: const TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        const Flexible(
-                                          fit: FlexFit.tight,
-                                          flex: 1,
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.black,
-                                            child: Icon(
-                                              Icons.home_work_outlined,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
+                                        provider.requestServiceList[index].image
+                                                .isNotEmpty
+                                            ? profileImageCircle(
+                                                context,
+                                                Utilities.imageBaseUrl +
+                                                    provider
+                                                        .requestServiceList[
+                                                            index]
+                                                        .image)
+                                            : const Flexible(
+                                                fit: FlexFit.tight,
+                                                flex: 1,
+                                                child: CircleAvatar(
+                                                  backgroundColor: Colors.black,
+                                                  child: Icon(
+                                                    Icons.home_work_outlined,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
                                       ],
                                     ),
                                     const SizedBox(
@@ -131,9 +145,12 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.75,
-                                        child: const Text(
-                                          '1 Zuelke Road, Three Forks,mt, 59352  United States',
+                                        child: Text(
+                                          provider.requestServiceList[index]
+                                              .address,
                                           textAlign: TextAlign.start,
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                     ),
