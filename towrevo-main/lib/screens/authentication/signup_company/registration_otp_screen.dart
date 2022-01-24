@@ -166,6 +166,7 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
                   print(inputOTP);
                 },
               ),
+             
               const SizedBox(
                 height: 20,
               ),

@@ -1,3 +1,5 @@
+import 'package:towrevo/models/review_model.dart';
+
 import '../utilities.dart';
 
 class UserHistoryModel {
@@ -12,6 +14,7 @@ class UserHistoryModel {
   int status;
   String companyName;
   String date;
+  ReviewModel? rating;
 
   UserHistoryModel({
     required this.userId,
@@ -25,6 +28,7 @@ class UserHistoryModel {
     required this.status,
     required this.companyName,
     required this.date,
+    required this.rating,
   });
 
   factory UserHistoryModel.fromJson(Map<String, dynamic> json) {
@@ -41,6 +45,11 @@ class UserHistoryModel {
       status: json['status'],
       companyName: json['company']['first_name'],
       date: Utilities().userHistoryDateFormat(json['created_at']),
+      rating: json['rating'] == null
+          ? null
+          : ReviewModel.fromJson(
+              json['rating'],
+            ),
     );
   }
 }

@@ -6,11 +6,13 @@ class UserHistoryList extends StatelessWidget {
   final String companyName;
   final String companyService;
   final String date;
+  final int rating;
   const UserHistoryList({
     required this.companyImage,
     required this.companyName,
     required this.companyService,
     required this.date,
+    required this.rating,
     Key? key,
   }) : super(key: key);
 
@@ -71,16 +73,27 @@ class UserHistoryList extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        Row(
-                          children: List.generate(
-                            5,
-                            (index) => const Icon(
-                              Icons.star,
-                              color: Colors.grey,
-                              size: 15,
-                            ),
-                          ),
-                        )
+                        rating == 0
+                            ? Row(
+                                children: List.generate(
+                                  5,
+                                  (index) => const Icon(
+                                    Icons.star,
+                                    color: Colors.grey,
+                                    size: 15,
+                                  ),
+                                ),
+                              )
+                            : Row(
+                                children: List.generate(
+                                  rating,
+                                  (index) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 15,
+                                  ),
+                                ),
+                              )
                       ],
                     ),
                     const Spacer(),

@@ -71,6 +71,21 @@ class UserHomeScreenViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> payNow(
+      String transactionId, String amount, BuildContext context) async {
+    isLoading = true;
+    notifyListeners();
+    userHistoryList = [];
+    final loadedResponse =
+        await UserWebService().payNowRequest(transactionId, amount);
+    if (loadedResponse != null) {
+      await getCompanies(body);
+      Navigator.of(context).pop();
+    }
+    isLoading = false;
+    notifyListeners();
+  }
+
   Future<void> getCompanies(Map<String, String> requestedBody) async {
     list = [];
     isLoading = true;

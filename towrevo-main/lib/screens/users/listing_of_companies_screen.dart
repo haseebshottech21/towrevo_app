@@ -19,6 +19,8 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
   Widget build(BuildContext context) {
     final userHomeProvider =
         Provider.of<UserHomeScreenViewModel>(context, listen: true);
+    print('length : ${userHomeProvider.list.length}');
+
     return Scaffold(
       backgroundColor: userHomeProvider.isLoading
           ? Colors.white
@@ -78,15 +80,17 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                         miliseconds: 800,
                       ),
                     )
-                  : ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      itemBuilder: (ctx, index) {
-                        return CompanyItem(
-                          companyModel: userHomeProvider.list[index],
-                        );
-                      },
-                      itemCount: userHomeProvider.list.length,
+                  : Expanded(
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemBuilder: (ctx, index) {
+                          return CompanyItem(
+                            companyModel: userHomeProvider.list[index],
+                          );
+                        },
+                        itemCount: userHomeProvider.list.length,
+                      ),
                     ),
             ],
           ),

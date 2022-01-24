@@ -37,7 +37,7 @@ class CompanyModel {
     return CompanyModel(
       id: json['id'].toString(),
       userId: json['user_id'].toString(),
-      description: json['description'],
+      description: json['description'] ?? 'There is no Description',
       latitude: json['latitude'].toString(),
       longitude: json['longitude'].toString(),
       from: DateFormat("h:mm a")
@@ -46,8 +46,8 @@ class CompanyModel {
           .format(DateFormat("hh:mm").parse(json['to'].toString())),
       distance: double.parse((json['distance']).toStringAsFixed(2)).toString(),
       firstName: json['user']['first_name'],
-      email: json['user']['email'],
-      phoneNumber: json['user']['phone'],
+      email: json['user']['email'] ?? '',
+      phoneNumber: json['user']['phone'] ?? '',
       image: json['user']['image'] ?? '',
       notificationId: json['user']['notification_id'].toString(),
       avgRating: double.parse(
