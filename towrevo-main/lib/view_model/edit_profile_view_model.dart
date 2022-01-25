@@ -127,7 +127,7 @@ class EditProfileViewModel with ChangeNotifier {
           .setDrawerInfo(
               name: body['first_name'].toString() +
                   ' ' +
-                  body['last_name'].toString(),
+                  (body['last_name'] ?? '').toString(),
               image: loadedData['data']['user']['image'] ?? '');
     }
     changeLoadingStatus(false);

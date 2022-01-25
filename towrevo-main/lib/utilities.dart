@@ -102,7 +102,9 @@ class Utilities {
         connectivityResult == ConnectivityResult.wifi) {
       return true;
     } else {
-      Fluttertoast.showToast(msg: 'Please Make Sure Your Device is Connected With Internet');
+      Fluttertoast.showToast(
+        msg: 'Please Check Your Internet',
+      );
       return false;
     }
   }
