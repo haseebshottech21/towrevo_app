@@ -74,7 +74,7 @@ class LoginViewModel with ChangeNotifier {
     final loadedData = await AuthenticationWebService()
         .validateOTPAndResetPassword(
             token, password, confirmationPassword, otp);
-    changeLoadingStatus(true);
+    changeLoadingStatus(false);
     if (loadedData != null) {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);

@@ -9,6 +9,7 @@ import 'package:towrevo/screens/authentication/forgot_password/forgot_password.d
 import 'package:towrevo/screens/company/company_home_screen.dart';
 import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
+import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import '/screens/authentication/register_main_screen.dart';
 import '/view_model/login_view_model.dart';
 import '/widgets/company_form_field.dart';
@@ -269,6 +270,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ]),
               ),
             ),
+            Consumer<LoginViewModel>(
+              builder: (ctx, loginViewMode, neverUpdate) {
+                return loginViewMode.isLoading
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: circularProgress())
+                    : const SizedBox();
+              },
+            )
           ],
         ),
       ),

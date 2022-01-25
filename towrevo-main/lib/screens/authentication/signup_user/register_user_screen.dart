@@ -11,6 +11,7 @@ import 'package:towrevo/main.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/widgets/back_icon.dart';
+import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
 import '/view_model/register_user_view_model.dart';
@@ -376,8 +377,16 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                 )
               ],
             ),
+          ),
+          Consumer<RegisterUserViewModel>(
+            builder: (ctx, loginViewMode, neverUpdate) {
+              return loginViewMode.isLoading
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: circularProgress())
+                  : const SizedBox();
+            },
           )
-          // Back Icon
         ],
       ),
     );

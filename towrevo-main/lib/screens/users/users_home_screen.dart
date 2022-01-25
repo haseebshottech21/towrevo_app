@@ -14,6 +14,7 @@ import 'package:towrevo/view_model/services_and_day_view_model.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
 import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
+import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import '../get_location_screen.dart';
 import '/widgets/background_image.dart';
@@ -278,6 +279,15 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                 ],
               ),
             ),
+            Consumer<ServicesAndDaysViewModel>(
+              builder: (ctx, loginViewMode, neverUpdate) {
+                return loginViewMode.isLoading
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: circularProgress())
+                    : const SizedBox();
+              },
+            )
           ],
         ),
       ),
