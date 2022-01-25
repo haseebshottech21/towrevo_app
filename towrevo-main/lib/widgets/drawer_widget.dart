@@ -116,7 +116,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                               .getSharedPreferenceValue('type');
                           // print(type);
                           // Navigator.of(context).pushNamed(CompanyHistory.routeName);
-                          Navigator.of(context).pushNamed(
+                          Navigator.of(context).pushReplacementNamed(
                             type == '1'
                                 ? UsersHomeScreen.routeName
                                 : CompanyHomeScreen.routeName,
@@ -127,8 +127,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         title: 'About Us',
                         iconsData: FontAwesomeIcons.infoCircle,
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(AboutUs.routeName);
+                          Navigator.of(context).pushNamed(AboutUs.routeName);
                         },
                       ),
                       DrawerListItem(
@@ -150,16 +149,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         title: 'Contact Us',
                         iconsData: FontAwesomeIcons.solidAddressBook,
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(ContactUs.routeName);
+                          Navigator.of(context).pushNamed(ContactUs.routeName);
                         },
                       ),
                       DrawerListItem(
                         title: 'FAQ\'s',
                         iconsData: FontAwesomeIcons.solidQuestionCircle,
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(FAQs.routeName);
+                          Navigator.of(context).pushNamed(FAQs.routeName);
                         },
                       ),
                       DrawerListItem(
@@ -174,7 +171,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         title: 'Term & Condition',
                         iconsData: FontAwesomeIcons.clipboardCheck,
                         onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(
+                          Navigator.of(context).pushNamed(
                             TermAndCondition.routeName,
                             arguments: false,
                           );

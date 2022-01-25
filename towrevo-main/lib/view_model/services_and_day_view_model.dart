@@ -3,6 +3,8 @@ import 'package:towrevo/models/days_model.dart';
 import 'package:towrevo/models/services_model.dart';
 import 'package:towrevo/web_services/services_web_service.dart';
 
+import '../utilities.dart';
+
 class ServicesAndDaysViewModel with ChangeNotifier {
   List<DaysModel> daysListViewModel = [
     DaysModel(id: '1', name: 'Monday'),
@@ -20,16 +22,25 @@ class ServicesAndDaysViewModel with ChangeNotifier {
     }
   }
 
+  bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
+
   List<ServicesModel> serviceListViewModel = [];
   List<String> daysId = [];
   List<String> servicesId = [];
   String? serviceSelectedValue;
 
   Future<void> getServices() async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
+    changeLoadingStatus(true);
     serviceListViewModel = [];
     serviceListViewModel = await ServicesWebService().getServices();
-    print(serviceListViewModel);
-    notifyListeners();
+    changeLoadingStatus(false);
   }
 
   Future<void> setServicesAndDaysSelectedWhileCompamyEditOperationPerform(

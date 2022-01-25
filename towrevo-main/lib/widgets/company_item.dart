@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/screens/map_distance_screen.dart';
+import 'package:towrevo/screens/users/monthly_payment_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,30 +21,37 @@ class CompanyItem extends StatelessWidget {
     String companyId,
     BuildContext context,
     String notificationId,
+    String phoneNumber,
   ) async {
-    print(notificationId);
-    final provider =
-        Provider.of<UserHomeScreenViewModel>(context, listen: false);
-    print(provider.body['service']!);
-    print(provider.body['address']!);
-    provider.requestToCompany(
-      context,
-      provider.body['longitude']!,
-      provider.body['latitude']!,
-      provider.body['address']!,
-      provider.body['service']!,
-      companyId,
-      notificationId,
-    );
+    if (phoneNumber.isNotEmpty) {
+      print(notificationId);
+      final provider =
+          Provider.of<UserHomeScreenViewModel>(context, listen: false);
+      // print(provider.body['service']!);
+      // print(provider.body['address']!);
+      provider.requestToCompany(
+        context,
+        provider.body['longitude']!,
+        provider.body['latitude']!,
+        provider.body['address']!,
+        provider.body['service']!,
+        companyId,
+        notificationId,
+      );
+    } else {
+      Navigator.of(context).pushNamed(MonthlyPaymentScreen.routeName);
+    }
   }
 
-  openDialPad(String phoneNumber) {
+  openDialPad(String phoneNumber, BuildContext context) {
     if (phoneNumber.isNotEmpty) {
       launch("tel://$phoneNumber");
     } else {
-      print('phone Number is empty : ' + phoneNumber);
+      Navigator.of(context).pushNamed(MonthlyPaymentScreen.routeName);
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -163,10 +171,10 @@ class CompanyItem extends StatelessWidget {
                           constraints: const BoxConstraints(),
                           onPressed: () {
                             sendRequest(
-                              companyModel.userId,
-                              context,
-                              companyModel.notificationId,
-                            );
+                                companyModel.userId,
+                                context,
+                                companyModel.notificationId,
+                                companyModel.phoneNumber);
                           },
                           //   showDialog(
                           //       context: context,
@@ -189,7 +197,7 @@ class CompanyItem extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           constraints: const BoxConstraints(),
                           onPressed: () {
-                            openDialPad(companyModel.phoneNumber);
+                            openDialPad(companyModel.phoneNumber, context);
                           },
                           icon: Icon(
                             Icons.phone_in_talk,

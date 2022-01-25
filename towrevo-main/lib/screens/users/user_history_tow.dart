@@ -119,6 +119,12 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
                                           .userHistoryList[index].serviceName,
                                       date:
                                           provider.userHistoryList[index].date,
+                                          rating: provider.userHistoryList[index]
+                                                  .rating ==
+                                              null
+                                          ? 0
+                                          : provider.userHistoryList[index]
+                                              .rating!.rate,
                                       // date: '12-12-31',
                                     );
                                   },

@@ -7,8 +7,17 @@ class OTPViewModel with ChangeNotifier {
   String resendUniqueId = '';
   bool otpExpire = false;
 
+  bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
+
   Future<bool> sendOTP(
       String uniqueId, String otp, BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return false;
+    }
     int validate = await getResendOTPOrValidateValue('validate');
     int resendOTP = await getResendOTPOrValidateValue('resendOTP');
     print('validate $validate ');
@@ -23,9 +32,10 @@ class OTPViewModel with ChangeNotifier {
     }
     otpExpire = false;
     resendUniqueId = '';
+    changeLoadingStatus(true);
     final response =
         await OTPWebService().sendOTPConfirmationRequest(uniqueId, otp);
-
+    changeLoadingStatus(true);
     print(response);
     if (response['success']) {
       Utilities().showToast('success');
@@ -45,7 +55,12 @@ class OTPViewModel with ChangeNotifier {
   }
 
   Future<bool> resendOTP(String uniqueId) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return false;
+    }
+    changeLoadingStatus(true);
     int resendOTP = await getResendOTPOrValidateValue('resendOTP');
+    changeLoadingStatus(false);
     print('resend otp $resendOTP ');
     if (resendOTP >= 3) {
       Utilities()
@@ -69,6 +84,7 @@ class OTPViewModel with ChangeNotifier {
       print('resend id is empty');
       return false;
     }
+    
   }
 
   getResendOTPOrValidateValue(String key) async {

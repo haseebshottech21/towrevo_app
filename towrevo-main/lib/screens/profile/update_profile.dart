@@ -17,7 +17,7 @@ import 'package:towrevo/widgets/form_button_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
-import '../../error_getter.dart';
+import '/error_getter.dart';
 import '../get_location_screen.dart';
 
 class UpdateProfile extends StatefulWidget {
@@ -190,24 +190,25 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   Future<void> showCategories(BuildContext context) async {
     await showDialog(
-        context: context,
-        //Notice the use of ChangeNotifierProvider<ReportState>.value
-        builder: (_) {
-          return AlertDialog(
-            content: Consumer<ServicesAndDaysViewModel>(
-                builder: (ctx, provider, neverBuildChild) {
-              return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: provider.serviceListViewModel.map((item) {
-                    return ChangeNotifierProvider.value(
-                      value: provider.serviceListViewModel[
-                          provider.serviceListViewModel.indexOf(item)],
-                      child: const ServiceCheckBoxWidget(),
-                    );
-                  }).toList());
-            }),
-          );
-        });
+      context: context,
+      //Notice the use of ChangeNotifierProvider<ReportState>.value
+      builder: (_) {
+        return AlertDialog(
+          content: Consumer<ServicesAndDaysViewModel>(
+              builder: (ctx, provider, neverBuildChild) {
+            return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: provider.serviceListViewModel.map((item) {
+                  return ChangeNotifierProvider.value(
+                    value: provider.serviceListViewModel[
+                        provider.serviceListViewModel.indexOf(item)],
+                    child: const ServiceCheckBoxWidget(),
+                  );
+                }).toList());
+          }),
+        );
+      },
+    );
   }
 
   Future<void> showDays(BuildContext context) async {
@@ -611,6 +612,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                 const SizedBox(
                                   height: 10,
                                 ),
+
                               if (type == '2')
                                 Consumer<ServicesAndDaysViewModel>(
                                   builder: (ctx, days, neverBuildChild) {
@@ -695,7 +697,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       child: Container(
                                         height: 55,
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 15),
+                                          horizontal: 15,
+                                        ),
                                         decoration: const BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.all(

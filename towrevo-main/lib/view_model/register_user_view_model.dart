@@ -3,17 +3,27 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/utilities.dart';
 import 'package:towrevo/web_services/authentication.dart';
 import 'otp_view_model.dart';
 
 class RegisterUserViewModel with ChangeNotifier {
   bool isCheckedTermsAndCondition = false;
+  bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
 
   Future<bool> userSignUp(
       Map<String, String> body, BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return false;
+    }
+    changeLoadingStatus(true);
     final responseBody = await AuthenticationWebService().signUpCompany(body);
     final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
-
+    changeLoadingStatus(false);
     print(responseBody);
     if (responseBody != null) {
       // print(responseBody['data']['uniqueId']);

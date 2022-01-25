@@ -7,28 +7,30 @@ import 'package:towrevo/utilities.dart';
 
 class UserWebService {
   Future<List<CompanyModel>> getCompaniesList(Map<String, String> body) async {
-    print(Utilities.baseUrl + 'companies');
+    // print(Utilities.baseUrl + 'companies');
     print(body);
-    print(await Utilities().headerWithAuth());
+    // print(await Utilities().headerWithAuth());
     final response = await http.post(
       Uri.parse(Utilities.baseUrl + 'companies'),
+      // body: body,
       body: {
-        'longitude': '67.059928',
-        'latitude': '24.871800',
-        'time': '16:08',
-        'day': '3',
+        'longitude': '-119.417931',
+        'latitude': '36.778259',
+        'time': '10:50',
+        'day': '1',
         'service': '1'
       },
       headers: await Utilities().headerWithAuth(),
     );
-    print(response.body);
-    print(response.statusCode);
+    // print(response.body);
+    // print(response.statusCode);
     List<CompanyModel> companiesList = [];
     if (response.statusCode == 200) {
       final loadedData = json.decode(response.body);
-      for (var company in loadedData['data']['data']) {
+      for (var company in loadedData['data']) {
         companiesList.add(CompanyModel.fromJson(company));
       }
+      print(companiesList.length);
       return companiesList;
     } else {
       return [];
@@ -115,6 +117,26 @@ class UserWebService {
       Fluttertoast.showToast(msg: loadedData['message'].toString());
       print(response.statusCode);
       return null;
+    }
+  }
+
+  Future<dynamic> payNowRequest(String transactionId, String amount) async {
+    final response = await http.post(
+      Uri.parse(Utilities.baseUrl + 'payment'),
+      body: {
+        'transaction_id': transactionId,
+        'amount': amount,
+      },
+      headers: await Utilities().headerWithAuth(),
+    );
+    print(response.body);
+    final loadedData = json.decode(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Fluttertoast.showToast(msg: loadedData['message'].toString());
+      return loadedData;
+    } else {
+      Fluttertoast.showToast(msg: loadedData['message'].toString());
+      print(response.statusCode);
     }
   }
 

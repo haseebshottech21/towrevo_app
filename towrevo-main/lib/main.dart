@@ -36,7 +36,7 @@ import '/screens/authentication/signup_company/registration_category_and_timing_
 import '/screens/authentication/signup_company/registration_crediential_screen.dart';
 import '/screens/authentication/signup_company/registration_name_and_desc_screen.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
-import '/screens/authentication/signup_company/registration_payment_screen.dart';
+import 'screens/users/monthly_payment_screen.dart';
 import '/screens/company/company_home_screen.dart';
 import '/screens/authentication/login/login_screen.dart';
 import '/screens/authentication/register_main_screen.dart';
@@ -65,9 +65,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-  Fluttertoast.showToast(
-      msg: 'background message ${message.notification!.body}');
-  print("Handling a background message ${message}");
+  // Fluttertoast.showToast(
+  //     msg: 'background message ${message.notification!.body}');
+  // print("Handling a background message ${message}");
 }
 
 class MyApp extends StatefulWidget {
@@ -161,7 +161,7 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
         home: const SplashScreen(),
-        // home: const MapDistanceScreen(),
+        // home: const MonthlyPaymentScreen(),
 
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
@@ -172,8 +172,7 @@ class _MyAppState extends State<MyApp> {
               const RegistrationCredentialScreen(),
           RegistrationCategoryAndTimingScreen.routeName: (ctx) =>
               const RegistrationCategoryAndTimingScreen(),
-          RegistrationPaymentScreen.routeName: (ctx) =>
-              RegistrationPaymentScreen(),
+          MonthlyPaymentScreen.routeName: (ctx) => MonthlyPaymentScreen(),
           RegistrationOTPScreen.routeName: (ctx) =>
               const RegistrationOTPScreen(),
           CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),

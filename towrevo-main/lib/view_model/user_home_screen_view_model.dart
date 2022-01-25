@@ -18,6 +18,12 @@ class UserHomeScreenViewModel with ChangeNotifier {
     'requested': false,
   };
 
+  bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
+
   int rating = 0;
 
   updateRating(int curretRating) {
@@ -56,29 +62,48 @@ class UserHomeScreenViewModel with ChangeNotifier {
   };
 
   List<CompanyModel> list = [];
-  bool isLoading = false;
+
   List<UserHistoryModel> userHistoryList = [];
 
   Future<void> getUserHistory() async {
-    isLoading = true;
-    notifyListeners();
+    if (!(await utilities.isInternetAvailable())) {
+      return;
+    }
+    changeLoadingStatus(true);
+    ;
     userHistoryList = [];
     final loadedResponse = await UserWebService().requestsOfUserHistory();
     if (loadedResponse.isNotEmpty) {
       userHistoryList = loadedResponse.reversed.toList();
     }
-    isLoading = false;
-    notifyListeners();
+    changeLoadingStatus(false);
+  }
+
+  Future<void> payNow(
+      String transactionId, String amount, BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
+    changeLoadingStatus(true);
+    userHistoryList = [];
+    final loadedResponse =
+        await UserWebService().payNowRequest(transactionId, amount);
+    if (loadedResponse != null) {
+      await getCompanies(body);
+      Navigator.of(context).pop();
+    }
+    changeLoadingStatus(false);
   }
 
   Future<void> getCompanies(Map<String, String> requestedBody) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     list = [];
-    isLoading = true;
-    notifyListeners();
+    changeLoadingStatus(true);
 
     list = await UserWebService().getCompaniesList(requestedBody);
-    isLoading = false;
-    notifyListeners();
+    changeLoadingStatus(false);
   }
 
   Future<void> subimtRating(
@@ -86,11 +111,16 @@ class UserHomeScreenViewModel with ChangeNotifier {
     String rate,
     BuildContext context,
   ) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
+    changeLoadingStatus(true);
     final loadedData = await UserWebService().submitRating(
       reqId,
       rate,
       '',
     );
+    changeLoadingStatus(false);
     if (loadedData != null) {
       Navigator.of(context).pop();
       Fluttertoast.showToast(msg: 'Success');
@@ -98,7 +128,9 @@ class UserHomeScreenViewModel with ChangeNotifier {
   }
 
   Future<Map<String, String>> getRequestStatusData(String reqId) async {
+    changeLoadingStatus(true);
     final loadedData = await UserWebService().getRequestStatusData(reqId);
+    changeLoadingStatus(false);
     if (loadedData != null) {
       print(loadedData['data']);
       return {
@@ -118,10 +150,10 @@ class UserHomeScreenViewModel with ChangeNotifier {
       String serviceId,
       String companyId,
       String notificationId) async {
-    isLoading = false;
-    notifyListeners();
+    changeLoadingStatus(true);
     final response = await UserWebService().sendRequestToCompany(
         longitude, latitude, address, serviceId, companyId, notificationId);
+    changeLoadingStatus(false);
     if (response != null) {
       showDialog(
         context: context,
@@ -137,18 +169,9 @@ class UserHomeScreenViewModel with ChangeNotifier {
             content: StreamBuilder<String>(
               stream: NumberCreator(ctx).stream.map((event) => 'Count $event'),
               builder: (ctx, snapshot) {
-                // print(snapshot.connectionState);
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // SizedBox(
-                    //   height: 100,
-                    //   width: MediaQuery.of(context).size.width * 0.40,
-                    //   child: const CircleAvatar(
-                    //     backgroundColor: Colors.green,
-                    //     child: FaIcon(FontAwesomeIcons.check),
-                    //   ),
-                    // ),
                     Image.asset(
                       'assets/images/checked.gif',
                       height: MediaQuery.of(context).size.height * 0.20,

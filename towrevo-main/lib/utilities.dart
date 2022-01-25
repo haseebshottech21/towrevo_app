@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -60,31 +61,6 @@ class Utilities {
     Fluttertoast.showToast(msg: message);
   }
 
-  // Future<void> showAlertDialog(
-  //   String title,
-  //   String subTitle,
-  //   BuildContext context,
-  // ) async {
-  //   showDialog(
-  //       context: context,
-  //       builder: (_) => AlertDialog(
-  //             actions: [
-  //               ElevatedButton(
-  //                 // style: ElevatedButton.styleFrom(
-  //                 //     primary: Theme.of(context).buttonColor
-  //                 // ),
-  //                 onPressed: () {
-  //                   // onPress();
-  //                   Navigator.of(context).pop();
-  //                 },
-  //                 child: const Text('Okay'),
-  //               )
-  //             ],
-  //             title: Text(title),
-  //             content: Text(subTitle),
-  //           ));
-  // }
-
   Future<dynamic> getSharedPreferenceValue(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(key);
@@ -118,6 +94,19 @@ class Utilities {
   Future<void> setSharedPrefValue(String key, String value) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString(key, value);
+  }
+
+  Future<bool> isInternetAvailable() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      return true;
+    } else {
+      Fluttertoast.showToast(
+        msg: 'Please Check Your Internet',
+      );
+      return false;
+    }
   }
 
 //time stamp to dd/MM/yyyy
