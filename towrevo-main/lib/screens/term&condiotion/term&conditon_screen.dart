@@ -21,12 +21,67 @@ class _TermAndConditionState extends State<TermAndCondition> {
     {
       'title': 'Agreement of Use',
       'description':
-          'Please read these Terms of Service ("Agreement", "Terms of Service") carefully before using TowRevo (the site) and TowRevo App (associated application) operated by TowRevo LLC. \n\nBy accessing or using the Site or App in any manner, including, but not limited to, visiting or browsing the Site or the App or contributing content or other materials to the Site or App, you agree to be bound by these Terms of Service. Capitalized terms are defined in this Agreement.',
+          'Please read these Terms of Service (“Agreement”, “Terms of Service”) carefully before using TowRevo (the site) and TowRevo App (associated application) operated by TowRevo LLC. By accessing or using the Site or App in any manner, including, but not limited to, visiting or browsing the Site or the App or contributing content or other materials to the Site or App, you agree to be bound by these Terms of Service. Capitalized terms are defined in this Agreement.',
     },
     {
-      'title': 'Intellectual Property',
+      'title': 'Acceptance of terms',
       'description':
-          'The Site, the App, and its original content, features, and functionality are owned by TowRevo LLC and are protected by international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.',
+          'The services that Towrevo LLC provides to its customers, herein referred to as user(s) is subject to the terms and conditions outlined below. Towrevo reserves the right to alter, modify or update the said terms and conditions at any time and without giving prior notice to the user.',
+    },
+    {
+      'title': 'Liability',
+      'description':
+          'Except as permitted by law, Towrevo’s total liability will be limited to the amount paid by the user for the offered services. In every case, Towrevo will not bear liability for property damages. \n\nTowevo does not determine issues regarding car damages. The towing companies and customers, therefore, are to decide on the settlement of car damages.',
+    },
+    {
+      'title': 'Towing fees',
+      'description':
+          'Towrevo does not determine the towing fees be charged by the towing companies and such fees are to be agreed upon by the customers and towing companies. \n\nTowrevo does not engage in the process of towing fees hence no refund should be claimed by aggrieved parties in this case customers.',
+    },
+    {
+      'title': 'Cancellation of the user account',
+      'description':
+          'We reserve the right to cancel a user’s account at any time. Such cancellation is however premised on the violation of the terms and conditions specified herein.'
+    },
+    {
+      'title': 'Pay as you charging system',
+      'description':
+          'Towrevo services to customers are based on a pay-as-you-go system. Customers only use services that they have paid for and cannot use extra services unless they pay for them first.'
+    },
+    {
+      'title': 'Monthly subscription of services',
+      'description':
+          'Providers are based on a monthly subscription and Towrevo reserves the right of cancellation at any time.'
+    },
+    {
+      'title': 'Service delays',
+      'description':
+          'While Towrevo is committed to offering timely service to its customers, there may be towing service delays during high peak times.'
+    },
+    {
+      'title': 'Service fees',
+      'description':
+          'It is the responsibility of customers to call towing companies for purposes of discussing service fees. Towrevo does not impose any service fee on towing or its services on the app or website. Towrevo however charges customers a fee to find towing services offered by the towing companies nearby. The Towrevo customers are charged to get details on towing companies if the results on towing companies appear in the app.'
+    },
+    {
+      'title': 'Non- provision of services',
+      'description':
+          'Due to bad weather conditions in certain areas, towing companies may not provide their services in the areas.'
+    },
+    {
+      'title': 'App fees',
+      'description':
+          'The use of the Towrevo app is subject to the payment of fees. Such fee once paid is not refundable.'
+    },
+    {
+      'title': 'Company promotional offers',
+      'description':
+          'From time to time, we may give promotional offers to customers. The offers include but are not limited to accessing towing companies’ details for free.'
+    },
+    {
+      'title': 'Intellectual property',
+      'description':
+          'The Site, the App, and its original content, features, and functionality are the property of TowRevo LLC and which property is protected by international copyright, trademark, patent, trade secret, and any other intellectual property or proprietary rights laws. You consent to make no claim whatsoever in the ownership or rights of any form regarding TowRevo’s App, Website, and other affiliated intellectual property.'
     },
     {
       'title': 'Links to Other Sites or Apps',
@@ -36,12 +91,12 @@ class _TermAndConditionState extends State<TermAndCondition> {
     {
       'title': 'Governing Law',
       'description':
-          'This Agreement (and any further rules, policies, or guidelines incorporated by reference) shall be governed and construed in accordance with the laws of the United States without giving effect to any principles of conflicts of law.'
+          'This agreement (and any further rules, policies, or guidelines incorporated by reference) shall be governed and constructed under the laws of the United States without giving effect to any principles of conflict of law.'
     },
     {
-      'title': 'Termination',
+      'title': 'Termination of access',
       'description':
-          'We may terminate your access to the Site or the App without cause or notice, which may result in the forfeiture and destruction of all information associated with you.'
+          'We may terminate your access to the Site or the App \n\n1. Without cause or notice at our own discretion. \n2. If you are the valuation of any of terms of this Agreement. \n\nTermination of access may result in the forfeiture and destruction of all information associated with you.'
     },
   ];
 
@@ -164,8 +219,9 @@ Text titleTermAndCond(String title) {
     title,
     style: const TextStyle(
       color: Colors.blue,
+      fontWeight: FontWeight.w400,
       fontStyle: FontStyle.italic,
-      fontSize: 22,
+      fontSize: 23,
     ),
   );
 }
@@ -175,7 +231,7 @@ Text descTermAndCond(String desc) {
     desc,
     style: const TextStyle(
       color: Colors.white,
-      fontSize: 14,
+      fontSize: 15,
     ),
   );
 }
