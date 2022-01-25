@@ -60,6 +60,9 @@ class UserHomeScreenViewModel with ChangeNotifier {
   List<UserHistoryModel> userHistoryList = [];
 
   Future<void> getUserHistory() async {
+    if (!(await utilities.isInternetAvailable())) {
+      return;
+    }
     isLoading = true;
     notifyListeners();
     userHistoryList = [];
@@ -73,6 +76,9 @@ class UserHomeScreenViewModel with ChangeNotifier {
 
   Future<void> payNow(
       String transactionId, String amount, BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     isLoading = true;
     notifyListeners();
     userHistoryList = [];
@@ -87,6 +93,9 @@ class UserHomeScreenViewModel with ChangeNotifier {
   }
 
   Future<void> getCompanies(Map<String, String> requestedBody) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     list = [];
     isLoading = true;
     notifyListeners();
@@ -101,6 +110,9 @@ class UserHomeScreenViewModel with ChangeNotifier {
     String rate,
     BuildContext context,
   ) async {
+     if (!(await Utilities().isInternetAvailable())) {
+      return ;
+    }
     final loadedData = await UserWebService().submitRating(
       reqId,
       rate,

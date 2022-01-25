@@ -11,6 +11,9 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   bool isLoading = false;
 
   Future<void> getRequests() async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     isLoading = true;
     notifyListeners();
     requestServiceList = [];
@@ -26,6 +29,9 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   List<ServiceRequestModel> companyHistoryList = [];
 
   Future<void> getCompanyHistrory() async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     isLoading = true;
     notifyListeners();
     companyHistoryList = [];
@@ -39,6 +45,9 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   }
 
   Future<void> getOnGoingRequests() async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     isLoading = true;
     notifyListeners();
     onGoingRequestsList = [];
@@ -57,6 +66,9 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     bool getData = true,
     required String notificationId,
   }) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     final companyProvider =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
 

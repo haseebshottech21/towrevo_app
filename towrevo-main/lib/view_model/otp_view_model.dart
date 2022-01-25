@@ -9,6 +9,9 @@ class OTPViewModel with ChangeNotifier {
 
   Future<bool> sendOTP(
       String uniqueId, String otp, BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return false;
+    }
     int validate = await getResendOTPOrValidateValue('validate');
     int resendOTP = await getResendOTPOrValidateValue('resendOTP');
     print('validate $validate ');
@@ -45,6 +48,9 @@ class OTPViewModel with ChangeNotifier {
   }
 
   Future<bool> resendOTP(String uniqueId) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return false;
+    }
     int resendOTP = await getResendOTPOrValidateValue('resendOTP');
     print('resend otp $resendOTP ');
     if (resendOTP >= 3) {

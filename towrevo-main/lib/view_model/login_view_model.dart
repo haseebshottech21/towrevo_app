@@ -3,6 +3,8 @@ import 'package:towrevo/screens/authentication/forgot_password/forgot_password_o
 import 'package:towrevo/screens/authentication/login/login_screen.dart';
 import 'package:towrevo/web_services/authentication.dart';
 
+import '../utilities.dart';
+
 class LoginViewModel with ChangeNotifier {
   bool isRememberChecked = false;
 
@@ -19,12 +21,20 @@ class LoginViewModel with ChangeNotifier {
   }
 
   Future<bool> loginRequest(String email, String password) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return false;
+    }
+ 
     bool result = await AuthenticationWebService()
         .login(email, password, isRememberChecked);
     return result;
+   
   }
 
   Future<void> logoutRequest(BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     final loadedData = await AuthenticationWebService().logout();
     if (loadedData) {
       Navigator.of(context)
@@ -35,6 +45,9 @@ class LoginViewModel with ChangeNotifier {
   String token = '';
 
   Future<void> forgotPassword(String email, BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     final loadedData = await AuthenticationWebService().forgotPassword(email);
     if (loadedData != null) {
       token = loadedData['data']['token'].toString();

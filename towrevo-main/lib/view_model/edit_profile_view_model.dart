@@ -34,6 +34,9 @@ class EditProfileViewModel with ChangeNotifier {
   }
 
   Future<void> getEditData(BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     isLoading = true;
     notifyListeners();
 

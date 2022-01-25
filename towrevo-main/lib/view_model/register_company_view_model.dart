@@ -37,6 +37,9 @@ class RegisterCompanyViewModel with ChangeNotifier {
   // String uniqueId ='';
 
   Future<bool> registerCompany(BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return false;
+    }
     // uniqueId = '';
     final responseBody = await AuthenticationWebService().signUpCompany(body);
     final otpProvider = Provider.of<OTPViewModel>(context, listen: false);

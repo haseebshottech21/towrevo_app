@@ -266,6 +266,9 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
                     children: [
                       StepFormButtonNext(
                         () async {
+                          if (!(await Utilities().isInternetAvailable())) {
+                            return;
+                          }
                           await makePayment(context);
                           // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: true);
                         },
