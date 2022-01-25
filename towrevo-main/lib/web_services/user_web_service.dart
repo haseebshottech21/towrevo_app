@@ -12,14 +12,14 @@ class UserWebService {
     // print(await Utilities().headerWithAuth());
     final response = await http.post(
       Uri.parse(Utilities.baseUrl + 'companies'),
-      // body: body,
-      body: {
-        'longitude': '-119.417931',
-        'latitude': '36.778259',
-        'time': '10:50',
-        'day': '1',
-        'service': '1'
-      },
+      body: body,
+      // body: {
+      //   'longitude': '-119.417931',
+      //   'latitude': '36.778259',
+      //   'time': '10:50',
+      //   'day': '1',
+      //   'service': '1'
+      // },
       headers: await Utilities().headerWithAuth(),
     );
     // print(response.body);

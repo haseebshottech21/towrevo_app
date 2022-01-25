@@ -13,7 +13,15 @@ class Utilities {
     try {
       TimeRange result = await showTimeRangePicker(
         context: context,
+
         use24HourFormat: false,
+        disabledTime: TimeRange(
+          startTime: TimeOfDay(hour: 22, minute: 59),
+          endTime: TimeOfDay(hour: 0, minute: 0),
+        ),
+
+        // maxDuration: Duration(hours: 2),
+        minDuration: Duration(hours: 2),
       );
 
       if (result != null) {
