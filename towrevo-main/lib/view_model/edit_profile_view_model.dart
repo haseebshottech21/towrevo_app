@@ -17,6 +17,10 @@ class EditProfileViewModel with ChangeNotifier {
   Map body = {};
 
   bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
 
   String imagePath = '';
   String extension = '';
@@ -37,8 +41,7 @@ class EditProfileViewModel with ChangeNotifier {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
-    isLoading = true;
-    notifyListeners();
+    changeLoadingStatus(true);
 
     body = {};
     final loadedData = await EditProfileWebService().getEditFields();
@@ -70,8 +73,7 @@ class EditProfileViewModel with ChangeNotifier {
     } else {
       body = {};
     }
-    isLoading = false;
-    notifyListeners();
+    changeLoadingStatus(false);
   }
 
   Map<String, String> timerValues = {
@@ -105,10 +107,12 @@ class EditProfileViewModel with ChangeNotifier {
 
   Future<void> changePassword(
       String password, String confirmPassword, BuildContext context) async {
+    changeLoadingStatus(true);
     final loadedData = await EditProfileWebService().changePassword(
       password,
       confirmPassword,
     );
+    changeLoadingStatus(false);
     if (loadedData != null) {
       Navigator.of(context).pop();
     }
@@ -116,8 +120,7 @@ class EditProfileViewModel with ChangeNotifier {
 
   Future<void> editProfileFields(
       Map<String, String> body, BuildContext context) async {
-    isLoading = true;
-    notifyListeners();
+    changeLoadingStatus(true);
     final loadedData = await EditProfileWebService().editProfileFields(body);
     if (loadedData != null) {
       Provider.of<UserHomeScreenViewModel>(context, listen: false)
@@ -127,7 +130,6 @@ class EditProfileViewModel with ChangeNotifier {
                   body['last_name'].toString(),
               image: loadedData['data']['user']['image'] ?? '');
     }
-    isLoading = false;
-    notifyListeners();
+    changeLoadingStatus(false);
   }
 }

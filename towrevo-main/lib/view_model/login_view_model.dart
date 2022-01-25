@@ -7,6 +7,11 @@ import '../utilities.dart';
 
 class LoginViewModel with ChangeNotifier {
   bool isRememberChecked = false;
+  bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
 
   toggleRemember() {
     isRememberChecked = !isRememberChecked;
@@ -24,18 +29,20 @@ class LoginViewModel with ChangeNotifier {
     if (!(await Utilities().isInternetAvailable())) {
       return false;
     }
- 
+    changeLoadingStatus(true);
     bool result = await AuthenticationWebService()
         .login(email, password, isRememberChecked);
+    changeLoadingStatus(false);
     return result;
-   
   }
 
   Future<void> logoutRequest(BuildContext context) async {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
+    changeLoadingStatus(true);
     final loadedData = await AuthenticationWebService().logout();
+    changeLoadingStatus(false);
     if (loadedData) {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
@@ -48,7 +55,9 @@ class LoginViewModel with ChangeNotifier {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
+    changeLoadingStatus(true);
     final loadedData = await AuthenticationWebService().forgotPassword(email);
+    changeLoadingStatus(false);
     if (loadedData != null) {
       token = loadedData['data']['token'].toString();
       Navigator.of(context)
@@ -58,9 +67,14 @@ class LoginViewModel with ChangeNotifier {
 
   Future<void> sendOTP(String otp, String token, String password,
       String confirmationPassword, BuildContext context) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
+    changeLoadingStatus(true);
     final loadedData = await AuthenticationWebService()
         .validateOTPAndResetPassword(
             token, password, confirmationPassword, otp);
+    changeLoadingStatus(true);
     if (loadedData != null) {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);

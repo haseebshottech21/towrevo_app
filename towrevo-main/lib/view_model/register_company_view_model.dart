@@ -11,6 +11,11 @@ import '../utilities.dart';
 
 class RegisterCompanyViewModel with ChangeNotifier {
   bool isCheckedTermsAndCondition = false;
+  bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
 
   Map<String, dynamic> body = {
     'first_name': '',
@@ -41,8 +46,10 @@ class RegisterCompanyViewModel with ChangeNotifier {
       return false;
     }
     // uniqueId = '';
+    changeLoadingStatus(true);
     final responseBody = await AuthenticationWebService().signUpCompany(body);
     final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
+    changeLoadingStatus(false);
     print(responseBody);
     if (responseBody != null) {
       otpProvider.resendUniqueId = responseBody['data']['uniqueId'];
@@ -106,21 +113,6 @@ class RegisterCompanyViewModel with ChangeNotifier {
     };
     notifyListeners();
   }
-
-  // filterDays(int index,String key){
-  //   daysList[index] = {
-  //     key: !daysList[index].values.first
-  //   };
-  //   notifyListeners();
-  // }
-
-  // List<dynamic> filterDays(List<DaysModel> list){
-  //   List<dynamic> daysList= list.map((day){
-  //     return day.dayAvailable?day.id;
-  //   }).toList();
-  //
-  //   return daysList;
-  // }
 
   String imagePath = '';
   Future<void> pickImage() async {

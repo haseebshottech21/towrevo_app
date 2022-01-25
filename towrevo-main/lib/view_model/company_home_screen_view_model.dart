@@ -9,21 +9,22 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   List<ServiceRequestModel> requestServiceList = [];
   List<ServiceRequestModel> onGoingRequestsList = [];
   bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
 
   Future<void> getRequests() async {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
-    isLoading = true;
-    notifyListeners();
+    changeLoadingStatus(true);
     requestServiceList = [];
     final loadedResponse = await CompanyWebService().requestsOfUser('0');
     if (loadedResponse.isNotEmpty) {
       requestServiceList = loadedResponse;
     }
-    isLoading = false;
-
-    notifyListeners();
+    changeLoadingStatus(false);
   }
 
   List<ServiceRequestModel> companyHistoryList = [];
@@ -32,31 +33,27 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
-    isLoading = true;
-    notifyListeners();
+    changeLoadingStatus(true);
     companyHistoryList = [];
     final loadedResponse =
         await CompanyWebService().requestsOfUser('', history: true);
     if (loadedResponse.isNotEmpty) {
       companyHistoryList = loadedResponse.reversed.toList();
     }
-    isLoading = false;
-    notifyListeners();
+    changeLoadingStatus(false);
   }
 
   Future<void> getOnGoingRequests() async {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
-    isLoading = true;
-    notifyListeners();
+    changeLoadingStatus(true);
     onGoingRequestsList = [];
     final loadedResponse = await CompanyWebService().requestsOfUser('1');
     if (loadedResponse.isNotEmpty) {
       onGoingRequestsList = loadedResponse;
     }
-    isLoading = false;
-    notifyListeners();
+    changeLoadingStatus(false);
   }
 
   Future<void> acceptDeclineOrDone(
@@ -72,8 +69,10 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     final companyProvider =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
 
+    changeLoadingStatus(true);
     final loadedData =
         await CompanyWebService().acceptDeclineOrDone(type, requestId);
+    changeLoadingStatus(false);
     if (loadedData != null) {
       print(loadedData);
       if (type == '3') {

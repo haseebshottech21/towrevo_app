@@ -22,6 +22,12 @@ class ServicesAndDaysViewModel with ChangeNotifier {
     }
   }
 
+  bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
+
   List<ServicesModel> serviceListViewModel = [];
   List<String> daysId = [];
   List<String> servicesId = [];
@@ -31,10 +37,10 @@ class ServicesAndDaysViewModel with ChangeNotifier {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
+    changeLoadingStatus(true);
     serviceListViewModel = [];
     serviceListViewModel = await ServicesWebService().getServices();
-    print(serviceListViewModel);
-    notifyListeners();
+    changeLoadingStatus(false);
   }
 
   Future<void> setServicesAndDaysSelectedWhileCompamyEditOperationPerform(

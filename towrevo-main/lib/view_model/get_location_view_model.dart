@@ -9,6 +9,12 @@ class GetLocationViewModel with ChangeNotifier {
   LatLng? latLng;
   String address = '';
 
+  bool isLoading = false;
+  changeLoadingStatus(bool loadingStatus) {
+    isLoading = loadingStatus;
+    notifyListeners();
+  }
+
   // GetLocationViewModel(): longitude=0,latitude=0,address='';
 
   set setAddress(
@@ -56,6 +62,7 @@ class GetLocationViewModel with ChangeNotifier {
   }
 
   Future<LatLng?> getCurrentLocation(BuildContext context) async {
+    changeLoadingStatus(true);
     bool permission = await _handlePermission();
     if (permission) {
       final geoPosition = await Geolocator.getCurrentPosition(
@@ -72,6 +79,7 @@ class GetLocationViewModel with ChangeNotifier {
         await getLocationFromCoordinates(latLng!);
       }
     }
+    changeLoadingStatus(false);
   }
 
   setLatLng(LatLng latitudeAndLogitude) async {
