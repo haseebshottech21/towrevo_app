@@ -42,10 +42,16 @@ class UserRatingDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(companyName),
-              Text(serviceName),
+              Text(
+                'Company : ' + companyName,
+                style: TextStyle(fontSize: 18),
+              ),
+              Text(
+                'Service : ' + serviceName,
+                style: TextStyle(fontSize: 18),
+              ),
               const SizedBox(
-                height: 10,
+                height: 15,
               ),
               Consumer<UserHomeScreenViewModel>(
                   builder: (ctx, userViewModel, neverBuildChild) {
@@ -115,12 +121,12 @@ class UserRatingDialog extends StatelessWidget {
                   ],
                 );
               }),
-              const SizedBox(
-                height: 10,
-              ),
-              const Center(
-                child: Text('Love It'),
-              ),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // const Center(
+              //   child: Text('Love It'),
+              // ),
             ],
           ),
         ),

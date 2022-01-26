@@ -114,13 +114,13 @@ class UserHomeScreenViewModel with ChangeNotifier {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
-    changeLoadingStatus(true);
+    // changeLoadingStatus(true);
     final loadedData = await UserWebService().submitRating(
       reqId,
       rate,
       '',
     );
-    changeLoadingStatus(false);
+    // changeLoadingStatus(false);
     if (loadedData != null) {
       Navigator.of(context).pop();
       Fluttertoast.showToast(msg: 'Success');
@@ -150,10 +150,10 @@ class UserHomeScreenViewModel with ChangeNotifier {
       String serviceId,
       String companyId,
       String notificationId) async {
-    changeLoadingStatus(true);
+    // changeLoadingStatus(true);
     final response = await UserWebService().sendRequestToCompany(
         longitude, latitude, address, serviceId, companyId, notificationId);
-    changeLoadingStatus(false);
+    // changeLoadingStatus(false);
     if (response != null) {
       showDialog(
         context: context,
