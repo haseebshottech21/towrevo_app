@@ -34,8 +34,11 @@ class ErrorGetter {
   }
 
   dynamic companyDescriptionErrorGetter(String value) {
+    
     if (value.isEmpty) {
       return 'Please Enter Company Description';
+    } else if ( RegExp(r'\d').hasMatch(value.trim())) {
+      return 'Numbers are not allow.';
     } else if (value.length > 300) {
       return 'Company Description length Should be less than 300';
     } else if (value.length < 3) {

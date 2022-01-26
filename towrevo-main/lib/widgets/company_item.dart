@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -51,12 +53,9 @@ class CompanyItem extends StatelessWidget {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    print(companyModel.notificationId);
-
+    print(companyModel.email);
     final primaryColor = Theme.of(context).primaryColor;
     return FadeInUp(
       from: 50,
@@ -96,12 +95,17 @@ class CompanyItem extends StatelessWidget {
                           children: [
                             Container(
                               alignment: Alignment.centerLeft,
+                              color: companyModel.email.isEmpty
+                                  ? Colors.black12.withOpacity(0.1)
+                                  : Colors.white,
                               child: Text(
                                 companyModel.firstName,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: companyModel.email.isEmpty
+                                        ? Colors.white.withOpacity(0.2)
+                                        : Colors.black),
                               ),
                             ),
                             const SizedBox(width: 5),

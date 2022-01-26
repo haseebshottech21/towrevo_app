@@ -16,6 +16,7 @@ import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/User/user_empty_icon.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'drawer_list_item_widget.dart';
 import 'drawer_profile.dart';
 import 'form_button_widget.dart';
@@ -31,14 +32,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then(
-      (value) {
+      (value) async {
         Provider.of<UserHomeScreenViewModel>(context, listen: false)
             .updateDrawerInfo();
+        type = await Utilities().getSharedPreferenceValue('type');
       },
     );
 
     super.initState();
   }
+
+  String type = '';
 
   @override
   Widget build(BuildContext context) {
@@ -112,10 +116,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         title: 'Home',
                         iconsData: FontAwesomeIcons.home,
                         onPressed: () async {
-                          String type = await Utilities()
-                              .getSharedPreferenceValue('type');
-                          // print(type);
-                          // Navigator.of(context).pushNamed(CompanyHistory.routeName);
                           Navigator.of(context).pushReplacementNamed(
                             type == '1'
                                 ? UsersHomeScreen.routeName
@@ -127,17 +127,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         title: 'About Us',
                         iconsData: FontAwesomeIcons.infoCircle,
                         onPressed: () {
-                          Navigator.of(context).pushNamed(AboutUs.routeName);
+                          openUrl();
+                          // Navigator.of(context).pushNamed(AboutUs.routeName);
                         },
                       ),
                       DrawerListItem(
                         title: 'History',
                         iconsData: FontAwesomeIcons.history,
                         onPressed: () async {
-                          String type = await Utilities()
-                              .getSharedPreferenceValue('type');
-                          // print(type);
-                          // Navigator.of(context).pushNamed(CompanyHistory.routeName);
                           Navigator.of(context).pushNamed(
                             type == '1'
                                 ? UserHistoryTow.routeName
@@ -167,16 +164,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                               .pushNamed(ChangePassword.routeName);
                         },
                       ),
-                      DrawerListItem(
-                        title: 'Term & Condition',
-                        iconsData: FontAwesomeIcons.clipboardCheck,
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(
-                            TermAndCondition.routeName,
-                            arguments: false,
-                          );
-                        },
-                      ),
+                      // DrawerListItem(
+                      //   title: 'Term & Condition',
+                      //   iconsData: FontAwesomeIcons.clipboardCheck,
+                      //   onPressed: () {
+                      //     Navigator.of(context).pushNamed(
+                      //       TermAndCondition.routeName,
+                      //       arguments: false,
+                      //     );
+                      //   },
+                      // ),
+
                       // DrawerListItem(
                       //   title: 'Privacy Policy',
                       //   iconsData: Icons.play_arrow,
@@ -214,12 +212,21 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       const SizedBox(
                         height: 2,
                       ),
-                      const Center(
-                        child: Text(
-                          'All Rights Reserved',
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.white,
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            TermAndCondition.routeName,
+                            arguments: false,
+                          );
+                        },
+                        child: const Center(
+                          child: Text(
+                            'All Rights Reserved',
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.white,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ),
@@ -232,5 +239,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
         ),
       ),
     );
+  }
+
+  openUrl() async {
+    if (await canLaunch('https://www.google.com'))
+      await launch('https://www.google.com/');
   }
 }

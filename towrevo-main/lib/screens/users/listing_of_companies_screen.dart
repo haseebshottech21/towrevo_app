@@ -19,7 +19,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
   Widget build(BuildContext context) {
     final userHomeProvider =
         Provider.of<UserHomeScreenViewModel>(context, listen: true);
-    print('length : ${userHomeProvider.list.length}');
+   
 
     return Scaffold(
       backgroundColor: userHomeProvider.isLoading
