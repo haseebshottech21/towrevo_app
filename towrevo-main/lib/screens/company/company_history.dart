@@ -4,10 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
-import 'package:towrevo/widgets/User/drawer_icon.dart';
+
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/company_history_list.dart';
-import 'package:towrevo/widgets/drawer_widget.dart';
+
 import 'package:towrevo/widgets/full_background_image.dart';
 
 class CompanyHistory extends StatefulWidget {
@@ -31,7 +32,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
     super.initState();
   }
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  // final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +42,9 @@ class _CompanyHistoryState extends State<CompanyHistory> {
     );
 
     return Scaffold(
-      key: scaffoldKey,
-      drawerEnableOpenDragGesture: false,
-      drawer: const DrawerWidget(),
+      // key: scaffoldKey,
+      // drawerEnableOpenDragGesture: false,
+      // drawer: const DrawerWidget(),
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Stack(
@@ -51,32 +52,55 @@ class _CompanyHistoryState extends State<CompanyHistory> {
             const FullBackgroundImage(),
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      drawerIcon(
-                        context,
-                        () {
-                          scaffoldKey.currentState!.openDrawer();
-                        },
-                      ),
-                      const SizedBox(width: 50),
-                      Center(
-                        child: Text(
-                          'MY HISTORY',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.montserrat(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 28.0,
-                            letterSpacing: 1,
-                          ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [
+                //       drawerIcon(
+                //         context,
+                //         () {
+                //           scaffoldKey.currentState!.openDrawer();
+                //         },
+                //       ),
+                //       const SizedBox(width: 50),
+                //       Center(
+                //         child: Text(
+                //           'MY HISTORY',
+                //           textAlign: TextAlign.center,
+                //           style: GoogleFonts.montserrat(
+                //             color: Colors.white,
+                //             fontWeight: FontWeight.w600,
+                //             fontSize: 28.0,
+                //             letterSpacing: 1,
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                Row(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: backIcon(context, () {
+                        Navigator.of(context).pop();
+                      }),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 40, left: 45),
+                      child: Text(
+                        'MY HISTORY',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 28.0,
+                          letterSpacing: 1,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 FadeInUp(
                   from: 40,

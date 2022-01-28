@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/glowCircle.dart';
+import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import '/widgets/company_item.dart';
@@ -19,7 +20,6 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
   Widget build(BuildContext context) {
     final userHomeProvider =
         Provider.of<UserHomeScreenViewModel>(context, listen: true);
-   
 
     return Scaffold(
       backgroundColor: userHomeProvider.isLoading
@@ -35,19 +35,6 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
           const FullBackgroundImage(),
           Column(
             children: [
-              // Align(
-              //   alignment: Alignment.centerLeft,
-              //   child: IconButton(
-              //     onPressed: () {
-              //       Navigator.of(context).pop();
-              //     },
-              //     icon: const FaIcon(
-              //       FontAwesomeIcons.arrowLeft,
-              //       color: Colors.white,
-              //       size: 15,
-              //     ),
-              //   ),
-              // ),
               Row(
                 children: [
                   backIcon(context, () {
@@ -69,15 +56,36 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                   )
                 ],
               ),
-              userHomeProvider.isLoading
-                  ? SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      child: const GlowCircle(
-                        glowHeight: 50,
-                        glowWidth: 50,
-                        glowbegin: 0,
-                        glowend: 100,
-                        miliseconds: 800,
+              // userHomeProvider.isLoading
+              //     ? SizedBox(
+              //         height: MediaQuery.of(context).size.height * 0.7,
+              //         child: const GlowCircle(
+              //           glowHeight: 50,
+              //           glowWidth: 50,
+              //           glowbegin: 0,
+              //           glowend: 100,
+              //           miliseconds: 800,
+              //         ),
+              //       )
+              //     :
+              (userHomeProvider.isLoading || userHomeProvider.list.isEmpty)
+                  ? Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.65,
+                        child: userHomeProvider.isLoading
+                            ? const GlowCircle(
+                                glowHeight: 50,
+                                glowWidth: 50,
+                                glowbegin: 0,
+                                glowend: 100,
+                                miliseconds: 800,
+                              )
+                            : noDataImage(
+                                context,
+                                'No Towing Service Available',
+                                'assets/images/towing.png',
+                              ),
                       ),
                     )
                   : Expanded(

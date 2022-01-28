@@ -101,23 +101,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           letterSpacing: 1.8),
                     ),
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  FadeInDown(
-                    from: 30,
-                    delay: const Duration(milliseconds: 550),
-                    child: Text(
-                      'Lorem Ipsum is sipmly dummy text of the printing and typesetting',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.montserrat(
-                        color: const Color(0xFF0c355a),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15.0,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
+                  // const SizedBox(
+                  //   height: 5,
+                  // ),
+                  // FadeInDown(
+                  //   from: 30,
+                  //   delay: const Duration(milliseconds: 550),
+                  //   child: Text(
+                  //     'Lorem Ipsum is sipmly dummy text of the printing and typesetting',
+                  //     textAlign: TextAlign.center,
+                  //     style: GoogleFonts.montserrat(
+                  //       color: const Color(0xFF0c355a),
+                  //       fontWeight: FontWeight.w600,
+                  //       fontSize: 15.0,
+                  //       letterSpacing: 0.5,
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 25,
                   ),

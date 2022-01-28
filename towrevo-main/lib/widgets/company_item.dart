@@ -95,17 +95,20 @@ class CompanyItem extends StatelessWidget {
                           children: [
                             Container(
                               alignment: Alignment.centerLeft,
-                              color: companyModel.email.isEmpty
-                                  ? Colors.black12.withOpacity(0.1)
-                                  : Colors.white,
+                              // color: companyModel.email.isEmpty
+                              //     ? Colors.black12.withOpacity(0.1)
+                              //     : Colors.white,
                               child: Text(
-                                companyModel.firstName,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: companyModel.email.isEmpty
-                                        ? Colors.white.withOpacity(0.2)
-                                        : Colors.black),
+                                companyModel.email.isEmpty
+                                    ? 'Request Company'
+                                    : companyModel.firstName,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  // color: companyModel.email.isEmpty
+                                  //     ? Colors.white.withOpacity(0.2)
+                                  //     : Colors.black
+                                ),
                               ),
                             ),
                             const SizedBox(width: 5),
@@ -150,68 +153,59 @@ class CompanyItem extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Text(companyModel.description),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        MapDistanceScreen.routeName,
-                        arguments: LatLng(
-                          double.parse(companyModel.latitude),
-                          double.parse(companyModel.longitude),
-                        ),
-                      );
-                    },
-                    child: const Text('Get Directions'),
-                  ),
-                  SizedBox(
-                    width: 70,
-                    child: Row(
-                      children: [
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
-                          onPressed: () {
-                            sendRequest(
-                                companyModel.userId,
-                                context,
-                                companyModel.notificationId,
-                                companyModel.phoneNumber);
-                          },
-                          //   showDialog(
-                          //       context: context,
-                          //       builder: (context) => CustomDialog(
-                          //             title: 'Success',
-                          //             description:
-                          //                 'loripas asjbjbac jkabsdbk;dkv asdjkkascd',
-                          //           ));
-                          // },
-                          icon: FaIcon(
-                            FontAwesomeIcons.paperPlane,
-                            color: primaryColor,
-                            size: 20,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
-                          onPressed: () {
-                            openDialPad(companyModel.phoneNumber, context);
-                          },
-                          icon: Icon(
-                            Icons.phone_in_talk,
-                            color: primaryColor,
-                          ),
-                        ),
-                      ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Available',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.green[700],
+                      ),
                     ),
-                  )
-                ],
+                    SizedBox(
+                      width: 75,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            onPressed: () {
+                              sendRequest(
+                                  companyModel.userId,
+                                  context,
+                                  companyModel.notificationId,
+                                  companyModel.phoneNumber);
+                            },
+                            icon: FaIcon(
+                              FontAwesomeIcons.paperPlane,
+                              color: primaryColor,
+                              size: 22,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 18,
+                          ),
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            onPressed: () {
+                              openDialPad(companyModel.phoneNumber, context);
+                            },
+                            icon: Icon(
+                              Icons.phone_in_talk,
+                              color: primaryColor,
+                              size: 25,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),

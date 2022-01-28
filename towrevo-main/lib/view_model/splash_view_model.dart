@@ -6,8 +6,9 @@ import 'package:towrevo/screens/company/company_home_screen.dart';
 import 'package:towrevo/screens/onboard/on_board_towrevo.dart';
 import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
+import 'package:towrevo/web_services/authentication.dart';
 
-class SplashViewModel {
+class SplashViewModel with ChangeNotifier {
   Future<void> navigateToWelcome(BuildContext context) async {
     String type = await Utilities().getSharedPreferenceValue('type') ?? '0';
     print(type);
@@ -28,5 +29,22 @@ class SplashViewModel {
         ),
       );
     });
+  }
+
+  Future<bool> contactUs(String description) async {
+    final loadedData =
+        await AuthenticationWebService().contactUsRequest(description);
+    if (loadedData != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  String type = '';
+
+  getType() async {
+    type = await Utilities().getSharedPreferenceValue('type');
+    notifyListeners();
   }
 }

@@ -18,6 +18,7 @@ Container noDataImage(
             fontSize: 30.0,
             fontWeight: FontWeight.w500,
           ),
+          textAlign: TextAlign.center,
         ),
         const SizedBox(height: 10),
         SizedBox(

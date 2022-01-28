@@ -31,7 +31,6 @@ class UsersHomeScreen extends StatefulWidget {
 
 class _UsersHomeScreenState extends State<UsersHomeScreen> {
   final getLocation = GetLocationViewModel();
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Future<void> openBottomSheet() async{
@@ -44,7 +43,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
     // print('bottom sheet : ${UsersHomeScreen.showBottomSheet}');
     // print('Dialog : ${UsersHomeScreen.showDialog}');
-    print(provider.bottomSheetData['requestedId']);
+    // print(provider.bottomSheetData['requestedId']);
     if (provider.bottomSheetData['requested']) {
       Future.delayed(Duration.zero).then(
         (value) async {
@@ -366,8 +365,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     // a terminated state.
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
-    print('yes');
-    print(initialMessage?.data.toString());
+    // print('yes');
+    // print(initialMessage?.data.toString());
     // If the message also contains a data property with a "type" of "chat",
     // navigate to a chat screen
     if (initialMessage != null) {
@@ -380,13 +379,13 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
-        print(message);
-        print(message.data['screen']);
+        // print(message);
+        // print(message.data['screen']);
         if (message.data['screen'] == 'decline_from_user') {
           Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
         }
         if (message.data['screen'] == 'accept') {
-          print(message.data['name']);
+          // print(message.data['name']);
           Fluttertoast.showToast(msg: 'Accepted From Company.').then((value) {
             provider.bottomSheetData = {
               'requestedId': message.data['id'],
@@ -434,8 +433,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   void _handleMessage(RemoteMessage message) {
     final provider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
-    print(message);
-    print(message.data);
+    // print(message);
+    // print(message.data);
     if (message.data['screen'] == 'decline_from_user') {
       Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
     }

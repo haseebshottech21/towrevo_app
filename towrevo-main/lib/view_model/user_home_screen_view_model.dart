@@ -43,6 +43,12 @@ class UserHomeScreenViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  getType() async {
+    String type = (await Utilities().getSharedPreferenceValue('type'));
+    notifyListeners();
+    return type;
+  }
+
   setDrawerInfo({
     required String name,
     required String image,
@@ -172,6 +178,13 @@ class UserHomeScreenViewModel with ChangeNotifier {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    const Text(
+                      'Request Send Please Wait..',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Image.asset(
                       'assets/images/checked.gif',
                       height: MediaQuery.of(context).size.height * 0.20,

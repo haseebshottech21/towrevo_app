@@ -1,14 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/models/service_request_model.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
-import 'package:towrevo/view_model/register_company_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/web_services/edit_profile_web_service.dart';
@@ -37,6 +34,16 @@ class EditProfileViewModel with ChangeNotifier {
     }
   }
 
+  initFields() {
+    selectedState = null;
+    selectedCity = null;
+    body = {};
+    extension = '';
+    image = '';
+    imagePath = '';
+    notifyListeners();
+  }
+
   Future<void> getEditData(BuildContext context) async {
     if (!(await Utilities().isInternetAvailable())) {
       return;
@@ -48,6 +55,8 @@ class EditProfileViewModel with ChangeNotifier {
 
     if (loadedData != null) {
       body = loadedData;
+      selectedState = body['state'];
+      selectedCity = body['city'];
       if (loadedData['type'] == '2') {
         final serviceProvider =
             Provider.of<ServicesAndDaysViewModel>(context, listen: false);
@@ -86,7 +95,7 @@ class EditProfileViewModel with ChangeNotifier {
   Future<void> setTimer(BuildContext context) async {
     final time = await Utilities().setTimer(context);
 
-    print(time);
+    // print(time);
     if (time != null) {
       timerValues = time;
       notifyListeners();
@@ -95,8 +104,8 @@ class EditProfileViewModel with ChangeNotifier {
 
   Future<void> setTimerFieldsAfterGetRequestScucceed(
       String from, String to) async {
-    print(from.toUpperCase());
-    print(to.toUpperCase());
+    // print(from.toUpperCase());
+    // print(to.toUpperCase());
     timerValues['fromUtilize'] = from;
     timerValues['toUtilize'] = to;
     timerValues['from'] = Utilities().timeConverter(from.toUpperCase());
@@ -131,5 +140,22 @@ class EditProfileViewModel with ChangeNotifier {
               image: loadedData['data']['user']['image'] ?? '');
     }
     changeLoadingStatus(false);
+  }
+
+  String? selectedState;
+  String? selectedCity;
+
+  changeState(String newValue) {
+    selectedState = newValue.toString();
+    body['state'] = newValue.toString();
+    selectedCity = null;
+    // print(us_city_state[selectedState]);
+    notifyListeners();
+  }
+
+  changeCity(String newValue) {
+    selectedCity = newValue.toString();
+    body['city'] = newValue.toString();
+    notifyListeners();
   }
 }

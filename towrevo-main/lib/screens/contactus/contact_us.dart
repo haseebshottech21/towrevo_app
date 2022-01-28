@@ -2,11 +2,13 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
-import 'package:towrevo/widgets/User/drawer_icon.dart';
+import 'package:towrevo/utilities.dart';
+import 'package:towrevo/view_model/splash_view_model.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/company_form_field.dart';
-import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/form_button_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
@@ -20,29 +22,34 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
   final descriptionController = TextEditingController();
   final emailController = TextEditingController();
-  final phoneNumberController = TextEditingController();
+  final fullNameController = TextEditingController();
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  // final scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
 
-  validateAndSubmitQuery() {
+  validateAndSubmitQuery() async {
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      //
+      print('in');
+      final splashViewModel =
+          Provider.of<SplashViewModel>(context, listen: false);
+      bool success =
+          await splashViewModel.contactUs(descriptionController.text.trim());
+      if (success) {
+        descriptionController.text = '';
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      drawerEnableOpenDragGesture: false,
-      drawer: const DrawerWidget(),
+      // key: scaffoldKey,
+      // drawerEnableOpenDragGesture: false,
+      // drawer: const DrawerWidget(),
       body: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -53,34 +60,57 @@ class _ContactUsState extends State<ContactUs> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, right: 20, top: 40),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          drawerIcon(
-                            context,
-                            () {
-                              scaffoldKey.currentState!.openDrawer();
-                            },
-                          ),
-                          const SizedBox(width: 50),
-                          Center(
-                            child: Text(
-                              'CONTACT US',
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 28.0,
-                                letterSpacing: 1,
-                              ),
+                    Row(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: backIcon(context, () {
+                            Navigator.of(context).pop();
+                          }),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 40, left: 45),
+                          child: Text(
+                            'CONTACT US',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 28.0,
+                              letterSpacing: 1,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
+                    // Padding(
+                    //   padding:
+                    //       const EdgeInsets.only(left: 20, right: 20, top: 40),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     children: [
+                    //       drawerIcon(
+                    //         context,
+                    //         () {
+                    //           scaffoldKey.currentState!.openDrawer();
+                    //         },
+                    //       ),
+                    //       const SizedBox(width: 50),
+                    //       Center(
+                    //         child: Text(
+                    //           'CONTACT US',
+                    //           textAlign: TextAlign.center,
+                    //           style: GoogleFonts.montserrat(
+                    //             color: Colors.white,
+                    //             fontWeight: FontWeight.w600,
+                    //             fontSize: 28.0,
+                    //             letterSpacing: 1,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Form(
@@ -107,37 +137,19 @@ class _ContactUsState extends State<ContactUs> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            FadeInDown(
-                              from: 10,
-                              delay: const Duration(milliseconds: 650),
-                              child: TextFieldForAll(
-                                errorGetter: ErrorGetter().firstNameErrorGetter,
-                                hintText: 'First Name',
-                                prefixIcon: const Icon(
-                                  FontAwesomeIcons.userAlt,
-                                  color: Color(0xFF019aff),
-                                  size: 20.0,
-                                ),
-                                textEditingController: firstNameController,
-                                textInputType: TextInputType.name,
-                              ),
-                            ),
                             const SizedBox(height: 10),
                             FadeInDown(
                               from: 15,
                               delay: const Duration(milliseconds: 670),
                               child: TextFieldForAll(
-                                errorGetter: ErrorGetter().lastNameErrorGetter,
-                                hintText: 'Last Name',
+                                errorGetter: (val) {},
+                                hintText: 'Full Name',
                                 prefixIcon: const Icon(
                                   FontAwesomeIcons.userAlt,
                                   color: Color(0xFF019aff),
                                   size: 20.0,
                                 ),
-                                textEditingController: lastNameController,
+                                textEditingController: fullNameController,
                                 textInputType: TextInputType.name,
                               ),
                             ),
@@ -146,8 +158,7 @@ class _ContactUsState extends State<ContactUs> {
                               from: 25,
                               delay: const Duration(milliseconds: 710),
                               child: TextFieldForAll(
-                                errorGetter:
-                                    ErrorGetter().phoneNumberErrorGetter,
+                                errorGetter: ErrorGetter().emailErrorGetter,
                                 hintText: 'Email',
                                 prefixIcon: const Icon(
                                   FontAwesomeIcons.solidEnvelopeOpen,
@@ -161,27 +172,9 @@ class _ContactUsState extends State<ContactUs> {
                             const SizedBox(height: 10),
                             FadeInDown(
                               from: 20,
-                              delay: const Duration(milliseconds: 690),
-                              child: TextFieldForAll(
-                                errorGetter:
-                                    ErrorGetter().phoneNumberErrorGetter,
-                                hintText: 'Phone',
-                                prefixIcon: const Icon(
-                                  FontAwesomeIcons.phoneAlt,
-                                  color: Color(0xFF019aff),
-                                  size: 20.0,
-                                ),
-                                textEditingController: phoneNumberController,
-                                textInputType: TextInputType.phone,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            FadeInDown(
-                              from: 20,
                               delay: const Duration(milliseconds: 730),
                               child: CompanyTextAreaField(
-                                errorGetter:
-                                    ErrorGetter().companyDescriptionErrorGetter,
+                                errorGetter: ErrorGetter().feedbackErrorGetter,
                                 hintText: 'Send Feedback',
                                 prefixIcon: const Icon(
                                   FontAwesomeIcons.solidCommentDots,
@@ -218,40 +211,51 @@ class _ContactUsState extends State<ContactUs> {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            Center(
-                              child: Text(
-                                'PHONE:',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15.0,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryColor.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Text(
-                                '+1 (000) 333 0000',
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15.0,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 25),
+                            Consumer<SplashViewModel>(builder:
+                                (ctx, contactUsViewModel, neverUpdate) {
+                              return contactUsViewModel.type == '2'
+                                  ? Column(
+                                      children: [
+                                        Center(
+                                          child: Text(
+                                            'PHONE:',
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.montserrat(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15.0,
+                                              letterSpacing: 0.5,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 5,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.primaryColor
+                                                .withOpacity(0.6),
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          child: Text(
+                                            '+1 (000) 333 0000',
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.montserrat(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15.0,
+                                              letterSpacing: 0.5,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 25),
+                                      ],
+                                    )
+                                  : const SizedBox();
+                            }),
                             Center(
                               child: Text(
                                 'EMAIL:',
@@ -312,5 +316,19 @@ class _ContactUsState extends State<ContactUs> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    setUpFields();
+
+    Provider.of<SplashViewModel>(context, listen: false).getType();
+    super.initState();
+  }
+
+  setUpFields() async {
+    final utility = Utilities();
+    emailController.text = await utility.getSharedPreferenceValue('email');
+    fullNameController.text = await utility.getSharedPreferenceValue('name');
   }
 }

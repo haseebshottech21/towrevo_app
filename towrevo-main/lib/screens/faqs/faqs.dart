@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
@@ -67,11 +69,17 @@ class _FAQsState extends State<FAQs> {
         child: Stack(
           children: [
             const FullBackgroundImage(),
-            drawerIconSecond(
-              context,
-              () {
-                scaffoldKey.currentState!.openDrawer();
-              },
+            // drawerIconSecond(
+            //   context,
+            //   () {
+            //     scaffoldKey.currentState!.openDrawer();
+            //   },
+            // ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: backIcon(context, () {
+                Navigator.of(context).pop();
+              }),
             ),
             Container(
               alignment: Alignment.center,

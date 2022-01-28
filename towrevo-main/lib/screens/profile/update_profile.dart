@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/state_city_utility.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/edit_profile_view_model.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/User/drawer_icon.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/company_form_field.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
@@ -46,10 +47,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
       (value) async {
         final provider =
             Provider.of<EditProfileViewModel>(context, listen: false);
-        provider.body = {};
-        provider.extension = '';
-        provider.image = '';
-        provider.imagePath = '';
+        provider.initFields();
+
         await provider.getEditData(context);
         _init = true;
         type = await Utilities().getSharedPreferenceValue('type');
@@ -68,6 +67,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
     }
     emailController.text = (provider.body['email'] ?? '').toString();
     phoneNumberController.text = (provider.body['phone'] ?? '').toString();
+
+    print('state' + provider.body['state']);
+    print('city' + provider.body['city']);
+
     if (type == '2') {
       descriptionController.text =
           (provider.body['company_info']['description'] ?? '').toString();
@@ -84,6 +87,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
         {
           'first_name': firstNameController.text.trim(),
           'last_name': lastNameController.text.trim(),
+          'state': provider.selectedState!,
+          'city': provider.selectedCity!,
           if (provider.imagePath.isNotEmpty) 'image': provider.image,
           if (provider.imagePath.isNotEmpty) 'extension': provider.extension,
           'type': type,
@@ -108,6 +113,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
         {
           'first_name': firstNameController.text.trim(),
           'description': descriptionController.text.trim(),
+          'state': provider.selectedState!,
+          'city': provider.selectedCity!,
           if (provider.imagePath.isNotEmpty) 'image': provider.image,
           if (provider.imagePath.isNotEmpty) 'extension': provider.extension,
           if (provider.timerValues['from'].toString().isNotEmpty)
@@ -217,7 +224,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       //Notice the use of ChangeNotifierProvider<ReportState>.value
       builder: (_) {
         // final provider = Provider.of<RegisterCompanyViewModel>(context,listen: true);
-        print('there');
+        // print('there');
         return AlertDialog(
           content: Consumer<ServicesAndDaysViewModel>(
               builder: (ctx, provider, neverBuildChild) {
@@ -260,32 +267,28 @@ class _UpdateProfileState extends State<UpdateProfile> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      drawerIcon(
-                        context,
-                        () {
-                          scaffoldKey.currentState!.openDrawer();
-                        },
-                      ),
-                      const SizedBox(width: 45),
-                      Center(
-                        child: Text(
-                          'EDIT PROFILE',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.montserrat(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 28.0,
-                            letterSpacing: 1,
-                          ),
+                Row(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: backIcon(context, () {
+                        Navigator.of(context).pop();
+                      }),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 40, left: 45),
+                      child: Text(
+                        'EDIT PROFILE',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 28.0,
+                          letterSpacing: 1,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 15,
@@ -311,7 +314,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               ),
                               Consumer<EditProfileViewModel>(
                                   builder: (ctx, imagePicker, neverBuildChild) {
-                                print(imagePicker.body['image']);
+                                // print(imagePicker.body['image']);
                                 return FadeInDown(
                                   from: 10,
                                   delay: const Duration(milliseconds: 600),
@@ -322,14 +325,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     child: Stack(
                                       children: [
                                         Container(
-                                            width: 120,
-                                            height: 120,
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xFF09365f),
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                            ),
-                                            child: image(imagePicker)),
+                                          width: 120,
+                                          height: 120,
+                                          decoration: BoxDecoration(
+                                            color: const Color(0xFF09365f),
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          child: image(imagePicker),
+                                        ),
                                         Positioned(
                                           left: 85,
                                           top: 85,
@@ -680,10 +684,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   },
                                 ),
 
-                              if (type == '2')
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                              if (type == '2') const SizedBox(height: 10),
                               if (type == '2')
                                 Consumer<ServicesAndDaysViewModel>(builder:
                                     (ctx, categories, neverBuildChild) {
@@ -740,8 +741,109 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     ),
                                   );
                                 }),
+                              if (type == '2') const SizedBox(height: 10),
+                              FadeInDown(
+                                from: 55,
+                                delay: const Duration(milliseconds: 700),
+                                child: Consumer<EditProfileViewModel>(
+                                  builder: (ctx, registerUserViewModel,
+                                      neverBuildChild) {
+                                    return Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 3),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(28),
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Colors.black45)),
+                                      width: double.infinity,
+                                      child: DropdownButton(
+                                        icon: const Icon(
+                                          Icons.location_city,
+                                          // size: 18,
+                                          color: Color(0xFF019aff),
+                                        ),
+                                        underline: const SizedBox(),
+                                        isExpanded: true,
+                                        hint: const Text(
+                                          'Select State',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        value:
+                                            registerUserViewModel.selectedState,
+                                        onChanged: (val) =>
+                                            registerUserViewModel
+                                                .changeState(val.toString()),
+                                        items:
+                                            us_city_state.entries.map((state) {
+                                          return DropdownMenuItem(
+                                            child: Text(state.key),
+                                            value: state.key,
+                                          );
+                                        }).toList(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                               const SizedBox(
-                                height: 20,
+                                height: 10,
+                              ),
+                              FadeInDown(
+                                from: 60,
+                                delay: const Duration(milliseconds: 700),
+                                child: Consumer<EditProfileViewModel>(
+                                  builder: (ctx, registerUserViewModel,
+                                      neverBuildChild) {
+                                    return Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 3),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(28),
+                                          color: Colors.white,
+                                          border: Border.all(
+                                              color: Colors.black45)),
+                                      width: double.infinity,
+                                      child: DropdownButton(
+                                          icon: const Icon(
+                                            Icons.location_city,
+                                            // size: 18,
+                                            color: Color(0xFF019aff),
+                                          ),
+                                          underline: const SizedBox(),
+                                          isExpanded: true,
+                                          hint: const Text(
+                                            'Select City',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          value: registerUserViewModel
+                                              .selectedCity,
+                                          onChanged: (val) =>
+                                              registerUserViewModel
+                                                  .changeCity(val.toString()),
+                                          items: (registerUserViewModel
+                                                          .selectedState ==
+                                                      null
+                                                  ? []
+                                                  : us_city_state[
+                                                          registerUserViewModel
+                                                              .selectedState]
+                                                      as List<String>)
+                                              .map((city) {
+                                            return DropdownMenuItem(
+                                              child: Text(city),
+                                              value: city,
+                                            );
+                                          }).toList()),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30,
                               ),
                               FadeInUp(
                                 from: 20,
@@ -759,7 +861,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 20,
                               ),
                             ],
                           ),

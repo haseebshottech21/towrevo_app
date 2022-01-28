@@ -10,7 +10,6 @@ import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
-
 import '../../utilities.dart';
 
 class CompanyPendingList extends StatefulWidget {
@@ -58,7 +57,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                             ? circularProgress()
                             : noDataImage(
                                 context,
-                                'No User Found',
+                                'Waiting Jobs',
                                 'assets/images/towing.png',
                               ),
                       ),

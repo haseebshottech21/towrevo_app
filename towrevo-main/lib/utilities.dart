@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +14,7 @@ class Utilities {
         use24HourFormat: false,
         disabledTime: TimeRange(
           startTime: TimeOfDay(hour: 22, minute: 59),
-          endTime: TimeOfDay(hour: 0, minute: 0),
+          endTime: TimeOfDay(hour: 0, minute: 1),
         ),
 
         // maxDuration: Duration(hours: 2),

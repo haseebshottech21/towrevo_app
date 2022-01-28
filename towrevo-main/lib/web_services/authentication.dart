@@ -164,6 +164,25 @@ class AuthenticationWebService {
     }
   }
 
+  Future<dynamic> contactUsRequest(String description) async {
+    final response = await http.post(
+      Uri.parse(Utilities.baseUrl + 'contact'),
+      body: {
+        'text': description,
+      },
+      headers: await Utilities().headerWithAuth(),
+    );
+    print(response.body);
+    final loadedData = json.decode(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Fluttertoast.showToast(msg: loadedData['message'].toString());
+      print(response.statusCode);
+      return loadedData;
+    } else {
+      Fluttertoast.showToast(msg: loadedData['message'].toString());
+    }
+  }
+
   String signUpErrorHandle(Map<String, dynamic> body) {
     var errorMessage = '';
     if (body['errors']['email'] != null) {

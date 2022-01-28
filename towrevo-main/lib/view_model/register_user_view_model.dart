@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/state_city_utility.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/web_services/authentication.dart';
 import 'otp_view_model.dart';
@@ -10,8 +11,21 @@ import 'otp_view_model.dart';
 class RegisterUserViewModel with ChangeNotifier {
   bool isCheckedTermsAndCondition = false;
   bool isLoading = false;
+  String? selectedState;
+  String? selectedCity;
   changeLoadingStatus(bool loadingStatus) {
     isLoading = loadingStatus;
+    notifyListeners();
+  }
+
+  changeState(String newValue) {
+    selectedState = newValue.toString();
+    selectedCity = null;
+    notifyListeners();
+  }
+
+  changeCity(String newValue) {
+    selectedCity = newValue.toString();
     notifyListeners();
   }
 
@@ -54,6 +68,8 @@ class RegisterUserViewModel with ChangeNotifier {
     imagePath = '';
     extension = '';
     image = '';
+    selectedCity = null;
+    selectedState = null;
   }
 
   bool obscureConfirmPassword = true;
@@ -70,8 +86,8 @@ class RegisterUserViewModel with ChangeNotifier {
   Future<void> pickImage() async {
     final imageObject =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      imagePath = imageObject!.path;
+    if (imageObject != null) {
+      imagePath = imageObject.path;
       extension = imageObject.path.split('.').last;
       image = base64Encode(await File(imageObject.path).readAsBytes());
       notifyListeners();

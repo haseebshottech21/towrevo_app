@@ -1,19 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-
 import 'package:towrevo/screens/aboutus/about_us_screen.dart';
 import 'package:towrevo/screens/authentication/change_password/change_password.dart';
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password.dart';
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password_otp.dart';
 import 'package:towrevo/screens/contactus/contact_us.dart';
-
 import 'package:towrevo/screens/faqs/faqs.dart';
-
 import 'package:towrevo/screens/company/company_history.dart';
-
 import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/screens/profile/update_profile.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
@@ -21,6 +16,7 @@ import 'package:towrevo/screens/users/user_history_tow.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/edit_profile_view_model.dart';
+import 'package:towrevo/view_model/splash_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/view_model/otp_view_model.dart';
 import 'package:towrevo/screens/get_location_screen.dart';
@@ -153,6 +149,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (ctx) => UserHomeScreenViewModel()),
         ChangeNotifierProvider(create: (ctx) => CompanyHomeScreenViewModel()),
         ChangeNotifierProvider(create: (ctx) => EditProfileViewModel()),
+        ChangeNotifierProvider(create: (ctx) => SplashViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -172,7 +169,7 @@ class _MyAppState extends State<MyApp> {
               const RegistrationCredentialScreen(),
           RegistrationCategoryAndTimingScreen.routeName: (ctx) =>
               const RegistrationCategoryAndTimingScreen(),
-          MonthlyPaymentScreen.routeName: (ctx) => MonthlyPaymentScreen(),
+          MonthlyPaymentScreen.routeName: (ctx) => const MonthlyPaymentScreen(),
           RegistrationOTPScreen.routeName: (ctx) =>
               const RegistrationOTPScreen(),
           CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),

@@ -46,6 +46,17 @@ class ErrorGetter {
     return null;
   }
 
+  dynamic feedbackErrorGetter(String value) {
+    if (value.isEmpty) {
+      return 'Please Fill Feedback Field';
+    } else if (value.length > 300) {
+      return 'Feedback Field length Should be less than 300';
+    } else if (value.length < 10) {
+      return 'Feedback Field must at least 10 characters';
+    }
+    return null;
+  }
+
   dynamic emailErrorGetter(String value) {
     if (value.isEmpty) {
       return 'Please Enter Email Address';

@@ -12,12 +12,31 @@ import '../utilities.dart';
 class RegisterCompanyViewModel with ChangeNotifier {
   bool isCheckedTermsAndCondition = false;
   bool isLoading = false;
+  String? selectedState;
+  String? selectedCity;
+
+  changeState(String newValue) {
+    selectedState = newValue.toString();
+    body['state'] = newValue.toString();
+    selectedCity = null;
+    // print(us_city_state[selectedState]);
+    notifyListeners();
+  }
+
+  changeCity(String newValue) {
+    selectedCity = newValue.toString();
+    body['city'] = newValue.toString();
+    notifyListeners();
+  }
+
   changeLoadingStatus(bool loadingStatus) {
     isLoading = loadingStatus;
     notifyListeners();
   }
 
   Map<String, dynamic> body = {
+    'state': '',
+    'city': '',
     'first_name': '',
     'description': '',
     'type': '2',
@@ -34,7 +53,9 @@ class RegisterCompanyViewModel with ChangeNotifier {
     'days': [],
     'services': [],
     'notification_id': MyApp.notifyToken,
+
     'image': '',
+
     // 'from_day' : '',
     // 'to_day' : '',
   };
@@ -74,6 +95,8 @@ class RegisterCompanyViewModel with ChangeNotifier {
       'from': '',
       'to': '',
     };
+    selectedCity = null;
+    selectedState = null;
   }
 
   initalizeImageValues() {

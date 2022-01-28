@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/screens/aboutus/about_us_screen.dart';
 import 'package:towrevo/screens/authentication/change_password/change_password.dart';
 import 'package:towrevo/screens/company/company_history.dart';
 import 'package:towrevo/screens/company/company_home_screen.dart';
@@ -33,11 +32,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   void initState() {
     Future.delayed(Duration.zero).then(
       (value) async {
-        Provider.of<UserHomeScreenViewModel>(context, listen: false)
-            .updateDrawerInfo();
-        type = await Utilities().getSharedPreferenceValue('type');
+        final provider =
+            Provider.of<UserHomeScreenViewModel>(context, listen: false);
+        provider.updateDrawerInfo();
+        type = await provider.getType();
       },
     );
+    //comment
 
     super.initState();
   }
@@ -123,14 +124,23 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           );
                         },
                       ),
-                      DrawerListItem(
-                        title: 'About Us',
-                        iconsData: FontAwesomeIcons.infoCircle,
-                        onPressed: () {
-                          openUrl();
-                          // Navigator.of(context).pushNamed(AboutUs.routeName);
-                        },
-                      ),
+                      Consumer<UserHomeScreenViewModel>(
+                          builder: (ctx, drawer, neverBuildChild) {
+                        return DrawerListItem(
+                          title: type == '1' ? 'About Us' : 'Provider',
+                          iconsData: FontAwesomeIcons.infoCircle,
+                          onPressed: () {
+                            // print(type);
+                            type == '1'
+                                ? openUrl(
+                                    'https://myprojectstaging.net/html/towrevo/index.php')
+                                : openUrl(
+                                    'https://myprojectstaging.net/html/towrevo/provider.php');
+                            // Navigator.of(context).pushNamed(AboutUs.routeName);
+                          },
+                        );
+                      }),
+
                       DrawerListItem(
                         title: 'History',
                         iconsData: FontAwesomeIcons.history,
@@ -181,7 +191,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       //   onPressed: () {},
                       // ),
                       Container(
-                        margin: const EdgeInsets.symmetric(vertical: 30),
+                        margin: const EdgeInsets.symmetric(vertical: 25),
                         child: FormButtonWidget(
                           'Logout',
                           () {
@@ -212,27 +222,42 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       const SizedBox(
                         height: 2,
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            TermAndCondition.routeName,
-                            arguments: false,
-                          );
-                        },
-                        child: const Center(
-                          child: Text(
-                            'All Rights Reserved',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.white,
-                              decoration: TextDecoration.underline,
-                            ),
+                      const Center(
+                        child: Text(
+                          'All Rights Reserved',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.white,
                           ),
                         ),
                       ),
                     ],
                   ),
-                )
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      TermAndCondition.routeName,
+                      arguments: false,
+                    );
+                  },
+                  child: const Center(
+                    child: Text(
+                      'Term & Condition\nPrivacy Policy',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.5,
+                        // decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             )
           ],
@@ -241,8 +266,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     );
   }
 
-  openUrl() async {
-    if (await canLaunch('https://www.google.com'))
-      await launch('https://www.google.com/');
+  openUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
   }
 }

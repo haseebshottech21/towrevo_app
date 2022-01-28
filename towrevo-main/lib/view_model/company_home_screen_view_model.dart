@@ -86,7 +86,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
         if (getData) {
           companyProvider.getRequests();
           notifyListeners();
-        } else if (!getData) {
+        } else if (getData) {
           UserWebService().sendNotification('Decline', 'Request Time Over',
               notificationId, 'decline_from_user');
         }

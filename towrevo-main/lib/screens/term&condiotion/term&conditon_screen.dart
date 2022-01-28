@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:towrevo/widgets/User/drawer_icon.dart';
+// import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
@@ -112,12 +112,9 @@ class _TermAndConditionState extends State<TermAndCondition> {
           children: [
             const FullBackgroundImage(),
             if (!reqFromSignUp)
-              drawerIconSecond(
-                context,
-                () {
-                  scaffoldKey.currentState!.openDrawer();
-                },
-              ),
+              backIcon(context, () {
+                Navigator.of(context).pop();
+              }),
             if (reqFromSignUp)
               backIcon(context, () {
                 Navigator.of(context).pop();

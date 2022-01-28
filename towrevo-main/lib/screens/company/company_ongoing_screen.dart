@@ -53,7 +53,7 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                             ? circularProgress()
                             : noDataImage(
                                 context,
-                                'No User Found',
+                                'Active Jobs',
                                 'assets/images/towing.png',
                               ),
                       ),

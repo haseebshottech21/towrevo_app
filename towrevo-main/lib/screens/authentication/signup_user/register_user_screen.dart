@@ -10,6 +10,7 @@ import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/main.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
+import 'package:towrevo/state_city_utility.dart';
 import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
@@ -52,6 +53,10 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
     else if (!registerUserViewModel.isCheckedTermsAndCondition) {
       Fluttertoast.showToast(msg: 'Please Accept Term&Conditon');
       return;
+    } else if (registerUserViewModel.selectedState == null ||
+        registerUserViewModel.selectedCity == null) {
+      Fluttertoast.showToast(msg: 'Please Select State And City');
+      return;
     } else {
       bool response = await registerUserViewModel.userSignUp({
         'first_name': firstNameController.text.trim(),
@@ -62,6 +67,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
         'password': passwordController.text.trim(),
         'password_confirmation': confirmPasswordController.text.trim(),
         'notification_id': MyApp.notifyToken,
+        'state': registerUserViewModel.selectedState!,
+        'city': registerUserViewModel.selectedCity!,
         if (registerUserViewModel.image.isNotEmpty &&
             registerUserViewModel.extension.isNotEmpty)
           'extension': registerUserViewModel.extension,
@@ -290,8 +297,90 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             );
                           }),
                         ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         FadeInDown(
                           from: 70,
+                          delay: const Duration(milliseconds: 700),
+                          child: Consumer<RegisterUserViewModel>(
+                            builder:
+                                (ctx, registerUserViewModel, neverBuildChild) {
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 3),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(28),
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.black45)),
+                                width: double.infinity,
+                                child: DropdownButton(
+                                    underline: const SizedBox(),
+                                    isExpanded: true,
+                                    hint: const Text(
+                                      'Select State',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    value: registerUserViewModel.selectedState,
+                                    onChanged: (val) => registerUserViewModel
+                                        .changeState(val.toString()),
+                                    items: us_city_state.entries.map((state) {
+                                      return DropdownMenuItem(
+                                        child: Text(state.key),
+                                        value: state.key,
+                                      );
+                                    }).toList()),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        FadeInDown(
+                          from: 70,
+                          delay: const Duration(milliseconds: 700),
+                          child: Consumer<RegisterUserViewModel>(
+                            builder:
+                                (ctx, registerUserViewModel, neverBuildChild) {
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 3),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(28),
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.black45)),
+                                width: double.infinity,
+                                child: DropdownButton(
+                                    underline: const SizedBox(),
+                                    isExpanded: true,
+                                    hint: const Text(
+                                      'Select City',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    value: registerUserViewModel.selectedCity,
+                                    onChanged: (val) => registerUserViewModel
+                                        .changeCity(val.toString()),
+                                    items:
+                                        (registerUserViewModel.selectedState ==
+                                                    null
+                                                ? []
+                                                : us_city_state[
+                                                        registerUserViewModel
+                                                            .selectedState]
+                                                    as List<String>)
+                                            .map((state) {
+                                      return DropdownMenuItem(
+                                        child: Text(state),
+                                        value: state,
+                                      );
+                                    }).toList()),
+                              );
+                            },
+                          ),
+                        ),
+                        FadeInDown(
+                          from: 75,
                           delay: const Duration(milliseconds: 720),
                           child: Row(
                             children: [
@@ -358,7 +447,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           ),
                         ),
                         FadeInDown(
-                          from: 75,
+                          from: 80,
                           delay: const Duration(milliseconds: 750),
                           child: FormButtonWidget(
                             'SIGNUP',

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/view_model/edit_profile_view_model.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
+import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/text_form_field.dart';
@@ -21,7 +22,7 @@ class ChangePassword extends StatefulWidget {
 class _ChangePasswordState extends State<ChangePassword> {
   final passwordController = TextEditingController();
   final confirmPassword = TextEditingController();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  // final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -40,9 +41,9 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      drawerEnableOpenDragGesture: false,
-      drawer: const DrawerWidget(),
+      // key: scaffoldKey,
+      // drawerEnableOpenDragGesture: false,
+      // drawer: const DrawerWidget(),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -59,12 +60,41 @@ class _ChangePasswordState extends State<ChangePassword> {
             //     },
             //   ),
             // ),
-            drawerIconSecond(
-              context,
-              () {
-                scaffoldKey.currentState!.openDrawer();
-              },
+            Align(
+              alignment: Alignment.topLeft,
+              child: backIcon(context, () {
+                Navigator.of(context).pop();
+              }),
             ),
+            // Row(
+            //   children: [
+            //     Align(
+            //       alignment: Alignment.topLeft,
+            //       child: backIcon(context, () {
+            //         Navigator.of(context).pop();
+            //       }),
+            //     ),
+            //     Container(
+            //       margin: const EdgeInsets.only(top: 40, left: 45),
+            //       child: Text(
+            //         'CONTACT US',
+            //         textAlign: TextAlign.center,
+            //         style: GoogleFonts.montserrat(
+            //           color: Colors.white,
+            //           fontWeight: FontWeight.w600,
+            //           fontSize: 28.0,
+            //           letterSpacing: 1,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // drawerIconSecond(
+            //   context,
+            //   () {
+            //     scaffoldKey.currentState!.openDrawer();
+            //   },
+            // ),
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(
