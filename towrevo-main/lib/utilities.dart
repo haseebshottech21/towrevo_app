@@ -13,12 +13,12 @@ class Utilities {
 
         use24HourFormat: false,
         disabledTime: TimeRange(
-          startTime: TimeOfDay(hour: 22, minute: 59),
-          endTime: TimeOfDay(hour: 0, minute: 1),
+          startTime: const TimeOfDay(hour: 23, minute: 55),
+          endTime: const TimeOfDay(hour: 0, minute: 05),
         ),
 
-        // maxDuration: Duration(hours: 2),
-        minDuration: Duration(hours: 2),
+        // maxDuration: Duration(hours: 12),
+        minDuration: const Duration(hours: 2),
       );
 
       if (result != null) {

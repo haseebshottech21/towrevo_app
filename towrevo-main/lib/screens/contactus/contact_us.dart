@@ -127,7 +127,7 @@ class _ContactUsState extends State<ContactUs> {
                             ),
                             Center(
                               child: Text(
-                                'WE\'D LOVE TO HELP YOU IN EMAIL OR VIA CALL!',
+                                'PLEASE FILL THIS FORM!',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.montserrat(
                                   color: AppColors.primaryColor,

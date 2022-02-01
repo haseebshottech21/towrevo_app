@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/back_icon.dart';
@@ -139,145 +139,147 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
                 ),
               ],
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-            //   child: IconButton(
-            //     icon: const Icon(FontAwesomeIcons.arrowLeft,
-            //         color: Colors.white, size: 20.0),
-            //     onPressed: () {
-            //       Navigator.pop(context);
-            //     },
-            //   ),
-            // ),
             Container(
               alignment: Alignment.center,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-              child: Column(children: [
-                const SizedBox(
-                  height: 60,
-                ),
-                Text(
-                  'PAYMENT SUBSCRIBTION',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 30.0,
-                    letterSpacing: 2,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 70,
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 10.0,
+                  Text(
+                    'PAY AS YOU GO',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 28.0,
+                      letterSpacing: 1.5,
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 15,
+                  const SizedBox(height: 30),
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.1, 0.7],
+                          colors: [
+                            Color(0xFF0195f7),
+                            Color(0xFF083054),
+                          ],
+                        ),
+                        // color: Colors.deepPurple.shade300,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      FadeInUp(
-                        duration: const Duration(milliseconds: 600),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                            vertical: 10.0,
-                          ),
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.40,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF092848).withOpacity(0.6),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 10,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                // paymentDetail(
-                                //   'Name :',
-                                //   utlities.getSharedPreferenceValue('email'),
-                                // ),
-                                // const SizedBox(height: 3),
-                                // const Divider(
-                                //   color: Colors.white,
-                                // ),
-                                const SizedBox(height: 3),
-                                Consumer<UserHomeScreenViewModel>(
-                                  builder:
-                                      (ctx, userHomeViewModel, neverUpdate) {
-                                    return Column(
-                                      children: [
-                                        paymentDetail(
-                                          'Email :',
-                                          userHomeViewModel.drawerInfo['email']
-                                              .toString(),
-                                        ),
-                                        const SizedBox(height: 3),
-                                        const Divider(
-                                          color: Colors.white,
-                                        ),
-                                        const SizedBox(height: 3),
-                                        paymentDetail(
-                                          'Name :',
-                                          userHomeViewModel.drawerInfo['name']
-                                              .toString(),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
-
-                                // const SizedBox(height: 3),
-                                // const Divider(
-                                //   color: Colors.white,
-                                // ),
-                                // const SizedBox(height: 3),
-                                const Spacer(),
-                                payment(
-                                  'Total Pay :',
-                                  '\$ 2.00',
-                                ),
-                              ],
-                            ),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          // shape: const StadiumBorder(),
+                          shadowColor: Colors.transparent,
+                          primary: Colors.transparent,
+                          minimumSize: Size(
+                            MediaQuery.of(context).size.width * 0.85,
+                            formButtonHeight,
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 30),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      StepFormButtonNext(
-                        () async {
-                          if (!(await Utilities().isInternetAvailable())) {
-                            return;
-                          }
-                          await makePayment(context);
-                          // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: true);
-                        },
-                        'PAY',
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton.icon(
+                              onPressed: () async {
+                                if (!(await Utilities()
+                                    .isInternetAvailable())) {
+                                  return;
+                                }
+                                await makePayment(context);
+                                // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: true);
+                              },
+                              icon: const Icon(
+                                Icons.payment,
+                                color: Colors.white,
+                              ),
+                              label: Text(
+                                'PURCHASE NOW',
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              '\$ 1.99',
+                              style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ]),
+                  const SizedBox(height: 15),
+                  Text(
+                    'Get access to all premium services for \$1.99 which expires after 30 days and doesn\'t renew automatically',
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        paymentDetail(
+                            'See multiple Towing company name and phone number'),
+                        const SizedBox(height: 10),
+                        paymentDetail(
+                            'Send your address with push request button'),
+                        const SizedBox(height: 10),
+                        paymentDetail('Find best offers'),
+                        const SizedBox(height: 10),
+                        paymentDetail('Find Towing service 24/7'),
+                        const SizedBox(height: 12),
+                        // paymentDetail('Long-distance and local towing'),
+                        // const SizedBox(height: 8),
+                        // paymentDetail('Towing services on a 24/7 basis'),
+                        // const SizedBox(height: 8),
+                        // paymentDetail('See availability offline or online'),
+                        // const SizedBox(height: 8),
+                        // paymentDetail('Truck Towing'),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6),
+                          child: Text(
+                            'Much more benefit...',
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
@@ -293,50 +295,52 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
   }
 }
 
-Row paymentDetail(String title, String description) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-          fontSize: 15,
+Widget paymentDetail(String description) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 5),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        const Icon(Icons.check_box, color: Colors.white),
+        const SizedBox(width: 20),
+        Expanded(
+          child: Text(
+            description,
+            // maxLines: 2,
+            // overflow: TextOverflow.ellipsis,
+            // softWrap: false,
+            style: GoogleFonts.montserrat(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+            ),
+          ),
         ),
-      ),
-      Text(
-        description,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-          fontSize: 15,
-        ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
-Row payment(String title, String description) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-          fontSize: 17,
-        ),
-      ),
-      Text(
-        description,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-          fontSize: 20,
-        ),
-      ),
-    ],
-  );
-}
+// Row payment(String title, String description) {
+//   return Row(
+//     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//     children: [
+//       Text(
+//         title,
+//         style: const TextStyle(
+//           color: Colors.white,
+//           fontWeight: FontWeight.w600,
+//           fontSize: 17,
+//         ),
+//       ),
+//       Text(
+//         description,
+//         style: const TextStyle(
+//           color: Colors.white,
+//           fontWeight: FontWeight.w600,
+//           fontSize: 20,
+//         ),
+//       ),
+//     ],
+//   );
+// }

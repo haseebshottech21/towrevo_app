@@ -79,11 +79,14 @@ class StepFormButtonNext extends StatelessWidget {
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            shape: const StadiumBorder(),
-            shadowColor: Colors.transparent,
-            primary: Colors.transparent,
-            minimumSize: Size(
-                MediaQuery.of(context).size.width * 0.30, formButtonHeight)),
+          shape: const StadiumBorder(),
+          shadowColor: Colors.transparent,
+          primary: Colors.transparent,
+          minimumSize: Size(
+            MediaQuery.of(context).size.width * 0.30,
+            formButtonHeight,
+          ),
+        ),
         onPressed: onPressed,
         child: Padding(
           padding: const EdgeInsets.only(

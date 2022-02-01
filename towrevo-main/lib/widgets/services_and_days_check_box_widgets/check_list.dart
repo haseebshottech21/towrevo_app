@@ -96,7 +96,7 @@ class _showCheckboxListState extends State<showCheckboxList> {
               );
             });
       },
-      child: Text('Select Check Box'),
+      child: const Text('Select Check Box'),
     );
   }
 }

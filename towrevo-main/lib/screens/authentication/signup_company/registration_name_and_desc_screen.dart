@@ -164,7 +164,7 @@ class _RegistrationNameAndDescScreenState
                             child: CompanyTextAreaField(
                               errorGetter:
                                   ErrorGetter().companyDescriptionErrorGetter,
-                              hintText: 'Company Description',
+                              hintText: 'Company Service',
                               prefixIcon: const Icon(
                                 FontAwesomeIcons.solidBuilding,
                                 color: Color(0xFF019aff),
