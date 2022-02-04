@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/models/user_history_model.dart';
+// import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
@@ -173,31 +175,64 @@ class UserHomeScreenViewModel with ChangeNotifier {
               borderRadius: BorderRadius.circular(20),
             ),
             content: StreamBuilder<String>(
-              stream: NumberCreator(ctx).stream.map((event) => 'Count $event'),
+              stream: NumberCreator(ctx).stream.map((event) => '$event'),
               builder: (ctx, snapshot) {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      'Request Send Please Wait..',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/images/checked.gif',
-                      height: MediaQuery.of(context).size.height * 0.20,
-                      width: MediaQuery.of(context).size.width * 0.20,
-                    ),
                     Text(
-                      snapshot.data.toString(),
-                      // 'SuccessFully Send!',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                      'Request Send Please Wait..',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    // Image.asset(
+                    //   'assets/images/checked.gif',
+                    //   height: MediaQuery.of(context).size.height * 0.20,
+                    //   width: MediaQuery.of(context).size.width * 0.20,
+                    // ),
+                    SizedBox(
+                      width: 130,
+                      height: 130,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          CircularProgressIndicator(
+                            value: 1 -
+                                double.parse(snapshot.data == null
+                                        ? '30'
+                                        : snapshot.data.toString()) /
+                                    30,
+                            valueColor:
+                                AlwaysStoppedAnimation(Colors.green[800]),
+                            strokeWidth: 6,
+                            backgroundColor: Colors.black38,
+                          ),
+                          Center(
+                            child: Text(
+                              snapshot.data == null
+                                  ? ''
+                                  : snapshot.data.toString(),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 50,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Text(
+                    //   snapshot.data.toString(),
+                    //   // 'SuccessFully Send!',
+                    //   style: const TextStyle(
+                    //     fontSize: 20,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
                   ],
                 );
               },

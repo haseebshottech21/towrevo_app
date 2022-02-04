@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/authentication/change_password/change_password.dart';
 import 'package:towrevo/screens/company/company_history.dart';
@@ -44,6 +45,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   }
 
   String type = '';
+  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               children: [
                 Consumer<UserHomeScreenViewModel>(
                     builder: (ctx, drawer, neverBuildChild) {
-                  print(drawer.drawerInfo['email']);
+                  // print(drawer.drawerInfo['email']);
                   return DrawerProfile(
                     // profileImage: drawer.drawerInfo['image']
                     //         .toString()
@@ -87,6 +89,30 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Navigator.of(context).pushNamed(UpdateProfile.routeName);
                     },
                   );
+                }),
+                Consumer<UserHomeScreenViewModel>(
+                    builder: (ctx, drawer, neverBuildChild) {
+                  return type == '1'
+                      ? const SizedBox()
+                      : SwitchListTile(
+                          title: Text(
+                            !isSwitched ? 'Offline' : 'Online',
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          value: isSwitched,
+                          onChanged: (value) {
+                            setState(() {
+                              isSwitched = !isSwitched;
+                              // print(isSwitched);
+                            });
+                          },
+                          activeTrackColor: Colors.lightGreenAccent,
+                          activeColor: Colors.green,
+                        );
                 }),
                 const Divider(
                   color: Colors.white,
@@ -174,6 +200,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                               .pushNamed(ChangePassword.routeName);
                         },
                       ),
+
                       // DrawerListItem(
                       //   title: 'Term & Condition',
                       //   iconsData: FontAwesomeIcons.clipboardCheck,

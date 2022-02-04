@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 
 class NumberCreator {
   final _controller = StreamController<int>();
-  int _count = 1;
+  int _count = 30;
 
   NumberCreator(BuildContext context) {
-    _count = 1;
+    _count = 30;
     Timer.periodic(const Duration(seconds: 1), (timer) {
       try {
-        if (_count >= 30) {
+        if (_count <= 0) {
           timer.cancel();
           _controller.sink.done;
           _controller.sink.close();
@@ -18,7 +18,7 @@ class NumberCreator {
           Navigator.of(context).pop(true);
         }
         _controller.sink.add(_count);
-        _count++;
+        _count--;
       } catch (e) {
         print(e);
       }

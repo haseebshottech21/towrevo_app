@@ -1,111 +1,22 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/payment_detail.dart';
-import '/utilities.dart';
-import 'package:http/http.dart' as http;
 
-class MonthlyPaymentScreen extends StatefulWidget {
-  const MonthlyPaymentScreen({Key? key}) : super(key: key);
-  static const routeName = '/registration-payment-screen';
+class CompanyPaymentScreen extends StatefulWidget {
+  const CompanyPaymentScreen({Key? key}) : super(key: key);
+
+  static const routeName = '/company-payment';
 
   @override
-  State<MonthlyPaymentScreen> createState() => _MonthlyPaymentScreenState();
+  _CompanyPaymentScreenState createState() => _CompanyPaymentScreenState();
 }
 
-class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
-  Map<String, dynamic> paymentIntentData = {};
-
-  paynow(BuildContext context) async {
-    final userViewModel =
-        Provider.of<UserHomeScreenViewModel>(context, listen: false);
-    await userViewModel.payNow(paymentIntentData['id'], '2', context);
-    paymentIntentData = {};
-    // if (response) {
-    //   Navigator.of(context)
-    //       .pushNamed(RegistrationOTPScreen.routeName, arguments: true);
-    // }
-  }
-
-  displayPaymentSheet(BuildContext context) async {
-    try {
-      await Stripe.instance.presentPaymentSheet(
-        parameters: PresentPaymentSheetParameters(
-          clientSecret: paymentIntentData['client_secret'],
-          confirmPayment: true,
-        ),
-      );
-      // print(a);
-
-      paynow(context);
-    } on StripeException catch (e) {
-      Utilities().showToast('Cancel');
-      print(e);
-    }
-  }
-
-  Future<void> makePayment(BuildContext context) async {
-    try {
-      paymentIntentData =
-          await createPaymentIntent(currencyType: 'USD', price: '200');
-      print('make payment $paymentIntentData');
-
-      if (paymentIntentData.isNotEmpty) {
-        await Stripe.instance.initPaymentSheet(
-          paymentSheetParameters: SetupPaymentSheetParameters(
-            paymentIntentClientSecret: paymentIntentData['client_secret'],
-            applePay: true,
-            googlePay: true,
-            merchantCountryCode: 'US',
-            style: ThemeMode.dark,
-            merchantDisplayName:
-                Provider.of<UserHomeScreenViewModel>(context, listen: false)
-                    .drawerInfo['name']
-                    .toString(),
-          ),
-        );
-
-        displayPaymentSheet(context);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future createPaymentIntent(
-      {required String price, required String currencyType}) async {
-    print('in createPaymentIntent');
-    try {
-      Map<String, dynamic> body = {
-        'amount': price,
-        'currency': currencyType,
-        'payment_method_types[]': 'card'
-      };
-
-      final response = await http.post(
-          Uri.parse('${Utilities.stripeBaseUrl}/v1/payment_intents'),
-          body: body,
-          headers: {
-            'Authorization':
-                'Bearer sk_test_51IdtHCGmNbFgnn002634Wne6qPdy0KfZyH19qLIq7SCFxNdWygtpxUc0d9VFQs55dlWs2sAp5O565RdTYfMpe0Op00fMGUCof1',
-            'Content-Type': 'application/x-www-form-urlencoded'
-          });
-      return jsonDecode(response.body);
-    } catch (e) {
-      Utilities().showToast('Something Went Wrong');
-      print(e);
-    }
-  }
-
+class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
   @override
   Widget build(BuildContext context) {
-    final utlities = Utilities();
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -146,7 +57,7 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
                     height: 70,
                   ),
                   Text(
-                    'PAY AS YOU GO',
+                    'MONTHLY SUBSCRIBTION',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
                       color: Colors.white,
@@ -159,10 +70,10 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
                   Center(
                     child: InkWell(
                       onTap: () async {
-                        if (!(await Utilities().isInternetAvailable())) {
-                          return;
-                        }
-                        await makePayment(context);
+                        // if (!(await Utilities().isInternetAvailable())) {
+                        //   return;
+                        // }
+                        // await makePayment(context);
                         // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: true);
                       },
                       child: Container(
@@ -190,7 +101,7 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
                               size: 25,
                             ),
                             Text(
-                              'PURCHASE NOW',
+                              'SUBSCRIBE NOW',
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
@@ -198,7 +109,7 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
                               ),
                             ),
                             Text(
-                              '\$ 1.99',
+                              '\$ 19.95',
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -212,7 +123,7 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    'Get access to all premium services for \$1.99 which expires after 30 days and doesn\'t renew automatically',
+                    'Get access to all premium services, features and support',
                     style: GoogleFonts.montserrat(
                       color: Colors.white,
                       fontSize: 17,
@@ -233,15 +144,20 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        paymentDetail(
-                            'See multiple Towing company name and phone number'),
+                        paymentDetail('Unlimited jobs'),
+                        const SizedBox(height: 10),
+                        paymentDetail('No commission fee'),
+                        const SizedBox(height: 10),
+                        paymentDetail('Set your work schedule'),
+                        const SizedBox(height: 10),
+                        paymentDetail('Avoid fake customers'),
+                        const SizedBox(height: 10),
+                        paymentDetail('Accept and decline jobs'),
+                        const SizedBox(height: 10),
+                        paymentDetail('Reduce time wasting by customers'),
                         const SizedBox(height: 10),
                         paymentDetail(
-                            'Send your address with push request button'),
-                        const SizedBox(height: 10),
-                        paymentDetail('Find best offers'),
-                        const SizedBox(height: 10),
-                        paymentDetail('Find Towing service 24/7'),
+                            'Connect you millions of Android or iOS users'),
                         const SizedBox(height: 12),
                         // paymentDetail('Long-distance and local towing'),
                         // const SizedBox(height: 8),
@@ -272,12 +188,5 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    Provider.of<UserHomeScreenViewModel>(context, listen: false)
-        .updateDrawerInfo();
-    super.initState();
   }
 }

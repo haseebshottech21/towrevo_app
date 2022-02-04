@@ -6,6 +6,7 @@ import 'package:towrevo/screens/aboutus/about_us_screen.dart';
 import 'package:towrevo/screens/authentication/change_password/change_password.dart';
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password.dart';
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password_otp.dart';
+import 'package:towrevo/screens/company/company_payment_screen.dart';
 import 'package:towrevo/screens/contactus/contact_us.dart';
 import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/company/company_history.dart';
@@ -157,9 +158,8 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SplashScreen(),
-        // home: const MonthlyPaymentScreen(),
-
+        // home: const SplashScreen(),
+        home: const CompanyPaymentScreen(),
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
@@ -170,6 +170,7 @@ class _MyAppState extends State<MyApp> {
           RegistrationCategoryAndTimingScreen.routeName: (ctx) =>
               const RegistrationCategoryAndTimingScreen(),
           MonthlyPaymentScreen.routeName: (ctx) => const MonthlyPaymentScreen(),
+          CompanyPaymentScreen.routeName: (ctx) => const CompanyPaymentScreen(),
           RegistrationOTPScreen.routeName: (ctx) =>
               const RegistrationOTPScreen(),
           CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
