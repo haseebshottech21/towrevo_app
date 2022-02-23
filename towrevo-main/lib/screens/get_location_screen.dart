@@ -36,12 +36,12 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
       ),
       body: GoogleMap(
         initialCameraPosition:
-            CameraPosition(target: locationViewModelProvider.latLng!, zoom: 9),
+            CameraPosition(target: locationViewModelProvider.latLng, zoom: 9),
         zoomControlsEnabled: false,
         myLocationButtonEnabled: false,
         onMapCreated: (controller) {
           _googleMapController = controller;
-          _addMarker(locationViewModelProvider.latLng!);
+          _addMarker(locationViewModelProvider.latLng);
         },
         markers: {if (_origin != null) _origin!},
         onLongPress: _addMarker,
@@ -51,11 +51,11 @@ class _GetLocationScreenState extends State<GetLocationScreen> {
           _googleMapController!.animateCamera(
             CameraUpdate.newCameraPosition(
               CameraPosition(
-                target: locationViewModelProvider.latLng!,
+                target: locationViewModelProvider.latLng,
               ),
             ),
           );
-          _addMarker(locationViewModelProvider.latLng!);
+          _addMarker(locationViewModelProvider.latLng);
         },
         child: const Icon(Icons.center_focus_strong),
       ),

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
 
 class GetLocationViewModel with ChangeNotifier {
-  LatLng? latLng;
+  LatLng latLng = const LatLng(0.0, 0.0);
   String address = '';
 
   bool isLoading = false;
@@ -71,13 +71,12 @@ class GetLocationViewModel with ChangeNotifier {
       final registrationCompanyProvider =
           Provider.of<RegisterCompanyViewModel>(context, listen: false);
 
-      if (latLng != null) {
-        registrationCompanyProvider.body['longitude'] =
-            latLng!.longitude.toString();
-        registrationCompanyProvider.body['latitude'] =
-            latLng!.latitude.toString();
-        await getLocationFromCoordinates(latLng!);
-      }
+      // if (latLng != null) {
+      registrationCompanyProvider.body['longitude'] =
+          latLng.longitude.toString();
+      registrationCompanyProvider.body['latitude'] = latLng.latitude.toString();
+      await getLocationFromCoordinates(latLng);
+      // }
     }
     changeLoadingStatus(false);
   }

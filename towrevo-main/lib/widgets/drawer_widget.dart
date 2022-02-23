@@ -12,6 +12,7 @@ import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history_tow.dart';
 import 'package:towrevo/screens/users/users_home_screen.dart';
 import 'package:towrevo/utilities.dart';
+import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/User/user_empty_icon.dart';
@@ -35,6 +36,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       (value) async {
         final provider =
             Provider.of<UserHomeScreenViewModel>(context, listen: false);
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+            .checkOnlineStatus();
         provider.updateDrawerInfo();
         type = await provider.getType();
       },
@@ -45,7 +48,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   }
 
   String type = '';
-  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -91,29 +93,32 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   );
                 }),
                 Consumer<UserHomeScreenViewModel>(
-                    builder: (ctx, drawer, neverBuildChild) {
-                  return type == '1'
-                      ? const SizedBox()
-                      : SwitchListTile(
-                          title: Text(
-                            !isSwitched ? 'Offline' : 'Online',
-                            style: GoogleFonts.montserrat(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          value: isSwitched,
-                          onChanged: (value) {
-                            setState(() {
-                              isSwitched = !isSwitched;
-                              // print(isSwitched);
-                            });
-                          },
-                          activeTrackColor: Colors.lightGreenAccent,
-                          activeColor: Colors.green,
-                        );
-                }),
+                  builder: (ctx, drawer, neverBuildChild) {
+                    return type == '1'
+                        ? const SizedBox()
+                        : Consumer<CompanyHomeScreenViewModel>(
+                            builder: (ctx, companyViewModel, neverBuildChild) {
+                              return SwitchListTile(
+                                title: Text(
+                                  !companyViewModel.isSwitched
+                                      ? 'Offline'
+                                      : 'Online',
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                value: companyViewModel.isSwitched,
+                                onChanged: (value) =>
+                                    companyViewModel.changeOnlineStatus(value),
+                                activeTrackColor: Colors.lightGreenAccent,
+                                activeColor: Colors.green,
+                              );
+                            },
+                          );
+                  },
+                ),
                 const Divider(
                   color: Colors.white,
                 ),

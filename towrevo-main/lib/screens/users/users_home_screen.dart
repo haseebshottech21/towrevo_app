@@ -3,21 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/services_model.dart';
+import 'package:towrevo/screens/get_location_screen.dart';
+import 'package:towrevo/screens/users/user_location_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/screens/users/listing_of_companies_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
+import 'package:towrevo/widgets/User/describe_field.dart';
 import 'package:towrevo/widgets/User/drawer_icon.dart';
+import 'package:towrevo/widgets/User/from_to_location.dart';
 import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
 import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
+import 'package:towrevo/widgets/background_image.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
-import '../get_location_screen.dart';
-import '/widgets/background_image.dart';
+import 'package:towrevo/widgets/full_background_image.dart';
+import 'package:towrevo/widgets/show_snackbar.dart';
 import '/widgets/form_button_widget.dart';
 import '/widgets/towrevo_logo.dart';
 
@@ -32,6 +38,8 @@ class UsersHomeScreen extends StatefulWidget {
 class _UsersHomeScreenState extends State<UsersHomeScreen> {
   final getLocation = GetLocationViewModel();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  TextEditingController describeController = TextEditingController();
 
   // Future<void> openBottomSheet() async{
   //           await showBottomSheet(context)
@@ -291,6 +299,447 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         ),
       ),
     );
+
+    // return Scaffold(
+    //   key: scaffoldKey,
+    //   drawerEnableOpenDragGesture: false,
+    //   drawer: const DrawerWidget(),
+    //   // bottomSheet: ,
+    //   body: SingleChildScrollView(
+    //     // physics: NeverScrollableScrollPhysics(),
+    //     child: SizedBox(
+    //       // height: MediaQuery.of(context).size.height,
+    //       child: Stack(
+    //         children: [
+    //           const FullBackgroundImage(),
+    //           drawerIconSecond(
+    //             context,
+    //             () {
+    //               scaffoldKey.currentState!.openDrawer();
+    //             },
+    //           ),
+    //           Container(
+    //             alignment: Alignment.center,
+    //             padding: const EdgeInsets.symmetric(
+    //               horizontal: 15.0,
+    //               vertical: 20.0,
+    //             ),
+    //             child: Column(
+    //               children: [
+    //                 const SizedBox(
+    //                   height: 15,
+    //                 ),
+    //                 const TowrevoLogo(),
+    //                 const SizedBox(
+    //                   height: 20,
+    //                 ),
+    //                 Text(
+    //                   'PICKUP LOCATION',
+    //                   textAlign: TextAlign.center,
+    //                   style: GoogleFonts.montserrat(
+    //                     color: Colors.white,
+    //                     fontWeight: FontWeight.w600,
+    //                     fontSize: 30.0,
+    //                     letterSpacing: 2,
+    //                   ),
+    //                 ),
+    //                 const SizedBox(
+    //                   height: 10,
+    //                 ),
+    //                 Text(
+    //                   'Just give access to your current location and choose the type of towing vehicle you need',
+    //                   // style: TextStyle(
+    //                   //   fontSize: 16,
+    //                   //   fontWeight: FontWeight.w600,
+    //                   // ),
+    //                   style: GoogleFonts.montserrat(
+    //                     // color: Colors.black,
+    //                     fontSize: 16,
+    //                     fontWeight: FontWeight.w500,
+    //                   ),
+    //                   textAlign: TextAlign.center,
+    //                 ),
+    //                 const SizedBox(height: 15),
+    //                 Container(
+    //                   height: MediaQuery.of(context).size.height * 0.46,
+    //                   padding: const EdgeInsets.symmetric(
+    //                     vertical: 20,
+    //                     horizontal: 10,
+    //                   ),
+    //                   // color: Colors.white,
+    //                   decoration: BoxDecoration(
+    //                     borderRadius: BorderRadius.circular(15),
+    //                     color: const Color(0xFF003e66).withOpacity(0.8),
+    //                     boxShadow: kElevationToShadow[2],
+    //                   ),
+    //                   child: Column(
+    //                     children: [
+    //                       FromToLocation(
+    //                         destination: 'From',
+    //                         locationText:
+    //                             'abc town newy york, karachi, pakistan, abc 123',
+    //                         onTap: () {
+    //                           Navigator.of(context)
+    //                               .pushNamed(UserLocationScreen.routeName);
+    //                         },
+    //                       ),
+    //                       const SizedBox(height: 15),
+    //                       FromToLocation(
+    //                         destination: 'To',
+    //                         locationText: 'Enter your drop location',
+    //                         onTap: () {
+    //                           Navigator.of(context)
+    //                               .pushNamed(UserLocationScreen.routeName);
+    //                         },
+    //                       ),
+    //                       const SizedBox(height: 15),
+    //                       DescribeProblemField(
+    //                         describeController: describeController,
+    //                       ),
+    //                       const SizedBox(height: 15),
+    //                       Row(
+    //                         children: [
+    //                           const SizedBox(width: 5),
+    //                           const Icon(
+    //                             FontAwesomeIcons.th,
+    //                             color: Colors.white,
+    //                             size: 20.0,
+    //                           ),
+    //                           const SizedBox(width: 8),
+    //                           Container(
+    //                             padding: const EdgeInsets.symmetric(
+    //                               // vertical: 10,
+    //                               horizontal: 10,
+    //                             ),
+    //                             width: MediaQuery.of(context).size.width * 0.76,
+    //                             decoration: BoxDecoration(
+    //                               color: Colors.white,
+    //                               borderRadius: BorderRadius.circular(5),
+    //                             ),
+    //                             child: DropdownButtonHideUnderline(
+    //                               child: DropdownButton<String>(
+    //                                 hint: Text(
+    //                                   'Select Category',
+    //                                   style: GoogleFonts.montserrat(
+    //                                     color: Colors.black,
+    //                                     fontSize: 14,
+    //                                   ),
+    //                                 ),
+    //                                 items: [],
+    //                                 onChanged: (value) => value,
+    //                               ),
+    //                             ),
+    //                           ),
+
+    //                           // DropdownButtonHideUnderline(
+    //                           //   child: DropdownButton<String>(
+    //                           //     isExpanded: true,
+    //                           //     iconSize: 30,
+    //                           //     icon: const Icon(
+    //                           //       FontAwesomeIcons.caretDown,
+    //                           //       color: Color(0xFF019aff),
+    //                           //       size: 15.0,
+    //                           //     ),
+    //                           //     hint: Row(
+    //                           //       children: [
+    //                           //         const Icon(
+    //                           //           FontAwesomeIcons.th,
+    //                           //           color: Color(0xFF019aff),
+    //                           //           size: 20.0,
+    //                           //         ),
+    //                           //         const SizedBox(
+    //                           //           width: 15,
+    //                           //         ),
+    //                           //         Text(
+    //                           //           'Select Category',
+    //                           //           style: GoogleFonts.montserrat(
+    //                           //               color: Colors.black),
+    //                           //         ),
+    //                           //       ],
+    //                           //     ),
+    //                           //     // value: service.serviceSelectedValue,
+    //                           //     borderRadius: BorderRadius.circular(20),
+    //                           //     dropdownColor:
+    //                           //         const Color(0xFF019aff).withOpacity(0.9),
+    //                           //     // items: service.serviceListViewModel.map(
+    //                           //     //   (ServicesModel value) {
+    //                           //     //     return DropdownMenuItem<String>(
+    //                           //     //       value: value.name,
+    //                           //     //       child: Text(value.name),
+    //                           //     //     );
+    //                           //     //   },
+    //                           //     // ).toList(),
+    //                           //     items: [],
+    //                           //     // onChanged: (value) => service
+    //                           //     //     .changeServiceSelectedValue(value!),
+    //                           //     onChanged: (value) => value,
+    //                           //   ),
+    //                           // ),
+    //                         ],
+    //                       ),
+
+    //                       // Consumer<ServicesAndDaysViewModel>(
+    //                       //   builder: (ctx, service, neverBuildChild) {
+    //                       //     return Container(
+    //                       //       // width: MediaQuery.of(context).size.width * 0.90,
+    //                       //       height: 50,
+    //                       //       padding:
+    //                       //           const EdgeInsets.symmetric(horizontal: 20),
+    //                       //       decoration: BoxDecoration(
+    //                       //         color: const Color(0xFFfff6f7),
+    //                       //         borderRadius: BorderRadius.circular(30.0),
+    //                       //         border: Border.all(color: Colors.black54),
+    //                       //       ),
+    //                       //       child: DropdownButtonHideUnderline(
+    //                       //         child: DropdownButton<String>(
+    //                       //           isExpanded: true,
+    //                       //           iconSize: 30,
+    //                       //           icon: const Icon(
+    //                       //             FontAwesomeIcons.caretDown,
+    //                       //             color: Color(0xFF019aff),
+    //                       //             size: 15.0,
+    //                       //           ),
+    //                       //           hint: Row(
+    //                       //             children: [
+    //                       //               const Icon(
+    //                       //                 FontAwesomeIcons.th,
+    //                       //                 color: Color(0xFF019aff),
+    //                       //                 size: 20.0,
+    //                       //               ),
+    //                       //               const SizedBox(
+    //                       //                 width: 15,
+    //                       //               ),
+    //                       //               Text(
+    //                       //                 'Select Category',
+    //                       //                 style: GoogleFonts.montserrat(
+    //                       //                     color: Colors.black),
+    //                       //               ),
+    //                       //             ],
+    //                       //           ),
+    //                       //           value: service.serviceSelectedValue,
+    //                       //           borderRadius: BorderRadius.circular(20),
+    //                       //           dropdownColor:
+    //                       //               const Color(0xFF019aff).withOpacity(0.9),
+    //                       //           items: service.serviceListViewModel.map(
+    //                       //             (ServicesModel value) {
+    //                       //               return DropdownMenuItem<String>(
+    //                       //                 value: value.name,
+    //                       //                 child: Text(value.name),
+    //                       //               );
+    //                       //             },
+    //                       //           ).toList(),
+    //                       //           onChanged: (value) => service
+    //                       //               .changeServiceSelectedValue(value!),
+    //                       //         ),
+    //                       //       ),
+    //                       //     );
+    //                       //   },
+    //                       // ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 // const SizedBox(height: 15),
+    //                 // FormButtonWidget(
+    //                 //   'Next',
+    //                 //   () {
+    //                 //     // navigateUserHomeScreen();
+    //                 //   },
+    //                 // ),
+    //                 // ElevatedButton(
+    //                 //   onPressed: () {},
+    //                 //   style: ElevatedButton.styleFrom(
+    //                 //     elevation: 6,
+    //                 //     shape: RoundedRectangleBorder(
+    //                 //       borderRadius: BorderRadius.circular(8.0),
+    //                 //     ),
+    //                 //     // shadowColor: Colors.transparent,
+    //                 //     primary: const Color(0xFF003e66),
+    //                 //     minimumSize: Size(
+    //                 //       MediaQuery.of(context).size.width * 0.90,
+    //                 //       formButtonHeight,
+    //                 //     ),
+    //                 //   ),
+    //                 //   child: Text(
+    //                 //     'NEXT',
+    //                 //     style: GoogleFonts.montserrat(
+    //                 //       color: Colors.white,
+    //                 //       fontWeight: FontWeight.w400,
+    //                 //       fontSize: 20.0,
+    //                 //       letterSpacing: 1,
+    //                 //     ),
+    //                 //   ),
+    //                 // ),
+
+    //                 // Consumer<GetLocationViewModel>(
+    //                 //   builder: (ctx, getLocation, neverBuildChild) {
+    //                 //     return InkWell(
+    //                 //       onTap: () async {
+    //                 //         // await getLocation.getCurrentLocation(context);
+    //                 //         Navigator.of(context).pushNamed(
+    //                 //           GetLocationScreen.routeName,
+    //                 //         );
+    //                 //       },
+    //                 //       child: Container(
+    //                 //         height: getLocation.getAddress.isEmpty ? 50 : null,
+    //                 //         padding: const EdgeInsets.symmetric(horizontal: 10),
+    //                 //         decoration: const BoxDecoration(
+    //                 //             color: Colors.white,
+    //                 //             borderRadius:
+    //                 //                 BorderRadius.all(Radius.circular(30))),
+    //                 //         child: Row(
+    //                 //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                 //           children: [
+    //                 //             Row(
+    //                 //               children: [
+    //                 //                 Icon(
+    //                 //                   Icons.location_on,
+    //                 //                   color: primaryColors,
+    //                 //                 ),
+    //                 //                 const SizedBox(
+    //                 //                   width: 10,
+    //                 //                 ),
+    //                 //                 Container(
+    //                 //                   padding:
+    //                 //                       const EdgeInsets.symmetric(vertical: 8),
+    //                 //                   width: MediaQuery.of(context).size.width *
+    //                 //                       0.65,
+    //                 //                   child: Text(
+    //                 //                     getLocation.getAddress.isEmpty
+    //                 //                         ? 'Get Location'
+    //                 //                         : getLocation.getAddress,
+    //                 //                     style: GoogleFonts.montserrat(
+    //                 //                       color: Colors.black,
+    //                 //                     ),
+    //                 //                     maxLines: 3,
+    //                 //                     overflow: TextOverflow.ellipsis,
+    //                 //                   ),
+    //                 //                 ),
+    //                 //               ],
+    //                 //             ),
+    //                 //             Icon(
+    //                 //               Icons.my_location,
+    //                 //               color: primaryColors,
+    //                 //             ),
+    //                 //           ],
+    //                 //         ),
+    //                 //       ),
+    //                 //     );
+    //                 //   },
+    //                 // ),
+    //                 // const SizedBox(
+    //                 //   height: 10,
+    //                 // ),
+    //                 // Consumer<ServicesAndDaysViewModel>(
+    //                 //   builder: (ctx, service, neverBuildChild) {
+    //                 //     return Container(
+    //                 //       // width: MediaQuery.of(context).size.width * 0.90,
+    //                 //       height: 50,
+    //                 //       padding: const EdgeInsets.symmetric(horizontal: 20),
+    //                 //       decoration: BoxDecoration(
+    //                 //         color: const Color(0xFFfff6f7),
+    //                 //         borderRadius: BorderRadius.circular(30.0),
+    //                 //         border: Border.all(color: Colors.black54),
+    //                 //       ),
+    //                 //       child: DropdownButtonHideUnderline(
+    //                 //         child: DropdownButton<String>(
+    //                 //           isExpanded: true,
+    //                 //           iconSize: 30,
+    //                 //           icon: const Icon(
+    //                 //             FontAwesomeIcons.caretDown,
+    //                 //             color: Color(0xFF019aff),
+    //                 //             size: 15.0,
+    //                 //           ),
+    //                 //           hint: Row(
+    //                 //             children: [
+    //                 //               const Icon(
+    //                 //                 FontAwesomeIcons.th,
+    //                 //                 color: Color(0xFF019aff),
+    //                 //                 size: 20.0,
+    //                 //               ),
+    //                 //               const SizedBox(
+    //                 //                 width: 15,
+    //                 //               ),
+    //                 //               Text(
+    //                 //                 'Select Category',
+    //                 //                 style: GoogleFonts.montserrat(
+    //                 //                     color: Colors.black),
+    //                 //               ),
+    //                 //             ],
+    //                 //           ),
+    //                 //           value: service.serviceSelectedValue,
+    //                 //           borderRadius: BorderRadius.circular(20),
+    //                 //           dropdownColor:
+    //                 //               const Color(0xFF019aff).withOpacity(0.9),
+    //                 //           items: service.serviceListViewModel.map(
+    //                 //             (ServicesModel value) {
+    //                 //               return DropdownMenuItem<String>(
+    //                 //                 value: value.name,
+    //                 //                 child: Text(value.name),
+    //                 //               );
+    //                 //             },
+    //                 //           ).toList(),
+    //                 //           onChanged: (value) =>
+    //                 //               service.changeServiceSelectedValue(value!),
+    //                 //         ),
+    //                 //       ),
+    //                 //     );
+    //                 //   },
+    //                 // ),
+    //                 const SizedBox(
+    //                   height: 10,
+    //                 ),
+    //                 // FormButtonWidget(
+    //                 //   'Next',
+    //                 //   () {
+    //                 //     navigateUserHomeScreen();
+    //                 //   },
+    //                 // ),
+    //               ],
+    //             ),
+    //           ),
+    //           Positioned(
+    //             bottom: 20,
+    //             left: 20,
+    //             right: 20,
+    //             child: ElevatedButton(
+    //               onPressed: () {},
+    //               style: ElevatedButton.styleFrom(
+    //                 elevation: 6,
+    //                 shape: RoundedRectangleBorder(
+    //                   borderRadius: BorderRadius.circular(8.0),
+    //                 ),
+    //                 // shadowColor: Colors.transparent,
+    //                 primary: const Color(0xFF003e66),
+    //                 minimumSize: Size(
+    //                   MediaQuery.of(context).size.width * 0.90,
+    //                   50,
+    //                 ),
+    //               ),
+    //               child: Text(
+    //                 'NEXT',
+    //                 style: GoogleFonts.montserrat(
+    //                   color: Colors.white,
+    //                   fontWeight: FontWeight.w400,
+    //                   fontSize: 20.0,
+    //                   letterSpacing: 1,
+    //                 ),
+    //               ),
+    //             ),
+    //           ),
+    //           // Consumer<ServicesAndDaysViewModel>(
+    //           //   builder: (ctx, loginViewMode, neverUpdate) {
+    //           //     return loginViewMode.isLoading
+    //           //         ? SizedBox(
+    //           //             height: MediaQuery.of(context).size.height,
+    //           //             child: circularProgress())
+    //           //         : const SizedBox();
+    //           //   },
+    //           // )
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   void navigateUserHomeScreen() async {
@@ -303,13 +752,13 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
 
     if (serviceProvider.serviceSelectedValue == null ||
-        lngLatProvider.latLng == null) {
+        lngLatProvider.latLng == const LatLng(0.0, 0.0)) {
       Fluttertoast.showToast(msg: 'Please Fill Required Fields');
       return;
     }
     userHomeScreenProvider.body = {
-      'longitude': lngLatProvider.latLng!.longitude.toString(),
-      'latitude': lngLatProvider.latLng!.latitude.toString(),
+      'longitude': lngLatProvider.latLng.longitude.toString(),
+      'latitude': lngLatProvider.latLng.latitude.toString(),
       'time': DateFormat('kk:mm').format(now),
       'day': await Utilities().dayToInt(
         DateFormat('EEEE').format(now),
@@ -382,11 +831,22 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         // print(message);
         // print(message.data['screen']);
         if (message.data['screen'] == 'decline_from_user') {
-          Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+          // Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+          showSnackBar(
+            context: context,
+            title: 'Time Delayed Request Decline',
+            labelText: '',
+            onPress: () {},
+          );
         }
         if (message.data['screen'] == 'accept') {
           // print(message.data['name']);
-          Fluttertoast.showToast(msg: 'Accepted From Company.').then((value) {
+          showSnackBar(
+            context: context,
+            title: 'Request Accept From Company',
+            labelText: '',
+            onPress: () {},
+          ).then((value) {
             provider.bottomSheetData = {
               'requestedId': message.data['id'],
               'requested': true,
@@ -398,16 +858,34 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           });
         }
         if (message.data['screen'] == 'decline_from_company') {
-          Fluttertoast.showToast(msg: 'Decline From Company');
+          // Fluttertoast.showToast(msg: 'Decline From Company');
+          showSnackBar(
+            context: context,
+            title: 'Decline From Company',
+            labelText: 'Ok',
+            onPress: () {},
+          );
           Navigator.of(context).pop();
         }
         if (message.data['screen'] == 'request') {
-          Fluttertoast.showToast(msg: 'User Send Request');
+          // Fluttertoast.showToast(msg: 'User Send Request');
+          showSnackBar(
+            context: context,
+            title: 'User Send Request',
+            labelText: 'Ok',
+            onPress: () {},
+          );
 
           // Navigator.pushNamed(context, RequestScreen.routeName,);
         }
         if (message.data['screen'] == 'complete') {
-          Fluttertoast.showToast(msg: 'Job Complete.').then(
+          // Fluttertoast.showToast(msg: 'Job Complete.')
+          showSnackBar(
+            context: context,
+            title: 'Job Complete Successfully',
+            labelText: '',
+            onPress: () {},
+          ).then(
             (value) {
               provider.rating = 0;
 
@@ -436,19 +914,43 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     // print(message);
     // print(message.data);
     if (message.data['screen'] == 'decline_from_user') {
-      Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+      // Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+      showSnackBar(
+        context: context,
+        title: 'Time Delayed Request Decline',
+        labelText: '',
+        onPress: () {},
+      );
     }
     if (message.data['screen'] == 'decline_from_company') {
-      Fluttertoast.showToast(msg: 'Decline From Company');
+      // Fluttertoast.showToast(msg: 'Decline From Company');
+      showSnackBar(
+        context: context,
+        title: 'Decline From Company',
+        labelText: '',
+        onPress: () {},
+      );
       Navigator.of(context).pop();
     }
     if (message.data['screen'] == 'request') {
-      Fluttertoast.showToast(msg: 'User Send Request');
+      // Fluttertoast.showToast(msg: 'User Send Request');
+      showSnackBar(
+        context: context,
+        title: 'User Send Request',
+        labelText: '',
+        onPress: () {},
+      );
 
       // Navigator.pushNamed(context, RequestScreen.routeName,);
     }
     if (message.data['screen'] == 'accept') {
-      Fluttertoast.showToast(msg: 'Accepted From Company').then(
+      // Fluttertoast.showToast(msg: 'Accepted From Company');
+      showSnackBar(
+        context: context,
+        title: 'Accepted From Company',
+        labelText: '',
+        onPress: () {},
+      ).then(
         (value) {
           provider.bottomSheetData = {
             'requestedId': message.data['id'],
@@ -460,7 +962,13 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       );
     }
     if (message.data['screen'] == 'complete') {
-      Fluttertoast.showToast(msg: 'Job Complete ').then(
+      // Fluttertoast.showToast(msg: 'Job Complete ');
+      showSnackBar(
+        context: context,
+        title: 'Job Complete Successfully',
+        labelText: '',
+        onPress: () {},
+      ).then(
         (value) {
           provider.rating = 0;
 

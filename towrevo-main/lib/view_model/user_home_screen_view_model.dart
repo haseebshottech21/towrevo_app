@@ -8,6 +8,7 @@ import 'package:towrevo/models/user_history_model.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
+import 'package:towrevo/widgets/show_snackbar.dart';
 import '../number_creator.dart';
 
 class UserHomeScreenViewModel with ChangeNotifier {
@@ -78,7 +79,6 @@ class UserHomeScreenViewModel with ChangeNotifier {
       return;
     }
     changeLoadingStatus(true);
-    ;
     userHistoryList = [];
     final loadedResponse = await UserWebService().requestsOfUserHistory();
     if (loadedResponse.isNotEmpty) {
@@ -247,7 +247,13 @@ class UserHomeScreenViewModel with ChangeNotifier {
               .acceptDeclineOrDone(
                   '2', response['data']['id'].toString(), context,
                   getData: false, notificationId: notificationId);
-          Utilities().showToast('Company not responad send request again');
+          // Utilities().showToast('Company not responad send request again');
+          showSnackBar(
+            context: context,
+            title: 'Company not responad send request again',
+            labelText: '',
+            onPress: () {},
+          );
         }
       });
     }

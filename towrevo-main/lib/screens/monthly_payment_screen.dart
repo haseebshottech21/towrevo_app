@@ -53,7 +53,7 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
   Future<void> makePayment(BuildContext context) async {
     try {
       paymentIntentData =
-          await createPaymentIntent(currencyType: 'USD', price: '200');
+          await createPaymentIntent(currencyType: 'USD', price: '199');
       print('make payment $paymentIntentData');
 
       if (paymentIntentData.isNotEmpty) {
@@ -118,20 +118,6 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
                     backIcon(context, () {
                       Navigator.of(context).pop();
                     }),
-                    // const SizedBox(
-                    //   width: 20,
-                    // ),
-                    // const Padding(
-                    //   padding: EdgeInsets.only(top: 40),
-                    //   child: Text(
-                    //     'Near By Companies',
-                    //     style: TextStyle(
-                    //       color: Colors.white,
-                    //       fontWeight: FontWeight.w500,
-                    //       fontSize: 22.0,
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
               ],

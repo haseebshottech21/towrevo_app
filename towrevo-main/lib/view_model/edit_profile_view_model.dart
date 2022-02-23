@@ -68,7 +68,7 @@ class EditProfileViewModel with ChangeNotifier {
           double.parse(loadedData['company_info']['latitude']),
           double.parse(loadedData['company_info']['longitude']),
         );
-        await getLocation.getLocationFromCoordinates(getLocation.latLng!);
+        await getLocation.getLocationFromCoordinates(getLocation.latLng);
         await setTimerFieldsAfterGetRequestScucceed(
           loadedData['company_info']['from'],
           loadedData['company_info']['to'],

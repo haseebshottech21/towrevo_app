@@ -14,6 +14,7 @@ import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/screens/profile/update_profile.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history_tow.dart';
+import 'package:towrevo/screens/users/user_location_screen.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/edit_profile_view_model.dart';
@@ -33,7 +34,7 @@ import '/screens/authentication/signup_company/registration_category_and_timing_
 import '/screens/authentication/signup_company/registration_crediential_screen.dart';
 import '/screens/authentication/signup_company/registration_name_and_desc_screen.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
-import 'screens/users/monthly_payment_screen.dart';
+import 'screens/monthly_payment_screen.dart';
 import '/screens/company/company_home_screen.dart';
 import '/screens/authentication/login/login_screen.dart';
 import '/screens/authentication/register_main_screen.dart';
@@ -54,6 +55,9 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   Stripe.publishableKey =
       'pk_test_51IdtHCGmNbFgnn00GS9N3SgfZldmDiOvK5WbKahPhImD2ThfzRqUKTMYG3i4xwTcphNBUb9FfeQFmBK37t3h4Ewh00JnMUB9Ul';
+  Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+  Stripe.urlScheme = 'flutterstripe';
+  await Stripe.instance.applySettings();
   runApp(const MyApp());
 }
 
@@ -158,8 +162,8 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: const SplashScreen(),
-        home: const CompanyPaymentScreen(),
+        home: const SplashScreen(),
+        // home: const CompanyHomeScreen(),
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
@@ -180,6 +184,7 @@ class _MyAppState extends State<MyApp> {
               const ListingOfCompaniesScreen(),
           GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
           MapDistanceScreen.routeName: (ctx) => const MapDistanceScreen(),
+          UserLocationScreen.routeName: (ctx) => const UserLocationScreen(),
           AboutUs.routeName: (ctx) => const AboutUs(),
           FAQs.routeName: (ctx) => const FAQs(),
           ChangePassword.routeName: (ctx) => const ChangePassword(),

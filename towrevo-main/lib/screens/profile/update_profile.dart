@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/state_city_utility.dart';
 import 'package:towrevo/utilities.dart';
@@ -129,10 +130,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
             'days': json.encode(
               daysAndServiceProvider.daysId,
             ),
-          if (locationProvider.latLng != null)
-            'latitude': locationProvider.latLng!.latitude.toString(),
-          if (locationProvider.latLng != null)
-            'longitude': locationProvider.latLng!.longitude.toString(),
+          if (locationProvider.latLng != const LatLng(0.0, 0.0))
+            'latitude': locationProvider.latLng.latitude.toString(),
+          if (locationProvider.latLng != const LatLng(0.0, 0.0))
+            'longitude': locationProvider.latLng.longitude.toString(),
           'type': type,
         },
         context,

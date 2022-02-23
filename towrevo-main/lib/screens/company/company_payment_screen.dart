@@ -1,9 +1,16 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
+import 'package:towrevo/utilities.dart';
+import 'package:towrevo/view_model/company_home_screen_view_model.dart';
+import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/payment_detail.dart';
+import 'package:http/http.dart' as http;
 
 class CompanyPaymentScreen extends StatefulWidget {
   const CompanyPaymentScreen({Key? key}) : super(key: key);
@@ -15,8 +22,94 @@ class CompanyPaymentScreen extends StatefulWidget {
 }
 
 class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
+  Map<String, dynamic> paymentIntentData = {};
+
+  paynow(BuildContext context) async {
+    final companyViewModel =
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
+    await companyViewModel.payNow(paymentIntentData['id'], '20', context);
+    paymentIntentData = {};
+    // if (response) {
+    //   Navigator.of(context)
+    //       .pushNamed(RegistrationOTPScreen.routeName, arguments: true);
+    // }
+  }
+
+  displayPaymentSheet(BuildContext context) async {
+    try {
+      await Stripe.instance.presentPaymentSheet(
+        parameters: PresentPaymentSheetParameters(
+          clientSecret: paymentIntentData['client_secret'],
+          confirmPayment: true,
+        ),
+      );
+      // print(a);
+
+      paynow(context);
+    } on StripeException catch (e) {
+      Utilities().showToast('Cancel');
+      print(e);
+    }
+  }
+
+  Future<void> makePayment(BuildContext context) async {
+    try {
+      paymentIntentData =
+          await createPaymentIntent(currencyType: 'USD', price: '2000');
+      print('make payment $paymentIntentData');
+
+      if (paymentIntentData.isNotEmpty) {
+        await Stripe.instance.initPaymentSheet(
+          paymentSheetParameters: SetupPaymentSheetParameters(
+            paymentIntentClientSecret: paymentIntentData['client_secret'],
+            applePay: true,
+            googlePay: true,
+            merchantCountryCode: 'US',
+            style: ThemeMode.dark,
+            merchantDisplayName:
+                Provider.of<UserHomeScreenViewModel>(context, listen: false)
+                    .drawerInfo['name']
+                    .toString(),
+          ),
+        );
+
+        displayPaymentSheet(context);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future createPaymentIntent(
+      {required String price, required String currencyType}) async {
+    print('in createPaymentIntent');
+    try {
+      Map<String, dynamic> body = {
+        'amount': price,
+        'currency': currencyType,
+        'payment_method_types[]': 'card'
+      };
+
+      print(body);
+
+      final response = await http.post(
+          Uri.parse('${Utilities.stripeBaseUrl}/v1/payment_intents'),
+          body: body,
+          headers: {
+            'Authorization':
+                'Bearer sk_test_51IdtHCGmNbFgnn002634Wne6qPdy0KfZyH19qLIq7SCFxNdWygtpxUc0d9VFQs55dlWs2sAp5O565RdTYfMpe0Op00fMGUCof1',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          });
+      return jsonDecode(response.body);
+    } catch (e) {
+      Utilities().showToast('Something Went Wrong');
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final utlities = Utilities();
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -70,10 +163,10 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                   Center(
                     child: InkWell(
                       onTap: () async {
-                        // if (!(await Utilities().isInternetAvailable())) {
-                        //   return;
-                        // }
-                        // await makePayment(context);
+                        if (!(await Utilities().isInternetAvailable())) {
+                          return;
+                        }
+                        await makePayment(context);
                         // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: true);
                       },
                       child: Container(

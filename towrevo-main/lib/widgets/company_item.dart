@@ -1,17 +1,13 @@
 import 'dart:ui';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
-import 'package:towrevo/screens/map_distance_screen.dart';
-import 'package:towrevo/screens/users/monthly_payment_screen.dart';
+import 'package:towrevo/screens/monthly_payment_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../utilities.dart';
 
 class CompanyItem extends StatelessWidget {
@@ -131,8 +127,37 @@ class CompanyItem extends StatelessWidget {
                     ),
                   ),
                   companyModel.image.isNotEmpty
-                      ? profileImageCircle(
-                          context, Utilities.imageBaseUrl + companyModel.image)
+                      ? companyModel.email.isEmpty
+                          ? Container(
+                              height: 55,
+                              width: 55,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2.5,
+                                ),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: ClipOval(
+                                child: ImageFiltered(
+                                    imageFilter: ImageFilter.blur(
+                                      sigmaY: 5,
+                                      sigmaX: 5,
+                                    ), //SigmaX and Y are just for X and Y directions
+                                    child: Image.network(
+                                      Utilities.imageBaseUrl +
+                                          companyModel.image,
+                                      // width: 35,
+                                      // height: 35,
+                                      fit: BoxFit.cover,
+                                    ) //here you can use any widget you'd like to blur .
+                                    ),
+                              ),
+                            )
+                          : profileImageCircle(
+                              context,
+                              Utilities.imageBaseUrl + companyModel.image,
+                            )
                       : const Flexible(
                           fit: FlexFit.tight,
                           flex: 1,
