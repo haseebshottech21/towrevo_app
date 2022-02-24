@@ -12,6 +12,7 @@ import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/company/company_history.dart';
 import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/screens/profile/update_profile.dart';
+import 'package:towrevo/screens/sound.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history_tow.dart';
 import 'package:towrevo/utilities.dart';
@@ -158,8 +159,8 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: const SplashScreen(),
-        home: const CompanyPaymentScreen(),
+        home: const SoundMaker(),
+        // home: const CompanyPaymentScreen(),
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
