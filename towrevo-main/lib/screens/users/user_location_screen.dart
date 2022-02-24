@@ -49,68 +49,70 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
           ),
           if (placeViewModel.placesList.isNotEmpty &&
               textSearchController.text.isNotEmpty)
-            // Container(
-            //   margin: const EdgeInsets.only(top: 120, left: 20, right: 20),
-            //   // decoration: BoxDecoration(color: Colors.black.withOpacity(0.1)),
-            //   // height: MediaQuery.of(context).size.height,
-            //   width: double.infinity,
-            //   child: ListView.builder(
-            //       itemBuilder: (context, index) {
-            //         return InkWell(
-            //           onTap: () {
-            //             print(placeViewModel.placesList[index].placeId);
-            //             textSearchController.clear();
-            //             placeViewModel.getPlaceDetail(
-            //               placeViewModel.placesList[index].placeId,
-            //             );
-            //           },
-            //           child: Container(
-            //             padding: const EdgeInsets.all(6),
-            //             color: Colors.black26,
-            //             margin: const EdgeInsets.only(bottom: 10),
-            //             child: Text(
-            //               placeViewModel.placesList[index].description,
-            //               style: const TextStyle(fontSize: 17),
-            //             ),
-            //           ),
-            //         );
-            //       },
-            //       itemCount: placeViewModel.placesList.length),
-            // ),
-            Positioned(
-              top: 120,
-              right: 25,
-              left: 25,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.20,
-                color: Colors.black.withOpacity(0.5),
-                child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          print(placeViewModel.placesList[index].placeId);
-                          textSearchController.clear();
-                          placeViewModel.getPlaceDetail(
-                            placeViewModel.placesList[index].placeId,
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(6),
-                          // color: Colors.black26,
-                          margin: const EdgeInsets.only(bottom: 10),
-                          child: Text(
-                            placeViewModel.placesList[index].description,
-                            style: const TextStyle(
-                              fontSize: 17,
-                              color: Colors.white,
-                            ),
-                          ),
+            Container(
+              margin: const EdgeInsets.only(top: 120, left: 20, right: 20),
+              // decoration: BoxDecoration(color: Colors.black.withOpacity(0.1)),
+              // height: MediaQuery.of(context).size.height,
+              width: double.infinity,
+              child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        print(placeViewModel.placesList[index].placeId);
+                        textSearchController.clear();
+                        placeViewModel.getPlaceDetail(
+                          placeViewModel.placesList[index].placeId,
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(6),
+                        color: Colors.black26,
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: Text(
+                          placeViewModel.placesList[index].description,
+                          style: const TextStyle(fontSize: 17),
                         ),
-                      );
-                    },
-                    itemCount: placeViewModel.placesList.length),
-              ),
+                      ),
+                    );
+                  },
+                  itemCount: placeViewModel.placesList.length),
             ),
+
+          // Positioned(
+          //   top: 120,
+          //   right: 25,
+          //   left: 25,
+          //   child: Container(
+          //     height: MediaQuery.of(context).size.height * 0.20,
+          //     color: Colors.black.withOpacity(0.5),
+          //     child: ListView.builder(
+          //         itemBuilder: (context, index) {
+          //           return InkWell(
+          //             onTap: () {
+          //               print(placeViewModel.placesList[index].placeId);
+          //               textSearchController.clear();
+          //               placeViewModel.getPlaceDetail(
+          //                 placeViewModel.placesList[index].placeId,
+          //               );
+          //             },
+          //             child: Container(
+          //               padding: const EdgeInsets.all(6),
+          //               // color: Colors.black26,
+          //               margin: const EdgeInsets.only(bottom: 10),
+          //               child: Text(
+          //                 placeViewModel.placesList[index].description,
+          //                 style: const TextStyle(
+          //                   fontSize: 17,
+          //                   color: Colors.white,
+          //                 ),
+          //               ),
+          //             ),
+          //           );
+          //         },
+          //         itemCount: placeViewModel.placesList.length),
+          //   ),
+          // ),
+
           Positioned(
             top: 40,
             right: 20,
