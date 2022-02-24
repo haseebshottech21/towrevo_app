@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/state_city_utility.dart';
 import 'package:towrevo/utilities.dart';
@@ -129,10 +130,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
             'days': json.encode(
               daysAndServiceProvider.daysId,
             ),
-          if (locationProvider.latLng != null)
-            'latitude': locationProvider.latLng!.latitude.toString(),
-          if (locationProvider.latLng != null)
-            'longitude': locationProvider.latLng!.longitude.toString(),
+          if (locationProvider.myCurrentLocation.placeLocation !=
+              const LatLng(0.0, 0.0))
+            'latitude': locationProvider
+                .myCurrentLocation.placeLocation.latitude
+                .toString(),
+          if (locationProvider.myCurrentLocation.placeLocation !=
+              const LatLng(0.0, 0.0))
+            'longitude': locationProvider
+                .myCurrentLocation.placeLocation.longitude
+                .toString(),
           'type': type,
         },
         context,
@@ -472,7 +479,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       from: 35,
                                       delay: const Duration(milliseconds: 730),
                                       child: Container(
-                                        height: getLocation.getAddress.isEmpty
+                                        height: getLocation.getMyAddress.isEmpty
                                             ? 50
                                             : null,
                                         padding: const EdgeInsets.symmetric(
@@ -507,10 +514,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                                       0.65,
                                                   child: Text(
                                                     getLocation
-                                                            .getAddress.isEmpty
+                                                            .getMyAddress.isEmpty
                                                         ? 'Get Location'
                                                         : getLocation
-                                                            .getAddress,
+                                                            .getMyAddress,
                                                     style:
                                                         GoogleFonts.montserrat(
                                                       color: Colors.black,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/view_model/services_and_day_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Loaders/glowCircle.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
@@ -89,15 +90,18 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                       ),
                     )
                   : Expanded(
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        itemBuilder: (ctx, index) {
-                          return CompanyItem(
-                            companyModel: userHomeProvider.list[index],
-                          );
-                        },
-                        itemCount: userHomeProvider.list.length,
+                      child: RefreshIndicator(
+                        onRefresh: () => getRequestList(),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          itemBuilder: (ctx, index) {
+                            return CompanyItem(
+                              companyModel: userHomeProvider.list[index],
+                            );
+                          },
+                          itemCount: userHomeProvider.list.length,
+                        ),
                       ),
                     ),
             ],
@@ -109,12 +113,17 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
 
   @override
   void initState() {
+    getRequestList();
+    super.initState();
+  }
+
+  getRequestList() {
     final userHomeProvider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
+    Provider.of<ServicesAndDaysViewModel>(context, listen: false)
+        .serviceSelectedValue = null;
     Future.delayed(Duration.zero).then((value) async {
       await userHomeProvider.getCompanies(userHomeProvider.body);
     });
-
-    super.initState();
   }
 }

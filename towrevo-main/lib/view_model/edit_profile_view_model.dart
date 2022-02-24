@@ -64,11 +64,11 @@ class EditProfileViewModel with ChangeNotifier {
 
         final getLocation =
             Provider.of<GetLocationViewModel>(context, listen: false);
-        getLocation.latLng = LatLng(
+        getLocation.myCurrentLocation.placeLocation = LatLng(
           double.parse(loadedData['company_info']['latitude']),
           double.parse(loadedData['company_info']['longitude']),
         );
-        await getLocation.getLocationFromCoordinates(getLocation.latLng!);
+        await getLocation.getLocationFromCoordinates(getLocation.myCurrentLocation.placeLocation);
         await setTimerFieldsAfterGetRequestScucceed(
           loadedData['company_info']['from'],
           loadedData['company_info']['to'],

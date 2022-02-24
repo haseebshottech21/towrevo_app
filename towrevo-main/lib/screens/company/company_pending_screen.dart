@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/map_distance_screen.dart';
@@ -10,6 +9,7 @@ import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
+import 'package:towrevo/widgets/show_snackbar.dart';
 import '../../utilities.dart';
 
 class CompanyPendingList extends StatefulWidget {
@@ -20,6 +20,25 @@ class CompanyPendingList extends StatefulWidget {
 }
 
 class _CompanyPendingListState extends State<CompanyPendingList> {
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  //   if (text.length > 50) {
+  //     firstHalf = text.substring(0, 50);
+  //     secondHalf = text.substring(50, text.length);
+  //   } else {
+  //     firstHalf = text;
+  //     secondHalf = "";
+  //   }
+
+  //   if (descText.length > 50) {
+  //     setState(() {
+  //       textExpand = true;
+  //     });
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     final provider =
@@ -261,6 +280,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     Future.delayed(Duration.zero).then((value) async {
       await setupInteracted();
       await setUpRequestNotification();
+      await checkPayment();
       await getData();
     });
 
@@ -272,6 +292,12 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     final provider =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
     await provider.getRequests();
+  }
+
+  Future<void> checkPayment() async {
+    final provider =
+        Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+            .paymentStatusCheck(context);
   }
 
   Future<void> setUpRequestNotification() async {
@@ -308,15 +334,33 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print(message);
       if (message.data['screen'] == 'decline_from_user') {
-        Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+        // Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+        showSnackBar(
+          context: context,
+          title: 'Time Delayed Request Decline',
+          labelText: '',
+          onPress: () {},
+        );
         getData();
       }
       if (message.data['screen'] == 'decline_from_company') {
-        Fluttertoast.showToast(msg: 'Decline From Company');
+        // Fluttertoast.showToast(msg: 'Decline From Company');
+        showSnackBar(
+          context: context,
+          title: 'Decline From Company',
+          labelText: '',
+          onPress: () {},
+        );
         getData();
       }
       if (message.data['screen'] == 'request') {
-        Fluttertoast.showToast(msg: 'User Send Request');
+        // Fluttertoast.showToast(msg: 'User Send Request');
+        showSnackBar(
+          context: context,
+          title: 'User Send Request',
+          labelText: '',
+          onPress: () {},
+        );
         getData();
         // Navigator.pushNamed(context, RequestScreen.routeName,);
       }
@@ -327,15 +371,33 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     print(message);
     print(message.data);
     if (message.data['screen'] == 'decline_from_user') {
-      Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+      // Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
+      showSnackBar(
+        context: context,
+        title: 'Time Delayed Request Decline',
+        labelText: '',
+        onPress: () {},
+      );
       getData();
     }
     if (message.data['screen'] == 'decline_from_company') {
-      Fluttertoast.showToast(msg: 'Decline From Company');
+      // Fluttertoast.showToast(msg: 'Decline From Company');
+      showSnackBar(
+        context: context,
+        title: 'Time Delayed Request Decline',
+        labelText: '',
+        onPress: () {},
+      );
       getData();
     }
     if (message.data['screen'] == 'request') {
-      Fluttertoast.showToast(msg: 'User Send Request');
+      // Fluttertoast.showToast(msg: 'User Send Request');
+      showSnackBar(
+        context: context,
+        title: 'User Send Request',
+        labelText: '',
+        onPress: () {},
+      );
       getData();
       // Navigator.pushNamed(context, RequestScreen.routeName,);
     }

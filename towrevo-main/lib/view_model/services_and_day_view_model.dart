@@ -37,6 +37,9 @@ class ServicesAndDaysViewModel with ChangeNotifier {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
+    if (serviceListViewModel.isNotEmpty) {
+      return;
+    }
     changeLoadingStatus(true);
     serviceListViewModel = [];
     serviceListViewModel = await ServicesWebService().getServices();

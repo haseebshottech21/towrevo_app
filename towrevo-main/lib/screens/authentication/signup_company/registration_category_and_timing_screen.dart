@@ -10,6 +10,7 @@ import 'package:towrevo/screens/authentication/signup_company/registration_otp_s
 import 'package:towrevo/screens/authentication/signup_company/signup_company_widegts/title_widget.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
+import 'package:towrevo/screens/users/user_location_screen.dart';
 import 'package:towrevo/state_city_utility.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
@@ -173,7 +174,7 @@ class _RegistrationCategoryAndTimingScreenState
     }
     final daysAndServiceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-    if (locationProvider.latLng != null &&
+    if (locationProvider.myCurrentLocation.placeAddress.isEmpty &&
         daysAndServiceProvider.daysId.isNotEmpty &&
         daysAndServiceProvider.servicesId.isNotEmpty &&
         registerProvider.body['from'] != '' &&
@@ -230,15 +231,19 @@ class _RegistrationCategoryAndTimingScreenState
                       // print(getLocation.getAddress);
                       return InkWell(
                         onTap: () async {
+                          // Navigator.of(context).pushNamed(
+                          //   GetLocationScreen.routeName,
+                          // );
                           Navigator.of(context).pushNamed(
-                            GetLocationScreen.routeName,
+                            UserLocationScreen.routeName,
+                            arguments: true,
                           );
                         },
                         child: FadeInDown(
                           from: 20,
                           delay: const Duration(milliseconds: 550),
                           child: Container(
-                            height: getLocation.getAddress.isEmpty ? 50 : null,
+                            height: getLocation.getMyAddress.isEmpty ? 50 : null,
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             decoration: const BoxDecoration(
                               color: Colors.white,
@@ -265,9 +270,9 @@ class _RegistrationCategoryAndTimingScreenState
                                       width: MediaQuery.of(context).size.width *
                                           0.65,
                                       child: Text(
-                                        getLocation.getAddress.isEmpty
+                                        getLocation.getMyAddress.isEmpty
                                             ? 'Get Location'
-                                            : getLocation.getAddress,
+                                            : getLocation.getMyAddress,
                                         style: GoogleFonts.montserrat(
                                           color: Colors.black,
                                         ),
@@ -654,7 +659,7 @@ class _RegistrationCategoryAndTimingScreenState
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);
       // provider.categoriesList=[{'car': false}, {'bike': false}, {'truck': false},];
       // provider.daysList=[{'Monday':false},{'Tuesday':false},{'Wednesday':false},{'Thursday':false},{'Friday':false},{'Saturday':false},{'Sunday':false},];
-      locationProvider.address = '';
+      locationProvider.myCurrentLocation.placeAddress = '';
       provider.initializeValues();
       serviceProvider.initializeValues();
       //services e.g car, bike

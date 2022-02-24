@@ -54,7 +54,7 @@ class _MapDistanceScreenState extends State<MapDistanceScreen> {
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
-          target: locationViewModelProvider.latLng!,
+          target: locationViewModelProvider.myCurrentLocation.placeLocation,
           zoom: 17,
         ),
         zoomControlsEnabled: false,
@@ -62,8 +62,7 @@ class _MapDistanceScreenState extends State<MapDistanceScreen> {
         onMapCreated: (controller) {
           _googleMapController = controller;
           _setMarker(
-              originPos: locationViewModelProvider.latLng!,
-              destPos: destLatLng);
+              originPos: locationViewModelProvider.myCurrentLocation.placeLocation, destPos: destLatLng);
         },
         markers: {
           if (_origin != null) _origin!,
