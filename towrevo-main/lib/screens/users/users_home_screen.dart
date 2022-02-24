@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/models/services_model.dart';
-import 'package:towrevo/screens/get_location_screen.dart';
+// import 'package:towrevo/models/services_model.dart';
+// import 'package:towrevo/screens/get_location_screen.dart';
 import 'package:towrevo/screens/users/user_location_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/screens/users/listing_of_companies_screen.dart';
@@ -20,12 +20,13 @@ import 'package:towrevo/widgets/User/drawer_icon.dart';
 import 'package:towrevo/widgets/User/from_to_location.dart';
 import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
 import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
-import 'package:towrevo/widgets/background_image.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
+// import 'package:towrevo/widgets/background_image.dart';
+// import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/show_snackbar.dart';
-import '/widgets/form_button_widget.dart';
+// import '/widgets/form_button_widget.dart';
 import '/widgets/towrevo_logo.dart';
 
 class UsersHomeScreen extends StatefulWidget {
@@ -374,47 +375,72 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                       // color: Colors.white,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: const Color(0xFF003e66).withOpacity(0.8),
+                        // color: const Color(0xFF003e66).withOpacity(0.8),
                         boxShadow: kElevationToShadow[2],
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.1, 0.9],
+                          colors: [
+                            Color(0xFF0195f7),
+                            Color(0xFF083054),
+                          ],
+                        ),
                       ),
                       child: Column(
                         children: [
                           Consumer<GetLocationViewModel>(
                             builder: (ctx, getLocation, neverBuildChild) {
                               return FromToLocation(
-                                destination: 'From',
-                                locationText: getLocation.getMyAddress.isEmpty
-                                    ? 'Get Location'
-                                    : getLocation.getMyAddress,
-                                onTap: () {
+                                fromLocationText:
+                                    getLocation.getMyAddress.isEmpty
+                                        ? 'Get Location'
+                                        : getLocation.getMyAddress,
+                                fromOnTap: () {
                                   Navigator.of(context).pushNamed(
-                                      UserLocationScreen.routeName,
-                                      arguments: true);
+                                    UserLocationScreen.routeName,
+                                    arguments: true,
+                                  );
+                                },
+                                toLocationText:
+                                    getLocation.getDestinationAddress.isEmpty
+                                        ? 'Get Location'
+                                        : getLocation.getDestinationAddress,
+                                toOnTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    UserLocationScreen.routeName,
+                                    arguments: false,
+                                  );
                                 },
                               );
                             },
                           ),
-                          const SizedBox(height: 12),
-                          Consumer<GetLocationViewModel>(
-                              builder: (ctx, getLocation, neverBuildChild) {
-                            return FromToLocation(
-                              destination: 'To',
-                              locationText:
-                                  getLocation.getDestinationAddress.isEmpty
-                                      ? 'Get Location'
-                                      : getLocation.getDestinationAddress,
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                    UserLocationScreen.routeName,
-                                    arguments: false);
-                              },
-                            );
-                          }),
-                          const SizedBox(height: 12),
+                          // const SizedBox(height: 12),
+                          // const Divider(
+                          //   thickness: 0.5,
+                          //   height: 5,
+                          //   color: Colors.black54,
+                          // ),
+                          // Consumer<GetLocationViewModel>(
+                          //     builder: (ctx, getLocation, neverBuildChild) {
+                          //   return FromToLocation(
+                          //     destination: 'To',
+                          //     locationText:
+                          //         getLocation.getDestinationAddress.isEmpty
+                          //             ? 'Get Location'
+                          //             : getLocation.getDestinationAddress,
+                          //     onTap: () {
+                          //       Navigator.of(context).pushNamed(
+                          //           UserLocationScreen.routeName,
+                          //           arguments: false);
+                          //     },
+                          //   );
+                          // }),
+                          const SizedBox(height: 10),
                           DescribeProblemField(
                             describeController: describeController,
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 10),
                           Row(
                             children: [
                               const SizedBox(width: 5),
@@ -432,7 +458,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                                 width: MediaQuery.of(context).size.width * 0.76,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Consumer<ServicesAndDaysViewModel>(
                                     builder: (ctx, service, neverBuildChild) {
@@ -474,42 +500,58 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                 bottom: 20,
                 left: 20,
                 right: 20,
-                child: ElevatedButton(
-                  onPressed: () {
-                    navigateUserHomeScreen();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    elevation: 6,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    // shadowColor: Colors.transparent,
-                    primary: const Color(0xFF003e66),
-                    minimumSize: Size(
-                      MediaQuery.of(context).size.width * 0.90,
-                      50,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: kElevationToShadow[10],
+                    gradient: const LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      stops: [0.1, 0.5],
+                      colors: [
+                        Color(0xFF0195f7),
+                        Color(0xFF083054),
+                      ],
                     ),
                   ),
-                  child: Text(
-                    'NEXT',
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20.0,
-                      letterSpacing: 1,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      navigateUserHomeScreen();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      shadowColor: Colors.transparent,
+                      primary: Colors.transparent,
+                      minimumSize: Size(
+                        MediaQuery.of(context).size.width * 0.90,
+                        50,
+                      ),
+                    ),
+                    child: Text(
+                      'NEXT',
+                      style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 20.0,
+                        letterSpacing: 1,
+                      ),
                     ),
                   ),
                 ),
               ),
-              // Consumer<ServicesAndDaysViewModel>(
-              //   builder: (ctx, loginViewMode, neverUpdate) {
-              //     return loginViewMode.isLoading
-              //         ? SizedBox(
-              //             height: MediaQuery.of(context).size.height,
-              //             child: circularProgress())
-              //         : const SizedBox();
-              //   },
-              // )
+              Consumer<ServicesAndDaysViewModel>(
+                builder: (ctx, loginViewMode, neverUpdate) {
+                  return loginViewMode.isLoading
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height,
+                          child: circularProgress(),
+                        )
+                      : const SizedBox();
+                },
+              )
             ],
           ),
         ),
@@ -608,6 +650,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         if (message.data['screen'] == 'accept') {
           // print(message.data['name']);
           await playSound();
+
           showSnackBar(
             context: context,
             title: 'Request Accept From Company',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
+import 'package:towrevo/widgets/Company/job_complete_card.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
@@ -44,6 +45,25 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
               //     ),
               //   ),
               // ),
+
+              // JobCompleteCard(
+              //   userName: 'Name',
+              //   userDistance: '0.0',
+              //   profileImage: const CircleAvatar(
+              //     backgroundColor: Colors.black,
+              //     child: Icon(
+              //       Icons.home_work_outlined,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              //   serviceType: 'CAR',
+              //   pickLocation:
+              //       'Business Avenue, PECHS, Karachi, Sindh, Pakistan',
+              //   dropLocation:
+              //       'Business Avenue, PECHS, Karachi, Sindh, Pakistan',
+              //   completeOnPressed: () {},
+              // ),
+
               (provider.isLoading || provider.onGoingRequestsList.isEmpty)
                   ? Align(
                       alignment: Alignment.center,
@@ -67,146 +87,51 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                         itemBuilder: (context, index) {
                           print(provider
                               .onGoingRequestsList[index].notificationId);
-                          return Card(
-                            elevation: 5,
-                            shadowColor: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            margin: const EdgeInsets.only(
-                                left: 10, right: 10, top: 10),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                left: 15,
-                                right: 10,
-                                top: 15,
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Flexible(
-                                        fit: FlexFit.tight,
-                                        flex: 9,
-                                        child: Column(
-                                          children: [
-                                            // Container(
-                                            //   alignment: Alignment.centerLeft,
-                                            //   child: Text('acas'),
-                                            // ),
-                                            Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                provider
-                                                    .onGoingRequestsList[index]
-                                                    .name,
-                                                style: const TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      provider.onGoingRequestsList[index].image
-                                              .isNotEmpty
-                                          ? profileImageCircle(
-                                              context,
-                                              Utilities.imageBaseUrl +
-                                                  provider
-                                                      .onGoingRequestsList[
-                                                          index]
-                                                      .image)
-                                          : const Flexible(
-                                              fit: FlexFit.tight,
-                                              flex: 1,
-                                              child: CircleAvatar(
-                                                backgroundColor: Colors.black,
-                                                child: Icon(
-                                                  Icons.home_work_outlined,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.75,
-                                      child: Text(
+                          return JobCompleteCard(
+                            userName: provider.onGoingRequestsList[index].name,
+                            userDistance: '0.0',
+                            profileImage: provider
+                                    .onGoingRequestsList[index].image.isNotEmpty
+                                ? profileImageCircle(
+                                    context,
+                                    Utilities.imageBaseUrl +
                                         provider
-                                            .onGoingRequestsList[index].address
-                                            .trim(),
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.start,
-                                      ),
+                                            .onGoingRequestsList[index].image,
+                                  )
+                                : const CircleAvatar(
+                                    backgroundColor: Colors.black,
+                                    child: Icon(
+                                      Icons.home_work_outlined,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/spinner.gif",
-                                    height: 35.0,
-                                    width: 35.0,
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          padding: EdgeInsets.zero,
-                                        ),
-                                        onPressed: () {},
-                                        child: const Text('Get Directions'),
-                                      ),
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          padding: EdgeInsets.zero,
-                                        ),
-                                        onPressed: () {
-                                          print(provider
-                                              .onGoingRequestsList[index]
-                                              .notificationId);
-                                          showDialog(
-                                            context: context,
-                                            barrierDismissible: false,
-                                            builder: (ctxt) =>
-                                                completeJobDialogbox(
-                                              ctxt,
-                                              provider
-                                                  .onGoingRequestsList[index]
-                                                  .id,
-                                              provider
-                                                  .onGoingRequestsList[index]
-                                                  .notificationId,
-                                            ),
-                                          );
-                                        },
-                                        child: const Text(
-                                          'Job Completed',
-                                          style: TextStyle(
-                                            // color: Color(0xFF092848),
-                                            fontSize: 16.0,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
+                            serviceType: 'CAR',
+                            pickLocation:
+                                provider.onGoingRequestsList[index].address,
+                            dropLocation:
+                                provider.onGoingRequestsList[index].address,
+                            completeOnPressed: () {
+                              // await CompanyHomeScreenViewModel()
+                              //     .acceptDeclineOrDone(
+                              //   '1',
+                              //   provider.requestServiceList[index].id,
+                              //   context,
+                              //   notificationId: provider
+                              //       .requestServiceList[index].notificationId,
+                              // );
+                              print(provider
+                                  .onGoingRequestsList[index].notificationId);
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (ctxt) => completeJobDialogbox(
+                                  ctxt,
+                                  provider.onGoingRequestsList[index].id,
+                                  provider.onGoingRequestsList[index]
+                                      .notificationId,
+                                ),
+                              );
+                            },
                           );
                         },
                       ),

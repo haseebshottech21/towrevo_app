@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/place_detail_model.dart';
-import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
+// import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 
 class UserLocationScreen extends StatefulWidget {
@@ -153,18 +153,49 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
             left: 15,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 70),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: AppColors.primaryColor,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.90,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: kElevationToShadow[10],
+                  gradient: const LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    stops: [0.1, 0.8],
+                    colors: [
+                      Color(0xFF0195f7),
+                      Color(0xFF083054),
+                    ],
+                  ),
                 ),
-                onPressed: () {
-                  if (reqFromMyLocation) {
-                    placeViewModel.updateMyLocation(context);
-                  } else {
-                    placeViewModel.updatDestinationLoaction(context);
-                  }
-                },
-                child: const Text('Save'),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    shadowColor: Colors.transparent,
+                    primary: Colors.transparent,
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.90,
+                      40,
+                    ),
+                  ),
+                  onPressed: () {
+                    if (reqFromMyLocation) {
+                      placeViewModel.updateMyLocation(context);
+                    } else {
+                      placeViewModel.updatDestinationLoaction(context);
+                    }
+                  },
+                  child: const Text(
+                    'SAVE',
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
