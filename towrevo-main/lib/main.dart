@@ -12,7 +12,6 @@ import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/company/company_history.dart';
 import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/screens/profile/update_profile.dart';
-import 'package:towrevo/screens/sound.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
 import 'package:towrevo/screens/users/user_history_tow.dart';
 import 'package:towrevo/screens/users/user_location_screen.dart';

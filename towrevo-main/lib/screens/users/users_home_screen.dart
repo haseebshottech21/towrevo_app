@@ -394,7 +394,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                               );
                             },
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 12),
                           Consumer<GetLocationViewModel>(
                               builder: (ctx, getLocation, neverBuildChild) {
                             return FromToLocation(
@@ -410,11 +410,11 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                               },
                             );
                           }),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 12),
                           DescribeProblemField(
                             describeController: describeController,
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 12),
                           Row(
                             children: [
                               const SizedBox(width: 5),
@@ -445,6 +445,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                                           fontSize: 14,
                                         ),
                                       ),
+                                      value: service.serviceSelectedValue,
                                       items:
                                           service.serviceListViewModel.map((e) {
                                         return DropdownMenuItem(
@@ -452,7 +453,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                                           child: Text(e.name),
                                         );
                                       }).toList(),
-                                      onChanged: (value) => value,
+                                      onChanged: (value) => service
+                                          .changeServiceSelectedValue(value!),
                                     ),
                                   );
                                 }),
@@ -473,7 +475,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                 left: 20,
                 right: 20,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    navigateUserHomeScreen();
+                  },
                   style: ElevatedButton.styleFrom(
                     elevation: 6,
                     shape: RoundedRectangleBorder(

@@ -49,42 +49,19 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
           ),
           if (placeViewModel.placesList.isNotEmpty &&
               textSearchController.text.isNotEmpty)
-            // Container(
-            //   margin: const EdgeInsets.only(top: 120, left: 20, right: 20),
-            //   // decoration: BoxDecoration(color: Colors.black.withOpacity(0.1)),
-            //   // height: MediaQuery.of(context).size.height,
-            //   width: double.infinity,
-            //   child: ListView.builder(
-            //       itemBuilder: (context, index) {
-            //         return InkWell(
-            //           onTap: () {
-            //             print(placeViewModel.placesList[index].placeId);
-            //             textSearchController.clear();
-            //             placeViewModel.getPlaceDetail(
-            //               placeViewModel.placesList[index].placeId,
-            //             );
-            //           },
-            //           child: Container(
-            //             padding: const EdgeInsets.all(6),
-            //             color: Colors.black26,
-            //             margin: const EdgeInsets.only(bottom: 10),
-            //             child: Text(
-            //               placeViewModel.placesList[index].description,
-            //               style: const TextStyle(fontSize: 17),
-            //             ),
-            //           ),
-            //         );
-            //       },
-            //       itemCount: placeViewModel.placesList.length),
-            // ),
-            Positioned(
-              top: 120,
-              right: 25,
-              left: 25,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.20,
-                color: Colors.black.withOpacity(0.5),
+            Container(
+              margin: const EdgeInsets.only(top: 120, left: 20, right: 20),
+              // decoration: BoxDecoration(color: Colors.black.withOpacity(0.1)),
+              // height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              width: double.infinity,
+              child: Expanded(
                 child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
@@ -94,15 +71,42 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                             placeViewModel.placesList[index].placeId,
                           );
                         },
-                        child: Container(
-                          padding: const EdgeInsets.all(6),
-                          // color: Colors.black26,
-                          margin: const EdgeInsets.only(bottom: 10),
-                          child: Text(
-                            placeViewModel.placesList[index].description,
-                            style: const TextStyle(
-                              fontSize: 17,
-                              color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            // color: Colors.yellow,
+                            margin: const EdgeInsets.only(bottom: 5),
+                            decoration: const BoxDecoration(
+                              // borderRadius: BorderRadius.,
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.5,
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.location_pin,
+                                  color: Colors.white,
+                                  size: 22,
+                                ),
+                                const SizedBox(width: 8),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  child: Text(
+                                    placeViewModel
+                                        .placesList[index].description,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
