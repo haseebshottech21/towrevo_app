@@ -38,7 +38,7 @@ class DescribeProblemField extends StatelessWidget {
                   borderSide: const BorderSide(
                     color: Color(0xFF29abe7),
                   ),
-                  borderRadius: BorderRadius.circular(5.0)),
+                  borderRadius: BorderRadius.circular(10.0)),
               hintText: 'Describe Your Problem....',
               hintStyle: GoogleFonts.montserrat(
                 color: Colors.black54,

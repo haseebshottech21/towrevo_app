@@ -1,16 +1,19 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/screens/map_distance_screen.dart';
+import 'package:towrevo/utilities.dart';
+// import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
+import 'package:towrevo/widgets/Company/accept_decline_card.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
+// import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:towrevo/widgets/show_snackbar.dart';
-import '../../utilities.dart';
+// import '../../utilities.dart';
 
 class CompanyPendingList extends StatefulWidget {
   const CompanyPendingList({Key? key}) : super(key: key);
@@ -67,6 +70,25 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
               //     ),
               //   ),
               // ),
+              // AcceptDeclineCardItem(
+              //   userName: 'Name',
+              //   userDistance: '0.0',
+              //   profileImage: const CircleAvatar(
+              //     backgroundColor: Colors.black,
+              //     child: Icon(
+              //       Icons.home_work_outlined,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              //   serviceType: 'CAR',
+              //   pickLocation:
+              //       'Business Avenue, PECHS, Karachi, Sindh, Pakistan',
+              //   dropLocation:
+              //       'Business Avenue, PECHS, Karachi, Sindh, Pakistan',
+              //   acceptOnPressed: () async {},
+              //   declineOnPressed: () async {},
+              // ),
+
               (provider.isLoading || provider.requestServiceList.isEmpty)
                   ? Align(
                       alignment: Alignment.center,
@@ -90,180 +112,225 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                         itemBuilder: (context, index) {
                           return FadeInUp(
                             from: 30,
-                            child: Card(
-                              elevation: 5,
-                              shadowColor: Colors.black,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              margin: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 10),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 15,
-                                  right: 10,
-                                  top: 15,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Flexible(
-                                          fit: FlexFit.tight,
-                                          flex: 9,
-                                          child: Column(
-                                            children: [
-                                              // Container(
-                                              //   alignment: Alignment.centerLeft,
-                                              //   child: Text('acas'),
-                                              // ),
-                                              Container(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  provider
-                                                      .requestServiceList[index]
-                                                      .name,
-                                                  style: const TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        provider.requestServiceList[index].image
-                                                .isNotEmpty
-                                            ? profileImageCircle(
-                                                context,
-                                                Utilities.imageBaseUrl +
-                                                    provider
-                                                        .requestServiceList[
-                                                            index]
-                                                        .image)
-                                            : const Flexible(
-                                                fit: FlexFit.tight,
-                                                flex: 1,
-                                                child: CircleAvatar(
-                                                  backgroundColor: Colors.black,
-                                                  child: Icon(
-                                                    Icons.home_work_outlined,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.75,
-                                        child: Text(
-                                          provider.requestServiceList[index]
-                                              .address,
-                                          textAlign: TextAlign.start,
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
+                            child: AcceptDeclineCardItem(
+                              userName: provider.requestServiceList[index].name,
+                              userDistance: '0.0',
+                              profileImage: provider.requestServiceList[index]
+                                      .image.isNotEmpty
+                                  ? profileImageCircle(
+                                      context,
+                                      Utilities.imageBaseUrl +
+                                          provider
+                                              .requestServiceList[index].image,
+                                    )
+                                  : const CircleAvatar(
+                                      backgroundColor: Colors.black,
+                                      child: Icon(
+                                        Icons.home_work_outlined,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        TextButton(
-                                          style: TextButton.styleFrom(
-                                            padding: EdgeInsets.zero,
-                                          ),
-                                          onPressed: () {
-                                            Navigator.of(context).pushNamed(
-                                                MapDistanceScreen.routeName,
-                                                arguments: LatLng(
-                                                    double.parse(provider
-                                                        .requestServiceList[
-                                                            index]
-                                                        .latitude),
-                                                    double.parse(
-                                                      provider
-                                                          .requestServiceList[
-                                                              index]
-                                                          .longitude,
-                                                    )));
-                                          },
-                                          child: const Text('Get Directions'),
-                                        ),
-                                        SizedBox(
-                                          width: 135,
-                                          child: Row(
-                                            children: [
-                                              TextButton(
-                                                style: TextButton.styleFrom(
-                                                  padding: EdgeInsets.zero,
-                                                ),
-                                                onPressed: () async {
-                                                  await CompanyHomeScreenViewModel()
-                                                      .acceptDeclineOrDone(
-                                                    '1',
-                                                    provider
-                                                        .requestServiceList[
-                                                            index]
-                                                        .id,
-                                                    context,
-                                                    notificationId: provider
-                                                        .requestServiceList[
-                                                            index]
-                                                        .notificationId,
-                                                  );
-                                                },
-                                                child: const Text(
-                                                  'Accept',
-                                                  style: TextStyle(
-                                                    color: Colors.green,
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              TextButton(
-                                                style: TextButton.styleFrom(
-                                                  padding: EdgeInsets.zero,
-                                                ),
-                                                onPressed: () async {
-                                                  await CompanyHomeScreenViewModel()
-                                                      .acceptDeclineOrDone(
-                                                          '2',
-                                                          provider
-                                                              .requestServiceList[
-                                                                  index]
-                                                              .id,
-                                                          context,
-                                                          notificationId: provider
-                                                              .requestServiceList[
-                                                                  index]
-                                                              .notificationId);
-                                                },
-                                                child: const Text(
-                                                  'Decline',
-                                                  style: TextStyle(
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              serviceType: 'CAR',
+                              pickLocation:
+                                  provider.requestServiceList[index].address,
+                              dropLocation:
+                                  provider.requestServiceList[index].address,
+                              acceptOnPressed: () async {
+                                await CompanyHomeScreenViewModel()
+                                    .acceptDeclineOrDone(
+                                  '1',
+                                  provider.requestServiceList[index].id,
+                                  context,
+                                  notificationId: provider
+                                      .requestServiceList[index].notificationId,
+                                );
+                              },
+                              declineOnPressed: () async {
+                                await CompanyHomeScreenViewModel()
+                                    .acceptDeclineOrDone(
+                                        '2',
+                                        provider.requestServiceList[index].id,
+                                        context,
+                                        notificationId: provider
+                                            .requestServiceList[index]
+                                            .notificationId);
+                              },
                             ),
+
+                            // Card(
+                            //   elevation: 5,
+                            //   shadowColor: Colors.black,
+                            //   shape: RoundedRectangleBorder(
+                            //     borderRadius: BorderRadius.circular(15.0),
+                            //   ),
+                            //   margin: const EdgeInsets.only(
+                            //       left: 10, right: 10, top: 10),
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.only(
+                            //       left: 15,
+                            //       right: 10,
+                            //       top: 15,
+                            //     ),
+                            //     child: Column(
+                            //       children: [
+                            //         Row(
+                            //           children: [
+                            //             Flexible(
+                            //               fit: FlexFit.tight,
+                            //               flex: 9,
+                            //               child: Column(
+                            //                 children: [
+                            //                   // Container(
+                            //                   //   alignment: Alignment.centerLeft,
+                            //                   //   child: Text('acas'),
+                            //                   // ),
+                            //                   Container(
+                            //                     alignment: Alignment.centerLeft,
+                            //                     child: Text(
+                            //                       provider
+                            //                           .requestServiceList[index]
+                            //                           .name,
+                            //                       style: const TextStyle(
+                            //                         fontSize: 20,
+                            //                         fontWeight: FontWeight.bold,
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //             provider.requestServiceList[index].image
+                            //                     .isNotEmpty
+                            //                 ? profileImageCircle(
+                            //                     context,
+                            //                     Utilities.imageBaseUrl +
+                            //                         provider
+                            //                             .requestServiceList[
+                            //                                 index]
+                            //                             .image)
+                            //                 : const Flexible(
+                            //                     fit: FlexFit.tight,
+                            //                     flex: 1,
+                            //                     child: CircleAvatar(
+                            //                       backgroundColor: Colors.black,
+                            //                       child: Icon(
+                            //                         Icons.home_work_outlined,
+                            //                         color: Colors.white,
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //           ],
+                            //         ),
+                            //         const SizedBox(
+                            //           height: 5,
+                            //         ),
+                            //         Align(
+                            //           alignment: Alignment.topLeft,
+                            //           child: SizedBox(
+                            //             width:
+                            //                 MediaQuery.of(context).size.width *
+                            //                     0.75,
+                            //             child: Text(
+                            //               provider.requestServiceList[index]
+                            //                   .address,
+                            //               textAlign: TextAlign.start,
+                            //               maxLines: 3,
+                            //               overflow: TextOverflow.ellipsis,
+                            //             ),
+                            //           ),
+                            //         ),
+                            //         Row(
+                            //           mainAxisAlignment:
+                            //               MainAxisAlignment.spaceBetween,
+                            //           children: [
+                            //             TextButton(
+                            //               style: TextButton.styleFrom(
+                            //                 padding: EdgeInsets.zero,
+                            //               ),
+                            //               onPressed: () {
+                            //                 Navigator.of(context).pushNamed(
+                            //                     MapDistanceScreen.routeName,
+                            //                     arguments: LatLng(
+                            //                         double.parse(provider
+                            //                             .requestServiceList[
+                            //                                 index]
+                            //                             .latitude),
+                            //                         double.parse(
+                            //                           provider
+                            //                               .requestServiceList[
+                            //                                   index]
+                            //                               .longitude,
+                            //                         )));
+                            //               },
+                            //               child: const Text('Get Directions'),
+                            //             ),
+                            //             SizedBox(
+                            //               width: 135,
+                            //               child: Row(
+                            //                 children: [
+                            //                   TextButton(
+                            //                     style: TextButton.styleFrom(
+                            //                       padding: EdgeInsets.zero,
+                            //                     ),
+                            //                     onPressed: () async {
+                            //                       await CompanyHomeScreenViewModel()
+                            //                           .acceptDeclineOrDone(
+                            //                         '1',
+                            //                         provider
+                            //                             .requestServiceList[
+                            //                                 index]
+                            //                             .id,
+                            //                         context,
+                            //                         notificationId: provider
+                            //                             .requestServiceList[
+                            //                                 index]
+                            //                             .notificationId,
+                            //                       );
+                            //                     },
+                            //                     child: const Text(
+                            //                       'Accept',
+                            //                       style: TextStyle(
+                            //                         color: Colors.green,
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                   const SizedBox(
+                            //                     width: 5,
+                            //                   ),
+                            //                   TextButton(
+                            //                     style: TextButton.styleFrom(
+                            //                       padding: EdgeInsets.zero,
+                            //                     ),
+                            //                     onPressed: () async {
+                            //                       await CompanyHomeScreenViewModel()
+                            //                           .acceptDeclineOrDone(
+                            //                               '2',
+                            //                               provider
+                            //                                   .requestServiceList[
+                            //                                       index]
+                            //                                   .id,
+                            //                               context,
+                            //                               notificationId: provider
+                            //                                   .requestServiceList[
+                            //                                       index]
+                            //                                   .notificationId);
+                            //                     },
+                            //                     child: const Text(
+                            //                       'Decline',
+                            //                       style: TextStyle(
+                            //                         color: Colors.red,
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             )
+                            //           ],
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                           );
                         },
                       ),
