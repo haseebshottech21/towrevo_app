@@ -38,7 +38,7 @@ class FromToLocation extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              child: const Text(""),
+              // child: const Text(""),
             ),
             const SizedBox(height: 8),
             Container(
@@ -48,7 +48,7 @@ class FromToLocation extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              child: const Text(""),
+              // child: const Text(""),
             ),
             const SizedBox(height: 8),
             Container(
@@ -58,7 +58,7 @@ class FromToLocation extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              child: const Text(""),
+              // child: const Text(""),
             ),
             const SizedBox(height: 8),
             Container(
@@ -68,7 +68,7 @@ class FromToLocation extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              child: const Text(""),
+              // child: const Text(""),
             ),
             const SizedBox(height: 8),
             const Icon(

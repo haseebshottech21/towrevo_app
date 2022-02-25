@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -44,6 +45,9 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
 
   @override
   Widget build(BuildContext context) {
+    // Future.delayed(Duration.zero, () async {
+    //   await playSound();
+    // });
     final provider =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: true);
     print('listen success');
@@ -398,7 +402,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
     // Also handle any interaction when the app is in the background via a
     // Stream listener
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print(message);
       if (message.data['screen'] == 'decline_from_user') {
         // Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
@@ -421,6 +425,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
         getData();
       }
       if (message.data['screen'] == 'request') {
+        await playSound();
         // Fluttertoast.showToast(msg: 'User Send Request');
         showSnackBar(
           context: context,
@@ -432,6 +437,14 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
         // Navigator.pushNamed(context, RequestScreen.routeName,);
       }
     });
+  }
+
+  AudioCache audioCache = AudioCache();
+  AudioPlayer advancedPlayer = AudioPlayer();
+  playSound() async {
+    final file = await audioCache.loadAsFile('sounds/sound.mp3');
+    final bytes = await file.readAsBytes();
+    audioCache.playBytes(bytes);
   }
 
   void _handleMessage(RemoteMessage message) {

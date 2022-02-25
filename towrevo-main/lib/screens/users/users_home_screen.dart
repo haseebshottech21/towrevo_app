@@ -649,7 +649,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         }
         if (message.data['screen'] == 'accept') {
           // print(message.data['name']);
-          await playSound();
 
           showSnackBar(
             context: context,
@@ -798,13 +797,5 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         },
       );
     }
-  }
-
-  AudioCache audioCache = AudioCache();
-  AudioPlayer advancedPlayer = AudioPlayer();
-  playSound() async {
-    final file = await audioCache.loadAsFile('sounds/sound.mp3');
-    final bytes = await file.readAsBytes();
-    audioCache.playBytes(bytes);
   }
 }

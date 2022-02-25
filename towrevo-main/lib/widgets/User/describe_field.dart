@@ -28,6 +28,17 @@ class DescribeProblemField extends StatelessWidget {
                 3, // any number you need (It works as the rows for the textarea)
             keyboardType: TextInputType.multiline,
             maxLines: null,
+            maxLength: 150,
+
+            buildCounter: (context,
+                    {required currentLength, required isFocused, maxLength}) =>
+                Text(
+              '$currentLength/$maxLength',
+              style: GoogleFonts.lato(
+                color: Colors.white,
+                fontSize: 12,
+              ),
+            ),
             textAlignVertical: TextAlignVertical.center,
             // textAlign: TextAlign.left,
             decoration: InputDecoration(
@@ -45,8 +56,7 @@ class DescribeProblemField extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 fontSize: 15,
               ),
-              // isDense: true,
-              // helperText: 'Keep it short, this is just a demo.',
+
               // prefixIcon: Padding(
               //   padding:
               //       const EdgeInsets.only(left: 15, bottom: 75),
