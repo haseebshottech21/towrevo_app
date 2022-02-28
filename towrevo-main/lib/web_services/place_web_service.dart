@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:towrevo/models/directions_model.dart';
 import 'package:towrevo/models/place_detail_model.dart';
 import 'package:towrevo/models/places_model.dart';
 
@@ -39,6 +41,23 @@ class PlaceWebService {
       return placeDetail;
     } else {
       return PlaceDetailModel.fromEmptyJson();
+    }
+  }
+
+  Future<DirectionsModel?> getDirectionsRequest(
+      {required LatLng origin, required LatLng destination}) async {
+    print('$origin , $destination');
+
+    final response = await http.get(
+      Uri.parse(
+          'https://maps.googleapis.com/maps/api/directions/json?key=$key&destination=${destination.latitude.toString()},${destination.longitude.toString()}&origin=${destination.latitude.toString()},${destination.longitude.toString()}'),
+    );
+    print(response.body);
+    final loadedData = jsonDecode(response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final placeDetail = DirectionsModel.fromMap(loadedData);
+      return placeDetail;
     }
   }
 }

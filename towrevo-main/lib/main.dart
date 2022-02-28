@@ -7,6 +7,8 @@ import 'package:towrevo/screens/authentication/change_password/change_password.d
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password.dart';
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password_otp.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
+import 'package:towrevo/screens/company/map_direction_screen.dart';
+import 'package:towrevo/screens/company/map_screen.dart';
 import 'package:towrevo/screens/contactus/contact_us.dart';
 import 'package:towrevo/screens/faqs/faqs.dart';
 import 'package:towrevo/screens/company/company_history.dart';
@@ -94,48 +96,6 @@ class _MyAppState extends State<MyApp> {
       },
     );
 
-    //when app open mode
-    // FirebaseMessaging.onMessage.listen((event) {
-    //   print('message received');
-    //   print(event.notification!.body);
-    //   //not working , showing error
-    //   //Unhandled Exception: No MaterialLocalizations found.
-    //   Future.delayed(const Duration(seconds: 2)).then((value) {
-    //       print('in future');
-    //     showDialog(context: context, builder: (ctx){
-    //       return AlertDialog(
-    //         title: const Text('Notification'),
-    //         content: Text(event.notification!.body!),
-    //         actions: [
-    //           TextButton(onPressed: (){
-    //             Navigator.of(context).pop();
-    //           }, child: const Text('OK'))
-    //         ],);
-    //     });
-    //   });
-    // });
-
-    // when notification trigger
-
-    // FirebaseMessaging.onMessageOpenedApp.listen((event) {
-    //   print('before');
-    //   print(event);
-    //   print(event.data.toString());
-    //   print('message Clicked');
-    //   Future.delayed(const Duration(seconds: 2)).then((value) {
-    //     showDialog(context: context, builder: (_){
-    //       return Text(event.data.toString());
-    //     });
-    //   });
-    //
-    //
-    //
-    //
-    //   // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RequestScreen()));
-    //   // Navigator.of(context).pushNamed(RequestScreen.routeName);
-    //
-    // });
-
     super.initState();
   }
 
@@ -163,6 +123,8 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
         home: const SplashScreen(),
+        // home: const MapDirection(),
+        // home: MapScreen(),
         // home: const CompanyHomeScreen(),
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),

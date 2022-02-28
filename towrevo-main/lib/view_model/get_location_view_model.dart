@@ -3,6 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/models/directions_model.dart';
 import 'package:towrevo/models/place_detail_model.dart';
 import 'package:towrevo/models/places_model.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
@@ -129,6 +130,18 @@ class GetLocationViewModel with ChangeNotifier {
 
   Future<void> getPlaceDetail(String placeId) async {
     placeDetailModel = await placeWebService.getPlaceDetail(placeId);
+    notifyListeners();
+  }
+
+  DirectionsModel directionsModel = DirectionsModel.empty();
+
+  Future<void> getDirections(
+      {required LatLng origin, required LatLng destination}) async {
+    final loadedData = await placeWebService.getDirectionsRequest(
+        origin: origin, destination: destination);
+    if (loadedData != null) {
+      directionsModel = loadedData;
+    }
     notifyListeners();
   }
 }
