@@ -29,7 +29,6 @@ class DescribeProblemField extends StatelessWidget {
             keyboardType: TextInputType.multiline,
             maxLines: null,
             maxLength: 150,
-
             buildCounter: (context,
                     {required currentLength, required isFocused, maxLength}) =>
                 Text(

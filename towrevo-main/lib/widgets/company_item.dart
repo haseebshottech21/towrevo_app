@@ -191,42 +191,52 @@ class CompanyItem extends StatelessWidget {
                         color: Colors.green[700],
                       ),
                     ),
-                    SizedBox(
-                      width: 75,
-                      child: Row(
-                        children: [
-                          IconButton(
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            onPressed: () {
-                              sendRequest(
-                                  companyModel.userId,
-                                  context,
-                                  companyModel.notificationId,
-                                  companyModel.phoneNumber);
-                            },
-                            icon: FaIcon(
-                              FontAwesomeIcons.paperPlane,
-                              color: primaryColor,
-                              size: 22,
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: SizedBox(
+                        width: 75,
+                        // color: Colors.black,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            companyModel.email.isEmpty
+                                ? const SizedBox()
+                                : IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    onPressed: () {
+                                      sendRequest(
+                                        companyModel.userId,
+                                        context,
+                                        companyModel.notificationId,
+                                        companyModel.phoneNumber,
+                                      );
+                                    },
+                                    icon: FaIcon(
+                                      FontAwesomeIcons.paperPlane,
+                                      color: primaryColor,
+                                      size: 22,
+                                    ),
+                                  ),
+                            companyModel.email.isEmpty
+                                ? const SizedBox()
+                                : const SizedBox(
+                                    width: 20,
+                                  ),
+                            IconButton(
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: () {
+                                openDialPad(companyModel.phoneNumber, context);
+                              },
+                              icon: Icon(
+                                Icons.phone_in_talk,
+                                color: primaryColor,
+                                size: 25,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 18,
-                          ),
-                          IconButton(
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            onPressed: () {
-                              openDialPad(companyModel.phoneNumber, context);
-                            },
-                            icon: Icon(
-                              Icons.phone_in_talk,
-                              color: primaryColor,
-                              size: 25,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     )
                   ],

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 
-class AcceptDeclineCardItem extends StatelessWidget {
+class AcceptDeclineCardItem extends StatefulWidget {
   final String userName;
   final String userDistance;
   final String serviceType;
   final String pickLocation;
   final String dropLocation;
   final Widget profileImage;
+  final String probText;
   final void Function()? acceptOnPressed;
   final void Function()? declineOnPressed;
+  final bool isExpanded;
 
   const AcceptDeclineCardItem({
     required this.userName,
@@ -18,10 +20,35 @@ class AcceptDeclineCardItem extends StatelessWidget {
     required this.dropLocation,
     required this.pickLocation,
     required this.profileImage,
+    required this.probText,
     required this.acceptOnPressed,
     required this.declineOnPressed,
+    this.isExpanded = false,
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<AcceptDeclineCardItem> createState() => _AcceptDeclineCardItemState();
+}
+
+class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
+  String? firstHalf;
+  String? secondHalf;
+
+  bool flag = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.probText.length > 50) {
+      firstHalf = widget.probText.substring(0, 50);
+      secondHalf = widget.probText.substring(50, widget.probText.length);
+    } else {
+      firstHalf = widget.probText;
+      secondHalf = "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +73,7 @@ class AcceptDeclineCardItem extends StatelessWidget {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    userName,
+                    widget.userName,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -57,7 +84,7 @@ class AcceptDeclineCardItem extends StatelessWidget {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    '($userDistance mi)',
+                    '(${widget.userDistance} mi)',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -79,7 +106,7 @@ class AcceptDeclineCardItem extends StatelessWidget {
                 //     color: Colors.white,
                 //   ),
                 // ),
-                profileImage,
+                widget.profileImage,
               ],
             ),
             Align(
@@ -95,48 +122,53 @@ class AcceptDeclineCardItem extends StatelessWidget {
                   border: Border.all(color: Colors.black),
                 ),
                 child: Text(
-                  serviceType,
+                  widget.serviceType,
                   // style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
             const SizedBox(height: 10),
-            timelineRow(pickLocation),
-            timelineLastRow(dropLocation),
+            timelineRow(widget.pickLocation),
+            timelineLastRow(widget.dropLocation),
             const SizedBox(height: 5),
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution...',
-                      textAlign: TextAlign.start,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            // setState(() {
-                            //   textExpand = !textExpand;
-                            // });
-                          },
-                          child: const Text(
-                            // textExpand == false ? "show more" : "show less",
-                            'show less',
-                            style: TextStyle(color: Colors.blue),
+                child: secondHalf!.isEmpty
+                    ? Text(firstHalf!)
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            flag
+                                ? (firstHalf! + '....')
+                                : (firstHalf! + secondHalf!),
+                            style: const TextStyle(
+                              color: Colors.black87,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                          InkWell(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Text(
+                                  flag ? "show more" : "show less",
+                                  style: const TextStyle(color: Colors.blue),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              setState(() {
+                                flag = !flag;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -176,7 +208,7 @@ class AcceptDeclineCardItem extends StatelessWidget {
                           // padding: EdgeInsets.s,
                           primary: Colors.green[50],
                         ),
-                        onPressed: acceptOnPressed,
+                        onPressed: widget.acceptOnPressed,
                         child: const Text(
                           'Accept',
                           style: TextStyle(
@@ -193,7 +225,7 @@ class AcceptDeclineCardItem extends StatelessWidget {
                           shape: const StadiumBorder(),
                           primary: Colors.red[50],
                         ),
-                        onPressed: declineOnPressed,
+                        onPressed: widget.declineOnPressed,
                         child: const Text(
                           'Decline',
                           style: TextStyle(

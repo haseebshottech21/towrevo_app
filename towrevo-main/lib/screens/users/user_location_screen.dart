@@ -131,7 +131,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                       height: 45,
                       width: 45,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.5),
+                        color: Colors.white.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: const Icon(Icons.arrow_back),

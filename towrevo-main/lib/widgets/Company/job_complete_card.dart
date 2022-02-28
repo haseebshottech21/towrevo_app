@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 
 class JobCompleteCard extends StatelessWidget {
@@ -98,8 +99,13 @@ class JobCompleteCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            timelineRow(pickLocation, 'Pick Up'),
-            timelineRow(dropLocation, 'Drop Of'),
+            // timelineRow(pickLocation),
+            // timelineLastRow(dropLocation),
+            viewLocationRow(
+              pickLocation,
+              dropLocation,
+              context,
+            ),
             const SizedBox(height: 5),
             Align(
               alignment: Alignment.centerLeft,
@@ -195,7 +201,7 @@ class JobCompleteCard extends StatelessWidget {
     );
   }
 
-  Widget timelineRow(String title, String point) {
+  Widget timelineRow(String title) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -211,7 +217,7 @@ class JobCompleteCard extends StatelessWidget {
                 color: AppColors.primaryColor2,
                 size: 30,
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 8),
               Container(
                 width: 5,
                 height: 5,
@@ -220,7 +226,7 @@ class JobCompleteCard extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 8),
               Container(
                 width: 5,
                 height: 5,
@@ -229,7 +235,7 @@ class JobCompleteCard extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
               ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 8),
               Container(
                 width: 5,
                 height: 5,
@@ -238,12 +244,7 @@ class JobCompleteCard extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
               ),
-              const SizedBox(height: 5),
-              Icon(
-                Icons.location_pin,
-                color: AppColors.primaryColor2,
-                size: 30,
-              ),
+              // const SizedBox(height: 5),
             ],
           ),
         ),
@@ -254,15 +255,15 @@ class JobCompleteCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                point,
-                style: const TextStyle(
-                  fontFamily: "regular",
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black87,
-                ),
-              ),
+              // Text(
+              //   point,
+              //   style: const TextStyle(
+              //     fontFamily: "regular",
+              //     fontSize: 11,
+              //     fontWeight: FontWeight.w500,
+              //     color: Colors.black87,
+              //   ),
+              // ),
               const SizedBox(height: 5),
               Text(
                 title + '\n',
@@ -272,7 +273,6 @@ class JobCompleteCard extends StatelessWidget {
                   color: Colors.black54,
                 ),
               ),
-              const SizedBox(height: 5),
             ],
           ),
         ),
@@ -280,63 +280,150 @@ class JobCompleteCard extends StatelessWidget {
     );
   }
 
-  // Widget timelineLastRow(String title, String point) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //     children: <Widget>[
-  //       Expanded(
-  //         flex: 1,
-  //         child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.start,
-  //           mainAxisSize: MainAxisSize.max,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           children: <Widget>[
-  //             Icon(
-  //               Icons.location_pin,
-  //               color: AppColors.primaryColor2,
-  //               size: 30,
-  //             ),
-  //             Container(
-  //               width: 3,
-  //               height: 20,
-  //               decoration: const BoxDecoration(
-  //                 color: Colors.transparent,
-  //                 shape: BoxShape.rectangle,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //       Expanded(
-  //         flex: 9,
-  //         child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.start,
-  //           mainAxisSize: MainAxisSize.max,
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: <Widget>[
-  //             Text(
-  //               point,
-  //               style: const TextStyle(
-  //                 fontFamily: "regular",
-  //                 fontSize: 11,
-  //                 fontWeight: FontWeight.w500,
-  //                 color: Colors.black87,
-  //               ),
-  //             ),
-  //             const SizedBox(height: 5),
-  //             Text(
-  //               title + '\n',
-  //               style: const TextStyle(
-  //                 fontFamily: "regular",
-  //                 fontSize: 14,
-  //                 color: Colors.black54,
-  //               ),
-  //             ),
-  //             const SizedBox(height: 5),
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget timelineLastRow(String title) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.location_pin,
+                color: AppColors.primaryColor2,
+                size: 30,
+              ),
+              // Container(
+              //   width: 3,
+              //   height: 20,
+              //   decoration: const BoxDecoration(
+              //     color: Colors.transparent,
+              //     shape: BoxShape.rectangle,
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 9,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              // Text(
+              //   point,
+              //   style: const TextStyle(
+              //     fontFamily: "regular",
+              //     fontSize: 11,
+              //     fontWeight: FontWeight.w500,
+              //     color: Colors.black87,
+              //   ),
+              // ),
+              const SizedBox(height: 5),
+              Text(
+                title + '\n',
+                style: const TextStyle(
+                  fontFamily: "regular",
+                  fontSize: 14,
+                  color: Colors.black54,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget viewLocationRow(
+      String picklocation, String droplocation, BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          // mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.my_location,
+              size: 25,
+              color: AppColors.primaryColor2,
+            ),
+            const SizedBox(height: 8),
+            Container(
+              height: 5,
+              width: 5,
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor2,
+                shape: BoxShape.circle,
+              ),
+              // child: const Text(""),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              height: 5,
+              width: 5,
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor2,
+                shape: BoxShape.circle,
+              ),
+              // child: const Text(""),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              height: 5,
+              width: 5,
+              decoration: BoxDecoration(
+                color: AppColors.primaryColor2,
+                shape: BoxShape.circle,
+              ),
+              // child: const Text(""),
+            ),
+            const SizedBox(height: 8),
+            Icon(
+              FontAwesomeIcons.mapMarkerAlt,
+              size: 25,
+              color: AppColors.primaryColor2,
+            ),
+          ],
+        ),
+        const SizedBox(width: 8),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.78,
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(10),
+          //   boxShadow: kElevationToShadow[4],
+          // ),
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 6),
+              Text(
+                picklocation + '\n',
+                style: const TextStyle(
+                  fontFamily: "regular",
+                  fontSize: 14,
+                  color: Colors.black54,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                droplocation + '\n',
+                style: const TextStyle(
+                  fontFamily: "regular",
+                  fontSize: 14,
+                  color: Colors.black54,
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
 }

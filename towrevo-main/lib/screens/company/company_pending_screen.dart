@@ -85,6 +85,8 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
               //     ),
               //   ),
               //   serviceType: 'CAR',
+              //   probText:
+              //       'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using, making it look like readable English.',
               //   pickLocation:
               //       'Business Avenue, PECHS, Karachi, Sindh, Pakistan',
               //   dropLocation:
@@ -114,6 +116,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                         shrinkWrap: true,
                         itemCount: provider.requestServiceList.length,
                         itemBuilder: (context, index) {
+                          bool isExpanded = false;
                           return FadeInUp(
                             from: 30,
                             child: AcceptDeclineCardItem(
@@ -139,6 +142,13 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                   provider.requestServiceList[index].address,
                               dropLocation:
                                   provider.requestServiceList[index].address,
+                              // showMoreTap: () {
+                              //   setState(() {
+                              //     isExpanded = !isExpanded;
+                              //   });
+                              // },
+                              probText:
+                                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
                               acceptOnPressed: () async {
                                 await CompanyHomeScreenViewModel()
                                     .acceptDeclineOrDone(
@@ -442,7 +452,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
   AudioCache audioCache = AudioCache();
   AudioPlayer advancedPlayer = AudioPlayer();
   playSound() async {
-    final file = await audioCache.loadAsFile('sounds/sound.mp3');
+    final file = await audioCache.loadAsFile('sounds/sound_new.mp3');
     final bytes = await file.readAsBytes();
     audioCache.playBytes(bytes);
   }

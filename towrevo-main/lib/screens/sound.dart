@@ -12,7 +12,7 @@ class _SoundMakerState extends State<SoundMaker> {
   AudioCache audioCache = AudioCache();
   AudioPlayer advancedPlayer = AudioPlayer();
   _playSound() async {
-    final file = await audioCache.loadAsFile('sounds/sound.mp3');
+    final file = await audioCache.loadAsFile('sounds/sound_new.mp3');
     final bytes = await file.readAsBytes();
     audioCache.playBytes(bytes);
   }
