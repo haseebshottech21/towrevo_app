@@ -90,7 +90,7 @@ class GetLocationViewModel with ChangeNotifier {
     print(placeMarks.first);
   }
 
-  Future<LatLng?> getCurrentLocation(BuildContext context) async {
+  Future<void> getCurrentLocation(BuildContext context) async {
     changeLoadingStatus(true);
     bool permission = await _handlePermission();
     if (permission) {

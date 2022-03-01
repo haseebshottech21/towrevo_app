@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/models/directions_model.dart';
 import 'package:towrevo/models/place_detail_model.dart';
@@ -45,19 +47,54 @@ class PlaceWebService {
   }
 
   Future<DirectionsModel?> getDirectionsRequest(
-      {required LatLng origin, required LatLng destination}) async {
+      {required LatLng origin,
+      required LatLng destination,
+      TravelMode travelMode = TravelMode.driving,
+      List<PolylineWayPoint> wayPoints = const [],
+      bool avoidHighways = false,
+      bool avoidTolls = false,
+      bool avoidFerries = true,
+      bool optimizeWaypoints = false}) async {
     print('$origin , $destination');
+    String mode = travelMode.toString().replaceAll('TravelMode.', '');
+    final params = {
+      "origin": "${origin.latitude},${origin.longitude}",
+      "destination": "${destination.latitude},${destination.longitude}",
+      "mode": mode,
+      "avoidHighways": "$avoidHighways",
+      "avoidFerries": "$avoidFerries",
+      "avoidTolls": "$avoidTolls",
+      "key": key
+    };
+
+    if (wayPoints.isNotEmpty) {
+      List wayPointsArray = [];
+      wayPoints.forEach((point) => wayPointsArray.add(point.location));
+      String wayPointsString = wayPointsArray.join('|');
+      if (optimizeWaypoints) {
+        wayPointsString = 'optimize:true|$wayPointsString';
+      }
+      params.addAll({"waypoints": wayPointsString});
+    }
+    Uri uri =
+        Uri.https("maps.googleapis.com", "maps/api/directions/json", params);
 
     final response = await http.get(
-      Uri.parse(
-          'https://maps.googleapis.com/maps/api/directions/json?key=$key&destination=${destination.latitude.toString()},${destination.longitude.toString()}&origin=${destination.latitude.toString()},${destination.longitude.toString()}'),
+      uri,
     );
     print(response.body);
-    final loadedData = jsonDecode(response.body);
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      final placeDetail = DirectionsModel.fromMap(loadedData);
-      return placeDetail;
+    if (response.statusCode == 200) {
+      final parsedJson = json.decode(response.body);
+
+      if (parsedJson["status"]?.toString().toLowerCase() == 'ok' &&
+          parsedJson["routes"] != null &&
+          parsedJson["routes"].isNotEmpty) {
+        final placeDetail = DirectionsModel.fromMap(parsedJson);
+        return placeDetail;
+      } else {
+        Fluttertoast.showToast(msg: parsedJson["error_message"]);
+      }
     }
   }
 }

@@ -2,11 +2,14 @@ import 'package:animate_do/animate_do.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/get_location_screen.dart';
 import 'package:towrevo/utilities.dart';
 // import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
+import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/widgets/Company/accept_decline_card.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
@@ -42,6 +45,12 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
   //     });
   //   }
   // }
+  @override
+  void didChangeDependencies() {
+    Provider.of<GetLocationViewModel>(context, listen: false)
+        .getCurrentLocation(context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +178,12 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                                             .requestServiceList[index]
                                             .notificationId);
                               },
+                              pickuplatLng: LatLng(
+                                double.parse(provider
+                                    .requestServiceList[index].latitude),
+                                double.parse(provider
+                                    .requestServiceList[index].longitude),
+                              ),
                             ),
 
                             // Card(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
+import 'package:towrevo/screens/company/distance_screen.dart';
+import 'package:towrevo/screens/map_distance_screen.dart';
 
 class AcceptDeclineCardItem extends StatefulWidget {
   final String userName;
@@ -9,6 +12,7 @@ class AcceptDeclineCardItem extends StatefulWidget {
   final String dropLocation;
   final Widget profileImage;
   final String probText;
+  final LatLng pickuplatLng;
   final void Function()? acceptOnPressed;
   final void Function()? declineOnPressed;
   final bool isExpanded;
@@ -23,6 +27,7 @@ class AcceptDeclineCardItem extends StatefulWidget {
     required this.probText,
     required this.acceptOnPressed,
     required this.declineOnPressed,
+    required this.pickuplatLng,
     this.isExpanded = false,
     Key? key,
   }) : super(key: key);
@@ -179,6 +184,11 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                     primary: Colors.blue[50],
                   ),
                   onPressed: () {
+                    print('yes in location screen');
+                    Navigator.of(context).pushNamed(
+                      DistanceScreen.routeName,
+                      arguments: widget.pickuplatLng,
+                    );
                     // Navigator.of(context).pushNamed(
                     //   MapDistanceScreen.routeName,
                     //   arguments: LatLng(

@@ -1,5 +1,6 @@
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:towrevo/utilities.dart';
 
 class DirectionsModel {
   final LatLngBounds bounds;
@@ -27,11 +28,11 @@ class DirectionsModel {
 
     String distance = data['legs'][0]['distance']['text'];
     String duration = data['legs'][0]['duration']['text'];
-    print(data['overview_polyline']);
+
     return DirectionsModel(
       bounds: bounds,
-      polylinePoints:
-          PolylinePoints().decodePolyline(data['overview_polyline']['points']),
+      polylinePoints: Utilities().decodeEncodedPolyline(
+          map["routes"][0]["overview_polyline"]["points"]),
       totalDistance: distance,
       totalDuration: duration,
     );

@@ -1,115 +1,160 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Polyline example',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.orange,
-      ),
-      home: MapScreen(),
-    );
-  }
-}
+import 'package:provider/provider.dart';
+import 'package:towrevo/models/directions_model.dart';
+import 'package:towrevo/view_model/get_location_view_model.dart';
 
 class MapScreen extends StatefulWidget {
+  const MapScreen({Key? key}) : super(key: key);
+
   @override
   _MapScreenState createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
-  GoogleMapController? mapController;
-  // double _originLatitude = 6.5212402, _originLongitude = 3.3679965;
-  // double _destLatitude = 6.849660, _destLongitude = 3.648190;
-  double _originLatitude = 24.8607, _originLongitude = 67.0011;
-  double _destLatitude = 25.3960, _destLongitude = 68.3578;
-  Map<MarkerId, Marker> markers = {};
-  Map<PolylineId, Polyline> polylines = {};
-  List<LatLng> polylineCoordinates = [];
-  PolylinePoints polylinePoints = PolylinePoints();
-  String googleAPiKey = "Please provide your api key";
+  Marker? _originMarker;
+  Marker? _destinationMarker;
+  DirectionsModel? info;
 
-  @override
-  void initState() {
-    super.initState();
-
-    /// origin marker
-    _addMarker(LatLng(_originLatitude, _originLongitude), "origin",
-        BitmapDescriptor.defaultMarker);
-
-    /// destination marker
-    _addMarker(LatLng(_destLatitude, _destLongitude), "destination",
-        BitmapDescriptor.defaultMarkerWithHue(90));
-    _getPolyline();
-  }
-
+  static const _initialCamperPosition =
+      CameraPosition(target: LatLng(25.3960, 68.357), zoom: 11.5);
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-            target: LatLng(_originLatitude, _originLongitude), zoom: 15),
-        myLocationEnabled: true,
-        tiltGesturesEnabled: true,
-        compassEnabled: true,
-        scrollGesturesEnabled: true,
-        zoomGesturesEnabled: true,
-        onMapCreated: _onMapCreated,
-        markers: Set<Marker>.of(markers.values),
-        polylines: Set<Polyline>.of(polylines.values),
-      )),
+    final mapViewModel =
+        Provider.of<GetLocationViewModel>(context, listen: false);
+
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          if (_originMarker != null)
+            TextButton(
+              onPressed: () {
+                _googleMapController!.animateCamera(
+                  CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: _originMarker!.position,
+                      tilt: 50.0,
+                      zoom: 14.5,
+                    ),
+                  ),
+                );
+              },
+              child: const Text('ORIGIN'),
+            ),
+          if (_destinationMarker != null)
+            TextButton(
+              onPressed: () {
+                _googleMapController!.animateCamera(
+                  CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: _destinationMarker!.position,
+                      tilt: 50.0,
+                      zoom: 14.5,
+                    ),
+                  ),
+                );
+              },
+              child: const Text('DESTINATION'),
+            ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          GoogleMap(
+            polylines: {
+              if (info != null)
+                Polyline(
+                  points: info!.polylinePoints
+                      .map((e) => LatLng(e.latitude, e.longitude))
+                      .toList(),
+                  color: Colors.red,
+                  width: 5,
+                  polylineId: const PolylineId('overview_polyline'),
+                ),
+            },
+            onLongPress: (latlng) => _addMarker(latlng, mapViewModel),
+            // zoomControlsEnabled: false,
+            myLocationButtonEnabled: false,
+            initialCameraPosition: _initialCamperPosition,
+            onMapCreated: (controller) => _googleMapController = controller,
+            markers: {
+              if (_originMarker != null) _originMarker!,
+              if (_destinationMarker != null) _destinationMarker!,
+            },
+          ),
+          if (info != null)
+            Positioned(
+              top: 20,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                    color: Colors.black26,
+                    borderRadius: BorderRadius.circular(20.0),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(0, 2),
+                        spreadRadius: 6.0,
+                      ),
+                    ]),
+                child: Text(
+                  '${info!.totalDistance}, ${info!.totalDuration}',
+                  style: const TextStyle(
+                      fontSize: 19.0, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _googleMapController!.animateCamera(
+          info != null
+              ? CameraUpdate.newLatLngBounds(info!.bounds, 100.0)
+              : CameraUpdate.newCameraPosition(_initialCamperPosition),
+        ),
+        child: const Icon(Icons.directions),
+      ),
     );
   }
 
-  void _onMapCreated(GoogleMapController controller) async {
-    mapController = controller;
-  }
-
-  _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
-    MarkerId markerId = MarkerId(id);
-    Marker marker =
-        Marker(markerId: markerId, icon: descriptor, position: position);
-    markers[markerId] = marker;
-  }
-
-  _addPolyLine() {
-    PolylineId id = PolylineId("poly");
-    Polyline polyline = Polyline(
-        polylineId: id, color: Colors.red, points: polylineCoordinates);
-    polylines[id] = polyline;
-    setState(() {});
-  }
-
-  _getPolyline() async {
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        googleAPiKey,
-        PointLatLng(_originLatitude, _originLongitude),
-        PointLatLng(_destLatitude, _destLongitude),
-        travelMode: TravelMode.driving,
-        wayPoints: [PolylineWayPoint(location: "Sabo, Yaba Lagos Nigeria")]);
-    print(result.points);
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+  _addMarker(LatLng latLng, GetLocationViewModel mapViewModel) async {
+    if (_originMarker == null ||
+        (_originMarker != null && _destinationMarker != null)) {
+      setState(() {
+        _originMarker = Marker(
+          markerId: const MarkerId('origin'),
+          position: latLng,
+          infoWindow: const InfoWindow(title: 'Origin'),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+        );
       });
+      _destinationMarker = null;
+      info = null;
+    } else {
+      setState(() {
+        _destinationMarker = Marker(
+          markerId: const MarkerId('destination'),
+          position: latLng,
+          infoWindow: const InfoWindow(title: 'Destination'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+        );
+      });
+
+      await mapViewModel.getDirections(
+          origin: _originMarker!.position,
+          destination: _destinationMarker!.position);
+
+     
     }
-    _addPolyLine();
+  }
+
+  GoogleMapController? _googleMapController;
+
+  @override
+  void dispose() {
+    _googleMapController!.dispose();
+    super.dispose();
   }
 }
