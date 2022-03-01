@@ -1,8 +1,8 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PlaceDetailModel {
-   String placeAddress;
-   LatLng placeLocation;
+  String placeAddress;
+  LatLng placeLocation;
   PlaceDetailModel({
     required this.placeAddress,
     required this.placeLocation,
@@ -20,8 +20,8 @@ class PlaceDetailModel {
     return PlaceDetailModel(
       placeAddress: '',
       placeLocation: const LatLng(
-        24.8607,
-        67.0011,
+        37.0902,
+        95.7129,
       ),
     );
   }

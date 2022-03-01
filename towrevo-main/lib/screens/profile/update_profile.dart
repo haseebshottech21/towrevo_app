@@ -19,6 +19,7 @@ import 'package:towrevo/widgets/form_button_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
+import '../users/user_location_screen.dart';
 import '/error_getter.dart';
 import '../get_location_screen.dart';
 
@@ -471,8 +472,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   // print(getLocation.getAddress);
                                   return InkWell(
                                     onTap: () async {
+                                      // Navigator.of(context).pushNamed(
+                                      //   GetLocationScreen.routeName,
+                                      // );
                                       Navigator.of(context).pushNamed(
-                                        GetLocationScreen.routeName,
+                                        UserLocationScreen.routeName,
+                                        arguments: true,
                                       );
                                     },
                                     child: FadeInDown(
@@ -513,8 +518,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                                           .width *
                                                       0.65,
                                                   child: Text(
-                                                    getLocation
-                                                            .getMyAddress.isEmpty
+                                                    getLocation.getMyAddress
+                                                            .isEmpty
                                                         ? 'Get Location'
                                                         : getLocation
                                                             .getMyAddress,

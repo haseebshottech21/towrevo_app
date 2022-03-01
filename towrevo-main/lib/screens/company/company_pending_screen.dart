@@ -439,16 +439,16 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
         );
         getData();
       }
-      if (message.data['screen'] == 'decline_from_company') {
-        // Fluttertoast.showToast(msg: 'Decline From Company');
-        showSnackBar(
-          context: context,
-          title: 'Decline From Company',
-          labelText: '',
-          onPress: () {},
-        );
-        getData();
-      }
+      // if (message.data['screen'] == 'decline_from_company') {
+      //   // Fluttertoast.showToast(msg: 'Decline From Company');
+      //   showSnackBar(
+      //     context: context,
+      //     title: 'Decline From Company',
+      //     labelText: '',
+      //     onPress: () {},
+      //   );
+      //   getData();
+      // }
       if (message.data['screen'] == 'request') {
         await playSound();
         // Fluttertoast.showToast(msg: 'User Send Request');

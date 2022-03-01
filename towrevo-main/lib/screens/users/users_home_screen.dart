@@ -608,17 +608,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) async {
-        // print(message);
-        // print(message.data['screen']);
-        if (message.data['screen'] == 'decline_from_user') {
-          // Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
-          showSnackBar(
-            context: context,
-            title: 'Time Delayed Request Decline',
-            labelText: '',
-            onPress: () {},
-          );
-        }
+       
+        
         if (message.data['screen'] == 'accept') {
           // print(message.data['name']);
 

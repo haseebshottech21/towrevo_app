@@ -140,8 +140,11 @@ class _DistanceScreenState extends State<DistanceScreen> {
 
   _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
     MarkerId markerId = MarkerId(id);
-    Marker marker =
-        Marker(markerId: markerId, icon: descriptor, position: position);
+    Marker marker = Marker(
+      markerId: markerId,
+      icon: descriptor,
+      position: position,
+    );
     markers[markerId] = marker;
   }
 
@@ -163,7 +166,7 @@ class _DistanceScreenState extends State<DistanceScreen> {
     //     polylineCoordinates.add(LatLng(point.latitude, point.longitude));
     //   });
     // }
-    // _addPolyLine();
+    _addPolyLine();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleAPiKey,
       PointLatLng(originLatitude, originLongitude),
