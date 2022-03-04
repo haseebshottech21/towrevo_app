@@ -588,6 +588,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       final locationProvider =
           Provider.of<GetLocationViewModel>(context, listen: false);
       locationProvider.myCurrentLocation.placeAddress = '';
+      locationProvider.myDestinationLocation.placeAddress = '';
       //services e.g car, bike
       // get current location
       await locationProvider.getCurrentLocation(context);

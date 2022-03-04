@@ -166,12 +166,14 @@ class _DistanceScreenState extends State<DistanceScreen> {
     //     polylineCoordinates.add(LatLng(point.latitude, point.longitude));
     //   });
     // }
+
     _addPolyLine();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleAPiKey,
       PointLatLng(originLatitude, originLongitude),
       PointLatLng(destLatitude, destLongitude),
     );
+    print(result);
     if (result.points.isNotEmpty) {
       for (var point in result.points) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));

@@ -10,6 +10,7 @@ import 'package:towrevo/widgets/job_completed_dailogbox.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
 
 import '../../utilities.dart';
+import '../../view_model/get_location_view_model.dart';
 
 class CompanyOngoingList extends StatefulWidget {
   const CompanyOngoingList({Key? key}) : super(key: key);
@@ -19,6 +20,18 @@ class CompanyOngoingList extends StatefulWidget {
 }
 
 class _CompanyOngoingListState extends State<CompanyOngoingList> {
+
+  bool initial = true;
+  @override
+  void didChangeDependencies() {
+    if (initial) {
+      Provider.of<GetLocationViewModel>(context, listen: false)
+          .getCurrentLocation(context);
+    }
+    initial = false;
+
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     final provider =
@@ -85,9 +98,11 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                       shrinkWrap: true,
                       itemCount: provider.onGoingRequestsList.length,
                       itemBuilder: (context, index) {
-                        print(
-                            provider.onGoingRequestsList[index].notificationId);
                         return JobCompleteCard(
+                          reqOriginLatitude:
+                              provider.onGoingRequestsList[index].latitude,
+                          reqOriginLongitude:
+                              provider.onGoingRequestsList[index].longitude,
                           userName: provider.onGoingRequestsList[index].name,
                           userDistance: '0.0',
                           profileImage: provider
@@ -107,16 +122,6 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                           probText:
                               provider.onGoingRequestsList[index].description,
                           completeOnPressed: () {
-                            // await CompanyHomeScreenViewModel()
-                            //     .acceptDeclineOrDone(
-                            //   '1',
-                            //   provider.requestServiceList[index].id,
-                            //   context,
-                            //   notificationId: provider
-                            //       .requestServiceList[index].notificationId,
-                            // );
-                            print(provider
-                                .onGoingRequestsList[index].notificationId);
                             showDialog(
                               context: context,
                               barrierDismissible: false,
@@ -148,7 +153,6 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
   }
 
   Future<void> getData() async {
-    print('in data');
     final provider =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
     await provider.getOnGoingRequests();

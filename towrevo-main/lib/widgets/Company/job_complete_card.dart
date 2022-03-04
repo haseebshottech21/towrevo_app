@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
+import 'package:towrevo/screens/company/distance_screen.dart';
+
+
 
 class JobCompleteCard extends StatefulWidget {
   final String userName;
@@ -7,6 +11,8 @@ class JobCompleteCard extends StatefulWidget {
   final String serviceType;
   final String pickLocation;
   final String dropLocation;
+  final String reqOriginLatitude;
+  final String reqOriginLongitude;
   final String probText;
   final Widget profileImage;
   final void Function()? completeOnPressed;
@@ -16,6 +22,8 @@ class JobCompleteCard extends StatefulWidget {
     required this.serviceType,
     required this.dropLocation,
     required this.pickLocation,
+    required this.reqOriginLatitude,
+    required this.reqOriginLongitude,
     required this.probText,
     required this.profileImage,
     required this.completeOnPressed,
@@ -336,16 +344,13 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                       ),
                     ),
                     onPressed: () {
-                      // Navigator.of(context).pushNamed(
-                      //   MapDistanceScreen.routeName,
-                      //   arguments: LatLng(
-                      //     double.parse(
-                      //         provider.requestServiceList[index].latitude),
-                      //     double.parse(
-                      //       provider.requestServiceList[index].longitude,
-                      //     ),
-                      //   ),
-                      // );
+                      Navigator.of(context).pushNamed(
+                        DistanceScreen.routeName,
+                        arguments: LatLng(
+                          double.parse(widget.reqOriginLatitude),
+                          double.parse(widget.reqOriginLongitude),
+                        ),
+                      );
                     },
                     child: const Text(
                       'Get Direction',

@@ -3,10 +3,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
-import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/widgets/Company/accept_decline_card.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
@@ -23,36 +21,11 @@ class CompanyPendingList extends StatefulWidget {
 }
 
 class _CompanyPendingListState extends State<CompanyPendingList> {
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   if (text.length > 50) {
-  //     firstHalf = text.substring(0, 50);
-  //     secondHalf = text.substring(50, text.length);
-  //   } else {
-  //     firstHalf = text;
-  //     secondHalf = "";
-  //   }
-
-  //   if (descText.length > 50) {
-  //     setState(() {
-  //       textExpand = true;
-  //     });
-  //   }
-  // }
-  @override
-  void didChangeDependencies() {
-    Provider.of<GetLocationViewModel>(context, listen: false)
-        .getCurrentLocation(context);
-    super.didChangeDependencies();
-  }
-
   @override
   Widget build(BuildContext context) {
     final provider =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: true);
-    print('listen success');
+
     return Stack(
       children: [
         const FullBackgroundImage(),

@@ -52,33 +52,7 @@ class _CompanyHistoryState extends State<CompanyHistory> {
             const FullBackgroundImage(),
             Column(
               children: [
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.start,
-                //     children: [
-                //       drawerIcon(
-                //         context,
-                //         () {
-                //           scaffoldKey.currentState!.openDrawer();
-                //         },
-                //       ),
-                //       const SizedBox(width: 50),
-                //       Center(
-                //         child: Text(
-                //           'MY HISTORY',
-                //           textAlign: TextAlign.center,
-                //           style: GoogleFonts.montserrat(
-                //             color: Colors.white,
-                //             fontWeight: FontWeight.w600,
-                //             fontSize: 28.0,
-                //             letterSpacing: 1,
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                
                 Row(
                   children: [
                     Align(

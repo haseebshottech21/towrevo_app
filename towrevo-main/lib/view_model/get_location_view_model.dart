@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -37,7 +38,7 @@ class GetLocationViewModel with ChangeNotifier {
       notifyListeners();
       Navigator.of(context).pop();
     } else {
-      print('Address is Empty');
+      Fluttertoast.showToast(msg: "Please select a location");
     }
   }
 
@@ -47,7 +48,7 @@ class GetLocationViewModel with ChangeNotifier {
       notifyListeners();
       Navigator.of(context).pop();
     } else {
-      print('Address is Empty');
+      Fluttertoast.showToast(msg: 'Please select a destination');
     }
   }
 
@@ -87,7 +88,7 @@ class GetLocationViewModel with ChangeNotifier {
             ', ' +
             address.country.toString())
         .replaceAll(', ,', ',');
-    print(placeMarks.first);
+    // print(placeMarks.first);
   }
 
   Future<void> getCurrentLocation(BuildContext context) async {

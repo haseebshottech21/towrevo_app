@@ -149,6 +149,7 @@ class _MyAppState extends State<MyApp> {
           GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
           DistanceScreen.routeName: (ctx) => const DistanceScreen(),
           UserLocationScreen.routeName: (ctx) => const UserLocationScreen(),
+           MapDistanceScreen.routeName: (ctx) => const  MapDistanceScreen(),
           AboutUs.routeName: (ctx) => const AboutUs(),
           FAQs.routeName: (ctx) => const FAQs(),
           ChangePassword.routeName: (ctx) => const ChangePassword(),
