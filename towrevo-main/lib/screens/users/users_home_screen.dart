@@ -541,8 +541,12 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
 
     if (serviceProvider.serviceSelectedValue == null ||
-        lngLatProvider.myCurrentLocation.placeAddress.isEmpty) {
+        lngLatProvider.myCurrentLocation.placeAddress.isEmpty ||
+        describeController.text.isEmpty) {
       Fluttertoast.showToast(msg: 'Please Fill Required Fields');
+      return;
+    } else if (describeController.text.length <= 3) {
+      Fluttertoast.showToast(msg: 'Describe problem length must be 3 char');
       return;
     }
     userHomeScreenProvider.body = {
@@ -550,6 +554,12 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           lngLatProvider.myCurrentLocation.placeLocation.longitude.toString(),
       'latitude':
           lngLatProvider.myCurrentLocation.placeLocation.latitude.toString(),
+      'dest_longitude': lngLatProvider
+          .myDestinationLocation.placeLocation.longitude
+          .toString(),
+      'dest_latitude': lngLatProvider
+          .myDestinationLocation.placeLocation.latitude
+          .toString(),
       'time': DateFormat('kk:mm').format(now),
       'day': await Utilities().dayToInt(
         DateFormat('EEEE').format(now),
@@ -558,7 +568,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           .firstWhere((element) =>
               element.name == serviceProvider.serviceSelectedValue!)
           .id,
-      'address': lngLatProvider.myCurrentLocation.placeAddress
+      'address': lngLatProvider.myCurrentLocation.placeAddress,
+      'dest_address': lngLatProvider.myDestinationLocation.placeAddress,
+      'description': describeController.text.trim()
     };
     Navigator.of(context).pushNamed(ListingOfCompaniesScreen.routeName);
   }
@@ -608,8 +620,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) async {
-       
-        
         if (message.data['screen'] == 'accept') {
           // print(message.data['name']);
 

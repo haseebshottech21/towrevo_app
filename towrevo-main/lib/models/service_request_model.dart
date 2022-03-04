@@ -10,6 +10,10 @@ class ServiceRequestModel {
   String longitude;
   String latitude;
   String address;
+  String destLongitude;
+  String destLatitude;
+  String destAddress;
+  String description;
   int status;
   String notificationId;
   String name;
@@ -25,6 +29,10 @@ class ServiceRequestModel {
     required this.latitude,
     required this.address,
     required this.serviceId,
+    required this.destLongitude,
+    required this.destLatitude,
+    required this.destAddress,
+    required this.description,
     required this.serviceName,
     required this.status,
     required this.notificationId,
@@ -41,6 +49,10 @@ class ServiceRequestModel {
       longitude: json['longitude'].toString(),
       latitude: json['latitude'].toString(),
       address: json['address'].toString(),
+      destLongitude: json['dest_longitude'] ?? '',
+      destLatitude: json['dest_latitude'] ?? '',
+      destAddress: json['dest_address'] ?? '',
+      description: json['description'] ?? ''.toString(),
       companyId: json['company_id'].toString(),
       serviceId: json['service']['id'].toString(),
       serviceName: json['service']['name'],

@@ -30,6 +30,7 @@ import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
 import 'package:towrevo/view_model/register_user_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
+import 'package:towrevo/widgets/Company/animated_card.dart';
 import 'screens/users/listing_of_companies_screen.dart';
 import '/screens/users/users_home_screen.dart';
 import 'screens/authentication/signup_user/register_user_screen.dart';
@@ -124,7 +125,7 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
         home: const SplashScreen(),
-        // home: const MapDirection(),
+        // home: const AnimCard(),
 
         // home: const CompanyHomeScreen(),
         routes: {

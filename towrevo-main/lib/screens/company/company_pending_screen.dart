@@ -2,22 +2,18 @@ import 'package:animate_do/animate_do.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/screens/get_location_screen.dart';
+import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/utilities.dart';
-// import 'package:towrevo/screens/map_distance_screen.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 import 'package:towrevo/widgets/Company/accept_decline_card.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
+import 'package:towrevo/widgets/empty_profile.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
-// import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:towrevo/widgets/show_snackbar.dart';
-// import '../../utilities.dart';
 
 class CompanyPendingList extends StatefulWidget {
   const CompanyPendingList({Key? key}) : super(key: key);
@@ -54,9 +50,6 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
 
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(Duration.zero, () async {
-    //   await playSound();
-    // });
     final provider =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: true);
     print('listen success');
@@ -64,38 +57,39 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
       children: [
         const FullBackgroundImage(),
         SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
           child: Column(
             children: [
               const SizedBox(
                 height: 10,
               ),
-              // const Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 15),
-              //   child: Align(
-              //     alignment: Alignment.centerLeft,
-              //     child: Text(
-              //       'Pending',
-              //       style: TextStyle(
-              //         fontSize: 22.0,
-              //         color: Colors.white,
-              //         fontWeight: FontWeight.w700,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               // AcceptDeclineCardItem(
               //   userName: 'Name',
               //   userDistance: '0.0',
-              //   profileImage: const CircleAvatar(
-              //     backgroundColor: Colors.black,
-              //     child: Icon(
-              //       Icons.home_work_outlined,
+              //   // profileImage: const CircleAvatar(
+              //   //   backgroundColor: Colors.black,
+              //   //   child: Icon(
+              //   //     Icons.home_work_outlined,
+              //   //     color: Colors.white,
+              //   //   ),
+              //   // ),
+              //   profileImage: Container(
+              //     height: 50,
+              //     width: 50,
+              //     decoration: BoxDecoration(
+              //       boxShadow: kElevationToShadow[2],
+              //       color: AppColors.primaryColor,
+              //       borderRadius: BorderRadius.circular(8),
+              //     ),
+              //     child: const Icon(
+              //       Icons.person,
+              //       size: 30,
               //       color: Colors.white,
               //     ),
               //   ),
               //   serviceType: 'CAR',
               //   probText:
-              //       'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using, making it look like readable English.',
+              //       'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout',
               //   pickLocation:
               //       'Business Avenue, PECHS, Karachi, Sindh, Pakistan',
               //   dropLocation:
@@ -103,7 +97,6 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
               //   acceptOnPressed: () async {},
               //   declineOnPressed: () async {},
               // ),
-
               (provider.isLoading || provider.requestServiceList.isEmpty)
                   ? Align(
                       alignment: Alignment.center,
@@ -122,6 +115,7 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                       height: MediaQuery.of(context).size.height,
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
+                        physics: const ClampingScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: provider.requestServiceList.length,
                         itemBuilder: (context, index) {
@@ -133,31 +127,26 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                               userDistance: '0.0',
                               profileImage: provider.requestServiceList[index]
                                       .image.isNotEmpty
-                                  ? profileImageCircle(
+                                  ? profileImageSquare(
                                       context,
                                       Utilities.imageBaseUrl +
                                           provider
                                               .requestServiceList[index].image,
                                     )
-                                  : const CircleAvatar(
-                                      backgroundColor: Colors.black,
-                                      child: Icon(
-                                        Icons.home_work_outlined,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                              serviceType: 'CAR',
+                                  : const EmptyProfile(),
+                              serviceType: provider
+                                  .requestServiceList[index].serviceName,
                               pickLocation:
                                   provider.requestServiceList[index].address,
-                              dropLocation:
-                                  provider.requestServiceList[index].address,
+                              dropLocation: provider
+                                  .requestServiceList[index].destAddress,
                               // showMoreTap: () {
                               //   setState(() {
                               //     isExpanded = !isExpanded;
                               //   });
                               // },
-                              probText:
-                                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+                              probText: provider
+                                  .requestServiceList[index].description,
                               acceptOnPressed: () async {
                                 await CompanyHomeScreenViewModel()
                                     .acceptDeclineOrDone(
@@ -171,195 +160,20 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                               declineOnPressed: () async {
                                 await CompanyHomeScreenViewModel()
                                     .acceptDeclineOrDone(
-                                        '2',
-                                        provider.requestServiceList[index].id,
-                                        context,
-                                        notificationId: provider
-                                            .requestServiceList[index]
-                                            .notificationId);
+                                  '2',
+                                  provider.requestServiceList[index].id,
+                                  context,
+                                  notificationId: provider
+                                      .requestServiceList[index].notificationId,
+                                );
                               },
-                              pickuplatLng: LatLng(
-                                double.parse(provider
-                                    .requestServiceList[index].latitude),
-                                double.parse(provider
-                                    .requestServiceList[index].longitude),
-                              ),
+                              // pickuplatLng: LatLng(
+                              //   double.parse(provider
+                              //       .requestServiceList[index].latitude),
+                              //   double.parse(provider
+                              //       .requestServiceList[index].longitude),
+                              // ),
                             ),
-
-                            // Card(
-                            //   elevation: 5,
-                            //   shadowColor: Colors.black,
-                            //   shape: RoundedRectangleBorder(
-                            //     borderRadius: BorderRadius.circular(15.0),
-                            //   ),
-                            //   margin: const EdgeInsets.only(
-                            //       left: 10, right: 10, top: 10),
-                            //   child: Padding(
-                            //     padding: const EdgeInsets.only(
-                            //       left: 15,
-                            //       right: 10,
-                            //       top: 15,
-                            //     ),
-                            //     child: Column(
-                            //       children: [
-                            //         Row(
-                            //           children: [
-                            //             Flexible(
-                            //               fit: FlexFit.tight,
-                            //               flex: 9,
-                            //               child: Column(
-                            //                 children: [
-                            //                   // Container(
-                            //                   //   alignment: Alignment.centerLeft,
-                            //                   //   child: Text('acas'),
-                            //                   // ),
-                            //                   Container(
-                            //                     alignment: Alignment.centerLeft,
-                            //                     child: Text(
-                            //                       provider
-                            //                           .requestServiceList[index]
-                            //                           .name,
-                            //                       style: const TextStyle(
-                            //                         fontSize: 20,
-                            //                         fontWeight: FontWeight.bold,
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //                 ],
-                            //               ),
-                            //             ),
-                            //             provider.requestServiceList[index].image
-                            //                     .isNotEmpty
-                            //                 ? profileImageCircle(
-                            //                     context,
-                            //                     Utilities.imageBaseUrl +
-                            //                         provider
-                            //                             .requestServiceList[
-                            //                                 index]
-                            //                             .image)
-                            //                 : const Flexible(
-                            //                     fit: FlexFit.tight,
-                            //                     flex: 1,
-                            //                     child: CircleAvatar(
-                            //                       backgroundColor: Colors.black,
-                            //                       child: Icon(
-                            //                         Icons.home_work_outlined,
-                            //                         color: Colors.white,
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //           ],
-                            //         ),
-                            //         const SizedBox(
-                            //           height: 5,
-                            //         ),
-                            //         Align(
-                            //           alignment: Alignment.topLeft,
-                            //           child: SizedBox(
-                            //             width:
-                            //                 MediaQuery.of(context).size.width *
-                            //                     0.75,
-                            //             child: Text(
-                            //               provider.requestServiceList[index]
-                            //                   .address,
-                            //               textAlign: TextAlign.start,
-                            //               maxLines: 3,
-                            //               overflow: TextOverflow.ellipsis,
-                            //             ),
-                            //           ),
-                            //         ),
-                            //         Row(
-                            //           mainAxisAlignment:
-                            //               MainAxisAlignment.spaceBetween,
-                            //           children: [
-                            //             TextButton(
-                            //               style: TextButton.styleFrom(
-                            //                 padding: EdgeInsets.zero,
-                            //               ),
-                            //               onPressed: () {
-                            //                 Navigator.of(context).pushNamed(
-                            //                     MapDistanceScreen.routeName,
-                            //                     arguments: LatLng(
-                            //                         double.parse(provider
-                            //                             .requestServiceList[
-                            //                                 index]
-                            //                             .latitude),
-                            //                         double.parse(
-                            //                           provider
-                            //                               .requestServiceList[
-                            //                                   index]
-                            //                               .longitude,
-                            //                         )));
-                            //               },
-                            //               child: const Text('Get Directions'),
-                            //             ),
-                            //             SizedBox(
-                            //               width: 135,
-                            //               child: Row(
-                            //                 children: [
-                            //                   TextButton(
-                            //                     style: TextButton.styleFrom(
-                            //                       padding: EdgeInsets.zero,
-                            //                     ),
-                            //                     onPressed: () async {
-                            //                       await CompanyHomeScreenViewModel()
-                            //                           .acceptDeclineOrDone(
-                            //                         '1',
-                            //                         provider
-                            //                             .requestServiceList[
-                            //                                 index]
-                            //                             .id,
-                            //                         context,
-                            //                         notificationId: provider
-                            //                             .requestServiceList[
-                            //                                 index]
-                            //                             .notificationId,
-                            //                       );
-                            //                     },
-                            //                     child: const Text(
-                            //                       'Accept',
-                            //                       style: TextStyle(
-                            //                         color: Colors.green,
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //                   const SizedBox(
-                            //                     width: 5,
-                            //                   ),
-                            //                   TextButton(
-                            //                     style: TextButton.styleFrom(
-                            //                       padding: EdgeInsets.zero,
-                            //                     ),
-                            //                     onPressed: () async {
-                            //                       await CompanyHomeScreenViewModel()
-                            //                           .acceptDeclineOrDone(
-                            //                               '2',
-                            //                               provider
-                            //                                   .requestServiceList[
-                            //                                       index]
-                            //                                   .id,
-                            //                               context,
-                            //                               notificationId: provider
-                            //                                   .requestServiceList[
-                            //                                       index]
-                            //                                   .notificationId);
-                            //                     },
-                            //                     child: const Text(
-                            //                       'Decline',
-                            //                       style: TextStyle(
-                            //                         color: Colors.red,
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //                 ],
-                            //               ),
-                            //             )
-                            //           ],
-                            //         ),
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
                           );
                         },
                       ),

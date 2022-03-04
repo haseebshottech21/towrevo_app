@@ -4,6 +4,7 @@ import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/widgets/Company/job_complete_card.dart';
 import 'package:towrevo/widgets/Loaders/no_user.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
+import 'package:towrevo/widgets/empty_profile.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/job_completed_dailogbox.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
@@ -78,63 +79,57 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                               ),
                       ),
                     )
-                  : SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: provider.onGoingRequestsList.length,
-                        itemBuilder: (context, index) {
-                          print(provider
-                              .onGoingRequestsList[index].notificationId);
-                          return JobCompleteCard(
-                            userName: provider.onGoingRequestsList[index].name,
-                            userDistance: '0.0',
-                            profileImage: provider
-                                    .onGoingRequestsList[index].image.isNotEmpty
-                                ? profileImageCircle(
-                                    context,
-                                    Utilities.imageBaseUrl +
-                                        provider
-                                            .onGoingRequestsList[index].image,
-                                  )
-                                : const CircleAvatar(
-                                    backgroundColor: Colors.black,
-                                    child: Icon(
-                                      Icons.home_work_outlined,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                            serviceType: 'CAR',
-                            pickLocation:
-                                provider.onGoingRequestsList[index].address,
-                            dropLocation:
-                                provider.onGoingRequestsList[index].address,
-                            completeOnPressed: () {
-                              // await CompanyHomeScreenViewModel()
-                              //     .acceptDeclineOrDone(
-                              //   '1',
-                              //   provider.requestServiceList[index].id,
-                              //   context,
-                              //   notificationId: provider
-                              //       .requestServiceList[index].notificationId,
-                              // );
-                              print(provider
-                                  .onGoingRequestsList[index].notificationId);
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (ctxt) => completeJobDialogbox(
-                                  ctxt,
-                                  provider.onGoingRequestsList[index].id,
-                                  provider.onGoingRequestsList[index]
-                                      .notificationId,
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
+                  : ListView.builder(
+                      physics: const ClampingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: provider.onGoingRequestsList.length,
+                      itemBuilder: (context, index) {
+                        print(
+                            provider.onGoingRequestsList[index].notificationId);
+                        return JobCompleteCard(
+                          userName: provider.onGoingRequestsList[index].name,
+                          userDistance: '0.0',
+                          profileImage: provider
+                                  .onGoingRequestsList[index].image.isNotEmpty
+                              ? profileImageSquare(
+                                  context,
+                                  Utilities.imageBaseUrl +
+                                      provider.onGoingRequestsList[index].image,
+                                )
+                              : const EmptyProfile(),
+                          serviceType:
+                              provider.onGoingRequestsList[index].serviceName,
+                          pickLocation:
+                              provider.onGoingRequestsList[index].address,
+                          dropLocation:
+                              provider.onGoingRequestsList[index].destAddress,
+                          probText:
+                              provider.onGoingRequestsList[index].description,
+                          completeOnPressed: () {
+                            // await CompanyHomeScreenViewModel()
+                            //     .acceptDeclineOrDone(
+                            //   '1',
+                            //   provider.requestServiceList[index].id,
+                            //   context,
+                            //   notificationId: provider
+                            //       .requestServiceList[index].notificationId,
+                            // );
+                            print(provider
+                                .onGoingRequestsList[index].notificationId);
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (ctxt) => completeJobDialogbox(
+                                ctxt,
+                                provider.onGoingRequestsList[index].id,
+                                provider
+                                    .onGoingRequestsList[index].notificationId,
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
             ],
           ),

@@ -38,18 +38,27 @@ class UserWebService {
   }
 
   Future<dynamic> sendRequestToCompany(
-      String longitude,
-      String latitude,
-      String address,
-      String serviceId,
-      String companyId,
-      String notificationId) async {
+    String longitude,
+    String latitude,
+    String address,
+    String destLongitude,
+    String destLatitude,
+    String destAddress,
+    String description,
+    String serviceId,
+    String companyId,
+    String notificationId,
+  ) async {
     print({
       'service_id': serviceId,
       'company_id': companyId,
       'longitude': longitude,
       'latitude': latitude,
       'address': address,
+      'dest_longitude': destLongitude,
+      'dest_latitude': destLatitude,
+      'dest_address': destAddress,
+      'description': description,
     });
     final response = await http.post(
         Uri.parse(
@@ -62,6 +71,10 @@ class UserWebService {
           'longitude': longitude,
           'latitude': latitude,
           'address': address,
+          'dest_longitude': destLongitude,
+          'dest_latitude': destLatitude,
+          'dest_address': destAddress,
+          'description': description,
         });
     print(response.body);
     if (response.statusCode == 200) {

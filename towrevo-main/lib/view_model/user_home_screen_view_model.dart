@@ -151,16 +151,31 @@ class UserHomeScreenViewModel with ChangeNotifier {
   }
 
   Future<void> requestToCompany(
-      BuildContext context,
-      String longitude,
-      String latitude,
-      String address,
-      String serviceId,
-      String companyId,
-      String notificationId) async {
+    BuildContext context,
+    String longitude,
+    String latitude,
+    String address,
+    String destLongitude,
+    String destLatitude,
+    String destAddress,
+    String description,
+    String serviceId,
+    String companyId,
+    String notificationId,
+  ) async {
     // changeLoadingStatus(true);
     final response = await UserWebService().sendRequestToCompany(
-        longitude, latitude, address, serviceId, companyId, notificationId);
+      longitude,
+      latitude,
+      address,
+      destLongitude,
+      destLatitude,
+      destAddress,
+      description,
+      serviceId,
+      companyId,
+      notificationId,
+    );
     // changeLoadingStatus(false);
     if (response != null) {
       showDialog(

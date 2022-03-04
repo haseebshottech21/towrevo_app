@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 
 Container profileImageCircle(BuildContext context, String image) {
   print(image);
@@ -31,5 +32,25 @@ Container profileImageCircle(BuildContext context, String image) {
     //     fit: BoxFit.cover,
     //   ),
     // ),
+  );
+}
+
+Container profileImageSquare(BuildContext context, String image) {
+  return Container(
+    height: 55,
+    width: 55,
+    decoration: BoxDecoration(
+      boxShadow: kElevationToShadow[2],
+      color: AppColors.primaryColor,
+      borderRadius: BorderRadius.circular(8),
+      // border: Border.all(
+      //   color: AppColors.primaryColor,
+      //   width: 0,
+      // ),
+      image: DecorationImage(
+        image: NetworkImage(image),
+        fit: BoxFit.cover,
+      ),
+    ),
   );
 }
