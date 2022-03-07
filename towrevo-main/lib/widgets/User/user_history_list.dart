@@ -37,16 +37,7 @@ class UserHistoryList extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    // CircleAvatar(
-                    //   backgroundColor: Colors.black,
-                    //   backgroundImage: NetworkImage(
-                    //     companyImage,
-                    //   ),
-                    //   radius: 25,
-                    // ),
-                    // const SizedBox(
-                    //   width: 15,
-                    // ),
+                 
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -325,12 +325,12 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                 ),
                 child: Column(
                   children: [
+                    // const SizedBox(
+                    //   height: 15,
+                    // ),
+                    // const TowrevoLogo(),
                     const SizedBox(
-                      height: 15,
-                    ),
-                    const TowrevoLogo(),
-                    const SizedBox(
-                      height: 20,
+                      height: 70,
                     ),
                     Text(
                       'PICKUP LOCATION',
@@ -465,55 +465,96 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                     const SizedBox(
                       height: 10,
                     ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: kElevationToShadow[10],
+                        gradient: const LinearGradient(
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                          stops: [0.1, 0.5],
+                          colors: [
+                            Color(0xFF0195f7),
+                            Color(0xFF083054),
+                          ],
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          navigateUserHomeScreen();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          shadowColor: Colors.transparent,
+                          primary: Colors.transparent,
+                          minimumSize: Size(
+                            MediaQuery.of(context).size.width * 0.92,
+                            50,
+                          ),
+                        ),
+                        child: Text(
+                          'NEXT',
+                          style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20.0,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Positioned(
-                bottom: 20,
-                left: 20,
-                right: 20,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: kElevationToShadow[10],
-                    gradient: const LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topRight,
-                      stops: [0.1, 0.5],
-                      colors: [
-                        Color(0xFF0195f7),
-                        Color(0xFF083054),
-                      ],
-                    ),
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      navigateUserHomeScreen();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      shadowColor: Colors.transparent,
-                      primary: Colors.transparent,
-                      minimumSize: Size(
-                        MediaQuery.of(context).size.width * 0.90,
-                        50,
-                      ),
-                    ),
-                    child: Text(
-                      'NEXT',
-                      style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 20.0,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // Positioned(
+              //   bottom: 20,
+              //   left: 20,
+              //   right: 20,
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(30),
+              //       boxShadow: kElevationToShadow[10],
+              //       gradient: const LinearGradient(
+              //         begin: Alignment.bottomLeft,
+              //         end: Alignment.topRight,
+              //         stops: [0.1, 0.5],
+              //         colors: [
+              //           Color(0xFF0195f7),
+              //           Color(0xFF083054),
+              //         ],
+              //       ),
+              //     ),
+              //     child: ElevatedButton(
+              //       onPressed: () {
+              //         navigateUserHomeScreen();
+              //       },
+              //       style: ElevatedButton.styleFrom(
+              //         elevation: 10,
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(30.0),
+              //         ),
+              //         shadowColor: Colors.transparent,
+              //         primary: Colors.transparent,
+              //         minimumSize: Size(
+              //           MediaQuery.of(context).size.width * 0.90,
+              //           50,
+              //         ),
+              //       ),
+              //       child: Text(
+              //         'NEXT',
+              //         style: GoogleFonts.montserrat(
+              //           color: Colors.white,
+              //           fontWeight: FontWeight.w400,
+              //           fontSize: 20.0,
+              //           letterSpacing: 1,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Consumer<ServicesAndDaysViewModel>(
                 builder: (ctx, loginViewMode, neverUpdate) {
                   return loginViewMode.isLoading
