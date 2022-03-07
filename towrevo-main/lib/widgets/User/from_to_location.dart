@@ -142,43 +142,46 @@ class FromToLocation extends StatelessWidget {
   }) {
     return GestureDetector(
       onTap: onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.65,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: AppColors.primaryColor2,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+      child: Container(
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.65,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: AppColors.primaryColor2,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  location,
-                  // : getLocation.getAddress,
-                  style: GoogleFonts.montserrat(
-                    color: Colors.black87,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                  const SizedBox(height: 3),
+                  Text(
+                    location,
+                    // : getLocation.getAddress,
+                    style: GoogleFonts.montserrat(
+                      color: Colors.black87,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          // Icon(
-          //   Icons.map,
-          //   size: 25,
-          //   color: AppColors.primaryColor,
-          // ),
-        ],
+            // Icon(
+            //   Icons.map,
+            //   size: 25,
+            //   color: AppColors.primaryColor,
+            // ),
+          ],
+        ),
       ),
     );
   }

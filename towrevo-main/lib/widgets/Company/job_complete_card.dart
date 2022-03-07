@@ -3,8 +3,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/screens/company/distance_screen.dart';
 
-
-
 class JobCompleteCard extends StatefulWidget {
   final String userName;
   final String userDistance;
@@ -199,7 +197,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                 setState(() {
                                   widget.dropLocation.isEmpty
                                       ? animHeight = 300
-                                      : animHeight = 180;
+                                      : animHeight = 200;
                                   animHeightmain = animHeightmain +
                                       (widget.dropLocation.isEmpty
                                           ? animHeight / 2

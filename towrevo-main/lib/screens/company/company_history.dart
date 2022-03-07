@@ -52,7 +52,6 @@ class _CompanyHistoryState extends State<CompanyHistory> {
             const FullBackgroundImage(),
             Column(
               children: [
-                
                 Row(
                   children: [
                     Align(

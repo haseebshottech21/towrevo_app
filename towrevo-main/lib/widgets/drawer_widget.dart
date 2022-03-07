@@ -36,8 +36,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       (value) async {
         final provider =
             Provider.of<UserHomeScreenViewModel>(context, listen: false);
+
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
             .checkOnlineStatus();
+
         provider.updateDrawerInfo();
         type = await provider.getType();
       },
@@ -98,6 +100,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         ? const SizedBox()
                         : Consumer<CompanyHomeScreenViewModel>(
                             builder: (ctx, companyViewModel, neverBuildChild) {
+                              // print(companyViewModel.isSwitched);
                               return SwitchListTile(
                                 title: Text(
                                   !companyViewModel.isSwitched

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/screens/users/user_location_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/screens/users/listing_of_companies_screen.dart';
@@ -20,7 +21,8 @@ import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/drawer_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/show_snackbar.dart';
-import '/widgets/towrevo_logo.dart';
+import 'package:towrevo/widgets/towrevo_logo.dart';
+// import '/widgets/towrevo_logo.dart';
 
 class UsersHomeScreen extends StatefulWidget {
   const UsersHomeScreen({Key? key}) : super(key: key);
@@ -318,6 +320,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                 },
               ),
               Container(
+                margin: const EdgeInsets.only(top: 15),
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 15.0,
@@ -325,13 +328,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                 ),
                 child: Column(
                   children: [
-                    // const SizedBox(
-                    //   height: 15,
-                    // ),
-                    // const TowrevoLogo(),
-                    const SizedBox(
-                      height: 70,
-                    ),
+                    const TowrevoLogoExtraSmall(),
+                    const SizedBox(height: 8),
                     Text(
                       'PICKUP LOCATION',
                       textAlign: TextAlign.center,
@@ -387,7 +385,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                               return FromToLocation(
                                 fromLocationText:
                                     getLocation.getMyAddress.isEmpty
-                                        ? 'Get Location'
+                                        ? 'Pickup Location'
                                         : getLocation.getMyAddress,
                                 fromOnTap: () {
                                   Navigator.of(context).pushNamed(
@@ -397,7 +395,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                                 },
                                 toLocationText:
                                     getLocation.getDestinationAddress.isEmpty
-                                        ? 'Get Location'
+                                        ? 'Drop Location'
                                         : getLocation.getDestinationAddress,
                                 toOnTap: () {
                                   Navigator.of(context).pushNamed(
@@ -417,7 +415,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                             children: [
                               const SizedBox(width: 5),
                               const Icon(
-                                FontAwesomeIcons.th,
+                                FontAwesomeIcons.car,
                                 color: Colors.white,
                                 size: 20.0,
                               ),
@@ -437,18 +435,27 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                                   return DropdownButtonHideUnderline(
                                     child: DropdownButton<String>(
                                       hint: Text(
-                                        'Select Category',
+                                        'Select Vehicle',
                                         style: GoogleFonts.montserrat(
-                                          color: Colors.black,
-                                          fontSize: 14,
+                                          color: Colors.black54,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
+                                      // dropdownColor: AppColors.primaryColor2,
+                                      iconEnabledColor: AppColors.primaryColor2,
                                       value: service.serviceSelectedValue,
                                       items:
                                           service.serviceListViewModel.map((e) {
                                         return DropdownMenuItem(
                                           value: e.name,
-                                          child: Text(e.name),
+                                          child: Text(
+                                            e.name,
+                                            style: GoogleFonts.montserrat(
+                                              color: Colors.black,
+                                              // fontSize: 14,
+                                            ),
+                                          ),
                                         );
                                       }).toList(),
                                       onChanged: (value) => service
@@ -463,7 +470,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -491,7 +498,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                           shadowColor: Colors.transparent,
                           primary: Colors.transparent,
                           minimumSize: Size(
-                            MediaQuery.of(context).size.width * 0.92,
+                            MediaQuery.of(context).size.width * 0.95,
                             50,
                           ),
                         ),
@@ -616,6 +623,28 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     Navigator.of(context).pushNamed(ListingOfCompaniesScreen.routeName);
   }
 
+  // @override
+  // void initState() {
+  //   Future.delayed(Duration.zero).then((value) async {
+  //     await setUpRequestNotification();
+  //     await setupInteracted();
+
+  //     final serviceProvider =
+  //         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
+  //     serviceProvider.changeServiceSelectedValue(null);
+  //     serviceProvider.getServices();
+  //     final locationProvider =
+  //         Provider.of<GetLocationViewModel>(context, listen: false);
+  //     locationProvider.myCurrentLocation.placeAddress = '';
+  //     locationProvider.myDestinationLocation.placeAddress = '';
+  //     //services e.g car, bike
+  //     // get current location
+  //     await locationProvider.getCurrentLocation(context);
+  //   });
+
+  //   super.initState();
+  // }
+
   bool _init = true;
   @override
   void didChangeDependencies() async {
@@ -625,6 +654,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
 
       final serviceProvider =
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);
+      serviceProvider.serviceSelectedValue = null;
       serviceProvider.getServices();
       final locationProvider =
           Provider.of<GetLocationViewModel>(context, listen: false);

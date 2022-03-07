@@ -193,12 +193,26 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                           shape: const StadiumBorder(),
                           primary: Colors.blue[50],
                         ),
+                        // onPressed: anim == true
+                        //     ? null
+                        //     : () {
+                        //         setState(() {
+                        //           animHeight = 140;
+                        //           animHeightmain = animHeightmain + animHeight;
+                        //           anim = true;
+                        //         });
+                        //       },
                         onPressed: anim == true
                             ? null
                             : () {
                                 setState(() {
-                                  animHeight = 140;
-                                  animHeightmain = animHeightmain + animHeight;
+                                  widget.dropLocation.isEmpty
+                                      ? animHeight = 150
+                                      : animHeight = 180;
+                                  animHeightmain = animHeightmain +
+                                      (widget.dropLocation.isEmpty
+                                          ? animHeight / 2
+                                          : animHeight);
                                   anim = true;
                                 });
                               },

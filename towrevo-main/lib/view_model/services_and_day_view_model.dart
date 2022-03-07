@@ -71,7 +71,7 @@ class ServicesAndDaysViewModel with ChangeNotifier {
     }
   }
 
-  void changeServiceSelectedValue(String value) {
+  void changeServiceSelectedValue(dynamic value) {
     serviceSelectedValue = value;
     notifyListeners();
   }

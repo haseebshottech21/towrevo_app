@@ -14,6 +14,7 @@ class UserHistoryModel {
   int status;
   String companyName;
   String date;
+  // String rateDate;
   ReviewModel? rating;
 
   UserHistoryModel({
@@ -28,6 +29,7 @@ class UserHistoryModel {
     required this.status,
     required this.companyName,
     required this.date,
+    // required this.rateDate,
     required this.rating,
   });
 
@@ -45,6 +47,9 @@ class UserHistoryModel {
       status: json['status'],
       companyName: json['company']['first_name'],
       date: Utilities().userHistoryDateFormat(json['created_at']),
+      // rateDate: json['rating'] == null
+      //     ? ''
+      //     : Utilities().userHistoryDateFormat(json['rating']['created_at']),
       rating: json['rating'] == null
           ? null
           : ReviewModel.fromJson(

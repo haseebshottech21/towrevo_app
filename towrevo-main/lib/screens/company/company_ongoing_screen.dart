@@ -20,7 +20,6 @@ class CompanyOngoingList extends StatefulWidget {
 }
 
 class _CompanyOngoingListState extends State<CompanyOngoingList> {
-
   bool initial = true;
   @override
   void didChangeDependencies() {
@@ -32,6 +31,7 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
 
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     final provider =
@@ -104,7 +104,8 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                           reqOriginLongitude:
                               provider.onGoingRequestsList[index].longitude,
                           userName: provider.onGoingRequestsList[index].name,
-                          userDistance: '0.0',
+                          userDistance:
+                              provider.onGoingRequestsList[index].distance,
                           profileImage: provider
                                   .onGoingRequestsList[index].image.isNotEmpty
                               ? profileImageSquare(
