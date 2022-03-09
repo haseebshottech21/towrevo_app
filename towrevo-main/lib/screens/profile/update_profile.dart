@@ -21,7 +21,7 @@ import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_b
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
 import '../users/user_location_screen.dart';
 import '/error_getter.dart';
-import '../get_location_screen.dart';
+
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);

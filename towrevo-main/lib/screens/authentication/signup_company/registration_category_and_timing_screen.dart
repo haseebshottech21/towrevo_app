@@ -19,7 +19,7 @@ import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/check_list.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
 import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
-import '../../get_location_screen.dart';
+
 import '/widgets/form_button_widget.dart';
 import '/view_model/get_location_view_model.dart';
 import '/view_model/register_company_view_model.dart';

@@ -17,19 +17,18 @@ class Utilities {
           startTime: const TimeOfDay(hour: 23, minute: 55),
           endTime: const TimeOfDay(hour: 0, minute: 05),
         ),
-
-        // maxDuration: Duration(hours: 12),
         minDuration: const Duration(hours: 2),
       );
 
       if (result != null) {
-        print(result.startTime.format(context));
         return {
           'fromUtilize': result.startTime.format(context).toString(),
           'toUtilize': result.endTime.format(context).toString(),
           'from': timeConverter(result.startTime.format(context)),
           'to': timeConverter(result.endTime.format(context)),
         };
+      }else{
+        return null;
       }
     } catch (e) {
       return null;
