@@ -100,4 +100,30 @@ class ErrorGetter {
     }
     return null;
   }
+
+  dynamic validateMobile(String value) {
+// Indian Mobile number are of 10 digit only
+    if (value.isEmpty) {
+      return 'PLease Enter Phone Number';
+    }
+    if (value.length != 10) {
+      return 'Mobile Number must be of 10 digit';
+    }
+    return null;
+    // if (value.length != 10)
+    //   return 'Mobile Number must be of 10 digit';
+    // else
+    //   return '';
+  }
+
+  // dynamic validateMobile(String value, BuildContext context) {
+  //   String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+  //   RegExp regExp = RegExp(patttern);
+  //   if (value.isEmpty) {
+  //     return 'Please enter mobile number';
+  //   } else if (!regExp.hasMatch(value)) {
+  //     return 'Please enter valid mobile number';
+  //   }
+  //   return null;
+  // }
 }

@@ -31,6 +31,7 @@ import 'package:towrevo/view_model/register_company_view_model.dart';
 import 'package:towrevo/view_model/register_user_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
 import 'package:towrevo/widgets/Company/animated_card.dart';
+import 'package:towrevo/widgets/number_field.dart';
 import 'screens/users/listing_of_companies_screen.dart';
 import '/screens/users/users_home_screen.dart';
 import 'screens/authentication/signup_user/register_user_screen.dart';
@@ -125,7 +126,7 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
         home: const SplashScreen(),
-        // home: const AnimCard(),
+        // home: const NumberField(),
 
         // home: const CompanyHomeScreen(),
         routes: {
@@ -149,7 +150,7 @@ class _MyAppState extends State<MyApp> {
           GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
           DistanceScreen.routeName: (ctx) => const DistanceScreen(),
           UserLocationScreen.routeName: (ctx) => const UserLocationScreen(),
-           MapDistanceScreen.routeName: (ctx) => const  MapDistanceScreen(),
+          MapDistanceScreen.routeName: (ctx) => const MapDistanceScreen(),
           AboutUs.routeName: (ctx) => const AboutUs(),
           FAQs.routeName: (ctx) => const FAQs(),
           ChangePassword.routeName: (ctx) => const ChangePassword(),

@@ -14,6 +14,7 @@ import 'package:towrevo/state_city_utility.dart';
 import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
+import 'package:towrevo/widgets/number_field.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
 import '/view_model/register_user_view_model.dart';
 import '/widgets/company_form_field.dart';
@@ -241,17 +242,10 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                         FadeInDown(
                           from: 55,
                           delay: const Duration(milliseconds: 660),
-                          child: TextFieldForAll(
-                            errorGetter: ErrorGetter().phoneNumberErrorGetter,
+                          child: PhoneField(
+                            errorGetter: ErrorGetter().validateMobile,
                             hintText: 'Phone Number',
-                            prefixIcon: const Icon(
-                              FontAwesomeIcons.phoneAlt,
-                              color: Color(0xFF019aff),
-                              size: 20.0,
-                            ),
                             textEditingController: phoneNumberController,
-                            textInputType: TextInputType.phone,
-                            prefixPhone: true,
                           ),
                         ),
                         const SizedBox(
