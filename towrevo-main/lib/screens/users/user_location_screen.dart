@@ -59,57 +59,59 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
               ),
               width: double.infinity,
               child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        print(placeViewModel.placesList[index].placeId);
-                        textSearchController.clear();
-                        placeViewModel.getPlaceDetail(
-                          placeViewModel.placesList[index].placeId,
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Container(
-                          padding: const EdgeInsets.all(6),
-                          // color: Colors.yellow,
-                          margin: const EdgeInsets.only(bottom: 5),
-                          decoration: const BoxDecoration(
-                            // borderRadius: BorderRadius.,
-                            border: Border(
-                              bottom: BorderSide(
-                                color: Colors.white,
-                                width: 0.5,
-                              ),
+                physics: const ClampingScrollPhysics(),
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                shrinkWrap: true,
+                itemCount: placeViewModel.placesList.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      print(placeViewModel.placesList[index].placeId);
+                      textSearchController.clear();
+                      placeViewModel.getPlaceDetail(
+                        placeViewModel.placesList[index].placeId,
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Container(
+                        padding: const EdgeInsets.all(6),
+                        // color: Colors.yellow,
+                        margin: const EdgeInsets.only(bottom: 5),
+                        decoration: const BoxDecoration(
+                          // borderRadius: BorderRadius.,
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.white,
+                              width: 0.5,
                             ),
                           ),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.location_pin,
-                                color: Colors.white,
-                                size: 22,
-                              ),
-                              const SizedBox(width: 8),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                child: Text(
-                                  placeViewModel.placesList[index].description,
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                  ),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.location_pin,
+                              color: Colors.white,
+                              size: 22,
+                            ),
+                            const SizedBox(width: 8),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Text(
+                                placeViewModel.placesList[index].description,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    );
-                  },
-                  itemCount: placeViewModel.placesList.length),
+                    ),
+                  );
+                },
+              ),
             ),
           Positioned(
             top: 40,
