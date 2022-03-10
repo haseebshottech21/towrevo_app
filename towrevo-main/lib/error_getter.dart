@@ -95,8 +95,8 @@ class ErrorGetter {
     if (value.isEmpty) {
       return 'PLease Enter Phone Number';
     }
-    if (value.length < 9) {
-      return 'Phone Number Should be at least 9 characters';
+    if (value.length != 10) {
+      return 'Mobile Number must be of 10 digit';
     }
     return null;
   }

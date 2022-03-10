@@ -241,17 +241,10 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                         FadeInDown(
                           from: 55,
                           delay: const Duration(milliseconds: 660),
-                          child: TextFieldForAll(
+                          child: PhoneField(
                             errorGetter: ErrorGetter().phoneNumberErrorGetter,
                             hintText: 'Phone Number',
-                            prefixIcon: const Icon(
-                              FontAwesomeIcons.phoneAlt,
-                              color: Color(0xFF019aff),
-                              size: 20.0,
-                            ),
                             textEditingController: phoneNumberController,
-                            textInputType: TextInputType.phone,
-                            prefixPhone: true,
                           ),
                         ),
                         const SizedBox(

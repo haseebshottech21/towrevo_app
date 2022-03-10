@@ -47,7 +47,7 @@ class CompanyItem extends StatelessWidget {
 
   openDialPad(String phoneNumber, BuildContext context) {
     if (phoneNumber.isNotEmpty) {
-      launch("tel://$phoneNumber");
+      launch("tel://+1$phoneNumber");
     } else {
       Navigator.of(context).pushNamed(MonthlyPaymentScreen.routeName);
     }

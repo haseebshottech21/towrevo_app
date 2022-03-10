@@ -55,26 +55,6 @@ class TextFieldForAll extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20),
           child: prefixIcon,
         ),
-        //     SizedBox(
-        //   width: prefixPhone ? 70 : 50,
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //     children: [
-        //       Padding(
-        //         padding: const EdgeInsets.only(left: 20),
-        //         child: prefixIcon,
-        //       ),
-        //       if (prefixPhone)
-        //         const Padding(
-        //           padding: EdgeInsets.zero,
-        //           child: Text(
-        //             ' +1',
-        //             style: TextStyle(color: Colors.black54, fontSize: 17),
-        //           ),
-        //         ),
-        //     ],
-        //   ),
-        // ),
         prefixText: '  ',
         prefixStyle: const TextStyle(color: Colors.black, fontSize: 16),
         // suffixIcon: suffixIcon,
@@ -85,6 +65,114 @@ class TextFieldForAll extends StatelessWidget {
         textEditingController.text = newValue!;
       },
       validator: (value) => errorGetter(value),
+    );
+  }
+}
+
+class PhoneField extends StatelessWidget {
+  final String hintText;
+  final TextEditingController textEditingController;
+  final Function errorGetter;
+  final bool fieldDisable;
+  const PhoneField({
+    required this.hintText,
+    required this.textEditingController,
+    required this.errorGetter,
+    this.fieldDisable = true,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: textEditingController,
+      enabled: fieldDisable,
+      // obscureText: obscureText,
+      enableInteractiveSelection: true,
+      readOnly: false,
+      toolbarOptions: const ToolbarOptions(
+        paste: true,
+        cut: true,
+        selectAll: true,
+        copy: true,
+      ),
+      // maxLength: 10,
+      // onSaved: (val) => _password = val,
+      keyboardType: TextInputType.phone,
+      // validator: (val) => ErrorGetter().validateMobile(val!),
+
+      // onChanged: (value) {
+      //   _mobile = value;
+      // },
+      // onSaved: (val) {
+      //   _mobile = val!;
+      // },
+      onSaved: (newValue) {
+        textEditingController.text = newValue!;
+      },
+      validator: (value) => errorGetter(value),
+
+      textAlignVertical: TextAlignVertical.center,
+      decoration: InputDecoration(
+        // border: InputBorder.none,
+        hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.black87),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          // borderSide: const BorderSide(color: Color(0xFF000000)),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        // hintStyle: GoogleFonts.montserrat(color: Colors.black),
+        // isDense: true,
+        // helperText: 'Keep it short, this is just a demo.',
+        prefixIcon: const Padding(
+          padding: EdgeInsets.only(bottom: 2),
+          child: Center(
+            widthFactor: 0.0,
+            child: Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                '  🇺🇸 +1 ',
+                style: TextStyle(fontSize: 15.5),
+              ),
+            ),
+          ),
+        ),
+
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 15),
+        //   child: Icon(Icons.phone),
+        // ),
+        prefixText: '   ',
+        // suffixIcon: suffixIcon,
+        // suffixText: 'USD',
+        // suffixStyle: const TextStyle(color: Colors.green)),
+        // suffixIcon: GestureDetector(
+        //   onTap: onPress,
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(right: 20),
+        //     child: Icon(
+        //       obscureText
+        //           ? FontAwesomeIcons.solidEyeSlash
+        //           : FontAwesomeIcons.solidEye,
+        //     ),
+        //   ),
+        // ),
+      ),
+      // onSaved: (newValue) {
+      //   textEditingController.text = newValue!;
+      // },
+      // validator: (value) {
+      //   print(confirmPassword != null);
+      //   if (confirmPassword != null) {
+      //     return errorGetter(value, confirmPassword!.text);
+      //   } else {
+      //     return errorGetter(
+      //       value,
+      //     );
+      //   }
+      // },
     );
   }
 }

@@ -60,8 +60,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   static String notifyToken = '';
@@ -110,6 +108,9 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
         home: const SplashScreen(),
+        // home: const NumberField(),
+
+        // home: const CompanyHomeScreen(),
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),

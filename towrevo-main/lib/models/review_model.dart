@@ -1,5 +1,3 @@
-import 'package:towrevo/utilities.dart';
-
 class ReviewModel {
   int rate;
   String review;
