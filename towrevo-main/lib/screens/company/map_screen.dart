@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/directions_model.dart';
-import 'package:towrevo/view_model/get_location_view_model.dart';
+import 'package:towrevo/view_model/view_model.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -145,8 +145,6 @@ class _MapScreenState extends State<MapScreen> {
       await mapViewModel.getDirections(
           origin: _originMarker!.position,
           destination: _destinationMarker!.position);
-
-     
     }
   }
 

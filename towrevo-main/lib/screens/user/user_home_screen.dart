@@ -5,24 +5,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
-import 'package:towrevo/screens/users/user_location_screen.dart';
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
-import 'package:towrevo/screens/users/listing_of_companies_screen.dart';
-import 'package:towrevo/utilities.dart';
-import 'package:towrevo/view_model/get_location_view_model.dart';
-import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/User/describe_field.dart';
-import 'package:towrevo/widgets/User/drawer_icon.dart';
-import 'package:towrevo/widgets/User/from_to_location.dart';
-import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
-import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
-import 'package:towrevo/widgets/circular_progress_indicator.dart';
-import 'package:towrevo/widgets/drawer_widget.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/show_snackbar.dart';
-import 'package:towrevo/widgets/towrevo_logo.dart';
-// import '/widgets/towrevo_logo.dart';
+import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
+import 'package:towrevo/screens/screens.dart';
+import '../../../utitlites/towrevo_appcolor.dart';
 
 class UsersHomeScreen extends StatefulWidget {
   const UsersHomeScreen({Key? key}) : super(key: key);
@@ -414,9 +401,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           ? ''
           : lngLatProvider.myDestinationLocation.placeLocation.latitude
               .toString(),
-
-      // 'dest_longitude': '',
-      // 'dest_latitude': '',
       'time': DateFormat('kk:mm').format(now),
       'day': await Utilities().dayToInt(
         DateFormat('EEEE').format(now),

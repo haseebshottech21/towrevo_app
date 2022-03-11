@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:towrevo/utilities.dart';
+import 'package:towrevo/utitlites/utilities.dart';
 
 class EditProfileWebService {
   Future<dynamic> getEditFields() async {

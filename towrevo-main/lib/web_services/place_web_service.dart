@@ -1,12 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:towrevo/models/directions_model.dart';
-import 'package:towrevo/models/place_detail_model.dart';
-import 'package:towrevo/models/places_model.dart';
-
+import 'package:towrevo/models/models.dart';
 import 'package:http/http.dart' as http;
 
 class PlaceWebService {

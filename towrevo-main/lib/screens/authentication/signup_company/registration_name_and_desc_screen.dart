@@ -4,14 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/utilities.dart';
-import 'package:towrevo/view_model/register_company_view_model.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import '/screens/authentication/signup_company/registration_crediential_screen.dart';
-import '/widgets/company_form_field.dart';
-import '/widgets/form_button_widget.dart';
-import '/widgets/background_image.dart';
-import 'signup_company_widegts/title_widget.dart';
+import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
+import 'package:towrevo/screens/screens.dart';
 
 class RegistrationNameAndDescScreen extends StatefulWidget {
   const RegistrationNameAndDescScreen({Key? key}) : super(key: key);
@@ -72,7 +68,7 @@ class _RegistrationNameAndDescScreenState
                     FadeInDown(
                       from: 15,
                       delay: const Duration(milliseconds: 500),
-                      child: companyTitle(),
+                      child: const CompanySignUpTitle(),
                     ),
                     const SizedBox(
                       height: 30,

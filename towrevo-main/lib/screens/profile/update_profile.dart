@@ -6,21 +6,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/state_city_utility.dart';
-import 'package:towrevo/utilities.dart';
-import 'package:towrevo/view_model/edit_profile_view_model.dart';
-import 'package:towrevo/view_model/get_location_view_model.dart';
-import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/circular_progress_indicator.dart';
-import 'package:towrevo/widgets/company_form_field.dart';
-import 'package:towrevo/widgets/drawer_widget.dart';
-import 'package:towrevo/widgets/form_button_widget.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
-import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
-import '../users/user_location_screen.dart';
+import 'package:towrevo/utitlites/state_city_utility.dart';
+import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import '/error_getter.dart';
+import 'package:towrevo/screens/screens.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);

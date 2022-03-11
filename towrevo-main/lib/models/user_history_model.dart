@@ -1,6 +1,6 @@
 import 'package:towrevo/models/review_model.dart';
 
-import '../utilities.dart';
+import '../utitlites/utilities.dart';
 
 class UserHistoryModel {
   String id;

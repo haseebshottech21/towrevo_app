@@ -1,12 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:towrevo/widgets/User/drawer_icon.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/drawer_widget.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/towrevo_logo.dart';
+import 'package:towrevo/widgets/widgets.dart';
 
 class FAQs extends StatefulWidget {
   static const routeName = '/faqs';

@@ -3,23 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/payment_detail.dart';
-import '/utilities.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
+import '../../utitlites/towrevo_appcolor.dart';
+import '../../utitlites/utilities.dart';
 import 'package:http/http.dart' as http;
 
-class MonthlyPaymentScreen extends StatefulWidget {
-  const MonthlyPaymentScreen({Key? key}) : super(key: key);
+class UserMonthlyPaymentScreen extends StatefulWidget {
+  const UserMonthlyPaymentScreen({Key? key}) : super(key: key);
   static const routeName = '/registration-payment-screen';
 
   @override
-  State<MonthlyPaymentScreen> createState() => _MonthlyPaymentScreenState();
+  State<UserMonthlyPaymentScreen> createState() =>
+      _UserMonthlyPaymentScreenState();
 }
 
-class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
+class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
   Map<String, dynamic> paymentIntentData = {};
 
   paynow(BuildContext context) async {
@@ -45,7 +44,7 @@ class _MonthlyPaymentScreenState extends State<MonthlyPaymentScreen> {
 
       paynow(context);
     } on StripeException catch (e) {
-      Utilities().showToast('Cancel');
+      Utilities().showToast('${e.error.localizedMessage}');
       print(e);
     }
   }

@@ -1,19 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/view_model/otp_view_model.dart';
-import 'package:towrevo/screens/company/company_home_screen.dart';
-import 'package:towrevo/screens/users/users_home_screen.dart';
-import 'package:towrevo/utilities.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import '/widgets/form_button_widget.dart';
-import '/widgets/towrevo_logo.dart';
-import '/widgets/background_image.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/widgets/widgets.dart';
+import 'package:towrevo/screens/screens.dart';
 
 class RegistrationOTPScreen extends StatefulWidget {
   const RegistrationOTPScreen({Key? key}) : super(key: key);
@@ -166,7 +161,6 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
                   print(inputOTP);
                 },
               ),
-             
               const SizedBox(
                 height: 20,
               ),

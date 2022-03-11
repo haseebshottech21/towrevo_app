@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
+import 'package:towrevo/utitlites/towrevo_appcolor.dart';
 
 class FromToLocation extends StatelessWidget {
   final String fromLocationText;

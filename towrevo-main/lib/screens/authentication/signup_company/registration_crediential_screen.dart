@@ -3,14 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/screens/authentication/signup_company/registration_category_and_timing_screen.dart';
-import 'package:towrevo/screens/authentication/signup_company/signup_company_widegts/title_widget.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import '/view_model/register_company_view_model.dart';
-import '/widgets/text_form_field.dart';
-import '/widgets/background_image.dart';
-import '/widgets/company_form_field.dart';
-import '/widgets/form_button_widget.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
+import 'package:towrevo/screens/screens.dart';
 
 class RegistrationCredentialScreen extends StatefulWidget {
   const RegistrationCredentialScreen({Key? key}) : super(key: key);
@@ -71,7 +66,7 @@ class _RegistrationCredentialScreenState
                   FadeInDown(
                     from: 15,
                     delay: const Duration(milliseconds: 500),
-                    child: companyTitle(),
+                    child: const CompanySignUpTitle(),
                   ),
                   const SizedBox(
                     height: 50,

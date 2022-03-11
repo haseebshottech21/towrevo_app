@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:towrevo/screens/company/company_pending_screen.dart';
-import 'package:towrevo/widgets/drawer_widget.dart';
-import 'company_ongoing_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:towrevo/widgets/widgets.dart';
+import 'package:towrevo/screens/screens.dart';
+import 'package:towrevo/view_model/view_model.dart';
 
 class CompanyHomeScreen extends StatefulWidget {
   static const routeName = 'company-home';
@@ -13,6 +14,13 @@ class CompanyHomeScreen extends StatefulWidget {
 }
 
 class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
+  @override
+  void initState() {
+    Provider.of<UserHomeScreenViewModel>(context, listen: false)
+        .updateDrawerInfo();
+    super.initState();
+  }
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -35,8 +43,8 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
         ),
         body: const TabBarView(
           children: [
-            CompanyPendingList(),
-            CompanyOngoingList(),
+            CompanyPendingScreen(),
+            CompanyOngoingScreen(),
           ],
         ),
       ),

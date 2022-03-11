@@ -4,10 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utilities.dart';
-import 'package:towrevo/view_model/get_location_view_model.dart';
-import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
+import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/edit_profile_web_service.dart';
 
 class EditProfileViewModel with ChangeNotifier {

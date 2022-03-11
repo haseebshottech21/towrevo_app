@@ -7,25 +7,20 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/screens/authentication/signup_company/registration_otp_screen.dart';
-import 'package:towrevo/view_model/login_view_model.dart';
-import 'package:towrevo/view_model/register_user_view_model.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/background_image.dart';
-import 'package:towrevo/widgets/circular_progress_indicator.dart';
-import 'package:towrevo/widgets/form_button_widget.dart';
-import 'package:towrevo/widgets/text_form_field.dart';
-import 'package:towrevo/widgets/towrevo_logo.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
+import 'package:towrevo/screens/screens.dart';
 
-class ForgotPasswordOTP extends StatefulWidget {
-  const ForgotPasswordOTP({Key? key}) : super(key: key);
+class ForgotPasswordOTPScreen extends StatefulWidget {
+  const ForgotPasswordOTPScreen({Key? key}) : super(key: key);
   static const routeName = 'forget-password-otp';
 
   @override
-  _ForgotPasswordOTPState createState() => _ForgotPasswordOTPState();
+  _ForgotPasswordOTPScreenState createState() =>
+      _ForgotPasswordOTPScreenState();
 }
 
-class _ForgotPasswordOTPState extends State<ForgotPasswordOTP>
+class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
     with TickerProviderStateMixin {
   late AnimationController _controller;
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:towrevo/utilities.dart';
+import 'package:towrevo/utitlites/utilities.dart';
 
 class OTPWebService {
   Utilities utilities = Utilities();

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
-import 'package:towrevo/screens/monthly_payment_screen.dart';
+import 'package:towrevo/screens/user/user_monthly_payment_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../utilities.dart';
+import '../utitlites/utilities.dart';
 
 class CompanyItem extends StatelessWidget {
   final CompanyModel companyModel;
@@ -41,7 +41,7 @@ class CompanyItem extends StatelessWidget {
         notificationId,
       );
     } else {
-      Navigator.of(context).pushNamed(MonthlyPaymentScreen.routeName);
+      Navigator.of(context).pushNamed(UserMonthlyPaymentScreen.routeName);
     }
   }
 
@@ -49,7 +49,7 @@ class CompanyItem extends StatelessWidget {
     if (phoneNumber.isNotEmpty) {
       launch("tel://+1$phoneNumber");
     } else {
-      Navigator.of(context).pushNamed(MonthlyPaymentScreen.routeName);
+      Navigator.of(context).pushNamed(UserMonthlyPaymentScreen.routeName);
     }
   }
 

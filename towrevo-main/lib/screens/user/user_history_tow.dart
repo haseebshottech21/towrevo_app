@@ -2,12 +2,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
-import 'package:towrevo/widgets/Loaders/no_user.dart';
-import 'package:towrevo/widgets/User/user_history_list.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/circular_progress_indicator.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 
 class UserHistoryTow extends StatefulWidget {
   const UserHistoryTow({Key? key}) : super(key: key);

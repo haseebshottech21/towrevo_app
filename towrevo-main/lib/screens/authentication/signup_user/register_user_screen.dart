@@ -8,17 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/main.dart';
-import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
 import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
-import 'package:towrevo/state_city_utility.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/circular_progress_indicator.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
+import 'package:towrevo/utitlites/state_city_utility.dart';
+import '../../../utitlites/towrevo_appcolor.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
-import '/view_model/register_user_view_model.dart';
-import '/widgets/company_form_field.dart';
-import '/widgets/form_button_widget.dart';
-import '/widgets/text_form_field.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 
 class RegisterUserScreen extends StatefulWidget {
   const RegisterUserScreen({Key? key}) : super(key: key);

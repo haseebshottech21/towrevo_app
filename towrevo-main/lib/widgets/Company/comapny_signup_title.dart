@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+class CompanySignUpTitle extends StatelessWidget {
+  const CompanySignUpTitle({ Key? key }) : super(key: key);
 
-Text companyTitle() {
-  return Text(
+  @override
+  Widget build(BuildContext context) {
+    return Text(
     'COMPANY \nREGISTRATION',
     textAlign: TextAlign.center,
     style: GoogleFonts.montserrat(
@@ -12,4 +15,5 @@ Text companyTitle() {
       letterSpacing: 2,
     ),
   );
+  }
 }
