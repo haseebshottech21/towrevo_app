@@ -15,6 +15,7 @@ class ServiceRequestModel {
   String destAddress;
   String description;
   String distance;
+  String totalDistance;
   int status;
   String notificationId;
   String name;
@@ -37,6 +38,7 @@ class ServiceRequestModel {
     required this.serviceName,
     required this.status,
     required this.distance,
+    required this.totalDistance,
     required this.notificationId,
     required this.name,
     required this.image,
@@ -60,6 +62,8 @@ class ServiceRequestModel {
       serviceName: json['service']['name'],
       status: json['status'],
       distance: double.parse((json['distance']).toStringAsFixed(2)).toString(),
+      totalDistance:
+          double.parse((json['total_distance']).toStringAsFixed(2)).toString(),
       notificationId: (json['user']['notification_id']) ?? '',
       name: (json['user']['first_name'] ?? '') +
           ' ' +

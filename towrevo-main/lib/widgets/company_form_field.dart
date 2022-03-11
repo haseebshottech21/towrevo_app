@@ -78,7 +78,7 @@ class PhoneField extends StatelessWidget {
     required this.hintText,
     required this.textEditingController,
     required this.errorGetter,
-    this.fieldDisable = true,
+    this.fieldDisable = false,
     Key? key,
   }) : super(key: key);
 
@@ -86,7 +86,7 @@ class PhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textEditingController,
-      enabled: fieldDisable,
+      enabled: !fieldDisable,
       // obscureText: obscureText,
       enableInteractiveSelection: true,
       readOnly: false,

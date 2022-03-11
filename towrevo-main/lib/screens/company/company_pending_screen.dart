@@ -97,8 +97,8 @@ class _CompanyPendingListState extends State<CompanyPendingList> {
                             from: 30,
                             child: AcceptDeclineCardItem(
                               userName: provider.requestServiceList[index].name,
-                              userDistance:
-                                  provider.requestServiceList[index].distance,
+                              userDistance: provider
+                                  .requestServiceList[index].totalDistance,
                               profileImage: provider.requestServiceList[index]
                                       .image.isNotEmpty
                                   ? profileImageSquare(

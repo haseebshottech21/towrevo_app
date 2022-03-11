@@ -104,8 +104,13 @@ class _CompanyOngoingListState extends State<CompanyOngoingList> {
                           reqOriginLongitude:
                               provider.onGoingRequestsList[index].longitude,
                           userName: provider.onGoingRequestsList[index].name,
-                          userDistance:
-                              provider.onGoingRequestsList[index].distance,
+                          // userDistance:
+                          //     provider.onGoingRequestsList[index].totalDistance,
+                          userDistance: provider.onGoingRequestsList[index]
+                                  .destAddress.isEmpty
+                              ? provider.onGoingRequestsList[index].distance
+                              : provider
+                                  .onGoingRequestsList[index].totalDistance,
                           profileImage: provider
                                   .onGoingRequestsList[index].image.isNotEmpty
                               ? profileImageSquare(

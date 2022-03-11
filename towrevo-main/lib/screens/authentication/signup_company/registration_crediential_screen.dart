@@ -102,16 +102,10 @@ class _RegistrationCredentialScreenState
                         FadeInDown(
                           from: 25,
                           delay: const Duration(milliseconds: 570),
-                          child: TextFieldForAll(
+                          child: PhoneField(
                             errorGetter: ErrorGetter().phoneNumberErrorGetter,
-                            hintText: 'Phone',
-                            prefixIcon: const Icon(
-                              FontAwesomeIcons.phoneAlt,
-                              color: Color(0xFF019aff),
-                              size: 20.0,
-                            ),
+                            hintText: 'Phone Number',
                             textEditingController: phoneNumberController,
-                            textInputType: TextInputType.phone,
                           ),
                         ),
                         const SizedBox(

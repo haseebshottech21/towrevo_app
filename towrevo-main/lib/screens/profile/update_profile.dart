@@ -22,7 +22,6 @@ import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_che
 import '../users/user_location_screen.dart';
 import '/error_getter.dart';
 
-
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);
   static const routeName = '/edit-profile';
@@ -449,18 +448,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               FadeInDown(
                                 from: 30,
                                 delay: const Duration(milliseconds: 710),
-                                child: TextFieldForAll(
+                                child: PhoneField(
                                   errorGetter:
                                       ErrorGetter().phoneNumberErrorGetter,
                                   fieldDisable: true,
                                   hintText: 'Phone',
-                                  prefixIcon: const Icon(
-                                    FontAwesomeIcons.phoneAlt,
-                                    color: Color(0xFF019aff),
-                                    size: 20.0,
-                                  ),
+                                  // prefixIcon: const Icon(
+                                  //   FontAwesomeIcons.phoneAlt,
+                                  //   color: Color(0xFF019aff),
+                                  //   size: 20.0,
+                                  // ),
                                   textEditingController: phoneNumberController,
-                                  textInputType: TextInputType.phone,
+                                  // textInputType: TextInputType.phone,
                                 ),
                               ),
                               const SizedBox(
