@@ -4,14 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
-import 'package:towrevo/utilities.dart';
+import 'package:towrevo/utitlites/utilities.dart';
 import 'package:towrevo/view_model/splash_view_model.dart';
 import 'package:towrevo/widgets/back_icon.dart';
 import 'package:towrevo/widgets/company_form_field.dart';
 import 'package:towrevo/widgets/form_button_widget.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/towrevo_logo.dart';
+import '../../../utitlites/towrevo_appcolor.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);

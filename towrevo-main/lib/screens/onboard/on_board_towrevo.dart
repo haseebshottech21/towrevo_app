@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:towrevo/screens/authentication/welcome_screen.dart';
+import 'package:towrevo/screens/screens.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'onboard_widget.dart';
 

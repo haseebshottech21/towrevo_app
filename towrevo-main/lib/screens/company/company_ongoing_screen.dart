@@ -8,18 +8,17 @@ import 'package:towrevo/widgets/empty_profile.dart';
 import 'package:towrevo/widgets/full_background_image.dart';
 import 'package:towrevo/widgets/job_completed_dailogbox.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
-
-import '../../utilities.dart';
+import '../../utitlites/utilities.dart';
 import '../../view_model/get_location_view_model.dart';
 
-class CompanyOngoingList extends StatefulWidget {
-  const CompanyOngoingList({Key? key}) : super(key: key);
+class CompanyOngoingScreen extends StatefulWidget {
+  const CompanyOngoingScreen({Key? key}) : super(key: key);
 
   @override
-  _CompanyOngoingListState createState() => _CompanyOngoingListState();
+  _CompanyOngoingScreenState createState() => _CompanyOngoingScreenState();
 }
 
-class _CompanyOngoingListState extends State<CompanyOngoingList> {
+class _CompanyOngoingScreenState extends State<CompanyOngoingScreen> {
   bool initial = true;
   @override
   void didChangeDependencies() {

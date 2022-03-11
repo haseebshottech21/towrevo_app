@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:towrevo/screens/authentication/register_main_screen.dart';
-import '/screens/authentication/login/login_screen.dart';
 import '/widgets/background_image.dart';
 import '/widgets/button_widgets.dart';
+import 'package:towrevo/screens/screens.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

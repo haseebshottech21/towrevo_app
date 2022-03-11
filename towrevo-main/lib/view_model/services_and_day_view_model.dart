@@ -3,7 +3,7 @@ import 'package:towrevo/models/days_model.dart';
 import 'package:towrevo/models/services_model.dart';
 import 'package:towrevo/web_services/services_web_service.dart';
 
-import '../utilities.dart';
+import '../utitlites/utilities.dart';
 
 class ServicesAndDaysViewModel with ChangeNotifier {
   List<DaysModel> daysListViewModel = [

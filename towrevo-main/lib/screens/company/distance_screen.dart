@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 
@@ -63,74 +61,75 @@ class _DistanceScreenState extends State<DistanceScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            actions: [
-              TextButton(
-                onPressed: () {
-                  mapController!.animateCamera(
-                    CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                        target: LatLng(originLatitude, originLongitude),
-                        tilt: 50.0,
-                        zoom: 14.5,
-                      ),
-                    ),
-                  );
-                },
-                child: const Text('ORIGIN'),
-              ),
-              TextButton(
-                onPressed: () {
-                  mapController!.animateCamera(
-                    CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                        target: LatLng(destLatitude, destLongitude),
-                        tilt: 50.0,
-                        zoom: 14.5,
-                      ),
-                    ),
-                  );
-                },
-                child: const Text('DESTINATION'),
-              ),
-            ],
-          ),
-          body: Stack(
-            children: [
-              GoogleMap(
-                initialCameraPosition: CameraPosition(
-                    target: LatLng(originLatitude, originLongitude), zoom: 15),
-                myLocationEnabled: true,
-                tiltGesturesEnabled: true,
-                compassEnabled: true,
-                scrollGesturesEnabled: true,
-                zoomGesturesEnabled: true,
-                onMapCreated: _onMapCreated,
-                markers: Set<Marker>.of(markers.values),
-                polylines: Set<Polyline>.of(polylines.values),
-              ),
-              if (totalDistanceAndDuration.isNotEmpty)
-                Positioned(
-                  top: 20,
-                  // left: 20,
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.yellow.shade300,
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    child: Text(
-                      totalDistanceAndDuration,
-                      style: const TextStyle(
-                          fontSize: 19.0, fontWeight: FontWeight.w600),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          actions: [
+            TextButton(
+              onPressed: () {
+                mapController!.animateCamera(
+                  CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: LatLng(originLatitude, originLongitude),
+                      tilt: 50.0,
+                      zoom: 14.5,
                     ),
                   ),
+                );
+              },
+              child: const Text('ORIGIN'),
+            ),
+            TextButton(
+              onPressed: () {
+                mapController!.animateCamera(
+                  CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: LatLng(destLatitude, destLongitude),
+                      tilt: 50.0,
+                      zoom: 14.5,
+                    ),
+                  ),
+                );
+              },
+              child: const Text('DESTINATION'),
+            ),
+          ],
+        ),
+        body: Stack(
+          children: [
+            GoogleMap(
+              initialCameraPosition: CameraPosition(
+                  target: LatLng(originLatitude, originLongitude), zoom: 15),
+              myLocationEnabled: true,
+              tiltGesturesEnabled: true,
+              compassEnabled: true,
+              scrollGesturesEnabled: true,
+              zoomGesturesEnabled: true,
+              onMapCreated: _onMapCreated,
+              markers: Set<Marker>.of(markers.values),
+              polylines: Set<Polyline>.of(polylines.values),
+            ),
+            if (totalDistanceAndDuration.isNotEmpty)
+              Positioned(
+                top: 20,
+                // left: 20,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.yellow.shade300,
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  child: Text(
+                    totalDistanceAndDuration,
+                    style: const TextStyle(
+                        fontSize: 19.0, fontWeight: FontWeight.w600),
+                  ),
                 ),
-            ],
-          )),
+              ),
+          ],
+        ),
+      ),
     );
   }
 

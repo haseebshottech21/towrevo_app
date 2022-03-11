@@ -4,12 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/models/user_history_model.dart';
-// import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
-import 'package:towrevo/utilities.dart';
+import 'package:towrevo/utitlites/utilities.dart';
+// import '../utitlites/towrevo_appcolor.dart';import 'package:towrevo/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
 import 'package:towrevo/widgets/show_snackbar.dart';
-import '../number_creator.dart';
+import '../request_timer.dart';
 
 class UserHomeScreenViewModel with ChangeNotifier {
   Map<String, dynamic> ratingData = {
@@ -42,6 +42,8 @@ class UserHomeScreenViewModel with ChangeNotifier {
     drawerInfo['name'] = await utilities.getSharedPreferenceValue('name') ?? '';
     drawerInfo['email'] =
         await utilities.getSharedPreferenceValue('email') ?? '';
+
+    print(drawerInfo['name']);
 
     notifyListeners();
   }

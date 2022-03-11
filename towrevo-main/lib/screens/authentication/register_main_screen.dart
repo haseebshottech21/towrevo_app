@@ -2,11 +2,10 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:towrevo/screens/authentication/signup_company/registration_name_and_desc_screen.dart';
-import 'package:towrevo/screens/authentication/signup_user/register_user_screen.dart';
 import 'package:towrevo/widgets/back_icon.dart';
 import '/widgets/background_image.dart';
 import '/widgets/towrevo_logo.dart';
+import 'package:towrevo/screens/screens.dart';
 
 class RegisterMainScreen extends StatelessWidget {
   static const routeName = '/register-main-screen';

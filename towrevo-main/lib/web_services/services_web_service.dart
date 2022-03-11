@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:towrevo/models/services_model.dart';
-import 'package:towrevo/utilities.dart';
+import 'package:towrevo/utitlites/utilities.dart';
 class ServicesWebService{
   Future<List<ServicesModel>> getServices() async{
 

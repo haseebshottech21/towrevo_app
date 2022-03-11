@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/main.dart';
 import 'package:towrevo/view_model/otp_view_model.dart';
 import 'package:towrevo/web_services/authentication.dart';
-import '../utilities.dart';
+import '../utitlites/utilities.dart';
 
 class RegisterCompanyViewModel with ChangeNotifier {
   bool isCheckedTermsAndCondition = false;

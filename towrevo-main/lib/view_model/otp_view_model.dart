@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:towrevo/web_services/otp_web_service.dart';
 
-import '../utilities.dart';
+import '../utitlites/utilities.dart';
 
 class OTPViewModel with ChangeNotifier {
   String resendUniqueId = '';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
+import 'package:towrevo/utitlites/towrevo_appcolor.dart';
 import 'package:towrevo/screens/company/distance_screen.dart';
 
 class JobCompleteCard extends StatefulWidget {

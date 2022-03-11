@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:towrevo/screens/colors/towrevo_appcolor.dart';
+import 'package:towrevo/utitlites/towrevo_appcolor.dart';
 
 class AcceptDeclineCardItem extends StatefulWidget {
   final String userName;

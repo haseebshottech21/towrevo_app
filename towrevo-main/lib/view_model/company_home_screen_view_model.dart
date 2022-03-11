@@ -4,7 +4,7 @@ import 'package:towrevo/main.dart';
 import 'package:towrevo/models/service_request_model.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
 // import 'package:towrevo/screens/monthly_payment_screen.dart';
-import 'package:towrevo/utilities.dart';
+import 'package:towrevo/utitlites/utilities.dart';
 import 'package:towrevo/web_services/company_web_service.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
 

@@ -2,16 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/screens/authentication/change_password/change_password.dart';
-import 'package:towrevo/screens/company/company_history.dart';
-import 'package:towrevo/screens/company/company_home_screen.dart';
-import 'package:towrevo/screens/contactus/contact_us.dart';
-import 'package:towrevo/screens/faqs/faqs.dart';
-import 'package:towrevo/screens/profile/update_profile.dart';
-import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
-import 'package:towrevo/screens/users/user_history_tow.dart';
-import 'package:towrevo/screens/users/users_home_screen.dart';
-import 'package:towrevo/utilities.dart';
+import 'package:towrevo/utitlites/utilities.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import 'package:towrevo/view_model/login_view_model.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
@@ -21,6 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'drawer_list_item_widget.dart';
 import 'drawer_profile.dart';
 import 'form_button_widget.dart';
+import 'package:towrevo/screens/screens.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -182,7 +174,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           Navigator.of(context).pushNamed(
                             type == '1'
                                 ? UserHistoryTow.routeName
-                                : CompanyHistory.routeName,
+                                : CompanyHistoryScreen.routeName,
                           );
                         },
                       ),
@@ -205,7 +197,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         iconsData: FontAwesomeIcons.lock,
                         onPressed: () {
                           Navigator.of(context)
-                              .pushNamed(ChangePassword.routeName);
+                              .pushNamed(ChangePasswordScreen.routeName);
                         },
                       ),
 
