@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/get_location_view_model.dart';
 
 class DistanceScreen extends StatefulWidget {
+  static String a='';
   static const routeName = '/map-distance';
   const DistanceScreen({Key? key}) : super(key: key);
 
@@ -143,6 +144,9 @@ class _DistanceScreenState extends State<DistanceScreen> {
       markerId: markerId,
       icon: descriptor,
       position: position,
+      infoWindow: InfoWindow(
+        title: id.toUpperCase(),
+      ),
     );
     markers[markerId] = marker;
   }
