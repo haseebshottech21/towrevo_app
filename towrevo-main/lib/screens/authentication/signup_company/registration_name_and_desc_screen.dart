@@ -5,13 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/utitlites/utilities.dart';
-import 'package:towrevo/view_model/register_company_view_model.dart';
-import 'package:towrevo/widgets/Company/comapny_signup_title.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import '/widgets/company_form_field.dart';
-import '/widgets/form_button_widget.dart';
-import '/widgets/background_image.dart';
-
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 
 class RegistrationNameAndDescScreen extends StatefulWidget {

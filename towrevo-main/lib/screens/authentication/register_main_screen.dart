@@ -2,9 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import '/widgets/background_image.dart';
-import '/widgets/towrevo_logo.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 
 class RegisterMainScreen extends StatelessWidget {

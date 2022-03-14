@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '/widgets/background_image.dart';
-import '/widgets/button_widgets.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 
 class WelcomeScreen extends StatelessWidget {

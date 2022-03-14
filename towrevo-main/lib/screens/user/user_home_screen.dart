@@ -5,20 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/utitlites/utilities.dart';
-import 'package:towrevo/view_model/get_location_view_model.dart';
-import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/User/describe_field.dart';
-import 'package:towrevo/widgets/User/drawer_icon.dart';
-import 'package:towrevo/widgets/User/from_to_location.dart';
-import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
-import 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
-import 'package:towrevo/widgets/circular_progress_indicator.dart';
-import 'package:towrevo/widgets/drawer_widget.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/show_snackbar.dart';
-import 'package:towrevo/widgets/towrevo_logo.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 import '../../../utitlites/towrevo_appcolor.dart';
 
@@ -383,6 +372,12 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     final serviceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
 
+    print('Destination long ' +
+        lngLatProvider.myDestinationLocation.placeLocation.longitude
+            .toString());
+    print('Destination lat ' +
+        lngLatProvider.myDestinationLocation.placeLocation.latitude.toString());
+
     if (serviceProvider.serviceSelectedValue == null ||
         lngLatProvider.myCurrentLocation.placeAddress.isEmpty ||
         describeController.text.isEmpty) {
@@ -461,6 +456,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       //services e.g car, bike
       // get current location
       await locationProvider.getCurrentLocation(context);
+      print('pickup' + locationProvider.myCurrentLocation.placeAddress);
+      print('dest' + locationProvider.myDestinationLocation.placeAddress);
     }
     _init = false;
     super.didChangeDependencies();

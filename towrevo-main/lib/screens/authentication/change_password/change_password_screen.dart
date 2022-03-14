@@ -3,13 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/view_model/edit_profile_view_model.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/text_form_field.dart';
-import 'package:towrevo/widgets/towrevo_logo.dart';
-
-
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   static const routeName = '/change-password';

@@ -4,11 +4,8 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/utitlites/utilities.dart';
-import 'package:towrevo/view_model/company_home_screen_view_model.dart';
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/payment_detail.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import 'package:http/http.dart' as http;
 import '../../utitlites/towrevo_appcolor.dart';
 

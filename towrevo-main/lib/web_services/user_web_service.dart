@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:towrevo/models/company_model.dart';
-import 'package:towrevo/models/user_history_model.dart';
+import 'package:towrevo/models/models.dart';
 import 'package:towrevo/utitlites/utilities.dart';
 
 class UserWebService {
@@ -41,8 +40,8 @@ class UserWebService {
     String longitude,
     String latitude,
     String address,
-    String destLongitude,
-    String destLatitude,
+    String? destLongitude,
+    String? destLatitude,
     String destAddress,
     String description,
     String serviceId,

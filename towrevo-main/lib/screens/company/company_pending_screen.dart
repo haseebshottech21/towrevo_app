@@ -4,14 +4,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/utitlites/utilities.dart';
-import 'package:towrevo/view_model/company_home_screen_view_model.dart';
-import 'package:towrevo/widgets/Company/accept_decline_card.dart';
-import 'package:towrevo/widgets/Loaders/no_user.dart';
-import 'package:towrevo/widgets/circular_progress_indicator.dart';
-import 'package:towrevo/widgets/empty_profile.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/profile_image_circle.dart';
-import 'package:towrevo/widgets/show_snackbar.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 
 class CompanyPendingScreen extends StatefulWidget {
   const CompanyPendingScreen({Key? key}) : super(key: key);
@@ -97,8 +91,8 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
                             from: 30,
                             child: AcceptDeclineCardItem(
                               userName: provider.requestServiceList[index].name,
-                              userDistance:
-                                  provider.requestServiceList[index].distance,
+                              userDistance: provider
+                                  .requestServiceList[index].totalDistance,
                               profileImage: provider.requestServiceList[index]
                                       .image.isNotEmpty
                                   ? profileImageSquare(

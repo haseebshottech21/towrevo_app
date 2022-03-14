@@ -8,19 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/utitlites/state_city_utility.dart';
 import 'package:towrevo/utitlites/utilities.dart';
-import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/Company/comapny_signup_title.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/services_and_days_check_box_widgets/check_list.dart';
-import 'package:towrevo/widgets/services_and_days_check_box_widgets/days_check_box_widget.dart';
-import 'package:towrevo/widgets/services_and_days_check_box_widgets/services_check_box_widget.dart';
-
+import 'package:towrevo/widgets/widgets.dart';
 import '../../../utitlites/towrevo_appcolor.dart';
-import '/widgets/form_button_widget.dart';
-import '/view_model/get_location_view_model.dart';
-import '/view_model/register_company_view_model.dart';
-
+import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/screens/screens.dart';
 
 class RegistrationCategoryAndTimingScreen extends StatefulWidget {

@@ -7,14 +7,8 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/view_model/login_view_model.dart';
-import 'package:towrevo/view_model/register_user_view_model.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/background_image.dart';
-import 'package:towrevo/widgets/circular_progress_indicator.dart';
-import 'package:towrevo/widgets/form_button_widget.dart';
-import 'package:towrevo/widgets/text_form_field.dart';
-import 'package:towrevo/widgets/towrevo_logo.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 
 class ForgotPasswordOTPScreen extends StatefulWidget {
@@ -22,7 +16,8 @@ class ForgotPasswordOTPScreen extends StatefulWidget {
   static const routeName = 'forget-password-otp';
 
   @override
-  _ForgotPasswordOTPScreenState createState() => _ForgotPasswordOTPScreenState();
+  _ForgotPasswordOTPScreenState createState() =>
+      _ForgotPasswordOTPScreenState();
 }
 
 class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>

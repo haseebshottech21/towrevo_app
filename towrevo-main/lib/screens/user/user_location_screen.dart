@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/place_detail_model.dart';
-import '../../view_model/get_location_view_model.dart';
+import 'package:towrevo/view_model/view_model.dart';
 
 class UserLocationScreen extends StatefulWidget {
   static const routeName = '/location-screen';

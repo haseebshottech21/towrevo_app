@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:towrevo/widgets/towrevo_logo.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import '../../../utitlites/towrevo_appcolor.dart';
 
 class OnBoardWidget extends StatelessWidget {

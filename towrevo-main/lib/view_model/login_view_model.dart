@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:towrevo/screens/authentication/forgot_password/forgot_password_otp_screen.dart';
 import 'package:towrevo/screens/authentication/login/login_screen.dart';
 import 'package:towrevo/web_services/authentication.dart';
-
 import '../utitlites/utilities.dart';
 
 class LoginViewModel with ChangeNotifier {

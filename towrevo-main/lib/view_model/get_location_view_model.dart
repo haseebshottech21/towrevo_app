@@ -4,10 +4,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/models/directions_model.dart';
-import 'package:towrevo/models/place_detail_model.dart';
-import 'package:towrevo/models/places_model.dart';
-import 'package:towrevo/view_model/register_company_view_model.dart';
+import 'package:towrevo/models/models.dart';
+import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/place_web_service.dart';
 
 class GetLocationViewModel with ChangeNotifier {

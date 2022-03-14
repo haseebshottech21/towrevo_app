@@ -3,14 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/widgets/Company/comapny_signup_title.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import '/view_model/register_company_view_model.dart';
-import '/widgets/text_form_field.dart';
-import '/widgets/background_image.dart';
-import '/widgets/company_form_field.dart';
-import '/widgets/form_button_widget.dart';
-
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 
 class RegistrationCredentialScreen extends StatefulWidget {
@@ -103,16 +97,10 @@ class _RegistrationCredentialScreenState
                         FadeInDown(
                           from: 25,
                           delay: const Duration(milliseconds: 570),
-                          child: TextFieldForAll(
+                          child: PhoneField(
                             errorGetter: ErrorGetter().phoneNumberErrorGetter,
-                            hintText: 'Phone',
-                            prefixIcon: const Icon(
-                              FontAwesomeIcons.phoneAlt,
-                              color: Color(0xFF019aff),
-                              size: 20.0,
-                            ),
+                            hintText: 'Phone Number',
                             textEditingController: phoneNumberController,
-                            textInputType: TextInputType.phone,
                           ),
                         ),
                         const SizedBox(

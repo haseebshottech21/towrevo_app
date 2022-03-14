@@ -6,14 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/utitlites/utilities.dart';
-import 'package:towrevo/widgets/circular_progress_indicator.dart';
 import 'package:towrevo/screens/screens.dart';
-import '/view_model/login_view_model.dart';
-import '/widgets/company_form_field.dart';
-import '/widgets/form_button_widget.dart';
-import '/widgets/text_form_field.dart';
-import '/widgets/background_image.dart';
-import '/widgets/towrevo_logo.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

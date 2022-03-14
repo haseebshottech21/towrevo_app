@@ -96,7 +96,11 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            '${widget.userDistance} miles away',
+                            widget.userDistance +
+                                ' ' +
+                                (widget.dropLocation.isEmpty
+                                    ? 'miles away'
+                                    : 'total distance'),
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black54,

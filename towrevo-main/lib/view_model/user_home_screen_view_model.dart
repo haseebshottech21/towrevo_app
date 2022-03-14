@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/models/company_model.dart';
-import 'package:towrevo/models/user_history_model.dart';
+import 'package:towrevo/models/models.dart';
 import 'package:towrevo/utitlites/utilities.dart';
-// import '../utitlites/towrevo_appcolor.dart';import 'package:towrevo/utilities.dart';
-import 'package:towrevo/view_model/company_home_screen_view_model.dart';
+import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
-import 'package:towrevo/widgets/show_snackbar.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import '../request_timer.dart';
 
 class UserHomeScreenViewModel with ChangeNotifier {
@@ -157,8 +155,8 @@ class UserHomeScreenViewModel with ChangeNotifier {
     String longitude,
     String latitude,
     String address,
-    String destLongitude,
-    String destLatitude,
+    String? destLongitude,
+    String? destLatitude,
     String destAddress,
     String description,
     String serviceId,
@@ -170,8 +168,8 @@ class UserHomeScreenViewModel with ChangeNotifier {
       longitude,
       latitude,
       address,
-      destLongitude,
-      destLatitude,
+      destLongitude!,
+      destLatitude!,
       destAddress,
       description,
       serviceId,

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utitlites/state_city_utility.dart';
 import 'package:towrevo/utitlites/utilities.dart';
 import 'package:towrevo/web_services/authentication.dart';
 import 'otp_view_model.dart';

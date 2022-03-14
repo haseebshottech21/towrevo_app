@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:towrevo/screens/screens.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import 'onboard_widget.dart';
 
 class OnBoardTowrevo extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:towrevo/models/service_request_model.dart';
+import 'package:towrevo/models/models.dart';
 import 'package:towrevo/utitlites/utilities.dart';
 
 class CompanyWebService {

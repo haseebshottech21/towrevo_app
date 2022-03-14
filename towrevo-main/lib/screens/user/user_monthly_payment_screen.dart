@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
-import 'package:towrevo/widgets/back_icon.dart';
-import 'package:towrevo/widgets/full_background_image.dart';
-import 'package:towrevo/widgets/payment_detail.dart';
+import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import '../../utitlites/towrevo_appcolor.dart';
 import '../../utitlites/utilities.dart';
 import 'package:http/http.dart' as http;
@@ -17,7 +14,8 @@ class UserMonthlyPaymentScreen extends StatefulWidget {
   static const routeName = '/registration-payment-screen';
 
   @override
-  State<UserMonthlyPaymentScreen> createState() => _UserMonthlyPaymentScreenState();
+  State<UserMonthlyPaymentScreen> createState() =>
+      _UserMonthlyPaymentScreenState();
 }
 
 class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
@@ -46,7 +44,7 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
 
       paynow(context);
     } on StripeException catch (e) {
-      Utilities().showToast('Cancel');
+      Utilities().showToast('${e.error.localizedMessage}');
       print(e);
     }
   }

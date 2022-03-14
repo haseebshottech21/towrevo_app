@@ -1,0 +1,10 @@
+export 'package:towrevo/view_model/company_home_screen_view_model.dart';
+export 'package:towrevo/view_model/edit_profile_view_model.dart';
+export 'package:towrevo/view_model/get_location_view_model.dart';
+export 'package:towrevo/view_model/login_view_model.dart';
+export 'package:towrevo/view_model/otp_view_model.dart';
+export 'package:towrevo/view_model/register_company_view_model.dart';
+export 'package:towrevo/view_model/register_user_view_model.dart';
+export 'package:towrevo/view_model/services_and_day_view_model.dart';
+export 'package:towrevo/view_model/splash_view_model.dart';
+export 'package:towrevo/view_model/user_home_screen_view_model.dart';
