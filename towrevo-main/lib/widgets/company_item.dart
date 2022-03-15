@@ -87,7 +87,7 @@ class CompanyItem extends StatelessWidget {
                             companyModel.from +
                                 ' - ' +
                                 companyModel.to +
-                                ' (${companyModel.distance} mi)',
+                                ' (${companyModel.distance})',
                           ),
                         ),
                         Row(

@@ -46,12 +46,16 @@ class CompanyModel {
           .format(DateFormat("hh:mm").parse(json['to'].toString())),
       // distance: double.parse((json['distance']).toStringAsFixed(2)).toString(),
       distance: json['distance'].toString() == 'Null'
-          ? 'Not in reach'
-          : (double.parse(
-                      json['distance'].toString().split('km').first.trim()) *
-                  0.621371)
-              .toStringAsFixed(2)
-              .toString(),
+          ? 'Not in range'
+          : (double.parse(json['distance']
+                          .toString()
+                          .split('km')
+                          .first
+                          .trim()) *
+                      0.621371)
+                  .toStringAsFixed(2)
+                  .toString() +
+              ' mi',
       firstName: json['user']['first_name'],
       email: json['user']['email'] ?? '',
       phoneNumber: json['user']['phone'] ?? '',

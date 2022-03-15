@@ -90,12 +90,12 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
+                          itemCount: userHomeProvider.list.length,
                           itemBuilder: (ctx, index) {
                             return CompanyItem(
                               companyModel: userHomeProvider.list[index],
                             );
                           },
-                          itemCount: userHomeProvider.list.length,
                         ),
                       ),
                     ),
