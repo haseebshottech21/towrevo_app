@@ -64,14 +64,13 @@ class ServiceRequestModel {
       // distance: json['distance'].toString(),
       // totalDistance: json['total_distance'].toString(),
       distance: json['distance'] == null
-          ? 'This usre Not in range'
+          ? 'This user Not in range'
           : (double.parse(
                       (json['distance']).toString().split('mi').first.trim()))
-                  .toStringAsFixed(1)
-                  .toString() +
+                  .toStringAsFixed(1) +
               ' miles away',
       totalDistance: json['total_distance'] == null
-          ? 'This usre Not in range'
+          ? 'This user Not in range'
           : (double.parse((json['total_distance'])
                           .toString()
                           .split('km')

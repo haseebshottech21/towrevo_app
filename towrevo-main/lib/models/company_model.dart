@@ -15,6 +15,7 @@ class CompanyModel {
   String image;
   String notificationId;
   String avgRating;
+  bool isCompanyAvailable;
 
   CompanyModel({
     required this.id,
@@ -31,6 +32,7 @@ class CompanyModel {
     required this.image,
     required this.notificationId,
     required this.avgRating,
+    required this.isCompanyAvailable,
   });
 
   factory CompanyModel.fromJson(Map<String, dynamic> json) {
@@ -41,27 +43,23 @@ class CompanyModel {
       latitude: json['latitude'].toString(),
       longitude: json['longitude'].toString(),
       from: json['from'].toString().toUpperCase(),
-      // DateFormat("h:mm")
-      //     .format(DateFormat("hh:mm").parse(json['from'].toString())),
       to: json['to'].toString().toUpperCase(),
-      // DateFormat("h:mm")
-      //     .format(DateFormat("hh:mm").parse(json['to'].toString())),
-      // distance: double.parse((json['distance']).toStringAsFixed(2)).toString(),
       distance: json['distance'].toString() == 'Null'
           ? 'Not in range'
           : (double.parse(
                       (json['distance']).toString().split('mi').first.trim()))
-                  .toStringAsFixed(1)
-                  .toString() +
+                  .toStringAsFixed(1) +
               ' mi',
+      isCompanyAvailable: json['distance'].toString() == 'Null' ? false : true,
       firstName: json['user']['first_name'],
       email: json['user']['email'] ?? '',
       phoneNumber: json['user']['phone'] ?? '',
       image: json['user']['image'] ?? '',
       notificationId: json['user']['notification_id'].toString(),
-      avgRating: double.parse(
-        (json['user']['avg_rating'] ?? 0.0).toStringAsFixed(1),
-      ).toString(),
+      avgRating: (json['user']['avg_rating']) == null
+          ? '0.0'
+          : double.parse(json['user']['avg_rating'].toString())
+              .toStringAsFixed(1),
     );
   }
 }

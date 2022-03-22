@@ -222,17 +222,21 @@ class CompanyItem extends StatelessWidget {
                                 IconButton(
                                     padding: EdgeInsets.zero,
                                     constraints: const BoxConstraints(),
-                                    onPressed: () {
-                                      sendRequest(
-                                        companyModel.userId,
-                                        context,
-                                        companyModel.notificationId,
-                                        companyModel.phoneNumber,
-                                      );
-                                    },
+                                    onPressed: companyModel.isCompanyAvailable
+                                        ? () {
+                                            sendRequest(
+                                              companyModel.userId,
+                                              context,
+                                              companyModel.notificationId,
+                                              companyModel.phoneNumber,
+                                            );
+                                          }
+                                        : null,
                                     icon: FaIcon(
                                       FontAwesomeIcons.paperPlane,
-                                      color: primaryColor,
+                                      color: companyModel.isCompanyAvailable
+                                          ? primaryColor
+                                          : Colors.grey,
                                       size: 22,
                                     ),
                                   ),
@@ -256,12 +260,17 @@ class CompanyItem extends StatelessWidget {
                             IconButton(
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
-                              onPressed: () {
-                                openDialPad(companyModel.phoneNumber, context);
-                              },
+                              onPressed: companyModel.isCompanyAvailable
+                                  ? () {
+                                      openDialPad(
+                                          companyModel.phoneNumber, context);
+                                    }
+                                  : null,
                               icon: Icon(
                                 Icons.phone_in_talk,
-                                color: primaryColor,
+                                color: companyModel.isCompanyAvailable
+                                    ? primaryColor
+                                    : Colors.grey,
                                 size: 25,
                               ),
                             ),
