@@ -62,7 +62,7 @@ class ServiceRequestModel {
       serviceName: json['service']['name'],
       status: json['status'],
       // distance: json['distance'].toString(),
-      // totalDistance: json['distance'].toString(),
+      totalDistance: json['total_distance'].toString(),
       distance: json['distance'].toString() == 'Null'
           ? 'Not in reach'
           : (double.parse(
@@ -70,14 +70,14 @@ class ServiceRequestModel {
                   0.621371)
               .toStringAsFixed(2)
               .toString(),
-      totalDistance: json['total_distance'].toString() == 'Null'
-          ? 'Not in reach'
-          : (double.parse(json['total_distance'].toString()
-                        ..split('km').first.trim()) *
-                      0.621371)
-                  .toStringAsFixed(2)
-                  .toString() +
-              ' miles',
+      // totalDistance: json['total_distance'].toString() == 'Null'
+      //     ? 'Not in reach'
+      //     : (double.parse(json['total_distance'].toString()
+      //                   ..split('km').first.trim()) *
+      //                 0.621371)
+      //             .toStringAsFixed(2)
+      //             .toString() +
+      //         ' miles',
       notificationId: (json['user']['notification_id']) ?? '',
       name: (json['user']['first_name'] ?? '') +
           ' ' +
