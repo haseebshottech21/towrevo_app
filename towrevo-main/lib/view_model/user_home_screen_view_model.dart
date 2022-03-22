@@ -55,9 +55,11 @@ class UserHomeScreenViewModel with ChangeNotifier {
   setDrawerInfo({
     required String name,
     required String image,
+   
   }) {
     utilities.setSharedPrefValue('name', name);
     utilities.setSharedPrefValue('image', image);
+  
     updateDrawerInfo();
   }
 

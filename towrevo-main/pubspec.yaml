@@ -43,7 +43,7 @@ dependencies:
   geocoding: ^2.0.1
   time_range_picker: ^2.1.0
   image_picker: ^0.8.4+4
-  flutter_stripe: ^2.0.2
+  flutter_stripe: ^2.4.0
   shared_preferences: ^2.0.9
   intl: ^0.17.0
   fluttertoast: ^8.0.8  

@@ -12,17 +12,17 @@ class CompanyOngoingScreen extends StatefulWidget {
 }
 
 class _CompanyOngoingScreenState extends State<CompanyOngoingScreen> {
-  bool initial = true;
-  @override
-  void didChangeDependencies() {
-    if (initial) {
-      Provider.of<GetLocationViewModel>(context, listen: false)
-          .getCurrentLocation(context);
-    }
-    initial = false;
+  // bool initial = true;
+  // @override
+  // void didChangeDependencies() {
+  //   if (initial) {
+  //     Provider.of<GetLocationViewModel>(context, listen: false)
+  //         .getCurrentLocation(context);
+  //   }
+  //   initial = false;
 
-    super.didChangeDependencies();
-  }
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {

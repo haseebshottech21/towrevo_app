@@ -3,6 +3,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/utitlites/towrevo_appcolor.dart';
+import 'package:towrevo/utitlites/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 
 class DistanceScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class DistanceScreen extends StatefulWidget {
 
 class _DistanceScreenState extends State<DistanceScreen> {
   GoogleMapController? mapController;
-  double originLatitude = 24.7436, originLongitude = 69.8061;
+  double originLatitude = 0.0, originLongitude = 0.0;
   double destLatitude = 24.7014, destLongitude = 70.1783;
   Map<MarkerId, Marker> markers = {};
   Map<PolylineId, Polyline> polylines = {};
@@ -33,14 +34,15 @@ class _DistanceScreenState extends State<DistanceScreen> {
   bool init = true;
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (init) {
       locationViewModel =
           Provider.of<GetLocationViewModel>(context, listen: false);
       originLatitude =
-          locationViewModel!.myCurrentLocation.placeLocation.latitude;
+          double.parse(await Utilities().getSharedPreferenceValue('latitude'));
+      print(await Utilities().getSharedPreferenceValue('longitude'));
       originLongitude =
-          locationViewModel!.myCurrentLocation.placeLocation.longitude;
+          double.parse(await Utilities().getSharedPreferenceValue('longitude'));
       final args = ModalRoute.of(context)!.settings.arguments as LatLng;
       destLatitude = args.latitude;
       destLongitude = args.longitude;
@@ -51,6 +53,7 @@ class _DistanceScreenState extends State<DistanceScreen> {
       /// destination marker
       _addMarker(LatLng(destLatitude, destLongitude), "destination",
           BitmapDescriptor.defaultMarkerWithHue(90));
+
       _getPolyline(locationViewModel!);
       init = false;
     }
@@ -118,25 +121,25 @@ class _DistanceScreenState extends State<DistanceScreen> {
               markers: Set<Marker>.of(markers.values),
               polylines: Set<Polyline>.of(polylines.values),
             ),
-            // if (totalDistanceAndDuration.isNotEmpty)
-            //   Positioned(
-            //     top: 20,
-            //     // left: 20,
-            //     child: Container(
-            //       alignment: Alignment.center,
-            //       padding:
-            //           const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            //       decoration: BoxDecoration(
-            //         color: Colors.yellow.shade300,
-            //         borderRadius: BorderRadius.circular(20.0),
-            //       ),
-            //       child: Text(
-            //         'totalDistanceAndDuration',
-            //         style: const TextStyle(
-            //             fontSize: 19.0, fontWeight: FontWeight.w600),
-            //       ),
-            //     ),
-            //   ),
+            if (totalDistanceAndDuration.isNotEmpty)
+              Positioned(
+                top: 20,
+                // left: 20,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.yellow.shade300,
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  child: Text(
+                    totalDistanceAndDuration,
+                    style: const TextStyle(
+                        fontSize: 19.0, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
@@ -191,6 +194,17 @@ class _DistanceScreenState extends State<DistanceScreen> {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       }
       totalDistanceAndDuration = result.status!;
+    }
+    if (originLatitude != 0.0) {
+      mapController!.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(originLatitude, originLongitude),
+            tilt: 50.0,
+            zoom: 14.5,
+          ),
+        ),
+      );
     }
     _addPolyLine();
   }

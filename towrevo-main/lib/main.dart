@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/utitlites/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
@@ -20,14 +21,23 @@ void main() async {
   }
   Stripe.publishableKey =
       'pk_test_51IdtHCGmNbFgnn00GS9N3SgfZldmDiOvK5WbKahPhImD2ThfzRqUKTMYG3i4xwTcphNBUb9FfeQFmBK37t3h4Ewh00JnMUB9Ul';
-  Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
-  Stripe.urlScheme = 'flutterstripe';
-  await Stripe.instance.applySettings();
+  try {
+    if(Platform.isIOS){
+    Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+    Stripe.urlScheme = 'flutterstripe';
+    await Stripe.instance.applySettings();
+    }
+  } on StripeException catch (exception) {
+    print(exception.error.localizedMessage.toString());
+    Fluttertoast.showToast(msg: exception.error.localizedMessage.toString());
+  } catch (e) {
+    Fluttertoast.showToast(msg: e.toString());
+    print(e.toString());
+  }
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  
   const MyApp({Key? key}) : super(key: key);
   static String notifyToken = '';
   static String onBoard = '';

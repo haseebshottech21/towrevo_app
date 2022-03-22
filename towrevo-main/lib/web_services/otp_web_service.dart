@@ -33,6 +33,17 @@ class OTPWebService {
         'image',
         loadedData['data']['user']['image'] ?? '',
       );
+      final Map companyInfo = loadedData['data']['user']['company_info'] ?? {};
+      if (companyInfo.isNotEmpty) {
+        await utilities.setSharedPrefValue(
+          'longitude',
+          companyInfo['longitude'].toString(),
+        );
+        await utilities.setSharedPrefValue(
+          'latitude',
+          companyInfo['latitude'].toString(),
+        );
+      }
       await utilities.setSharedPrefValue(
         'name',
         loadedData['data']['user']['first_name'].toString() +

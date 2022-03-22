@@ -75,6 +75,18 @@ class AuthenticationWebService {
             ' ' +
             (responseLoaded['data']['user']['last_name'] ?? '').toString(),
       );
+      final Map companyInfo =
+          responseLoaded['data']['user']['company_info'] ?? {};
+      if (companyInfo.isNotEmpty) {
+        await utilities.setSharedPrefValue(
+          'longitude',
+          companyInfo['longitude'].toString(),
+        );
+        await utilities.setSharedPrefValue(
+          'latitude',
+          companyInfo['latitude'].toString(),
+        );
+      }
 
       if (remember) {
         await utilities.setSharedPrefValue('remember_email', email);
@@ -104,6 +116,8 @@ class AuthenticationWebService {
       await utilities.removeSharedPreferenceValue('email');
       await utilities.removeSharedPreferenceValue('image');
       await utilities.removeSharedPreferenceValue('name');
+      await utilities.removeSharedPreferenceValue('longitude');
+      await utilities.removeSharedPreferenceValue('latitude');
 
       return true;
     } else {
