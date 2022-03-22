@@ -9,30 +9,32 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(Duration.zero)
         .then((value) => SplashViewModel().navigateToWelcome(context));
     return Scaffold(
-      body: Stack(children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/splashbg.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Center(
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.25,
-            width: MediaQuery.of(context).size.width * 0.70,
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/logo.png'),
-                fit: BoxFit.fill,
+                image: AssetImage('assets/images/splashbg.jpg'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
-        )
-      ]),
+          Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width * 0.65,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/logo.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

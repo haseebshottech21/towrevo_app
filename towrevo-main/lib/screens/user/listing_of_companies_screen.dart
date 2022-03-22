@@ -21,11 +21,6 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
       backgroundColor: userHomeProvider.isLoading
           ? Colors.white
           : Theme.of(context).primaryColor,
-      // appBar: AppBar(
-      //   title: const Text(
-      //     'Near by Services',
-      //   ),
-      // ),
       body: Stack(
         children: [
           const FullBackgroundImage(),
@@ -90,12 +85,12 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
+                          itemCount: userHomeProvider.list.length,
                           itemBuilder: (ctx, index) {
                             return CompanyItem(
                               companyModel: userHomeProvider.list[index],
                             );
                           },
-                          itemCount: userHomeProvider.list.length,
                         ),
                       ),
                     ),

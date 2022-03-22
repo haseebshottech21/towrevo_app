@@ -97,11 +97,7 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            widget.userDistance +
-                                ' ' +
-                                (widget.dropLocation.isEmpty
-                                    ? 'miles away'
-                                    : 'total distance'),
+                            widget.userDistance,
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black54,

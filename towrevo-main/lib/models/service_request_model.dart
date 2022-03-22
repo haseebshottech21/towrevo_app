@@ -62,22 +62,25 @@ class ServiceRequestModel {
       serviceName: json['service']['name'],
       status: json['status'],
       // distance: json['distance'].toString(),
-      totalDistance: json['total_distance'].toString(),
-      distance: json['distance'].toString() == 'Null'
-          ? 'Not in reach'
+      // totalDistance: json['total_distance'].toString(),
+      distance: json['distance'] == null
+          ? 'This usre Not in range'
           : (double.parse(
-                      json['distance'].toString().split('km').first.trim()) *
-                  0.621371)
-              .toStringAsFixed(2)
-              .toString(),
-      // totalDistance: json['total_distance'].toString() == 'Null'
-      //     ? 'Not in reach'
-      //     : (double.parse(json['total_distance'].toString()
-      //                   ..split('km').first.trim()) *
-      //                 0.621371)
-      //             .toStringAsFixed(2)
-      //             .toString() +
-      //         ' miles',
+                      (json['distance']).toString().split('mi').first.trim()))
+                  .toStringAsFixed(1)
+                  .toString() +
+              ' miles away',
+      totalDistance: json['total_distance'] == null
+          ? 'This usre Not in range'
+          : (double.parse((json['total_distance'])
+                          .toString()
+                          .split('km')
+                          .first
+                          .trim()) *
+                      0.621371)
+                  .toStringAsFixed(1)
+                  .toString() +
+              ' total distance',
       notificationId: (json['user']['notification_id']) ?? '',
       name: (json['user']['first_name'] ?? '') +
           ' ' +

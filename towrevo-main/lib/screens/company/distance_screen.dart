@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/utitlites/towrevo_appcolor.dart';
 import 'package:towrevo/view_model/view_model.dart';
 
 class DistanceScreen extends StatefulWidget {
-  static String a='';
+  static String a = '';
   static const routeName = '/map-distance';
   const DistanceScreen({Key? key}) : super(key: key);
 
@@ -63,7 +64,9 @@ class _DistanceScreenState extends State<DistanceScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: const BackButton(color: Colors.black),
           actions: [
             TextButton(
               onPressed: () {
@@ -77,7 +80,10 @@ class _DistanceScreenState extends State<DistanceScreen> {
                   ),
                 );
               },
-              child: const Text('ORIGIN'),
+              child: Text(
+                'ORIGIN',
+                style: TextStyle(color: AppColors.primaryColor2),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -91,7 +97,10 @@ class _DistanceScreenState extends State<DistanceScreen> {
                   ),
                 );
               },
-              child: const Text('DESTINATION'),
+              child: Text(
+                'DESTINATION',
+                style: TextStyle(color: AppColors.primaryColor2),
+              ),
             ),
           ],
         ),
@@ -109,25 +118,25 @@ class _DistanceScreenState extends State<DistanceScreen> {
               markers: Set<Marker>.of(markers.values),
               polylines: Set<Polyline>.of(polylines.values),
             ),
-            if (totalDistanceAndDuration.isNotEmpty)
-              Positioned(
-                top: 20,
-                // left: 20,
-                child: Container(
-                  alignment: Alignment.center,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.yellow.shade300,
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Text(
-                    totalDistanceAndDuration,
-                    style: const TextStyle(
-                        fontSize: 19.0, fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
+            // if (totalDistanceAndDuration.isNotEmpty)
+            //   Positioned(
+            //     top: 20,
+            //     // left: 20,
+            //     child: Container(
+            //       alignment: Alignment.center,
+            //       padding:
+            //           const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            //       decoration: BoxDecoration(
+            //         color: Colors.yellow.shade300,
+            //         borderRadius: BorderRadius.circular(20.0),
+            //       ),
+            //       child: Text(
+            //         'totalDistanceAndDuration',
+            //         style: const TextStyle(
+            //             fontSize: 19.0, fontWeight: FontWeight.w600),
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
       ),

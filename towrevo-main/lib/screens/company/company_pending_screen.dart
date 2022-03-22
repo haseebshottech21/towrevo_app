@@ -91,8 +91,12 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
                             from: 30,
                             child: AcceptDeclineCardItem(
                               userName: provider.requestServiceList[index].name,
-                              userDistance: provider
-                                  .requestServiceList[index].totalDistance,
+                              userDistance: provider.requestServiceList[index]
+                                      .destAddress.isEmpty
+                                  ? provider.requestServiceList[index].distance
+                                  : provider
+                                      .requestServiceList[index].totalDistance,
+
                               profileImage: provider.requestServiceList[index]
                                       .image.isNotEmpty
                                   ? profileImageSquare(

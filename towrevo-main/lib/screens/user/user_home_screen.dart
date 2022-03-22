@@ -372,11 +372,13 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     final serviceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
 
-    print('Destination long ' +
-        lngLatProvider.myDestinationLocation.placeLocation.longitude
-            .toString());
-    print('Destination lat ' +
-        lngLatProvider.myDestinationLocation.placeLocation.latitude.toString());
+    print('long ' +
+        lngLatProvider.myCurrentLocation.placeLocation.longitude.toString());
+    print('lat ' +
+        lngLatProvider.myCurrentLocation.placeLocation.latitude.toString());
+
+    print(
+        'address ' + lngLatProvider.myCurrentLocation.placeAddress.toString());
 
     if (serviceProvider.serviceSelectedValue == null ||
         lngLatProvider.myCurrentLocation.placeAddress.isEmpty ||
@@ -456,8 +458,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       //services e.g car, bike
       // get current location
       await locationProvider.getCurrentLocation(context);
-      print('pickup' + locationProvider.myCurrentLocation.placeAddress);
-      print('dest' + locationProvider.myDestinationLocation.placeAddress);
+      // print('pickup' + locationProvider.myCurrentLocation.placeAddress);
+      // print('dest' + locationProvider.myDestinationLocation.placeAddress);
     }
     _init = false;
     super.didChangeDependencies();
