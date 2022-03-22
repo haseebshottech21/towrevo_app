@@ -40,20 +40,18 @@ class CompanyModel {
       description: json['description'] ?? 'There is no Description',
       latitude: json['latitude'].toString(),
       longitude: json['longitude'].toString(),
-      from: DateFormat("h:mm a")
-          .format(DateFormat("hh:mm").parse(json['from'].toString())),
-      to: DateFormat("h:mm a")
-          .format(DateFormat("hh:mm").parse(json['to'].toString())),
+      from: json['from'].toString().toUpperCase(),
+      // DateFormat("h:mm")
+      //     .format(DateFormat("hh:mm").parse(json['from'].toString())),
+      to: json['to'].toString().toUpperCase(),
+      // DateFormat("h:mm")
+      //     .format(DateFormat("hh:mm").parse(json['to'].toString())),
       // distance: double.parse((json['distance']).toStringAsFixed(2)).toString(),
       distance: json['distance'].toString() == 'Null'
           ? 'Not in range'
-          : (double.parse(json['distance']
-                          .toString()
-                          .split('km')
-                          .first
-                          .trim()) *
-                      0.621371)
-                  .toStringAsFixed(2)
+          : (double.parse(
+                      (json['distance']).toString().split('mi').first.trim()))
+                  .toStringAsFixed(1)
                   .toString() +
               ' mi',
       firstName: json['user']['first_name'],

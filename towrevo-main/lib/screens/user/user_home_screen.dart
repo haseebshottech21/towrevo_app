@@ -377,6 +377,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     print('lat ' +
         lngLatProvider.myCurrentLocation.placeLocation.latitude.toString());
 
+    print(
+        'address ' + lngLatProvider.myCurrentLocation.placeAddress.toString());
+
     if (serviceProvider.serviceSelectedValue == null ||
         lngLatProvider.myCurrentLocation.placeAddress.isEmpty ||
         describeController.text.isEmpty) {

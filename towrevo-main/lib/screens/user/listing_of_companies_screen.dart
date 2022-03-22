@@ -21,11 +21,6 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
       backgroundColor: userHomeProvider.isLoading
           ? Colors.white
           : Theme.of(context).primaryColor,
-      // appBar: AppBar(
-      //   title: const Text(
-      //     'Near by Services',
-      //   ),
-      // ),
       body: Stack(
         children: [
           const FullBackgroundImage(),

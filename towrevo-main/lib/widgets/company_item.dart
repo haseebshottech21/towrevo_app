@@ -57,6 +57,7 @@ class CompanyItem extends StatelessWidget {
   Widget build(BuildContext context) {
     print(companyModel.email);
     final primaryColor = Theme.of(context).primaryColor;
+    print('distance' + companyModel.distance);
     return FadeInUp(
       from: 50,
       child: Card(
@@ -205,7 +206,20 @@ class CompanyItem extends StatelessWidget {
                           children: [
                             companyModel.email.isEmpty
                                 ? const SizedBox()
-                                : IconButton(
+                                :
+                                // : companyModel.distance == 'Null'
+                                //     ? const IconButton(
+                                //         padding: EdgeInsets.zero,
+                                //         constraints: BoxConstraints(),
+                                //         onPressed: null,
+                                //         icon: FaIcon(
+                                //           FontAwesomeIcons.solidPaperPlane,
+                                //           color: Colors.grey,
+                                //           size: 22,
+                                //         ),
+                                //       )
+                                //     :
+                                IconButton(
                                     padding: EdgeInsets.zero,
                                     constraints: const BoxConstraints(),
                                     onPressed: () {
@@ -227,6 +241,18 @@ class CompanyItem extends StatelessWidget {
                                 : const SizedBox(
                                     width: 20,
                                   ),
+                            // companyModel.distance == 'Null'
+                            //     ? const IconButton(
+                            //         padding: EdgeInsets.zero,
+                            //         constraints: BoxConstraints(),
+                            //         onPressed: null,
+                            //         icon: FaIcon(
+                            //           Icons.phone_in_talk,
+                            //           color: Colors.grey,
+                            //           size: 25,
+                            //         ),
+                            //       )
+                            //     :
                             IconButton(
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
