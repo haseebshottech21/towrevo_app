@@ -11,6 +11,8 @@ class JobCompleteCard extends StatefulWidget {
   final String dropLocation;
   final String reqOriginLatitude;
   final String reqOriginLongitude;
+  final String reqDestLatitude;
+  final String reqDestLongitude;
   final String probText;
   final Widget profileImage;
   final void Function()? completeOnPressed;
@@ -22,6 +24,8 @@ class JobCompleteCard extends StatefulWidget {
     required this.pickLocation,
     required this.reqOriginLatitude,
     required this.reqOriginLongitude,
+    required this.reqDestLatitude,
+    required this.reqDestLongitude,
     required this.probText,
     required this.profileImage,
     required this.completeOnPressed,
@@ -347,6 +351,16 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                     onPressed: () {
                       Navigator.of(context).pushNamed(
                         DistanceScreen.routeName,
+                        // arguments: {
+                        //   'Origin': LatLng(
+                        //     double.parse(widget.reqOriginLatitude),
+                        //     double.parse(widget.reqOriginLongitude),
+                        //   ),
+                        //   'Destination': LatLng(
+                        //     double.parse(widget.reqDestLatitude),
+                        //     double.parse(widget.reqDestLongitude),
+                        //   ),
+                        // },
                         arguments: LatLng(
                           double.parse(widget.reqOriginLatitude),
                           double.parse(widget.reqOriginLongitude),

@@ -96,6 +96,11 @@ class _CompanyOngoingScreenState extends State<CompanyOngoingScreen> {
                               provider.onGoingRequestsList[index].latitude,
                           reqOriginLongitude:
                               provider.onGoingRequestsList[index].longitude,
+                          reqDestLatitude:
+                              provider.onGoingRequestsList[index].destLatitude,
+                          reqDestLongitude:
+                              provider.onGoingRequestsList[index].destLongitude,
+
                           userName: provider.onGoingRequestsList[index].name,
                           // userDistance:
                           //     provider.onGoingRequestsList[index].totalDistance,

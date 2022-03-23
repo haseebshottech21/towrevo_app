@@ -16,15 +16,24 @@ class DistanceScreen extends StatefulWidget {
 }
 
 class _DistanceScreenState extends State<DistanceScreen> {
+  String buttonText = "Pickup - DropOff";
+
   GoogleMapController? mapController;
-  double originLatitude = 0.0, originLongitude = 0.0;
-  double destLatitude = 24.7014, destLongitude = 70.1783;
+  bool dropoff = false;
+  double compOriginLatitude = 0.0, compOriginLongitude = 0.0;
+  double userPickLatitude = 24.7014, userPickLongitude = 70.1783;
+  double userDestLatitude = 24.7014, userDestLongitude = 70.1783;
   Map<MarkerId, Marker> markers = {};
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
   PolylinePoints polylinePoints = PolylinePoints();
   String googleAPiKey = "AIzaSyBgeFPOQMiMVVrElHYD5l5YSCmNlu8QFXI";
   String totalDistanceAndDuration = "";
+
+  Map<String, LatLng> locationRoute = {
+    'Origin': const LatLng(0.0, 0.0),
+    'Destination': const LatLng(0.0, 0.0),
+  };
 
   @override
   void initState() {
@@ -38,21 +47,32 @@ class _DistanceScreenState extends State<DistanceScreen> {
     if (init) {
       locationViewModel =
           Provider.of<GetLocationViewModel>(context, listen: false);
-      originLatitude =
+      compOriginLatitude =
           double.parse(await Utilities().getSharedPreferenceValue('latitude'));
-      print(await Utilities().getSharedPreferenceValue('longitude'));
-      originLongitude =
+      // print(await Utilities().getSharedPreferenceValue('longitude'));
+      compOriginLongitude =
           double.parse(await Utilities().getSharedPreferenceValue('longitude'));
       final args = ModalRoute.of(context)!.settings.arguments as LatLng;
-      destLatitude = args.latitude;
-      destLongitude = args.longitude;
+      userPickLatitude = args.latitude;
+      userPickLongitude = args.longitude;
+      // locationRoute = args;
 
-      _addMarker(LatLng(originLatitude, originLongitude), "origin",
+      // company loaction marker
+      _addMarker(LatLng(compOriginLatitude, compOriginLongitude), "origin",
           BitmapDescriptor.defaultMarker);
 
-      /// destination marker
-      _addMarker(LatLng(destLatitude, destLongitude), "destination",
+      /// user pick locaion marker
+      _addMarker(LatLng(userPickLatitude, userPickLongitude), "destination",
           BitmapDescriptor.defaultMarkerWithHue(90));
+
+      // _addMarker(
+      //   LatLng(
+      //     locationRoute['Origin']!.latitude,
+      //     locationRoute['Origin']!.longitude,
+      //   ),
+      //   "destination",
+      //   BitmapDescriptor.defaultMarkerWithHue(90),
+      // );
 
       _getPolyline(locationViewModel!);
       init = false;
@@ -76,9 +96,9 @@ class _DistanceScreenState extends State<DistanceScreen> {
                 mapController!.animateCamera(
                   CameraUpdate.newCameraPosition(
                     CameraPosition(
-                      target: LatLng(originLatitude, originLongitude),
+                      target: LatLng(compOriginLatitude, compOriginLongitude),
                       tilt: 50.0,
-                      zoom: 14.5,
+                      zoom: 12.5,
                     ),
                   ),
                 );
@@ -93,9 +113,9 @@ class _DistanceScreenState extends State<DistanceScreen> {
                 mapController!.animateCamera(
                   CameraUpdate.newCameraPosition(
                     CameraPosition(
-                      target: LatLng(destLatitude, destLongitude),
+                      target: LatLng(userPickLatitude, userPickLongitude),
                       tilt: 50.0,
-                      zoom: 14.5,
+                      zoom: 12.5,
                     ),
                   ),
                 );
@@ -111,7 +131,9 @@ class _DistanceScreenState extends State<DistanceScreen> {
           children: [
             GoogleMap(
               initialCameraPosition: CameraPosition(
-                  target: LatLng(originLatitude, originLongitude), zoom: 15),
+                target: LatLng(compOriginLatitude, compOriginLongitude),
+                zoom: 15,
+              ),
               myLocationEnabled: true,
               tiltGesturesEnabled: true,
               compassEnabled: true,
@@ -123,23 +145,46 @@ class _DistanceScreenState extends State<DistanceScreen> {
             ),
             if (totalDistanceAndDuration.isNotEmpty)
               Positioned(
-                top: 20,
+                left: 80,
+                right: 80,
+                top: 5,
                 // left: 20,
                 child: Container(
                   alignment: Alignment.center,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
                   decoration: BoxDecoration(
-                    color: Colors.yellow.shade300,
-                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.yellow.shade200,
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Text(
                     totalDistanceAndDuration,
                     style: const TextStyle(
-                        fontSize: 19.0, fontWeight: FontWeight.w600),
+                      fontSize: 19.0,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
+            Positioned(
+              left: 100,
+              right: 100,
+              bottom: 10,
+              // left: 20,
+              child: ElevatedButton.icon(
+                  icon: const Icon(Icons.directions),
+                  label: Text(buttonText),
+                  onPressed: () {
+                    setState(() {
+                      if (buttonText == "Pickup - DropOff") {
+                        buttonText = "Company - Pickup";
+                      }
+                      // else if (buttonText == "Company - Pickup") {
+                      //   buttonText = "Pickup - DropOff";
+                      // }
+                    });
+                  }),
+            ),
           ],
         ),
       ),
@@ -185,8 +230,8 @@ class _DistanceScreenState extends State<DistanceScreen> {
     _addPolyLine();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleAPiKey,
-      PointLatLng(originLatitude, originLongitude),
-      PointLatLng(destLatitude, destLongitude),
+      PointLatLng(compOriginLatitude, compOriginLongitude),
+      PointLatLng(userPickLatitude, userPickLongitude),
     );
     print(result);
     if (result.points.isNotEmpty) {
@@ -195,13 +240,13 @@ class _DistanceScreenState extends State<DistanceScreen> {
       }
       totalDistanceAndDuration = result.status!;
     }
-    if (originLatitude != 0.0) {
+    if (compOriginLatitude != 0.0) {
       mapController!.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
-            target: LatLng(originLatitude, originLongitude),
+            target: LatLng(compOriginLatitude, compOriginLongitude),
             tilt: 50.0,
-            zoom: 14.5,
+            zoom: 12.5,
           ),
         ),
       );
