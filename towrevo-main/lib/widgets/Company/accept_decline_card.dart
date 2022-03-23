@@ -3,7 +3,7 @@ import 'package:towrevo/utitlites/towrevo_appcolor.dart';
 
 class AcceptDeclineCardItem extends StatefulWidget {
   final String userName;
-  final String userDistance;
+  final double userDistance;
   final String serviceType;
   final String pickLocation;
   final String dropLocation;
@@ -97,7 +97,10 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            widget.userDistance,
+                            widget.userDistance.toStringAsFixed(2) +
+                                (widget.dropLocation.isEmpty
+                                    ? ' miles away'
+                                    : ' total distance'),
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black54,

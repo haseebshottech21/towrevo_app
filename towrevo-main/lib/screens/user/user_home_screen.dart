@@ -380,6 +380,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     print(
         'address ' + lngLatProvider.myCurrentLocation.placeAddress.toString());
 
+    print('time ' + DateFormat.Hm().format(now));
+
     if (serviceProvider.serviceSelectedValue == null ||
         lngLatProvider.myCurrentLocation.placeAddress.isEmpty ||
         describeController.text.isEmpty) {
@@ -403,7 +405,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           ? ''
           : lngLatProvider.myDestinationLocation.placeLocation.latitude
               .toString(),
-      'time': DateFormat('kk:mm').format(now),
+      'time': DateFormat.Hm().format(now),
       'day': await Utilities().dayToInt(
         DateFormat('EEEE').format(now),
       ),
@@ -417,28 +419,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     };
     Navigator.of(context).pushNamed(ListingOfCompaniesScreen.routeName);
   }
-
-  // @override
-  // void initState() {
-  //   Future.delayed(Duration.zero).then((value) async {
-  //     await setUpRequestNotification();
-  //     await setupInteracted();
-
-  //     final serviceProvider =
-  //         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-  //     serviceProvider.changeServiceSelectedValue(null);
-  //     serviceProvider.getServices();
-  //     final locationProvider =
-  //         Provider.of<GetLocationViewModel>(context, listen: false);
-  //     locationProvider.myCurrentLocation.placeAddress = '';
-  //     locationProvider.myDestinationLocation.placeAddress = '';
-  //     //services e.g car, bike
-  //     // get current location
-  //     await locationProvider.getCurrentLocation(context);
-  //   });
-
-  //   super.initState();
-  // }
 
   bool _init = true;
   @override

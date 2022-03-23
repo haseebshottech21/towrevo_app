@@ -96,7 +96,6 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
                                   ? provider.requestServiceList[index].distance
                                   : provider
                                       .requestServiceList[index].totalDistance,
-
                               profileImage: provider.requestServiceList[index]
                                       .image.isNotEmpty
                                   ? profileImageSquare(

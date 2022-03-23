@@ -90,6 +90,7 @@ class _CompanyOngoingScreenState extends State<CompanyOngoingScreen> {
                       shrinkWrap: true,
                       itemCount: provider.onGoingRequestsList.length,
                       itemBuilder: (context, index) {
+                        print(provider.onGoingRequestsList[index].distance);
                         return JobCompleteCard(
                           reqOriginLatitude:
                               provider.onGoingRequestsList[index].latitude,
