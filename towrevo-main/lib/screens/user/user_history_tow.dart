@@ -25,8 +25,6 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
     super.initState();
   }
 
-  // final scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<UserHomeScreenViewModel>(
@@ -35,9 +33,6 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
     );
 
     return Scaffold(
-      // key: scaffoldKey,
-      // drawerEnableOpenDragGesture: false,
-      // drawer: const DrawerWidget(),
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Stack(
@@ -103,21 +98,8 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
                                   itemCount: provider.userHistoryList.length,
                                   itemBuilder: (ctx, index) {
                                     return UserHistoryList(
-                                      companyImage:
-                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-                                      companyName: provider
-                                          .userHistoryList[index].companyName,
-                                      companyService: provider
-                                          .userHistoryList[index].serviceName,
-                                      date:
-                                          provider.userHistoryList[index].date,
-                                      rating: provider.userHistoryList[index]
-                                                  .rating ==
-                                              null
-                                          ? 0
-                                          : provider.userHistoryList[index]
-                                              .rating!.rate,
-                                      // date: '12-12-31',
+                                      userHistoryModel:
+                                          provider.userHistoryList[index],
                                     );
                                   },
                                 ),

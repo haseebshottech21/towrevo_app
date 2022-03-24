@@ -65,7 +65,6 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      print(placeViewModel.placesList[index].placeId);
                       textSearchController.clear();
                       placeViewModel.getPlaceDetail(
                         placeViewModel.placesList[index].placeId,

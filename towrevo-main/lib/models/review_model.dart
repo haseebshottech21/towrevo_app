@@ -6,8 +6,6 @@ class ReviewModel {
     required this.review,
   });
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
-    // print('there');
-    // print(json['created_at']);
     return ReviewModel(
       rate: json['rate'],
       review: json['review'] ?? '',

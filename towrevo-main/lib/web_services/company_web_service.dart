@@ -7,8 +7,6 @@ import 'package:towrevo/utitlites/utilities.dart';
 class CompanyWebService {
   Future<List<ServiceRequestModel>> requestsOfUser(String type,
       {bool history = false}) async {
-    print(Utilities.baseUrl + 'service-requests');
-    print(type);
     final response = await http.post(
         Uri.parse(
             Utilities.baseUrl + 'service-requests${history ? '' : '/$type'}'),

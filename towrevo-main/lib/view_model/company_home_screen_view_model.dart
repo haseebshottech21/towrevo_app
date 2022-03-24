@@ -83,7 +83,6 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
     bool loadedResponse = await companyWebService.paymentStatusCheckRequest();
     if (!loadedResponse) {
-      // Navigator.of(context).pushNamed(MonthlyPaymentScreen.routeName);
       Navigator.of(context).pushNamed(CompanyPaymentScreen.routeName);
     }
   }
@@ -135,7 +134,6 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
         await companyWebService.acceptDeclineOrDone(type, requestId);
     changeLoadingStatus(false);
     if (loadedData != null) {
-      // print(loadedData);
       if (type == '3') {
         companyProvider.getOnGoingRequests();
         notifyListeners();
@@ -172,29 +170,13 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     }
   }
 
-  // Future<void> payNow(
-  //     String transactionId, String amount, BuildContext context) async {
-  //   if (!(await Utilities().isInternetAvailable())) {
-  //     return;
-  //   }
-  //   changeLoadingStatus(true);
-
-  //   final loadedResponse =
-  //       await UserWebService().payNowRequest(transactionId, amount);
-  //   if (loadedResponse != null) {
-  //     await getRequests();
-  //     Navigator.of(context).pop();
-  //   }
-  //   changeLoadingStatus(false);
-  // }
-
   Future<void> payNow(
       String transactionId, String amount, BuildContext context) async {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
-    // userHistoryList = [];
+
     final loadedResponse =
         await CompanyWebService().payNowRequest(transactionId, amount);
     if (loadedResponse != null) {

@@ -55,11 +55,10 @@ class UserHomeScreenViewModel with ChangeNotifier {
   setDrawerInfo({
     required String name,
     required String image,
-   
   }) {
     utilities.setSharedPrefValue('name', name);
     utilities.setSharedPrefValue('image', image);
-  
+
     updateDrawerInfo();
   }
 
@@ -124,13 +123,13 @@ class UserHomeScreenViewModel with ChangeNotifier {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
-    // changeLoadingStatus(true);
+
     final loadedData = await UserWebService().submitRating(
       reqId,
       rate,
       '',
     );
-    // changeLoadingStatus(false);
+
     if (loadedData != null) {
       Navigator.of(context).pop();
       Fluttertoast.showToast(msg: 'Success');
@@ -165,7 +164,6 @@ class UserHomeScreenViewModel with ChangeNotifier {
     String companyId,
     String notificationId,
   ) async {
-    // changeLoadingStatus(true);
     final response = await UserWebService().sendRequestToCompany(
       longitude,
       latitude,
@@ -178,15 +176,12 @@ class UserHomeScreenViewModel with ChangeNotifier {
       companyId,
       notificationId,
     );
-    // changeLoadingStatus(false);
+
     if (response != null) {
       showDialog(
         context: context,
         barrierDismissible: false,
         builder: (ctx) {
-          // Future.delayed(Duration(seconds: 15)).then((value) {
-          //   Navigator.of(context).pop();
-          // });
           return AlertDialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -205,11 +200,6 @@ class UserHomeScreenViewModel with ChangeNotifier {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    // Image.asset(
-                    //   'assets/images/checked.gif',
-                    //   height: MediaQuery.of(context).size.height * 0.20,
-                    //   width: MediaQuery.of(context).size.width * 0.20,
-                    // ),
                     SizedBox(
                       width: 130,
                       height: 130,
@@ -242,14 +232,6 @@ class UserHomeScreenViewModel with ChangeNotifier {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    // Text(
-                    //   snapshot.data.toString(),
-                    //   // 'SuccessFully Send!',
-                    //   style: const TextStyle(
-                    //     fontSize: 20,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
                   ],
                 );
               },
@@ -264,7 +246,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
               .acceptDeclineOrDone(
                   '2', response['data']['id'].toString(), context,
                   getData: false, notificationId: notificationId);
-          // Utilities().showToast('Company not responad send request again');
+
           showSnackBar(
             context: context,
             title: 'Company not responad send request again',

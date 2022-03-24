@@ -25,17 +25,11 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
 
   TextEditingController describeController = TextEditingController();
 
-  // Future<void> openBottomSheet() async{
-  //           await showBottomSheet(context)
-  // }
-
   @override
   Widget build(BuildContext context) {
     final provider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
-    // print('bottom sheet : ${UsersHomeScreen.showBottomSheet}');
-    // print('Dialog : ${UsersHomeScreen.showDialog}');
-    // print(provider.bottomSheetData['requestedId']);
+
     if (provider.bottomSheetData['requested']) {
       Future.delayed(Duration.zero).then(
         (value) async {
@@ -89,11 +83,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       key: scaffoldKey,
       drawerEnableOpenDragGesture: false,
       drawer: const DrawerWidget(),
-      // bottomSheet: ,
       body: SingleChildScrollView(
-        // physics: NeverScrollableScrollPhysics(),
         child: SizedBox(
-          // height: MediaQuery.of(context).size.height,
           child: Stack(
             children: [
               const FullBackgroundImage(),
@@ -129,12 +120,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                     ),
                     Text(
                       'Just give access to your current location and choose the type of towing vehicle you need',
-                      // style: TextStyle(
-                      //   fontSize: 16,
-                      //   fontWeight: FontWeight.w600,
-                      // ),
                       style: GoogleFonts.montserrat(
-                        // color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -142,15 +128,12 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                     ),
                     const SizedBox(height: 15),
                     Container(
-                      // height: MediaQuery.of(context).size.height * 0.48,
                       padding: const EdgeInsets.symmetric(
                         vertical: 20,
                         horizontal: 10,
                       ),
-                      // color: Colors.white,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        // color: const Color(0xFF003e66).withOpacity(0.8),
                         boxShadow: kElevationToShadow[2],
                         gradient: const LinearGradient(
                           begin: Alignment.topLeft,
@@ -206,7 +189,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                               const SizedBox(width: 8),
                               Container(
                                 padding: const EdgeInsets.symmetric(
-                                  // vertical: 10,
                                   horizontal: 10,
                                 ),
                                 width: MediaQuery.of(context).size.width * 0.76,
@@ -226,7 +208,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                      // dropdownColor: AppColors.primaryColor2,
                                       iconEnabledColor: AppColors.primaryColor2,
                                       value: service.serviceSelectedValue,
                                       items:
@@ -300,52 +281,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                   ],
                 ),
               ),
-              // Positioned(
-              //   bottom: 20,
-              //   left: 20,
-              //   right: 20,
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(30),
-              //       boxShadow: kElevationToShadow[10],
-              //       gradient: const LinearGradient(
-              //         begin: Alignment.bottomLeft,
-              //         end: Alignment.topRight,
-              //         stops: [0.1, 0.5],
-              //         colors: [
-              //           Color(0xFF0195f7),
-              //           Color(0xFF083054),
-              //         ],
-              //       ),
-              //     ),
-              //     child: ElevatedButton(
-              //       onPressed: () {
-              //         navigateUserHomeScreen();
-              //       },
-              //       style: ElevatedButton.styleFrom(
-              //         elevation: 10,
-              //         shape: RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(30.0),
-              //         ),
-              //         shadowColor: Colors.transparent,
-              //         primary: Colors.transparent,
-              //         minimumSize: Size(
-              //           MediaQuery.of(context).size.width * 0.90,
-              //           50,
-              //         ),
-              //       ),
-              //       child: Text(
-              //         'NEXT',
-              //         style: GoogleFonts.montserrat(
-              //           color: Colors.white,
-              //           fontWeight: FontWeight.w400,
-              //           fontSize: 20.0,
-              //           letterSpacing: 1,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Consumer<ServicesAndDaysViewModel>(
                 builder: (ctx, loginViewMode, neverUpdate) {
                   return loginViewMode.isLoading
@@ -435,11 +370,9 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           Provider.of<GetLocationViewModel>(context, listen: false);
       locationProvider.myCurrentLocation.placeAddress = '';
       locationProvider.myDestinationLocation.placeAddress = '';
-      //services e.g car, bike
+
       // get current location
       await locationProvider.getCurrentLocation(context);
-      // print('pickup' + locationProvider.myCurrentLocation.placeAddress);
-      // print('dest' + locationProvider.myDestinationLocation.placeAddress);
     }
     _init = false;
     super.didChangeDependencies();
@@ -470,8 +403,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) async {
         if (message.data['screen'] == 'accept') {
-          // print(message.data['name']);
-
           showSnackBar(
             context: context,
             title: 'Request Accept From Company',
@@ -489,7 +420,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           });
         }
         if (message.data['screen'] == 'decline_from_company') {
-          // Fluttertoast.showToast(msg: 'Decline From Company');
           showSnackBar(
             context: context,
             title: 'Decline From Company',
@@ -499,18 +429,14 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           Navigator.of(context).pop();
         }
         if (message.data['screen'] == 'request') {
-          // Fluttertoast.showToast(msg: 'User Send Request');
           showSnackBar(
             context: context,
             title: 'User Send Request',
             labelText: 'Ok',
             onPress: () {},
           );
-
-          // Navigator.pushNamed(context, RequestScreen.routeName,);
         }
         if (message.data['screen'] == 'complete') {
-          // Fluttertoast.showToast(msg: 'Job Complete.')
           showSnackBar(
             context: context,
             title: 'Job Complete Successfully',
@@ -542,10 +468,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   void _handleMessage(RemoteMessage message) {
     final provider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
-    // print(message);
-    // print(message.data);
+
     if (message.data['screen'] == 'decline_from_user') {
-      // Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
       showSnackBar(
         context: context,
         title: 'Time Delayed Request Decline',
@@ -554,7 +478,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       );
     }
     if (message.data['screen'] == 'decline_from_company') {
-      // Fluttertoast.showToast(msg: 'Decline From Company');
       showSnackBar(
         context: context,
         title: 'Decline From Company',
@@ -564,18 +487,14 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       Navigator.of(context).pop();
     }
     if (message.data['screen'] == 'request') {
-      // Fluttertoast.showToast(msg: 'User Send Request');
       showSnackBar(
         context: context,
         title: 'User Send Request',
         labelText: '',
         onPress: () {},
       );
-
-      // Navigator.pushNamed(context, RequestScreen.routeName,);
     }
     if (message.data['screen'] == 'accept') {
-      // Fluttertoast.showToast(msg: 'Accepted From Company');
       showSnackBar(
         context: context,
         title: 'Accepted From Company',
@@ -593,7 +512,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       );
     }
     if (message.data['screen'] == 'complete') {
-      // Fluttertoast.showToast(msg: 'Job Complete ');
       showSnackBar(
         context: context,
         title: 'Job Complete Successfully',

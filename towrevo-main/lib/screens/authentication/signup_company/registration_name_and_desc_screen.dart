@@ -182,7 +182,6 @@ class _RegistrationNameAndDescScreenState
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            // StepFormButtonBack(() => () {}, 'BACK'),
                             StepFormButtonNext(
                               () {
                                 validateFromAndSaveData();

@@ -3,7 +3,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utitlites/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 
@@ -30,40 +29,6 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
               const SizedBox(
                 height: 10,
               ),
-              // AcceptDeclineCardItem(
-              //   userName: 'Name',
-              //   userDistance: '0.0',
-              //   // profileImage: const CircleAvatar(
-              //   //   backgroundColor: Colors.black,
-              //   //   child: Icon(
-              //   //     Icons.home_work_outlined,
-              //   //     color: Colors.white,
-              //   //   ),
-              //   // ),
-              //   profileImage: Container(
-              //     height: 50,
-              //     width: 50,
-              //     decoration: BoxDecoration(
-              //       boxShadow: kElevationToShadow[2],
-              //       color: AppColors.primaryColor,
-              //       borderRadius: BorderRadius.circular(8),
-              //     ),
-              //     child: const Icon(
-              //       Icons.person,
-              //       size: 30,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              //   serviceType: 'CAR',
-              //   probText:
-              //       'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout',
-              //   pickLocation:
-              //       'Business Avenue, PECHS, Karachi, Sindh, Pakistan',
-              //   dropLocation:
-              //       'Business Avenue, PECHS, Karachi, Sindh, Pakistan',
-              //   acceptOnPressed: () async {},
-              //   declineOnPressed: () async {},
-              // ),
               (provider.isLoading || provider.requestServiceList.isEmpty)
                   ? Align(
                       alignment: Alignment.center,
@@ -86,64 +51,11 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
                         shrinkWrap: true,
                         itemCount: provider.requestServiceList.length,
                         itemBuilder: (context, index) {
-                          bool isExpanded = false;
                           return FadeInUp(
                             from: 30,
                             child: AcceptDeclineCardItem(
-                              userName: provider.requestServiceList[index].name,
-                              userDistance: provider.requestServiceList[index]
-                                      .destAddress.isEmpty
-                                  ? provider.requestServiceList[index].distance
-                                  : provider
-                                      .requestServiceList[index].totalDistance,
-                              profileImage: provider.requestServiceList[index]
-                                      .image.isNotEmpty
-                                  ? profileImageSquare(
-                                      context,
-                                      Utilities.imageBaseUrl +
-                                          provider
-                                              .requestServiceList[index].image,
-                                    )
-                                  : const EmptyProfile(),
-                              serviceType: provider
-                                  .requestServiceList[index].serviceName,
-                              pickLocation:
-                                  provider.requestServiceList[index].address,
-                              dropLocation: provider
-                                  .requestServiceList[index].destAddress,
-                              // showMoreTap: () {
-                              //   setState(() {
-                              //     isExpanded = !isExpanded;
-                              //   });
-                              // },
-                              probText: provider
-                                  .requestServiceList[index].description,
-                              acceptOnPressed: () async {
-                                await CompanyHomeScreenViewModel()
-                                    .acceptDeclineOrDone(
-                                  '1',
-                                  provider.requestServiceList[index].id,
-                                  context,
-                                  notificationId: provider
-                                      .requestServiceList[index].notificationId,
-                                );
-                              },
-                              declineOnPressed: () async {
-                                await CompanyHomeScreenViewModel()
-                                    .acceptDeclineOrDone(
-                                  '2',
-                                  provider.requestServiceList[index].id,
-                                  context,
-                                  notificationId: provider
-                                      .requestServiceList[index].notificationId,
-                                );
-                              },
-                              // pickuplatLng: LatLng(
-                              //   double.parse(provider
-                              //       .requestServiceList[index].latitude),
-                              //   double.parse(provider
-                              //       .requestServiceList[index].longitude),
-                              // ),
+                              serviceRequestModel:
+                                  provider.requestServiceList[index],
                             ),
                           );
                         },
@@ -196,26 +108,18 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
   }
 
   Future<void> setupInteracted() async {
-    // Get any messages which caused the application to open from
-    // a terminated state.
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
-    print('yes');
-    print(initialMessage?.data.toString());
-    // If the message also contains a data property with a "type" of "chat",
-    // navigate to a chat screen
+
+    // print(initialMessage?.data.toString());
+
     if (initialMessage != null) {
-      // Navigator.pushNamed(context, RequestScreen.routeName,);
       getData();
     }
-
-    // Also handle any interaction when the app is in the background via a
-    // Stream listener
     FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print(message);
       if (message.data['screen'] == 'decline_from_user') {
-        // Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
         showSnackBar(
           context: context,
           title: 'Time Delayed Request Decline',
@@ -224,19 +128,10 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
         );
         getData();
       }
-      // if (message.data['screen'] == 'decline_from_company') {
-      //   // Fluttertoast.showToast(msg: 'Decline From Company');
-      //   showSnackBar(
-      //     context: context,
-      //     title: 'Decline From Company',
-      //     labelText: '',
-      //     onPress: () {},
-      //   );
-      //   getData();
-      // }
+
       if (message.data['screen'] == 'request') {
         await playSound();
-        // Fluttertoast.showToast(msg: 'User Send Request');
+
         showSnackBar(
           context: context,
           title: 'User Send Request',
@@ -244,7 +139,6 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
           onPress: () {},
         );
         getData();
-        // Navigator.pushNamed(context, RequestScreen.routeName,);
       }
     });
   }
@@ -261,7 +155,6 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
     print(message);
     print(message.data);
     if (message.data['screen'] == 'decline_from_user') {
-      // Fluttertoast.showToast(msg: 'Time Delayed Request Decline');
       showSnackBar(
         context: context,
         title: 'Time Delayed Request Decline',
@@ -271,7 +164,6 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
       getData();
     }
     if (message.data['screen'] == 'decline_from_company') {
-      // Fluttertoast.showToast(msg: 'Decline From Company');
       showSnackBar(
         context: context,
         title: 'Time Delayed Request Decline',
@@ -281,7 +173,6 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
       getData();
     }
     if (message.data['screen'] == 'request') {
-      // Fluttertoast.showToast(msg: 'User Send Request');
       showSnackBar(
         context: context,
         title: 'User Send Request',
@@ -289,7 +180,6 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
         onPress: () {},
       );
       getData();
-      // Navigator.pushNamed(context, RequestScreen.routeName,);
     }
   }
 }

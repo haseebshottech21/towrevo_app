@@ -8,7 +8,6 @@ import 'package:towrevo/screens/screens.dart';
 class SplashViewModel with ChangeNotifier {
   Future<void> navigateToWelcome(BuildContext context) async {
     String type = await Utilities().getSharedPreferenceValue('type') ?? '0';
-    print(type);
 
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.pushReplacement(

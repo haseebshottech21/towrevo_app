@@ -16,14 +16,12 @@ class DistanceScreen extends StatefulWidget {
 }
 
 class _DistanceScreenState extends State<DistanceScreen> {
-  // String buttonText = "Pickup - DropOff";
   bool fromCompanyToPickupLocation = true;
 
   GoogleMapController? mapController;
   bool dropoff = false;
   double compOriginLatitude = 0.0, compOriginLongitude = 0.0;
-  // double userPickLatitude = 24.7014, userPickLongitude = 70.1783;
-  // double userDestLatitude = 24.7014, userDestLongitude = 70.1783;
+
   Map<MarkerId, Marker> markers = {};
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
@@ -54,33 +52,8 @@ class _DistanceScreenState extends State<DistanceScreen> {
           double.parse(await Utilities().getSharedPreferenceValue('longitude'));
       final args =
           ModalRoute.of(context)!.settings.arguments as Map<String, LatLng>;
-      // userPickLatitude = args.latitude;
-      // userPickLongitude = args.longitude;
+
       locationRoute = args;
-      print(args);
-
-      // company loaction marker
-      // _addMarker(
-      //   LatLng(compOriginLatitude, compOriginLongitude),
-      //   "origin",
-      //   BitmapDescriptor.defaultMarker,
-      // );
-
-      /// user pick locaion marker
-      // _addMarker(
-      //   locationRoute['origin']!,
-      //   "destination",
-      //   BitmapDescriptor.defaultMarkerWithHue(90),
-      // );
-
-      // _addMarker(
-      //   LatLng(
-      //     locationRoute['Origin']!.latitude,
-      //     locationRoute['Origin']!.longitude,
-      //   ),
-      //   "destination",
-      //   BitmapDescriptor.defaultMarkerWithHue(90),
-      // );
 
       _getPolyline(
           locationViewModel!,

@@ -31,10 +31,7 @@ class _RegistrationCategoryAndTimingScreenState
     await showDialog(
       barrierDismissible: false,
       context: context,
-      //Notice the use of ChangeNotifierProvider<ReportState>.value
       builder: (_) {
-        // final provider = Provider.of<RegisterCompanyViewModel>(context,listen: true);
-        print('there');
         return AlertDialog(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -58,7 +55,6 @@ class _RegistrationCategoryAndTimingScreenState
               },
               child: const Text(
                 'Cancle',
-                // style: TextStyle(color: AppColors.primaryColor),
               ),
             ),
             TextButton(
@@ -67,7 +63,6 @@ class _RegistrationCategoryAndTimingScreenState
               },
               child: const Text(
                 'Done',
-                // style: TextStyle(color: AppColors.primaryColor),
               ),
             ),
           ],
@@ -92,60 +87,62 @@ class _RegistrationCategoryAndTimingScreenState
     final servicesProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
     await showDialog(
-        context: context,
-        barrierDismissible: false,
-        //Notice the use of ChangeNotifierProvider<ReportState>.value
-        builder: (_) {
-          return AlertDialog(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15.0),
-              ),
+      context: context,
+      barrierDismissible: false,
+      builder: (_) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15.0),
             ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Select Categories',
-                ),
-                FaIcon(FontAwesomeIcons.servicestack)
-              ],
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  servicesProvider.clearServicesList();
-                  Navigator.pop(context, null);
-                },
-                child: const Text(
-                  'Cancel',
-                  // style: TextStyle(color: AppColors.primaryColor),
-                ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              Text(
+                'Select Categories',
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context, cityList);
-                },
-                child: const Text(
-                  'Done',
-                  // style: TextStyle(color: AppColors.primaryColor),
-                ),
-              ),
+              FaIcon(FontAwesomeIcons.servicestack)
             ],
-            content: Consumer<ServicesAndDaysViewModel>(
-                builder: (ctx, provider, neverBuildChild) {
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                servicesProvider.clearServicesList();
+                Navigator.pop(context, null);
+              },
+              child: const Text(
+                'Cancel',
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, cityList);
+              },
+              child: const Text(
+                'Done',
+              ),
+            ),
+          ],
+          content: Consumer<ServicesAndDaysViewModel>(
+            builder: (ctx, provider, neverBuildChild) {
               return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: provider.serviceListViewModel.map((item) {
+                mainAxisSize: MainAxisSize.min,
+                children: provider.serviceListViewModel.map(
+                  (item) {
                     return ChangeNotifierProvider.value(
                       value: provider.serviceListViewModel[
                           provider.serviceListViewModel.indexOf(item)],
                       child: const ServiceCheckBoxWidget(),
                     );
-                  }).toList());
-            }),
-          );
-        });
+                  },
+                ).toList(),
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 
   void validate() async {

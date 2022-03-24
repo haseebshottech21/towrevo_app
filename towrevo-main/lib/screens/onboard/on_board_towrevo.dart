@@ -38,20 +38,8 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-
     return SafeArea(
       child: Scaffold(
-        // body: Container(
-        //   height: size.height,
-        //   width: size.width,
-        //   decoration: const BoxDecoration(
-        //     image: DecorationImage(
-        //       image: AssetImage('assets/images/fullbg.jpg'),
-        //       fit: BoxFit.fill,
-        //     ),
-        //   ),
-        //   child:
         body: Stack(
           children: [
             const FullBackgroundImage(),
@@ -123,7 +111,6 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
                                     builder: (context) => const WelcomeScreen(),
                                   ),
                                 );
-                                //     : print('Next');
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: const Color(0xFF092848),

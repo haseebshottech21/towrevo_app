@@ -64,12 +64,6 @@ class _FAQsState extends State<FAQs> {
         child: Stack(
           children: [
             const FullBackgroundImage(),
-            // drawerIconSecond(
-            //   context,
-            //   () {
-            //     scaffoldKey.currentState!.openDrawer();
-            //   },
-            // ),
             Align(
               alignment: Alignment.topLeft,
               child: backIcon(context, () {
@@ -103,10 +97,6 @@ class _FAQsState extends State<FAQs> {
                       ),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.80,
-                      // decoration: BoxDecoration(
-                      //   color: const Color(0xFF092848).withOpacity(0.8),
-                      //   borderRadius: BorderRadius.circular(10),
-                      // ),
                       child: Column(
                         children: [
                           SizedBox(
@@ -145,7 +135,6 @@ FadeInUp faqContent(
 ) {
   return FadeInUp(
     child: Card(
-      // elevation: 6,
       color: const Color(0xFF092848).withOpacity(0.7),
       child: Padding(
         padding: const EdgeInsets.all(12.0),

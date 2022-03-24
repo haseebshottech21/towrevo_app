@@ -26,8 +26,6 @@ class _CompanyHistoryScreenState extends State<CompanyHistoryScreen> {
     super.initState();
   }
 
-  // final scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CompanyHomeScreenViewModel>(
@@ -36,9 +34,6 @@ class _CompanyHistoryScreenState extends State<CompanyHistoryScreen> {
     );
 
     return Scaffold(
-      // key: scaffoldKey,
-      // drawerEnableOpenDragGesture: false,
-      // drawer: const DrawerWidget(),
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Stack(
@@ -104,39 +99,8 @@ class _CompanyHistoryScreenState extends State<CompanyHistoryScreen> {
                                   itemCount: provider.companyHistoryList.length,
                                   itemBuilder: (ctx, index) {
                                     return CompanyHistoryList(
-                                      userImage:
-                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhrlH9QlMjus9pQY0IPfd97FE7RdNVga3MY-lMqsaltgspxx3q_-Bg6wcOJDYGnPy1gIU&usqp=CAU',
-                                      userName: provider
-                                          .companyHistoryList[index].name,
-                                      userService: provider
-                                          .companyHistoryList[index]
-                                          .serviceName,
-                                      date: provider
-                                          .companyHistoryList[index].createdAt,
-                                      status: provider.companyHistoryList[index]
-                                                  .status ==
-                                              1
-                                          ? 'Accept'
-                                          : provider.companyHistoryList[index]
-                                                      .status ==
-                                                  2
-                                              ? 'Decline'
-                                              : 'Completed',
-                                      colors: provider.companyHistoryList[index]
-                                                  .status ==
-                                              1
-                                          ? Colors.green
-                                          : provider.companyHistoryList[index]
-                                                      .status ==
-                                                  2
-                                              ? Colors.red
-                                              : Colors.blueGrey,
-                                      rating: provider.companyHistoryList[index]
-                                                  .reviewModel ==
-                                              null
-                                          ? 0
-                                          : provider.companyHistoryList[index]
-                                              .reviewModel!.rate,
+                                      serviceRequestModel:
+                                          provider.companyHistoryList[index],
                                     );
                                   },
                                 ),

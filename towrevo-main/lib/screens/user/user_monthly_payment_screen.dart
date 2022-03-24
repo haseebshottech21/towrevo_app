@@ -26,10 +26,6 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
     await userViewModel.payNow(paymentIntentData['id'], '2', context);
     paymentIntentData = {};
-    // if (response) {
-    //   Navigator.of(context)
-    //       .pushNamed(RegistrationOTPScreen.routeName, arguments: true);
-    // }
   }
 
   displayPaymentSheet(BuildContext context) async {
@@ -148,7 +144,6 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
                           return;
                         }
                         await makePayment(context);
-                        // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: true);
                       },
                       child: Container(
                         height: 50,
@@ -163,7 +158,6 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
                               Color(0xFF083054),
                             ],
                           ),
-                          // color: Colors.deepPurple.shade300,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -228,13 +222,6 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
                         const SizedBox(height: 10),
                         paymentDetail('Find Towing service 24/7'),
                         const SizedBox(height: 12),
-                        // paymentDetail('Long-distance and local towing'),
-                        // const SizedBox(height: 8),
-                        // paymentDetail('Towing services on a 24/7 basis'),
-                        // const SizedBox(height: 8),
-                        // paymentDetail('See availability offline or online'),
-                        // const SizedBox(height: 8),
-                        // paymentDetail('Truck Towing'),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Text(

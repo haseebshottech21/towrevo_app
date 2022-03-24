@@ -51,17 +51,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   setFields(EditProfileViewModel provider) async {
-    // print('in');
-
     firstNameController.text = (provider.body['first_name'] ?? '').toString();
     if (type == '1') {
       lastNameController.text = (provider.body['last_name'] ?? '').toString();
     }
     emailController.text = (provider.body['email'] ?? '').toString();
     phoneNumberController.text = (provider.body['phone'] ?? '').toString();
-
-    print('state' + provider.body['state']);
-    print('city' + provider.body['city']);
 
     if (type == '2') {
       descriptionController.text =
@@ -138,31 +133,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
     }
   }
 
-  // void validate() {
-  //   final locationProvider =
-  //       Provider.of<GetLocationViewModel>(context, listen: false);
-  //   final registerProvider =
-  //       Provider.of<RegisterCompanyViewModel>(context, listen: false);
-  //   final daysAndServiceProvider =
-  //       Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-  //   if (locationProvider.latLng != null &&
-  //       daysAndServiceProvider.daysId.isNotEmpty &&
-  //       daysAndServiceProvider.servicesId.isNotEmpty &&
-  //       registerProvider.body['from'] != '' &&
-  //       registerProvider.body['from'] != '') {
-  //     print(registerProvider.body);
-  //     registerProvider.body['services'] =
-  //         json.encode(daysAndServiceProvider.servicesId);
-  //     registerProvider.body['days'] =
-  //         json.encode(daysAndServiceProvider.daysId);
-  //     // registerProvider.body['services'] = daysAndServiceProvider.servicesId;
-  //     // registerProvider.body['days'] = daysAndServiceProvider.daysId;
-
-  //   } else {
-  //     Utilities().showToast('Please Fill All Required Fields');
-  //   }
-  // }
-
   Widget image(EditProfileViewModel imagePicker) {
     if (imagePicker.imagePath.isEmpty) {
       if (imagePicker.body['image'] != null) {
@@ -196,7 +166,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
   Future<void> showCategories(BuildContext context) async {
     await showDialog(
       context: context,
-      //Notice the use of ChangeNotifierProvider<ReportState>.value
       builder: (_) {
         return AlertDialog(
           content: Consumer<ServicesAndDaysViewModel>(
@@ -219,10 +188,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   Future<void> showDays(BuildContext context) async {
     await showDialog(
       context: context,
-      //Notice the use of ChangeNotifierProvider<ReportState>.value
       builder: (_) {
-        // final provider = Provider.of<RegisterCompanyViewModel>(context,listen: true);
-        // print('there');
         return AlertDialog(
           content: Consumer<ServicesAndDaysViewModel>(
               builder: (ctx, provider, neverBuildChild) {
@@ -355,8 +321,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   ),
                                 );
                               }),
-
-                              // const ProfileTowrevo(),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -413,7 +377,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         descriptionController,
                                   ),
                                 ),
-
                               const SizedBox(
                                 height: 10,
                               ),
@@ -444,13 +407,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       ErrorGetter().phoneNumberErrorGetter,
                                   fieldDisable: true,
                                   hintText: 'Phone',
-                                  // prefixIcon: const Icon(
-                                  //   FontAwesomeIcons.phoneAlt,
-                                  //   color: Color(0xFF019aff),
-                                  //   size: 20.0,
-                                  // ),
                                   textEditingController: phoneNumberController,
-                                  // textInputType: TextInputType.phone,
                                 ),
                               ),
                               const SizedBox(
@@ -459,12 +416,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               if (type == '2')
                                 Consumer<GetLocationViewModel>(builder:
                                     (ctx, getLocation, neverBuildChild) {
-                                  // print(getLocation.getAddress);
                                   return InkWell(
                                     onTap: () async {
-                                      // Navigator.of(context).pushNamed(
-                                      //   GetLocationScreen.routeName,
-                                      // );
                                       Navigator.of(context).pushNamed(
                                         UserLocationScreen.routeName,
                                         arguments: true,
@@ -518,7 +471,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                                       color: Colors.black,
                                                     ),
                                                     maxLines: 3,
-                                                    // textAlign: TextAlign.left,
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                   ),
@@ -535,7 +487,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     ),
                                   );
                                 }),
-
                               if (type == '2')
                                 const SizedBox(
                                   height: 10,
@@ -613,12 +564,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     );
                                   },
                                 ),
-
                               if (type == '2')
                                 const SizedBox(
                                   height: 10,
                                 ),
-
                               if (type == '2')
                                 Consumer<ServicesAndDaysViewModel>(
                                   builder: (ctx, days, neverBuildChild) {
@@ -685,7 +634,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     );
                                   },
                                 ),
-
                               if (type == '2') const SizedBox(height: 10),
                               if (type == '2')
                                 Consumer<ServicesAndDaysViewModel>(builder:
@@ -727,9 +675,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                                     color: Colors.black,
                                                   ),
                                                 ),
-                                                // if(categories.isNotEmpty)
-                                                // Wrap(children: categories.map((e) => Text(e[''])).toList(),)
-                                                // Container(padding: const EdgeInsets.symmetric(vertical: 8),width: MediaQuery.of(context).size.width*0.65,child: categories.isEmpty?'Select Categories':categories,style: GoogleFonts.montserrat(color: Colors.black,),maxLines: 3,overflow: TextOverflow.ellipsis,)),
                                               ],
                                             ),
                                             const Icon(
@@ -858,7 +803,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     } else if (type == '2') {
                                       validateAndUpdateCompanyForm();
                                     }
-                                    // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: false);
                                   },
                                 ),
                               ),

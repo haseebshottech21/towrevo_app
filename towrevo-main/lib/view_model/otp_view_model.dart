@@ -43,7 +43,6 @@ class OTPViewModel with ChangeNotifier {
         response['data']['code'] == 413) {
       print('in 400 error');
       otpExpire = false;
-      // Utilities().showToast('Invalid OTP Please Resend It');
 
       resendUniqueId = response['data']['resendId'];
       return false;
@@ -75,7 +74,6 @@ class OTPViewModel with ChangeNotifier {
 
         return true;
       } else {
-        // resendUniqueId = response['data']['resendId'];
         return false;
       }
     } else {

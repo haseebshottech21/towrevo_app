@@ -1,34 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:towrevo/models/models.dart';
 import 'package:towrevo/utitlites/towrevo_appcolor.dart';
 import 'package:towrevo/screens/company/distance_screen.dart';
 
+import '../../utitlites/utilities.dart';
+import '../empty_profile.dart';
+import '../job_completed_dailogbox.dart';
+import '../profile_image_circle.dart';
+
 class JobCompleteCard extends StatefulWidget {
-  final String userName;
-  final double userDistance;
-  final String serviceType;
-  final String pickLocation;
-  final String dropLocation;
-  final String reqOriginLatitude;
-  final String reqOriginLongitude;
-  final String reqDestLatitude;
-  final String reqDestLongitude;
-  final String probText;
-  final Widget profileImage;
-  final void Function()? completeOnPressed;
+  final ServiceRequestModel serviceRequestModel;
   const JobCompleteCard({
-    required this.userName,
-    required this.userDistance,
-    required this.serviceType,
-    required this.dropLocation,
-    required this.pickLocation,
-    required this.reqOriginLatitude,
-    required this.reqOriginLongitude,
-    required this.reqDestLatitude,
-    required this.reqDestLongitude,
-    required this.probText,
-    required this.profileImage,
-    required this.completeOnPressed,
+    required this.serviceRequestModel,
     Key? key,
   }) : super(key: key);
 
@@ -46,11 +30,12 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
   void initState() {
     super.initState();
 
-    if (widget.probText.length > 45) {
-      firstHalf = widget.probText.substring(0, 45);
-      secondHalf = widget.probText.substring(45, widget.probText.length);
+    if (widget.serviceRequestModel.description.length > 45) {
+      firstHalf = widget.serviceRequestModel.description.substring(0, 45);
+      secondHalf = widget.serviceRequestModel.description
+          .substring(45, widget.serviceRequestModel.description.length);
     } else {
-      firstHalf = widget.probText;
+      firstHalf = widget.serviceRequestModel.description;
       secondHalf = "";
     }
   }
@@ -84,14 +69,20 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                 children: [
                   Row(
                     children: [
-                      widget.profileImage,
+                      widget.serviceRequestModel.image.isNotEmpty
+                          ? profileImageSquare(
+                              context,
+                              Utilities.imageBaseUrl +
+                                  widget.serviceRequestModel.image,
+                            )
+                          : const EmptyProfile(),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            widget.userName,
+                            widget.serviceRequestModel.name,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
@@ -100,8 +91,12 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            widget.userDistance.toStringAsFixed(2) +
-                                (widget.dropLocation.isEmpty
+                            (widget.serviceRequestModel.destAddress.isEmpty
+                                        ? widget.serviceRequestModel.distance
+                                        : widget
+                                            .serviceRequestModel.totalDistance)
+                                    .toStringAsFixed(2) +
+                                (widget.serviceRequestModel.destAddress.isEmpty
                                     ? ' miles away'
                                     : ' total distance'),
                             style: const TextStyle(
@@ -123,7 +118,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                         ),
                         child: Center(
                           child: Text(
-                            widget.serviceType,
+                            widget.serviceRequestModel.serviceName,
                             style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w700,
@@ -202,11 +197,12 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                             ? null
                             : () {
                                 setState(() {
-                                  widget.dropLocation.isEmpty
+                                  widget.serviceRequestModel.destAddress.isEmpty
                                       ? animHeight = 300
                                       : animHeight = 200;
                                   animHeightmain = animHeightmain +
-                                      (widget.dropLocation.isEmpty
+                                      (widget.serviceRequestModel.destAddress
+                                              .isEmpty
                                           ? animHeight / 2
                                           : animHeight);
                                   anim = true;
@@ -232,7 +228,17 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                           // padding: EdgeInsets.s,
                           primary: Colors.green[50],
                         ),
-                        onPressed: widget.completeOnPressed,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (ctxt) => completeJobDialogbox(
+                              ctxt,
+                              widget.serviceRequestModel.id,
+                              widget.serviceRequestModel.notificationId,
+                            ),
+                          );
+                        },
                         child: const Text(
                           'Job Completed',
                           style: TextStyle(
@@ -251,7 +257,9 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
             child: AnimatedContainer(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               duration: const Duration(microseconds: 400),
-              height: widget.dropLocation.isEmpty ? animHeight / 2 : animHeight,
+              height: widget.serviceRequestModel.destAddress.isEmpty
+                  ? animHeight / 2
+                  : animHeight,
               width: MediaQuery.of(context).size.width * 0.95,
               decoration: BoxDecoration(
                 boxShadow: kElevationToShadow[4],
@@ -290,7 +298,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 3),
                     child: Text(
-                      widget.pickLocation,
+                      widget.serviceRequestModel.address,
                       style: const TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -298,8 +306,9 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                       ),
                     ),
                   ),
-                  if (widget.dropLocation.isNotEmpty) const Divider(),
-                  if (widget.dropLocation.isNotEmpty)
+                  if (widget.serviceRequestModel.destAddress.isNotEmpty)
+                    const Divider(),
+                  if (widget.serviceRequestModel.destAddress.isNotEmpty)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: const [
@@ -319,12 +328,13 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                         ),
                       ],
                     ),
-                  if (widget.dropLocation.isNotEmpty) const SizedBox(height: 2),
-                  if (widget.dropLocation.isNotEmpty)
+                  if (widget.serviceRequestModel.destAddress.isNotEmpty)
+                    const SizedBox(height: 2),
+                  if (widget.serviceRequestModel.destAddress.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Text(
-                        widget.dropLocation,
+                        widget.serviceRequestModel.destAddress,
                         style: const TextStyle(
                           fontSize: 14,
                           color: Colors.black,
@@ -353,13 +363,16 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                         DistanceScreen.routeName,
                         arguments: {
                           'origin': LatLng(
-                            double.parse(widget.reqOriginLatitude),
-                            double.parse(widget.reqOriginLongitude),
+                            double.parse(widget.serviceRequestModel.latitude),
+                            double.parse(widget.serviceRequestModel.longitude),
                           ),
-                          if (widget.reqDestLatitude.isNotEmpty)
+                          if (widget
+                              .serviceRequestModel.destLatitude.isNotEmpty)
                             'destination': LatLng(
-                              double.parse(widget.reqDestLatitude),
-                              double.parse(widget.reqDestLongitude),
+                              double.parse(
+                                  widget.serviceRequestModel.destLatitude),
+                              double.parse(
+                                  widget.serviceRequestModel.destLongitude),
                             ),
                         },
                         // arguments: LatLng(

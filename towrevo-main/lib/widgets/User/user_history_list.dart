@@ -1,23 +1,19 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:towrevo/models/models.dart';
 
 class UserHistoryList extends StatelessWidget {
-  final String companyImage;
-  final String companyName;
-  final String companyService;
-  final String date;
-  final int rating;
+  final UserHistoryModel userHistoryModel;
+
   const UserHistoryList({
-    required this.companyImage,
-    required this.companyName,
-    required this.companyService,
-    required this.date,
-    required this.rating,
+    required this.userHistoryModel,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final rating =
+        userHistoryModel.rating == null ? 0 : userHistoryModel.rating!.rate;
     return FadeInUp(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
@@ -37,13 +33,12 @@ class UserHistoryList extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                 
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          companyName,
+                          userHistoryModel.companyName,
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -54,7 +49,7 @@ class UserHistoryList extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          companyService,
+                          userHistoryModel.serviceName,
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
@@ -78,7 +73,7 @@ class UserHistoryList extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      date,
+                      userHistoryModel.date,
                       style: const TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.w400,

@@ -47,18 +47,6 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                   )
                 ],
               ),
-              // userHomeProvider.isLoading
-              //     ? SizedBox(
-              //         height: MediaQuery.of(context).size.height * 0.7,
-              //         child: const GlowCircle(
-              //           glowHeight: 50,
-              //           glowWidth: 50,
-              //           glowbegin: 0,
-              //           glowend: 100,
-              //           miliseconds: 800,
-              //         ),
-              //       )
-              //     :
               (userHomeProvider.isLoading || userHomeProvider.list.isEmpty)
                   ? Align(
                       alignment: Alignment.center,
@@ -110,8 +98,6 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
   getRequestList() {
     final userHomeProvider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
-    // Provider.of<ServicesAndDaysViewModel>(context, listen: false)
-    //     .serviceSelectedValue = null;
     Future.delayed(Duration.zero).then((value) async {
       await userHomeProvider.getCompanies(userHomeProvider.body);
     });

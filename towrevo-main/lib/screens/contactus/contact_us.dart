@@ -21,8 +21,6 @@ class _ContactUsState extends State<ContactUs> {
   final descriptionController = TextEditingController();
   final emailController = TextEditingController();
   final fullNameController = TextEditingController();
-
-  // final scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
 
   validateAndSubmitQuery() async {
@@ -79,34 +77,6 @@ class _ContactUsState extends State<ContactUs> {
                         ),
                       ],
                     ),
-                    // Padding(
-                    //   padding:
-                    //       const EdgeInsets.only(left: 20, right: 20, top: 40),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     children: [
-                    //       drawerIcon(
-                    //         context,
-                    //         () {
-                    //           scaffoldKey.currentState!.openDrawer();
-                    //         },
-                    //       ),
-                    //       const SizedBox(width: 50),
-                    //       Center(
-                    //         child: Text(
-                    //           'CONTACT US',
-                    //           textAlign: TextAlign.center,
-                    //           style: GoogleFonts.montserrat(
-                    //             color: Colors.white,
-                    //             fontWeight: FontWeight.w600,
-                    //             fontSize: 28.0,
-                    //             letterSpacing: 1,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Form(
@@ -188,7 +158,6 @@ class _ContactUsState extends State<ContactUs> {
                                 'SEND FEEDBACK',
                                 () {
                                   validateAndSubmitQuery();
-                                  // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: false);
                                 },
                               ),
                             ),

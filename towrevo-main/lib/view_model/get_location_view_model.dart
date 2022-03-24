@@ -9,9 +9,6 @@ import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/place_web_service.dart';
 
 class GetLocationViewModel with ChangeNotifier {
-  // LatLng latLng = const LatLng(0.0, 0.0);
-  // String address = '';
-
   PlaceDetailModel myCurrentLocation = PlaceDetailModel.fromEmptyJson();
   PlaceDetailModel myDestinationLocation = PlaceDetailModel.fromEmptyJson();
 
@@ -20,8 +17,6 @@ class GetLocationViewModel with ChangeNotifier {
     isLoading = loadingStatus;
     notifyListeners();
   }
-
-  // GetLocationViewModel(): longitude=0,latitude=0,address='';
 
   set setAddress(
     String address,
@@ -86,7 +81,6 @@ class GetLocationViewModel with ChangeNotifier {
             ', ' +
             address.country.toString())
         .replaceAll(', ,', ',');
-    // print(placeMarks.first);
   }
 
   Future<void> getCurrentLocation(BuildContext context) async {
@@ -100,13 +94,11 @@ class GetLocationViewModel with ChangeNotifier {
       final registrationCompanyProvider =
           Provider.of<RegisterCompanyViewModel>(context, listen: false);
 
-      // if (latLng != null) {
       registrationCompanyProvider.body['longitude'] =
           myCurrentLocation.placeLocation.longitude.toString();
       registrationCompanyProvider.body['latitude'] =
           myCurrentLocation.placeLocation.latitude.toString();
       await getLocationFromCoordinates(myCurrentLocation.placeLocation);
-      // }
     }
     changeLoadingStatus(false);
   }

@@ -39,7 +39,6 @@ class RegisterUserViewModel with ChangeNotifier {
     changeLoadingStatus(false);
     print(responseBody);
     if (responseBody != null) {
-      // print(responseBody['data']['uniqueId']);
       otpProvider.resendUniqueId = responseBody['data']['uniqueId'];
       return true;
     } else {

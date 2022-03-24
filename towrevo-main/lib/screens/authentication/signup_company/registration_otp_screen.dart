@@ -38,8 +38,7 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
     if (isTimeAvailable) {
       if (inputOTP.length == 5) {
         final provider = Provider.of<OTPViewModel>(context, listen: false);
-        // print(requestFromCompany? registerCompanyProvider.uniqueId : registerUserProvider.uniqueId);
-        // bool response = await provider.sendOTP(requestFromCompany? registerCompanyProvider.uniqueId : registerUserProvider.uniqueId,inputOTP,context);
+
         bool response =
             await provider.sendOTP(provider.resendUniqueId, inputOTP, context);
 
@@ -179,11 +178,6 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
                   const SizedBox(
                     width: 5,
                   ),
-                  // Text(
-                  //  '($_controller)',
-                  //   textAlign: TextAlign.center,
-                  //   style: GoogleFonts.montserrat(color: const Color(0xFF0c355a), fontWeight: FontWeight.w700, fontSize: 20.0, letterSpacing: 0.5),
-                  // ),
                   Countdown(
                     animation: StepTween(
                       begin: levelClock, // THIS IS A USER ENTERED NUMBER
@@ -221,8 +215,6 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
                             ..onTap = () {
                               resendOTPRequest();
                             },
-                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          // builder: (BuildContext context) => const RegisterAsScreen())),
                         )
                       ],
                     ),

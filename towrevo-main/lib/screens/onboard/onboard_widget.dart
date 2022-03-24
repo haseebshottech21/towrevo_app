@@ -16,34 +16,6 @@ class OnBoardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // const FullBackgroundImage(),
-        // Align(
-        //   alignment: Alignment.topLeft,
-        //   child: TextButton(
-        //     onPressed: () {
-        //       Navigator.pushReplacement(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) => const WelcomeScreen(),
-        //         ),
-        //       );
-        //     },
-        //     child: const Padding(
-        //       padding: EdgeInsets.symmetric(
-        //         horizontal: 20,
-        //         vertical: 10,
-        //       ),
-        //       child: Text(
-        //         'SKIP',
-        //         textAlign: TextAlign.start,
-        //         style: TextStyle(
-        //           color: Colors.white,
-        //           fontSize: 16,
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
         Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -82,11 +54,6 @@ class OnBoardWidget extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // SizedBox(
-                    //   width: MediaQuery.of(context).size.width * 0.75,
-                    //   height: MediaQuery.of(context).size.height * 0.12,
-                    //   child: Image.asset(backimg),
-                    // ),
                     const SizedBox(height: 10),
                     Text(
                       title,

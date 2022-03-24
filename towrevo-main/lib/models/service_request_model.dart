@@ -15,8 +15,7 @@ class ServiceRequestModel {
   String destAddress;
   String description;
   double distance;
-  // double currentDistance;
-  // double dropOffDistance;
+
   double totalDistance;
   int status;
   String notificationId;
@@ -40,8 +39,6 @@ class ServiceRequestModel {
     required this.serviceName,
     required this.status,
     required this.distance,
-    // required this.currentDistance,
-    // required this.dropOffDistance,
     required this.totalDistance,
     required this.notificationId,
     required this.name,
@@ -65,8 +62,6 @@ class ServiceRequestModel {
       serviceId: json['service']['id'].toString(),
       serviceName: json['service']['name'],
       status: json['status'],
-      // distance: json['distance'].toString(),
-      // totalDistance: json['total_distance'].toString(),
       distance: json['distance'] == null
           ? 0.0
           : double.parse(json['distance'].toString().split('mi').first.trim()),

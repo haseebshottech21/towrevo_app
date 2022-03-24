@@ -11,7 +11,6 @@ class RegisterMainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final signUpViewModel =Provider.of<RegisterCompanyViewModel>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(children: [
@@ -78,8 +77,6 @@ class RegisterMainScreen extends StatelessWidget {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   InkWell(
                     onTap: () {
-                      // signUpViewModel.body['type']='1';
-                      // print(signUpViewModel.body);
                       Navigator.of(context)
                           .pushNamed(RegistrationNameAndDescScreen.routeName);
                     },
@@ -135,10 +132,7 @@ class RegisterMainScreen extends StatelessWidget {
                     width: 10,
                   ),
                   InkWell(
-                    //   splashColor: Colors.blue.withAlpha(30),
                     onTap: () {
-                      // signUpViewModel.body['type']='2';
-                      // print(signUpViewModel.body);
                       Navigator.of(context)
                           .pushNamed(RegisterUserScreen.routeName);
                     },

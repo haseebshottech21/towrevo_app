@@ -1,30 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:towrevo/utitlites/towrevo_appcolor.dart';
+import 'package:towrevo/view_model/company_home_screen_view_model.dart';
+
+import '../../models/service_request_model.dart';
+import '../../utitlites/utilities.dart';
+import '../empty_profile.dart';
+import '../profile_image_circle.dart';
 
 class AcceptDeclineCardItem extends StatefulWidget {
-  final String userName;
-  final double userDistance;
-  final String serviceType;
-  final String pickLocation;
-  final String dropLocation;
-  final Widget profileImage;
-  final String probText;
-  // final LatLng pickuplatLng;
-  final void Function()? acceptOnPressed;
-  final void Function()? declineOnPressed;
   final bool isExpanded;
 
+  final ServiceRequestModel serviceRequestModel;
+
   const AcceptDeclineCardItem({
-    required this.userName,
-    required this.userDistance,
-    required this.serviceType,
-    required this.dropLocation,
-    required this.pickLocation,
-    required this.profileImage,
-    required this.probText,
-    required this.acceptOnPressed,
-    required this.declineOnPressed,
-    // required this.pickuplatLng,
+    required this.serviceRequestModel,
     this.isExpanded = false,
     Key? key,
   }) : super(key: key);
@@ -43,11 +32,12 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
   void initState() {
     super.initState();
 
-    if (widget.probText.length > 50) {
-      firstHalf = widget.probText.substring(0, 50);
-      secondHalf = widget.probText.substring(50, widget.probText.length);
+    if (widget.serviceRequestModel.description.length > 50) {
+      firstHalf = widget.serviceRequestModel.description.substring(0, 50);
+      secondHalf = widget.serviceRequestModel.description
+          .substring(50, widget.serviceRequestModel.description.length);
     } else {
-      firstHalf = widget.probText;
+      firstHalf = widget.serviceRequestModel.description;
       secondHalf = "";
     }
   }
@@ -81,14 +71,20 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                 children: [
                   Row(
                     children: [
-                      widget.profileImage,
+                      widget.serviceRequestModel.image.isNotEmpty
+                          ? profileImageSquare(
+                              context,
+                              Utilities.imageBaseUrl +
+                                  widget.serviceRequestModel.image,
+                            )
+                          : const EmptyProfile(),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            widget.userName,
+                            widget.serviceRequestModel.name,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
@@ -97,8 +93,12 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            widget.userDistance.toStringAsFixed(2) +
-                                (widget.dropLocation.isEmpty
+                            (widget.serviceRequestModel.destAddress.isEmpty
+                                        ? widget.serviceRequestModel.distance
+                                        : widget
+                                            .serviceRequestModel.totalDistance)
+                                    .toStringAsFixed(2) +
+                                (widget.serviceRequestModel.destAddress.isEmpty
                                     ? ' miles away'
                                     : ' total distance'),
                             style: const TextStyle(
@@ -120,7 +120,7 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                         ),
                         child: Center(
                           child: Text(
-                            widget.serviceType,
+                            widget.serviceRequestModel.serviceName,
                             style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w700,
@@ -184,35 +184,21 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
-                        // style: ElevatedButton.styleFrom(
-                        //   // padding: EdgeInsets.zero,
-                        //   shape: const StadiumBorder(),
-                        //   primary: Colors.blueGrey.shade100,
-                        //   side: const BorderSide(color: Colors.blueGrey),
-                        // ),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           shape: const StadiumBorder(),
                           primary: Colors.blue[50],
                         ),
-                        // onPressed: anim == true
-                        //     ? null
-                        //     : () {
-                        //         setState(() {
-                        //           animHeight = 140;
-                        //           animHeightmain = animHeightmain + animHeight;
-                        //           anim = true;
-                        //         });
-                        //       },
                         onPressed: anim == true
                             ? null
                             : () {
                                 setState(() {
-                                  widget.dropLocation.isEmpty
+                                  widget.serviceRequestModel.destAddress.isEmpty
                                       ? animHeight = 150
                                       : animHeight = 180;
                                   animHeightmain = animHeightmain +
-                                      (widget.dropLocation.isEmpty
+                                      (widget.serviceRequestModel.destAddress
+                                              .isEmpty
                                           ? animHeight / 2
                                           : animHeight);
                                   anim = true;
@@ -229,28 +215,21 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                       ),
                       Row(
                         children: [
-                          // ElevatedButton(
-                          //   style: ElevatedButton.styleFrom(
-                          //     // padding: EdgeInsets.zero,
-                          //     shape: const StadiumBorder(),
-                          //     primary: Colors.white,
-                          //     side: const BorderSide(color: Colors.red),
-                          //   ),
-                          //   onPressed: widget.declineOnPressed,
-                          //   child: const Text(
-                          //     'Decline',
-                          //     style: TextStyle(
-                          //       color: Colors.red,
-                          //     ),
-                          //   ),
-                          // ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              // padding: EdgeInsets.zero,
                               shape: const StadiumBorder(),
                               primary: Colors.red[50],
                             ),
-                            onPressed: widget.declineOnPressed,
+                            onPressed: () async {
+                              await CompanyHomeScreenViewModel()
+                                  .acceptDeclineOrDone(
+                                '2',
+                                widget.serviceRequestModel.id,
+                                context,
+                                notificationId:
+                                    widget.serviceRequestModel.notificationId,
+                              );
+                            },
                             child: const Text(
                               'Decline',
                               style: TextStyle(
@@ -259,28 +238,21 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                             ),
                           ),
                           const SizedBox(width: 10),
-                          // ElevatedButton(
-                          //   style: ElevatedButton.styleFrom(
-                          //     // padding: EdgeInsets.zero,
-                          //     shape: const StadiumBorder(),
-                          //     primary: Colors.green,
-                          //     side: const BorderSide(color: Colors.green),
-                          //   ),
-                          //   onPressed: widget.acceptOnPressed,
-                          //   child: const Text(
-                          //     'Accept',
-                          //     style: TextStyle(
-                          //       color: Colors.white,
-                          //     ),
-                          //   ),
-                          // ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               shape: const StadiumBorder(),
-                              // padding: EdgeInsets.s,
                               primary: Colors.green[50],
                             ),
-                            onPressed: widget.acceptOnPressed,
+                            onPressed: () async {
+                              await CompanyHomeScreenViewModel()
+                                  .acceptDeclineOrDone(
+                                '1',
+                                widget.serviceRequestModel.id,
+                                context,
+                                notificationId:
+                                    widget.serviceRequestModel.notificationId,
+                              );
+                            },
                             child: const Text(
                               'Accept',
                               style: TextStyle(
@@ -301,7 +273,9 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
             child: AnimatedContainer(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               duration: const Duration(microseconds: 400),
-              height: widget.dropLocation.isEmpty ? animHeight / 2 : animHeight,
+              height: widget.serviceRequestModel.destAddress.isEmpty
+                  ? animHeight / 2
+                  : animHeight,
               width: MediaQuery.of(context).size.width * 0.95,
               decoration: BoxDecoration(
                 boxShadow: kElevationToShadow[4],
@@ -340,7 +314,7 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 3),
                     child: Text(
-                      widget.pickLocation,
+                      widget.serviceRequestModel.address,
                       style: const TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -348,8 +322,9 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                       ),
                     ),
                   ),
-                  if (widget.dropLocation.isNotEmpty) const Divider(),
-                  if (widget.dropLocation.isNotEmpty)
+                  if (widget.serviceRequestModel.destAddress.isNotEmpty)
+                    const Divider(),
+                  if (widget.serviceRequestModel.destAddress.isNotEmpty)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: const [
@@ -369,12 +344,13 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                         ),
                       ],
                     ),
-                  if (widget.dropLocation.isNotEmpty) const SizedBox(height: 2),
-                  if (widget.dropLocation.isNotEmpty)
+                  if (widget.serviceRequestModel.destAddress.isNotEmpty)
+                    const SizedBox(height: 2),
+                  if (widget.serviceRequestModel.destAddress.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Text(
-                        widget.dropLocation,
+                        widget.serviceRequestModel.destAddress,
                         style: const TextStyle(
                           fontSize: 14,
                           color: Colors.black,

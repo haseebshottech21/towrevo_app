@@ -26,10 +26,6 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
     await companyViewModel.payNow(paymentIntentData['id'], '20', context);
     paymentIntentData = {};
-    // if (response) {
-    //   Navigator.of(context)
-    //       .pushNamed(RegistrationOTPScreen.routeName, arguments: true);
-    // }
   }
 
   displayPaymentSheet(BuildContext context) async {
@@ -40,12 +36,10 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
           confirmPayment: true,
         ),
       );
-      // print(a);
 
       paynow(context);
     } on StripeException catch (e) {
       Utilities().showToast('${e.error.localizedMessage}');
-      print(e);
     }
   }
 
@@ -85,7 +79,6 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
 
   Future createPaymentIntent(
       {required String price, required String currencyType}) async {
-    print('in createPaymentIntent');
     try {
       Map<String, dynamic> body = {
         'amount': price,
@@ -125,20 +118,6 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                     backIcon(context, () {
                       Navigator.of(context).pop();
                     }),
-                    // const SizedBox(
-                    //   width: 20,
-                    // ),
-                    // const Padding(
-                    //   padding: EdgeInsets.only(top: 40),
-                    //   child: Text(
-                    //     'Near By Companies',
-                    //     style: TextStyle(
-                    //       color: Colors.white,
-                    //       fontWeight: FontWeight.w500,
-                    //       fontSize: 22.0,
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
               ],
@@ -170,7 +149,6 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                           return;
                         }
                         await makePayment(context);
-                        // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: true);
                       },
                       child: Container(
                         height: 50,
@@ -255,13 +233,6 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                         paymentDetail(
                             'Connect you millions of Android or iOS users'),
                         const SizedBox(height: 12),
-                        // paymentDetail('Long-distance and local towing'),
-                        // const SizedBox(height: 8),
-                        // paymentDetail('Towing services on a 24/7 basis'),
-                        // const SizedBox(height: 8),
-                        // paymentDetail('See availability offline or online'),
-                        // const SizedBox(height: 8),
-                        // paymentDetail('Truck Towing'),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Text(

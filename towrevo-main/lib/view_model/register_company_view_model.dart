@@ -19,7 +19,7 @@ class RegisterCompanyViewModel with ChangeNotifier {
     selectedState = newValue.toString();
     body['state'] = newValue.toString();
     selectedCity = null;
-    // print(us_city_state[selectedState]);
+
     notifyListeners();
   }
 
@@ -49,29 +49,22 @@ class RegisterCompanyViewModel with ChangeNotifier {
     'from': '',
     'to': '',
     'extension': '',
-    // 'transaction_id': '',
     'days': [],
     'services': [],
     'notification_id': MyApp.notifyToken,
-
     'image': '',
-
-    // 'from_day' : '',
-    // 'to_day' : '',
   };
-
-  // String uniqueId ='';
 
   Future<bool> registerCompany(BuildContext context) async {
     if (!(await Utilities().isInternetAvailable())) {
       return false;
     }
-    // uniqueId = '';
+
     changeLoadingStatus(true);
     final responseBody = await AuthenticationWebService().signUpCompany(body);
     final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
     changeLoadingStatus(false);
-    print(responseBody);
+
     if (responseBody != null) {
       otpProvider.resendUniqueId = responseBody['data']['uniqueId'];
       return true;
@@ -142,7 +135,7 @@ class RegisterCompanyViewModel with ChangeNotifier {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image != null) {
       imagePath = image.path;
-      print(image.path);
+
       body['extension'] = image.path.split('.').last;
       body['image'] = base64Encode(await File(image.path).readAsBytes());
       notifyListeners();

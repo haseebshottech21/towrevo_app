@@ -1,28 +1,21 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:towrevo/models/models.dart';
 
 class CompanyHistoryList extends StatelessWidget {
-  final String userImage;
-  final String userName;
-  final String userService;
-  final String date;
-  final String status;
-  final Color colors;
-  final int rating;
+  final ServiceRequestModel serviceRequestModel;
 
   const CompanyHistoryList({
-    required this.userImage,
-    required this.userName,
-    required this.userService,
-    required this.date,
-    required this.status,
-    required this.colors,
-    required this.rating,
+    required this.serviceRequestModel,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print('in company history');
+    int rating = serviceRequestModel.reviewModel == null
+        ? 0
+        : serviceRequestModel.reviewModel!.rate;
     return FadeInUp(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
@@ -42,22 +35,12 @@ class CompanyHistoryList extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    // CircleAvatar(
-                    //   backgroundColor: Colors.black,
-                    //   backgroundImage: NetworkImage(
-                    //     userImage,
-                    //   ),
-                    //   radius: 25,
-                    // ),
-                    // const SizedBox(
-                    //   width: 15,
-                    // ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          userName,
+                          serviceRequestModel.name,
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -68,7 +51,7 @@ class CompanyHistoryList extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          userService,
+                          serviceRequestModel.serviceName,
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
@@ -99,7 +82,7 @@ class CompanyHistoryList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      date,
+                      serviceRequestModel.createdAt,
                       style: const TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.w400,
@@ -116,9 +99,17 @@ class CompanyHistoryList extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          status,
+                          serviceRequestModel.status == 1
+                              ? 'Accept'
+                              : serviceRequestModel.status == 2
+                                  ? 'Decline'
+                                  : 'Completed',
                           style: TextStyle(
-                            color: colors,
+                            color: serviceRequestModel.status == 1
+                                ? Colors.green
+                                : serviceRequestModel.status == 2
+                                    ? Colors.red
+                                    : Colors.blueGrey,
                           ),
                         ),
                       ),

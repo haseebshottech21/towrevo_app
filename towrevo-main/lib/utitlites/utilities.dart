@@ -11,7 +11,6 @@ class Utilities {
     try {
       TimeRange result = await showTimeRangePicker(
         context: context,
-
         use24HourFormat: false,
         disabledTime: TimeRange(
           startTime: const TimeOfDay(hour: 23, minute: 55),
@@ -27,7 +26,7 @@ class Utilities {
           'from': timeConverter(result.startTime.format(context)),
           'to': timeConverter(result.endTime.format(context)),
         };
-      }else{
+      } else {
         return null;
       }
     } catch (e) {
@@ -53,7 +52,6 @@ class Utilities {
 
   static const Map<String, String> header = {
     'Accept': 'application/json',
-    // 'Content-Type': 'application/json'
   };
   Future<Map<String, String>> headerWithAuth() async {
     return {
@@ -157,7 +155,7 @@ class Utilities {
       int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
       lng += dlng;
       PointLatLng p =
-           PointLatLng((lat / 1E5).toDouble(), (lng / 1E5).toDouble());
+          PointLatLng((lat / 1E5).toDouble(), (lng / 1E5).toDouble());
       poly.add(p);
     }
     return poly;
