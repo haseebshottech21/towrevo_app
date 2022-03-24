@@ -83,9 +83,9 @@ class PlaceWebService {
     if (response.statusCode == 200) {
       final parsedJson = json.decode(response.body);
 
-      if (parsedJson["status"].toString().toLowerCase() == 'OK' &&
+      if (parsedJson["status"].toString().toLowerCase() == 'ok' &&
           parsedJson["routes"] != null &&
-          parsedJson["routes"].isNotEmpty) {
+          (parsedJson["routes"] as List).isNotEmpty) {
         final placeDetail = DirectionsModel.fromMap(parsedJson);
         return placeDetail;
       } else {

@@ -245,18 +245,6 @@ class CompanyItem extends StatelessWidget {
                                 : const SizedBox(
                                     width: 20,
                                   ),
-                            // companyModel.distance == 'Null'
-                            //     ? const IconButton(
-                            //         padding: EdgeInsets.zero,
-                            //         constraints: BoxConstraints(),
-                            //         onPressed: null,
-                            //         icon: FaIcon(
-                            //           Icons.phone_in_talk,
-                            //           color: Colors.grey,
-                            //           size: 25,
-                            //         ),
-                            //       )
-                            //     :
                             IconButton(
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),

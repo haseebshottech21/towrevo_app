@@ -20,8 +20,8 @@ class PlaceDetailModel {
     return PlaceDetailModel(
       placeAddress: '',
       placeLocation: const LatLng(
-        0.0,
-        0.0,
+        44.500000,
+        -89.500000,
       ),
     );
   }

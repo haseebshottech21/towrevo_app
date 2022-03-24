@@ -351,20 +351,21 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                     onPressed: () {
                       Navigator.of(context).pushNamed(
                         DistanceScreen.routeName,
-                        // arguments: {
-                        //   'Origin': LatLng(
-                        //     double.parse(widget.reqOriginLatitude),
-                        //     double.parse(widget.reqOriginLongitude),
-                        //   ),
-                        //   'Destination': LatLng(
-                        //     double.parse(widget.reqDestLatitude),
-                        //     double.parse(widget.reqDestLongitude),
-                        //   ),
-                        // },
-                        arguments: LatLng(
-                          double.parse(widget.reqOriginLatitude),
-                          double.parse(widget.reqOriginLongitude),
-                        ),
+                        arguments: {
+                          'origin': LatLng(
+                            double.parse(widget.reqOriginLatitude),
+                            double.parse(widget.reqOriginLongitude),
+                          ),
+                          if (widget.reqDestLatitude.isNotEmpty)
+                            'destination': LatLng(
+                              double.parse(widget.reqDestLatitude),
+                              double.parse(widget.reqDestLongitude),
+                            ),
+                        },
+                        // arguments: LatLng(
+                        //   double.parse(widget.reqOriginLatitude),
+                        //   double.parse(widget.reqOriginLongitude),
+                        // ),
                       );
                     },
                     child: const Text(

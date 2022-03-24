@@ -90,7 +90,6 @@ class _CompanyOngoingScreenState extends State<CompanyOngoingScreen> {
                       shrinkWrap: true,
                       itemCount: provider.onGoingRequestsList.length,
                       itemBuilder: (context, index) {
-                        print(provider.onGoingRequestsList[index].distance);
                         return JobCompleteCard(
                           reqOriginLatitude:
                               provider.onGoingRequestsList[index].latitude,
@@ -100,10 +99,7 @@ class _CompanyOngoingScreenState extends State<CompanyOngoingScreen> {
                               provider.onGoingRequestsList[index].destLatitude,
                           reqDestLongitude:
                               provider.onGoingRequestsList[index].destLongitude,
-
                           userName: provider.onGoingRequestsList[index].name,
-                          // userDistance:
-                          //     provider.onGoingRequestsList[index].totalDistance,
                           userDistance: provider.onGoingRequestsList[index]
                                   .destAddress.isEmpty
                               ? provider.onGoingRequestsList[index].distance
