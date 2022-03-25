@@ -151,6 +151,16 @@ class UserHomeScreenViewModel with ChangeNotifier {
     }
   }
 
+  bool isAlive = false;
+
+  Future<bool> willPopCallback() async {
+    print('there');
+    if (isAlive) {
+      return false;
+    }
+    return true;
+  }
+
   Future<void> requestToCompany(
     BuildContext context,
     String longitude,
@@ -178,63 +188,67 @@ class UserHomeScreenViewModel with ChangeNotifier {
     );
 
     if (response != null) {
+      isAlive = true;
       showDialog(
         context: context,
         barrierDismissible: false,
         builder: (ctx) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            content: StreamBuilder<String>(
-              stream: NumberCreator(ctx).stream.map((event) => '$event'),
-              builder: (ctx, snapshot) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Request Send Please Wait..',
-                      style: GoogleFonts.montserrat(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+          return WillPopScope(
+            onWillPop: () => willPopCallback(),
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              content: StreamBuilder<String>(
+                stream: NumberCreator(ctx).stream.map((event) => '$event'),
+                builder: (ctx, snapshot) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Request Send Please Wait..',
+                        style: GoogleFonts.montserrat(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: 130,
-                      height: 130,
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          CircularProgressIndicator(
-                            value: 1 -
-                                double.parse(snapshot.data == null
-                                        ? '30'
-                                        : snapshot.data.toString()) /
-                                    30,
-                            valueColor:
-                                AlwaysStoppedAnimation(Colors.green[800]),
-                            strokeWidth: 6,
-                            backgroundColor: Colors.black38,
-                          ),
-                          Center(
-                            child: Text(
-                              snapshot.data == null
-                                  ? ''
-                                  : snapshot.data.toString(),
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 50,
-                              ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: 130,
+                        height: 130,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            CircularProgressIndicator(
+                              value: 1 -
+                                  double.parse(snapshot.data == null
+                                          ? '30'
+                                          : snapshot.data.toString()) /
+                                      30,
+                              valueColor:
+                                  AlwaysStoppedAnimation(Colors.green[800]),
+                              strokeWidth: 6,
+                              backgroundColor: Colors.black38,
                             ),
-                          )
-                        ],
+                            Center(
+                              child: Text(
+                                snapshot.data == null
+                                    ? ''
+                                    : snapshot.data.toString(),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 50,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                );
-              },
+                      const SizedBox(height: 20),
+                    ],
+                  );
+                },
+              ),
             ),
           );
         },
@@ -251,6 +265,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
             onPress: () {},
           );
         }
+        isAlive = false;
       });
     }
   }

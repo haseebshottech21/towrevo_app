@@ -17,7 +17,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  await dotenv.load(fileName: '.env');
+  await dotenv.load(fileName: ENVSettings.fileName);
   await Firebase.initializeApp();
   var onBoarding =
       await Utilities().getSharedPreferenceValue('onboarding') ?? '0';

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class CompanyModel {
   String id;
   String userId;
@@ -34,7 +36,7 @@ class CompanyModel {
   });
 
   factory CompanyModel.fromJson(Map<String, dynamic> json) {
-    print(json['distance']);
+  
     return CompanyModel(
       id: json['id'].toString(),
       userId: json['user_id'].toString(),
@@ -45,10 +47,12 @@ class CompanyModel {
       to: json['to'].toString().toUpperCase(),
       distance: json['distance'].toString() == 'Null'
           ? 'Not in range'
-          : (double.parse(
-                      (json['distance']).toString().split('mi').first.trim()))
-                  .toStringAsFixed(1) +
-              ' mi',
+          : double.tryParse(json['distance']
+              .toString()
+              .split('mi')
+              .first
+              .trim()
+              .replaceAll(',', '')).toString()+' mi',
       isCompanyAvailable: json['distance'].toString() == 'Null' ? false : true,
       firstName: json['user']['first_name'],
       email: json['user']['email'] ?? '',
