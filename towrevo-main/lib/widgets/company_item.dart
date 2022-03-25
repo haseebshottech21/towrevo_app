@@ -57,7 +57,7 @@ class CompanyItem extends StatelessWidget {
   Widget build(BuildContext context) {
     print(companyModel.email);
     final primaryColor = Theme.of(context).primaryColor;
-    print('distance' + companyModel.distance);
+    // print('distance' + companyModel.distance);
     return FadeInUp(
       from: 50,
       child: Card(

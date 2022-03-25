@@ -148,15 +148,20 @@ class _DistanceScreenState extends State<DistanceScreen> {
               ),
             if (locationRoute['destination'] != null)
               Positioned(
-                left: 100,
-                right: 100,
-                bottom: 10,
+                left: 95,
+                right: 95,
+                bottom: 12,
                 // left: 20,
                 child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    primary: AppColors.primaryColor,
+                  ),
                   icon: const Icon(Icons.directions),
                   label: Text(!fromCompanyToPickupLocation
-                      ? 'Company - Pickup'
-                      : 'Pickup - DropOff'),
+                      ? 'DropOff Location'
+                      : 'PickUp Location'),
                   onPressed: () {
                     setState(() => fromCompanyToPickupLocation =
                         !fromCompanyToPickupLocation);

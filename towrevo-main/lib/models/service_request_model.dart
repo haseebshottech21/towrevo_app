@@ -48,6 +48,13 @@ class ServiceRequestModel {
   });
 
   factory ServiceRequestModel.fromJson(Map<String, dynamic> json) {
+    if (json['dropoff_distance'] != null) {
+      print(double.tryParse(
+          json['dropoff_distance'].toString().split('mi').first.trim()));
+      print(double.tryParse(
+              json['dropoff_distance'].toString().split('mi').first.trim()) ??
+          0.0);
+    }
     return ServiceRequestModel(
       id: json['id'].toString(),
       userId: json['user_id'].toString(),
@@ -67,9 +74,15 @@ class ServiceRequestModel {
           : double.parse(json['distance'].toString().split('mi').first.trim()),
       totalDistance: json['dropoff_distance'] == null
           ? 0.0
-          : double.parse(json['distance'].toString().split('mi').first.trim()) +
-              double.parse(
-                  json['dropoff_distance'].toString().split('mi').first.trim()),
+          : (double.tryParse(
+                      json['distance'].toString().split('mi').first.trim()) ??
+                  0.0) +
+              (double.tryParse(json['dropoff_distance']
+                      .toString()
+                      .split('mi')
+                      .first
+                      .trim()) ??
+                  0.0),
       notificationId: (json['user']['notification_id']) ?? '',
       name: (json['user']['first_name'] ?? '') +
           ' ' +

@@ -147,37 +147,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                       ),
                       child: Column(
                         children: [
-                          Consumer<GetLocationViewModel>(
-                            builder: (ctx, getLocation, neverBuildChild) {
-                              return FromToLocation(
-                                fromLocationText:
-                                    getLocation.getMyAddress.isEmpty
-                                        ? 'Pickup Location'
-                                        : getLocation.getMyAddress,
-                                fromOnTap: () {
-                                  Navigator.of(context).pushNamed(
-                                    UserLocationScreen.routeName,
-                                    arguments: true,
-                                  );
-                                },
-                                toLocationText:
-                                    getLocation.getDestinationAddress.isEmpty
-                                        ? 'Drop Location'
-                                        : getLocation.getDestinationAddress,
-                                toOnTap: () {
-                                  Navigator.of(context).pushNamed(
-                                    UserLocationScreen.routeName,
-                                    arguments: false,
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 10),
-                          DescribeProblemField(
-                            describeController: describeController,
-                          ),
-                          const SizedBox(height: 10),
                           Row(
                             children: [
                               const SizedBox(width: 5),
@@ -230,6 +199,37 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                                 }),
                               ),
                             ],
+                          ),
+                          const SizedBox(height: 10),
+                          Consumer<GetLocationViewModel>(
+                            builder: (ctx, getLocation, neverBuildChild) {
+                              return FromToLocation(
+                                fromLocationText:
+                                    getLocation.getMyAddress.isEmpty
+                                        ? 'Pickup Location'
+                                        : getLocation.getMyAddress,
+                                fromOnTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    UserLocationScreen.routeName,
+                                    arguments: true,
+                                  );
+                                },
+                                toLocationText:
+                                    getLocation.getDestinationAddress.isEmpty
+                                        ? 'Drop Location'
+                                        : getLocation.getDestinationAddress,
+                                toOnTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    UserLocationScreen.routeName,
+                                    arguments: false,
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          DescribeProblemField(
+                            describeController: describeController,
                           ),
                         ],
                       ),
