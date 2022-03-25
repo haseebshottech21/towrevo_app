@@ -54,7 +54,11 @@ class CompanyItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
+<<<<<<< HEAD
 
+=======
+    // print('distance' + companyModel.distance);
+>>>>>>> ff9873a7121e128d0bb1752ade55e09f5f42db0b
     return FadeInUp(
       from: 50,
       child: Card(

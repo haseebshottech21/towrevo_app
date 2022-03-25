@@ -25,9 +25,9 @@ class _FAQsState extends State<FAQs> {
       'answer': '• Hook-Towing \n• Flatbed-Towing \n• Heavy-duty Towing',
     },
     {
-      'question': 'How many times I can request ?',
+      'question': 'How many times customers can request towing service ? \n',
       'answer':
-          '• Request is limited 3 time per session.  Otherwise you will blocked ',
+          '• Customer is limited to 3 times per day/session.  Otherwise customer will be blocked automatically.',
     },
     {
       'question': 'Sign up per person ?',
@@ -39,13 +39,14 @@ class _FAQsState extends State<FAQs> {
           '• One account each company required. You can dispatch your drivers when you receive a job request',
     },
     {
-      'question': 'Is there free trial ?',
+      'question': 'Is there a free trial ?',
       'answer':
-          '• We do run different promotions throughout the year \n• Customer pay as you go \n• Tow companies monthly subscription. ',
+          '• Follow us on Facebook and Instagram for promotion announcement. \n• We do run different promotions throughout the year \n• Customer pay as you go \n• Towing companies monthly subscription. ',
     },
     {
       'question': 'How to cancel your account ?',
-      'answer': 'Please email us at support@towrevo.com ',
+      'answer':
+          '• Please email us at support@towrevo.com. \n• 30 days advance notice required ',
     },
     {
       'question': 'How to contact us ? ',

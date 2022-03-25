@@ -23,7 +23,7 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
       children: [
         const FullBackgroundImage(),
         SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
+          // physics: const ClampingScrollPhysics(),
           child: Column(
             children: [
               const SizedBox(

@@ -44,6 +44,7 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
 
   double animHeight = 0.0;
   double animHeightmain = 200.0;
+  double heightMain = 230.0;
   bool anim = false;
 
   @override
@@ -53,8 +54,10 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
       child: Stack(
         children: [
           AnimatedContainer(
-            duration: const Duration(milliseconds: 900),
-            height: animHeightmain,
+            duration: const Duration(milliseconds: 700),
+            height: widget.serviceRequestModel.description.length > 50
+                ? heightMain
+                : animHeightmain,
             width: MediaQuery.of(context).size.width * 0.95,
             decoration: BoxDecoration(
               boxShadow: kElevationToShadow[2],
@@ -177,7 +180,10 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                             ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(
+                      height: widget.serviceRequestModel.description.length > 50
+                          ? 20
+                          : 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -191,14 +197,30 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                             ? null
                             : () {
                                 setState(() {
+                                  widget.serviceRequestModel.description
+                                              .length >
+                                          50
+                                      ? widget.serviceRequestModel.destAddress
+                                              .isEmpty
+                                          ? heightMain = 285.0
+                                          : heightMain = 345.0
+                                      : heightMain = 230.0;
+                                  // heightMain = heightMain +
+                                  //     (widget.serviceRequestModel.destAddress
+                                  //                 .isEmpty ||
+                                  //             widget.serviceRequestModel
+                                  //                     .description.length >
+                                  //                 50
+                                  //         ? animHeight = 5
+                                  //         : animHeight = 15);
                                   widget.serviceRequestModel.destAddress.isEmpty
                                       ? animHeight = 150
                                       : animHeight = 180;
                                   animHeightmain = animHeightmain +
                                       (widget.serviceRequestModel.destAddress
                                               .isEmpty
-                                          ? animHeight / 2
-                                          : animHeight);
+                                          ? animHeight / 2.5
+                                          : animHeight / 1.6);
                                   anim = true;
                                 });
                               },
@@ -270,10 +292,10 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
             bottom: 0,
             child: AnimatedContainer(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              duration: const Duration(microseconds: 400),
+              duration: const Duration(microseconds: 200),
               height: widget.serviceRequestModel.destAddress.isEmpty
                   ? animHeight / 2
-                  : animHeight,
+                  : animHeight / 1.5,
               width: MediaQuery.of(context).size.width * 0.95,
               decoration: BoxDecoration(
                 boxShadow: kElevationToShadow[4],

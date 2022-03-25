@@ -3,8 +3,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/screens/company/distance_screen.dart';
+<<<<<<< HEAD
 
 import '../../utilities/utilities.dart';
+=======
+import '../../utitlites/utilities.dart';
+>>>>>>> ff9873a7121e128d0bb1752ade55e09f5f42db0b
 import '../empty_profile.dart';
 import '../job_completed_dailogbox.dart';
 import '../profile_image_circle.dart';
@@ -42,6 +46,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
 
   double animHeight = 0.0;
   double animHeightmain = 200.0;
+  double heightMain = 220.0;
   bool anim = false;
 
   @override
@@ -51,8 +56,10 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
       child: Stack(
         children: [
           AnimatedContainer(
-            duration: const Duration(milliseconds: 900),
-            height: animHeightmain,
+            duration: const Duration(milliseconds: 700),
+            height: widget.serviceRequestModel.description.length > 50
+                ? heightMain
+                : animHeightmain,
             width: MediaQuery.of(context).size.width * 0.95,
             decoration: BoxDecoration(
               boxShadow: kElevationToShadow[2],
@@ -175,7 +182,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                             ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -189,14 +196,19 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                             ? null
                             : () {
                                 setState(() {
+                                  widget.serviceRequestModel.description
+                                              .length >
+                                          50
+                                      ? heightMain = 370.0
+                                      : heightMain = 200.0;
                                   widget.serviceRequestModel.destAddress.isEmpty
                                       ? animHeight = 300
                                       : animHeight = 200;
                                   animHeightmain = animHeightmain +
                                       (widget.serviceRequestModel.destAddress
                                               .isEmpty
-                                          ? animHeight / 2
-                                          : animHeight);
+                                          ? animHeight / 2.8
+                                          : animHeight / 1.3);
                                   anim = true;
                                 });
                               },
@@ -241,11 +253,11 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
           Positioned(
             bottom: 0,
             child: AnimatedContainer(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               duration: const Duration(microseconds: 400),
               height: widget.serviceRequestModel.destAddress.isEmpty
-                  ? animHeight / 2
-                  : animHeight,
+                  ? animHeight / 2.5
+                  : animHeight / 1.2,
               width: MediaQuery.of(context).size.width * 0.95,
               decoration: BoxDecoration(
                 boxShadow: kElevationToShadow[4],
@@ -332,6 +344,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
+                      // padding: EdgeInsets.only(bottom: 0),
                       primary: AppColors.primaryColor2,
                       minimumSize: Size(
                         MediaQuery.of(context).size.width * 0.90,

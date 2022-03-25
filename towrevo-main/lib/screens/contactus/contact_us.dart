@@ -206,7 +206,7 @@ class _ContactUsState extends State<ContactUs> {
                                                 BorderRadius.circular(30),
                                           ),
                                           child: Text(
-                                            '+1 (000) 333 0000',
+                                            '+1 (480) 406 5057',
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.montserrat(
                                               color: Colors.white,
@@ -259,7 +259,7 @@ class _ContactUsState extends State<ContactUs> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              '92 Lorem simply street line New York, USA',
+                              '711 West 43rd st Chicago IL 60609',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
