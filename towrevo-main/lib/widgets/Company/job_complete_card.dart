@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/models/models.dart';
-import 'package:towrevo/utitlites/towrevo_appcolor.dart';
+import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/screens/company/distance_screen.dart';
 
-import '../../utitlites/utilities.dart';
+import '../../utilities/utilities.dart';
 import '../empty_profile.dart';
 import '../job_completed_dailogbox.dart';
 import '../profile_image_circle.dart';
@@ -114,7 +114,6 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                           boxShadow: kElevationToShadow[1],
                           color: AppColors.primaryColor.withOpacity(0.8),
                           borderRadius: BorderRadius.circular(5),
-                          // border: Border.all(color: Colors.black),
                         ),
                         child: Center(
                           child: Text(
@@ -142,7 +141,6 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
-                      // padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: secondHalf!.isEmpty
                           ? Text(firstHalf!)
                           : Column(
@@ -182,12 +180,6 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
-                        // style: ElevatedButton.styleFrom(
-                        //   // padding: EdgeInsets.zero,
-                        //   shape: const StadiumBorder(),
-                        //   primary: Colors.blueGrey.shade100,
-                        //   side: const BorderSide(color: Colors.blueGrey),
-                        // ),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           shape: const StadiumBorder(),
@@ -218,14 +210,8 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                         ),
                       ),
                       ElevatedButton(
-                        // style: ElevatedButton.styleFrom(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 12),
-                        //   shape: const StadiumBorder(),
-                        //   primary: Colors.blue[50],
-                        // ),
                         style: ElevatedButton.styleFrom(
                           shape: const StadiumBorder(),
-                          // padding: EdgeInsets.s,
                           primary: Colors.green[50],
                         ),
                         onPressed: () {
@@ -344,14 +330,8 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                     ),
                   const SizedBox(height: 10),
                   ElevatedButton(
-                    // style: ElevatedButton.styleFrom(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 12),
-                    //   shape: const StadiumBorder(),
-                    //   primary: Colors.blue[50],
-                    // ),
                     style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
-                      // padding: EdgeInsets.s,
                       primary: AppColors.primaryColor2,
                       minimumSize: Size(
                         MediaQuery.of(context).size.width * 0.90,
@@ -375,10 +355,6 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                   widget.serviceRequestModel.destLongitude),
                             ),
                         },
-                        // arguments: LatLng(
-                        //   double.parse(widget.reqOriginLatitude),
-                        //   double.parse(widget.reqOriginLongitude),
-                        // ),
                       );
                     },
                     child: const Text(

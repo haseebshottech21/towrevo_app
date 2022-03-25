@@ -174,11 +174,7 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                       const SizedBox(
                         width: 5,
                       ),
-                      // Text(
-                      //  '($_controller)',
-                      //   textAlign: TextAlign.center,
-                      //   style: GoogleFonts.montserrat(color: const Color(0xFF0c355a), fontWeight: FontWeight.w700, fontSize: 20.0, letterSpacing: 0.5),
-                      // ),
+                    
                       Countdown(
                         animation: StepTween(
                           begin: levelClock, // THIS IS A USER ENTERED NUMBER

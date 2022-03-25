@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/web_services/authentication.dart';
 import 'otp_view_model.dart';
 
@@ -37,7 +37,7 @@ class RegisterUserViewModel with ChangeNotifier {
     final responseBody = await AuthenticationWebService().signUpCompany(body);
     final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
     changeLoadingStatus(false);
-    print(responseBody);
+
     if (responseBody != null) {
       otpProvider.resendUniqueId = responseBody['data']['uniqueId'];
       return true;

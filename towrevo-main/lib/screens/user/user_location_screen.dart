@@ -36,9 +36,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
     final placeViewModel =
         Provider.of<GetLocationViewModel>(context, listen: true);
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Location'),
-      // ),
+
       body: Stack(
         children: [
           SizedBox(
@@ -50,8 +48,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
               textSearchController.text.isNotEmpty)
             Container(
               margin: const EdgeInsets.only(top: 120, left: 20, right: 20),
-              // decoration: BoxDecoration(color: Colors.black.withOpacity(0.1)),
-              // height: MediaQuery.of(context).size.height,
+
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(10),
@@ -74,10 +71,10 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Container(
                         padding: const EdgeInsets.all(6),
-                        // color: Colors.yellow,
+
                         margin: const EdgeInsets.only(bottom: 5),
                         decoration: const BoxDecoration(
-                          // borderRadius: BorderRadius.,
+
                           border: Border(
                             bottom: BorderSide(
                               color: Colors.white,

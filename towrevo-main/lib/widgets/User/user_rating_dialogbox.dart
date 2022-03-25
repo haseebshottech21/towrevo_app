@@ -44,11 +44,11 @@ class UserRatingDialog extends StatelessWidget {
             children: [
               Text(
                 'Company : ' + companyName,
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
               Text(
                 'Service : ' + serviceName,
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(
                 height: 15,
@@ -121,12 +121,6 @@ class UserRatingDialog extends StatelessWidget {
                   ],
                 );
               }),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              // const Center(
-              //   child: Text('Love It'),
-              // ),
             ],
           ),
         ),

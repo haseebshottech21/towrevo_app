@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:towrevo/utitlites/towrevo_appcolor.dart';
+import 'package:towrevo/utilities/towrevo_appcolor.dart';
 
 class GlowCircle extends StatefulWidget {
   final double glowHeight;

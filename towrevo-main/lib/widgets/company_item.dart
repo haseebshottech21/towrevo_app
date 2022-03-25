@@ -8,7 +8,7 @@ import 'package:towrevo/screens/user/user_monthly_payment_screen.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../utitlites/utilities.dart';
+import '../utilities/utilities.dart';
 
 class CompanyItem extends StatelessWidget {
   final CompanyModel companyModel;
@@ -22,11 +22,9 @@ class CompanyItem extends StatelessWidget {
     String phoneNumber,
   ) async {
     if (phoneNumber.isNotEmpty) {
-      print(notificationId);
       final provider =
           Provider.of<UserHomeScreenViewModel>(context, listen: false);
-      // print(provider.body['service']!);
-      // print(provider.body['address']!);
+
       provider.requestToCompany(
         context,
         provider.body['longitude']!,
@@ -55,9 +53,8 @@ class CompanyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(companyModel.email);
     final primaryColor = Theme.of(context).primaryColor;
-    print('distance' + companyModel.distance);
+
     return FadeInUp(
       from: 50,
       child: Card(
@@ -96,9 +93,6 @@ class CompanyItem extends StatelessWidget {
                           children: [
                             Container(
                               alignment: Alignment.centerLeft,
-                              // color: companyModel.email.isEmpty
-                              //     ? Colors.black12.withOpacity(0.1)
-                              //     : Colors.white,
                               child: Text(
                                 companyModel.email.isEmpty
                                     ? 'Request Company'
@@ -106,9 +100,6 @@ class CompanyItem extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                                  // color: companyModel.email.isEmpty
-                                  //     ? Colors.white.withOpacity(0.2)
-                                  //     : Colors.black
                                 ),
                               ),
                             ),
@@ -152,8 +143,6 @@ class CompanyItem extends StatelessWidget {
                                     child: Image.network(
                                       Utilities.imageBaseUrl +
                                           companyModel.image,
-                                      // width: 35,
-                                      // height: 35,
                                       fit: BoxFit.cover,
                                     ) //here you can use any widget you'd like to blur .
                                     ),
@@ -206,20 +195,7 @@ class CompanyItem extends StatelessWidget {
                           children: [
                             companyModel.email.isEmpty
                                 ? const SizedBox()
-                                :
-                                // : companyModel.distance == 'Null'
-                                //     ? const IconButton(
-                                //         padding: EdgeInsets.zero,
-                                //         constraints: BoxConstraints(),
-                                //         onPressed: null,
-                                //         icon: FaIcon(
-                                //           FontAwesomeIcons.solidPaperPlane,
-                                //           color: Colors.grey,
-                                //           size: 22,
-                                //         ),
-                                //       )
-                                //     :
-                                IconButton(
+                                : IconButton(
                                     padding: EdgeInsets.zero,
                                     constraints: const BoxConstraints(),
                                     onPressed: companyModel.isCompanyAvailable

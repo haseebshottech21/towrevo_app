@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../utitlites/towrevo_appcolor.dart';
+import '../utilities/towrevo_appcolor.dart';
 
 class ProfileTowrevo extends StatelessWidget {
   const ProfileTowrevo({Key? key}) : super(key: key);

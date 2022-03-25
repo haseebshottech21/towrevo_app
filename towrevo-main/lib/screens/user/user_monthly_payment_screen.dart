@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/utilities/secrets.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
-import '../../utitlites/towrevo_appcolor.dart';
-import '../../utitlites/utilities.dart';
+import '../../utilities/towrevo_appcolor.dart';
+import '../../utilities/utilities.dart';
 import 'package:http/http.dart' as http;
 
 class UserMonthlyPaymentScreen extends StatefulWidget {
@@ -41,7 +43,6 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
       paynow(context);
     } on StripeException catch (e) {
       Utilities().showToast('${e.error.localizedMessage}');
-      print(e);
     }
   }
 
@@ -49,7 +50,6 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
     try {
       paymentIntentData =
           await createPaymentIntent(currencyType: 'USD', price: '199');
-      print('make payment $paymentIntentData');
 
       if (paymentIntentData.isNotEmpty) {
         await Stripe.instance.initPaymentSheet(
@@ -75,7 +75,6 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
 
   Future createPaymentIntent(
       {required String price, required String currencyType}) async {
-    print('in createPaymentIntent');
     try {
       Map<String, dynamic> body = {
         'amount': price,
@@ -87,20 +86,17 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
           Uri.parse('${Utilities.stripeBaseUrl}/v1/payment_intents'),
           body: body,
           headers: {
-            'Authorization':
-                'Bearer sk_test_51IdtHCGmNbFgnn002634Wne6qPdy0KfZyH19qLIq7SCFxNdWygtpxUc0d9VFQs55dlWs2sAp5O565RdTYfMpe0Op00fMGUCof1',
+            'Authorization': 'Bearer $stripeSecretKey',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       return jsonDecode(response.body);
     } catch (e) {
-      Utilities().showToast('Something Went Wrong');
-      print(e);
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final utlities = Utilities();
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(

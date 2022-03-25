@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/screens/screens.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
@@ -49,19 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            // Background Image
             const BackgroundImage(),
-            // Back Icon
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 10.0, top: 15.0),
-            //   child: IconButton(
-            //     icon: const Icon(FontAwesomeIcons.arrowLeft,
-            //         color: Colors.white, size: 20.0),
-            //     onPressed: () {
-            //       Navigator.pop(context);
-            //     },
-            //   ),
-            // ),
             Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20.0,
@@ -93,23 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           letterSpacing: 1.8),
                     ),
                   ),
-                  // const SizedBox(
-                  //   height: 5,
-                  // ),
-                  // FadeInDown(
-                  //   from: 30,
-                  //   delay: const Duration(milliseconds: 550),
-                  //   child: Text(
-                  //     'Lorem Ipsum is sipmly dummy text of the printing and typesetting',
-                  //     textAlign: TextAlign.center,
-                  //     style: GoogleFonts.montserrat(
-                  //       color: const Color(0xFF0c355a),
-                  //       fontWeight: FontWeight.w600,
-                  //       fontSize: 15.0,
-                  //       letterSpacing: 0.5,
-                  //     ),
-                  //   ),
-                  // ),
+
                   const SizedBox(
                     height: 25,
                   ),

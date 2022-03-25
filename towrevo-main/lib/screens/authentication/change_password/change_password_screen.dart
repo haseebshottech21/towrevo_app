@@ -17,7 +17,7 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final passwordController = TextEditingController();
   final confirmPassword = TextEditingController();
-  // final scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   final _formKey = GlobalKey<FormState>();
 
@@ -36,60 +36,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // key: scaffoldKey,
-      // drawerEnableOpenDragGesture: false,
-      // drawer: const DrawerWidget(),
+  
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            // Background Image
+           
             const FullBackgroundImage(),
-            // Back Icon
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 10.0, top: 20.0),
-            //   child: IconButton(
-            //     icon: const Icon(FontAwesomeIcons.arrowLeft,
-            //         color: Colors.white, size: 20.0),
-            //     onPressed: () {
-            //       Navigator.of(context).pop();
-            //     },
-            //   ),
-            // ),
+           
             Align(
               alignment: Alignment.topLeft,
               child: backIcon(context, () {
                 Navigator.of(context).pop();
               }),
             ),
-            // Row(
-            //   children: [
-            //     Align(
-            //       alignment: Alignment.topLeft,
-            //       child: backIcon(context, () {
-            //         Navigator.of(context).pop();
-            //       }),
-            //     ),
-            //     Container(
-            //       margin: const EdgeInsets.only(top: 40, left: 45),
-            //       child: Text(
-            //         'CONTACT US',
-            //         textAlign: TextAlign.center,
-            //         style: GoogleFonts.montserrat(
-            //           color: Colors.white,
-            //           fontWeight: FontWeight.w600,
-            //           fontSize: 28.0,
-            //           letterSpacing: 1,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // drawerIconSecond(
-            //   context,
-            //   () {
-            //     scaffoldKey.currentState!.openDrawer();
-            //   },
-            // ),
+           
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(

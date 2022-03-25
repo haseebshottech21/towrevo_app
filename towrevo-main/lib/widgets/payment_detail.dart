@@ -12,9 +12,6 @@ Widget paymentDetail(String description) {
         Expanded(
           child: Text(
             description,
-            // maxLines: 2,
-            // overflow: TextOverflow.ellipsis,
-            // softWrap: false,
             style: GoogleFonts.montserrat(
               color: Colors.white,
               fontWeight: FontWeight.w500,

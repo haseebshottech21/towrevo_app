@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:towrevo/utitlites/towrevo_appcolor.dart';
+import 'package:towrevo/utilities/towrevo_appcolor.dart';
 
 Container userEmptyProfile(BuildContext context) {
   return Container(

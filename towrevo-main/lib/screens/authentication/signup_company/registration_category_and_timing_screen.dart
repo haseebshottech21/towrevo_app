@@ -6,12 +6,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utitlites/state_city_utility.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+
 import 'package:towrevo/widgets/widgets.dart';
-import '../../../utitlites/towrevo_appcolor.dart';
+
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/screens/screens.dart';
+
+import '../../../utilities/state_city_utility.dart';
+import '../../../utilities/towrevo_appcolor.dart';
 
 class RegistrationCategoryAndTimingScreen extends StatefulWidget {
   const RegistrationCategoryAndTimingScreen({Key? key}) : super(key: key);
@@ -25,6 +27,15 @@ class RegistrationCategoryAndTimingScreen extends StatefulWidget {
 
 class _RegistrationCategoryAndTimingScreenState
     extends State<RegistrationCategoryAndTimingScreen> {
+  Map<String, bool> cityList = {
+    'Monday': false,
+    'Tuesday': false,
+    'Wednesday': false,
+    'Thursday': false,
+    'Friday': false,
+    'Sarturday': false,
+    'Sunday': false,
+  };
   Future<void> showDays(BuildContext context) async {
     final daysProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
@@ -178,7 +189,7 @@ class _RegistrationCategoryAndTimingScreenState
             .pushNamed(RegistrationOTPScreen.routeName, arguments: true);
       }
     } else {
-      Utilities().showToast('Please Fill All Required Fields');
+      Fluttertoast.showToast(msg: 'Please Fill All Required Fields');
     }
   }
 
@@ -446,9 +457,6 @@ class _RegistrationCategoryAndTimingScreenState
                                         color: Colors.black,
                                       ),
                                     ),
-                                    // if(categories.isNotEmpty)
-                                    // Wrap(children: categories.map((e) => Text(e[''])).toList(),)
-                                    // Container(padding: const EdgeInsets.symmetric(vertical: 8),width: MediaQuery.of(context).size.width*0.65,child: categories.isEmpty?'Select Categories':categories,style: GoogleFonts.montserrat(color: Colors.black,),maxLines: 3,overflow: TextOverflow.ellipsis,)),
                                   ],
                                 ),
                                 Icon(
@@ -584,10 +592,7 @@ class _RegistrationCategoryAndTimingScreenState
                                               Navigator.of(context).pushNamed(
                                                 TermAndCondition.routeName,
                                                 arguments: true,
-                                              )
-                                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                        // builder: (BuildContext context) => const RegisterAsScreen())),
-                                        ),
+                                              )),
                                   ],
                                 ),
                               ),
@@ -644,8 +649,7 @@ class _RegistrationCategoryAndTimingScreenState
           Provider.of<GetLocationViewModel>(context, listen: false);
       final serviceProvider =
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-      // provider.categoriesList=[{'car': false}, {'bike': false}, {'truck': false},];
-      // provider.daysList=[{'Monday':false},{'Tuesday':false},{'Wednesday':false},{'Thursday':false},{'Friday':false},{'Saturday':false},{'Sunday':false},];
+
       locationProvider.myCurrentLocation.placeAddress = '';
       provider.initializeValues();
       serviceProvider.initializeValues();

@@ -12,8 +12,6 @@ class FormButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: formbuttonheight,
-      // width: formbuttonwidth,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
@@ -24,7 +22,6 @@ class FormButtonWidget extends StatelessWidget {
             Color(0xFF083054),
           ],
         ),
-        // color: Colors.deepPurple.shade300,
         borderRadius: BorderRadius.circular(25),
       ),
       child: ElevatedButton(
@@ -74,7 +71,6 @@ class StepFormButtonNext extends StatelessWidget {
             Color(0xFF083054),
           ],
         ),
-        // color: Colors.deepPurple.shade300,
         borderRadius: BorderRadius.circular(25),
       ),
       child: ElevatedButton(
@@ -123,7 +119,6 @@ class StepFormButtonBack extends StatelessWidget {
           color: Colors.white,
           width: 1.5,
         ),
-        // color: Colors.deepPurple.shade300,
         borderRadius: BorderRadius.circular(25),
       ),
       child: ElevatedButton(

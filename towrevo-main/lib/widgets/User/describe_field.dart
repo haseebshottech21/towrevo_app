@@ -39,9 +39,8 @@ class DescribeProblemField extends StatelessWidget {
               ),
             ),
             textAlignVertical: TextAlignVertical.center,
-            // textAlign: TextAlign.left,
+
             decoration: InputDecoration(
-              // contentPadding: const EdgeInsets.all(10.0),
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(
@@ -55,21 +54,8 @@ class DescribeProblemField extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 fontSize: 15,
               ),
-
-              // prefixIcon: Padding(
-              //   padding:
-              //       const EdgeInsets.only(left: 15, bottom: 75),
-              //   child: prefixIcon,
-              // ),
               prefixText: ' ',
-              // suffixIcon: suffixIcon,
-              // suffixText: 'USD',
-              // suffixStyle: const TextStyle(color: Colors.green)),
             ),
-            // onSaved: (newValue) {
-            //   textEditingController.text = newValue!;
-            // },
-            // validator: (value) => errorGetter(value),
           ),
         ),
       ],

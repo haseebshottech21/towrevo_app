@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/web_services/services_web_service.dart';
-import '../utitlites/utilities.dart';
+import '../utilities/utilities.dart';
 
 class ServicesAndDaysViewModel with ChangeNotifier {
   List<DaysModel> daysListViewModel = [

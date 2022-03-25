@@ -2,23 +2,19 @@ import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:towrevo/main.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/utilities.dart';
 
 class AuthenticationWebService {
   final utilities = Utilities();
   Future<dynamic> signUpCompany(Map<String, dynamic> body) async {
-    print(Utilities.baseUrl + 'register');
-    print(body);
-
     try {
       final response = await http.post(
         Uri.parse(Utilities.baseUrl + 'register'),
         body: body,
         headers: Utilities.header,
       );
-      print(response.body);
+
       final loadedData = json.decode(response.body);
-      print(loadedData);
 
       if (response.statusCode == 200) {
         Fluttertoast.showToast(
@@ -32,12 +28,11 @@ class AuthenticationWebService {
 
         return loadedData;
       } else {
-        print(loadedData);
-        utilities.showToast(signUpErrorHandle(loadedData));
+        Fluttertoast.showToast(msg: signUpErrorHandle(loadedData));
         return null;
       }
     } catch (e) {
-      Utilities().showToast('Something Went wrong');
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
@@ -52,37 +47,11 @@ class AuthenticationWebService {
         },
         headers: Utilities.header,
       );
-      print(response.body);
 
       final responseLoaded = json.decode(response.body);
 
       if (response.statusCode == 200) {
-        await utilities.setSharedPrefValue(
-            'token', responseLoaded['data']['token']);
-        await utilities.setSharedPrefValue(
-            'type', responseLoaded['data']['user']['type']);
-        await utilities.setSharedPrefValue(
-            'email', responseLoaded['data']['user']['email']);
-        await utilities.setSharedPrefValue(
-            'image', responseLoaded['data']['user']['image'] ?? '');
-        await utilities.setSharedPrefValue(
-          'name',
-          responseLoaded['data']['user']['first_name'].toString() +
-              ' ' +
-              (responseLoaded['data']['user']['last_name'] ?? '').toString(),
-        );
-        final Map companyInfo =
-            responseLoaded['data']['user']['company_info'] ?? {};
-        if (companyInfo.isNotEmpty) {
-          await utilities.setSharedPrefValue(
-            'longitude',
-            companyInfo['longitude'].toString(),
-          );
-          await utilities.setSharedPrefValue(
-            'latitude',
-            companyInfo['latitude'].toString(),
-          );
-        }
+        await utilities.setUserDataToLocalStorage(responseLoaded['data']);
 
         if (remember) {
           await utilities.setSharedPrefValue('remember_email', email);
@@ -92,14 +61,14 @@ class AuthenticationWebService {
           await utilities.removeSharedPreferenceValue('remember_password');
         }
 
-        utilities.showToast('Success');
+        Fluttertoast.showToast(msg: 'Successfully Logged In');
         return true;
       } else {
-        utilities.showToast(responseLoaded['message'].toString());
+        Fluttertoast.showToast(msg: responseLoaded['message'].toString());
         return false;
       }
     } catch (e) {
-      Utilities().showToast('Something Went wrong');
+      Fluttertoast.showToast(msg: e.toString());
       return false;
     }
   }
@@ -108,7 +77,6 @@ class AuthenticationWebService {
     try {
       final response = await http.post(Uri.parse(Utilities.baseUrl + 'logout'),
           headers: await Utilities().headerWithAuth());
-      print(response.body);
       final loadedResponse = json.decode(response.body);
       if (response.statusCode == 200) {
         await utilities.removeSharedPreferenceValue('token');
@@ -118,15 +86,15 @@ class AuthenticationWebService {
         await utilities.removeSharedPreferenceValue('name');
         await utilities.removeSharedPreferenceValue('longitude');
         await utilities.removeSharedPreferenceValue('latitude');
-        utilities.showToast('Successfully Logout');
+        Fluttertoast.showToast(msg: 'Successfully Logout');
 
         return true;
       } else {
-        utilities.showToast(loadedResponse['message'].toString());
+        Fluttertoast.showToast(msg: loadedResponse['message'].toString());
         return false;
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Something Went wrong');
+      Fluttertoast.showToast(msg: e.toString());
       return false;
     }
   }
@@ -148,7 +116,7 @@ class AuthenticationWebService {
         },
         headers: Utilities.header,
       );
-      print(response.body);
+
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
@@ -158,7 +126,7 @@ class AuthenticationWebService {
         return null;
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Something Went wrong');
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
@@ -171,7 +139,7 @@ class AuthenticationWebService {
         },
         headers: Utilities.header,
       );
-      print(response.body);
+
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
@@ -185,7 +153,7 @@ class AuthenticationWebService {
         return null;
       }
     } catch (e) {
-      Utilities().showToast('Something Went wrong');
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
@@ -208,7 +176,7 @@ class AuthenticationWebService {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
       }
     } catch (e) {
-      Utilities().showToast('Something Went wrong');
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 

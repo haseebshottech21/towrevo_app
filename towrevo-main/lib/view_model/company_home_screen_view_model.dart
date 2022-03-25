@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/main.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/web_services/company_web_service.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
 
@@ -11,6 +11,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   List<ServiceRequestModel> requestServiceList = [];
   List<ServiceRequestModel> onGoingRequestsList = [];
   final companyWebService = CompanyWebService();
+  final userWebService = UserWebService();
   final utilities = Utilities();
   bool isLoading = false;
   bool isSwitched = true;
@@ -137,7 +138,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
       if (type == '3') {
         companyProvider.getOnGoingRequests();
         notifyListeners();
-        await UserWebService().sendNotification('Job Complete',
+        await userWebService.sendNotification('Job Complete',
             'Your Job Has Been Compataed', notificationId, 'complete',
             requestId: requestId);
         Navigator.of(context).pop();
@@ -146,17 +147,17 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
           companyProvider.getRequests();
           notifyListeners();
         } else if (!getData) {
-          UserWebService().sendNotification('Decline', 'Request Time Over',
+          userWebService.sendNotification('Decline', 'Request Time Over',
               notificationId, 'decline_from_user');
         }
         if (type == '2') {
-          UserWebService().sendNotification(
+          userWebService.sendNotification(
               'Decline',
               'Company Declined Your Request',
               notificationId,
               'decline_from_company');
         } else if (type == '1') {
-          UserWebService().sendNotification(
+          userWebService.sendNotification(
             'Accepted',
             'Your Request has been accepted',
             notificationId,
@@ -165,20 +166,18 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
           );
         }
       }
-    } else {
-      utilities.showToast('Something Went Wrong');
     }
   }
 
   Future<void> payNow(
       String transactionId, String amount, BuildContext context) async {
-    if (!(await Utilities().isInternetAvailable())) {
+    if (!(await utilities.isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
 
     final loadedResponse =
-        await CompanyWebService().payNowRequest(transactionId, amount);
+        await companyWebService.payNowRequest(transactionId, amount);
     if (loadedResponse != null) {
       await getRequests();
       Navigator.of(context).pop();

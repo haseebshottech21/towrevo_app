@@ -3,13 +3,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/models.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import '../request_timer.dart';
 
 class UserHomeScreenViewModel with ChangeNotifier {
+  Utilities utilities = Utilities();
+  UserWebService userWebService = UserWebService();
   Map<String, dynamic> ratingData = {
     'requestedId': '',
     'requested': false,
@@ -32,7 +34,6 @@ class UserHomeScreenViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Utilities utilities = Utilities();
   Map<String, String> drawerInfo = {'image': '', 'name': '', 'email': ''};
   updateDrawerInfo() async {
     drawerInfo['image'] =
@@ -81,7 +82,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
     }
     changeLoadingStatus(true);
     userHistoryList = [];
-    final loadedResponse = await UserWebService().requestsOfUserHistory();
+    final loadedResponse = await userWebService.requestsOfUserHistory();
     if (loadedResponse.isNotEmpty) {
       userHistoryList = loadedResponse.reversed.toList();
     }
@@ -90,13 +91,13 @@ class UserHomeScreenViewModel with ChangeNotifier {
 
   Future<void> payNow(
       String transactionId, String amount, BuildContext context) async {
-    if (!(await Utilities().isInternetAvailable())) {
+    if (!(await utilities.isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
     userHistoryList = [];
     final loadedResponse =
-        await UserWebService().payNowRequest(transactionId, amount);
+        await userWebService.payNowRequest(transactionId, amount);
     if (loadedResponse != null) {
       await getCompanies(body);
       Navigator.of(context).pop();
@@ -105,13 +106,13 @@ class UserHomeScreenViewModel with ChangeNotifier {
   }
 
   Future<void> getCompanies(Map<String, String> requestedBody) async {
-    if (!(await Utilities().isInternetAvailable())) {
+    if (!(await utilities.isInternetAvailable())) {
       return;
     }
     list = [];
     changeLoadingStatus(true);
 
-    list = await UserWebService().getCompaniesList(requestedBody);
+    list = await userWebService.getCompaniesList(requestedBody);
     changeLoadingStatus(false);
   }
 
@@ -120,11 +121,11 @@ class UserHomeScreenViewModel with ChangeNotifier {
     String rate,
     BuildContext context,
   ) async {
-    if (!(await Utilities().isInternetAvailable())) {
+    if (!(await utilities.isInternetAvailable())) {
       return;
     }
 
-    final loadedData = await UserWebService().submitRating(
+    final loadedData = await userWebService.submitRating(
       reqId,
       rate,
       '',
@@ -141,7 +142,6 @@ class UserHomeScreenViewModel with ChangeNotifier {
     final loadedData = await UserWebService().getRequestStatusData(reqId);
     changeLoadingStatus(false);
     if (loadedData != null) {
-      print(loadedData['data']);
       return {
         'companyName': loadedData['data']['company']['first_name'],
         'serviceName': loadedData['data']['service']['name'],
@@ -239,17 +239,14 @@ class UserHomeScreenViewModel with ChangeNotifier {
           );
         },
       ).then((value) async {
-        print(value);
         if (value == true) {
-          print(response['data']['id'].toString());
-          await Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-              .acceptDeclineOrDone(
-                  '2', response['data']['id'].toString(), context,
-                  getData: false, notificationId: notificationId);
+          await CompanyHomeScreenViewModel().acceptDeclineOrDone(
+              '2', response['data']['id'].toString(), context,
+              getData: false, notificationId: notificationId);
 
           showSnackBar(
             context: context,
-            title: 'Company not responad send request again',
+            title: 'Company not responded send request again',
             labelText: '',
             onPress: () {},
           );

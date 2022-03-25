@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:towrevo/web_services/otp_web_service.dart';
-import '../utitlites/utilities.dart';
+import '../utilities/utilities.dart';
 
 class OTPViewModel with ChangeNotifier {
+  Utilities utilities = Utilities();
+  OTPWebService otpWebService = OTPWebService();
   String resendUniqueId = '';
   bool otpExpire = false;
 
@@ -14,34 +17,33 @@ class OTPViewModel with ChangeNotifier {
 
   Future<bool> sendOTP(
       String uniqueId, String otp, BuildContext context) async {
-    if (!(await Utilities().isInternetAvailable())) {
+    if (!(await utilities.isInternetAvailable())) {
       return false;
     }
     int validate = await getResendOTPOrValidateValue('validate');
     int resendOTP = await getResendOTPOrValidateValue('resendOTP');
-    print('validate $validate ');
-    print('resend otp $resendOTP ');
+
     if (resendOTP > 2) {
-      Utilities().showToast('You can\'t atempt more, please contact to admin');
+      Fluttertoast.showToast(
+          msg: 'You can\'t atempt more, please contact to admin');
       return false;
     } else if (validate >= 5) {
-      Utilities()
-          .showToast('Your attempt many time please click on resend otp');
+      Fluttertoast.showToast(
+          msg: 'Your attempt many time please click on resend otp');
       return false;
     }
     otpExpire = false;
     resendUniqueId = '';
     changeLoadingStatus(true);
     final response =
-        await OTPWebService().sendOTPConfirmationRequest(uniqueId, otp);
+        await otpWebService.sendOTPConfirmationRequest(uniqueId, otp);
     changeLoadingStatus(true);
-    print(response);
+
     if (response['success']) {
-      Utilities().showToast('success');
+      Fluttertoast.showToast(msg: 'success');
       return true;
     } else if (response['data']['code'] == 404 ||
         response['data']['code'] == 413) {
-      print('in 400 error');
       otpExpire = false;
 
       resendUniqueId = response['data']['resendId'];
@@ -59,33 +61,32 @@ class OTPViewModel with ChangeNotifier {
     changeLoadingStatus(true);
     int resendOTP = await getResendOTPOrValidateValue('resendOTP');
     changeLoadingStatus(false);
-    print('resend otp $resendOTP ');
+
     if (resendOTP >= 3) {
       Utilities()
           .showToast('Your OTP Reset Limit is Over Please contact to admin');
       return false;
     }
     if (resendUniqueId.isNotEmpty) {
-      final response = await OTPWebService().resendOTPRequest(uniqueId);
+      final response = await otpWebService.resendOTPRequest(uniqueId);
       print(response);
       if (response['status']) {
         resendUniqueId = response['uniqueId'];
-        Utilities().showToast('OTP Resend Success');
+        Fluttertoast.showToast(msg: 'OTP Resend Success');
 
         return true;
       } else {
         return false;
       }
     } else {
-      Utilities().showToast('resend id is empty');
-      print('resend id is empty');
+      Fluttertoast.showToast(msg: 'resend id is empty');
       return false;
     }
   }
 
   getResendOTPOrValidateValue(String key) async {
-    int value = (int.parse(await Utilities().getSharedPreferenceValue(key)));
-    print('$key : $value');
+    int value = (int.parse(await utilities.getSharedPreferenceValue(key)));
+
     return value;
   }
 }

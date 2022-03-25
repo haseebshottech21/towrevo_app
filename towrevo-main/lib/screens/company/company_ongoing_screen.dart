@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
-import '../../utitlites/utilities.dart';
+import '../../utilities/utilities.dart';
 
 class CompanyOngoingScreen extends StatefulWidget {
   const CompanyOngoingScreen({Key? key}) : super(key: key);

@@ -37,30 +37,20 @@ class TextFieldForAll extends StatelessWidget {
         selectAll: true,
         copy: true,
       ),
-      // textAlign: TextAlign.left,
-      // validator: widget.validator,
       decoration: InputDecoration(
-        // contentPadding: const EdgeInsets.all(10.0),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          // borderSide: const BorderSide(color: Color(0xFF000000)),
           borderRadius: BorderRadius.circular(30.0),
         ),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.black87),
-        // hintStyle: GoogleFonts.montserrat(color: Colors.black),
-        // isDense: true,
-        // helperText: 'Keep it short, this is just a demo.',
         prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: prefixIcon,
         ),
         prefixText: '  ',
         prefixStyle: const TextStyle(color: Colors.black, fontSize: 16),
-        // suffixIcon: suffixIcon,
-        // suffixText: 'USD',
-        // suffixStyle: const TextStyle(color: Colors.green)),
       ),
       onSaved: (newValue) {
         textEditingController.text = newValue!;
@@ -88,7 +78,6 @@ class PhoneField extends StatelessWidget {
     return TextFormField(
       controller: textEditingController,
       enabled: !fieldDisable,
-      // obscureText: obscureText,
       enableInteractiveSelection: true,
       readOnly: false,
       toolbarOptions: const ToolbarOptions(
@@ -97,36 +86,20 @@ class PhoneField extends StatelessWidget {
         selectAll: true,
         copy: true,
       ),
-      // maxLength: 10,
-      // onSaved: (val) => _password = val,
       keyboardType: TextInputType.phone,
-      // validator: (val) => ErrorGetter().validateMobile(val!),
-
-      // onChanged: (value) {
-      //   _mobile = value;
-      // },
-      // onSaved: (val) {
-      //   _mobile = val!;
-      // },
       onSaved: (newValue) {
         textEditingController.text = newValue!;
       },
       validator: (value) => errorGetter(value),
-
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
-        // border: InputBorder.none,
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.black87),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          // borderSide: const BorderSide(color: Color(0xFF000000)),
           borderRadius: BorderRadius.circular(30.0),
         ),
-        // hintStyle: GoogleFonts.montserrat(color: Colors.black),
-        // isDense: true,
-        // helperText: 'Keep it short, this is just a demo.',
         prefixIcon: const Padding(
           padding: EdgeInsets.only(bottom: 2),
           child: Center(
@@ -140,40 +113,8 @@ class PhoneField extends StatelessWidget {
             ),
           ),
         ),
-
-        // Padding(
-        //   padding: const EdgeInsets.only(left: 15),
-        //   child: Icon(Icons.phone),
-        // ),
         prefixText: '   ',
-        // suffixIcon: suffixIcon,
-        // suffixText: 'USD',
-        // suffixStyle: const TextStyle(color: Colors.green)),
-        // suffixIcon: GestureDetector(
-        //   onTap: onPress,
-        //   child: Padding(
-        //     padding: const EdgeInsets.only(right: 20),
-        //     child: Icon(
-        //       obscureText
-        //           ? FontAwesomeIcons.solidEyeSlash
-        //           : FontAwesomeIcons.solidEye,
-        //     ),
-        //   ),
-        // ),
       ),
-      // onSaved: (newValue) {
-      //   textEditingController.text = newValue!;
-      // },
-      // validator: (value) {
-      //   print(confirmPassword != null);
-      //   if (confirmPassword != null) {
-      //     return errorGetter(value, confirmPassword!.text);
-      //   } else {
-      //     return errorGetter(
-      //       value,
-      //     );
-      //   }
-      // },
     );
   }
 }
@@ -200,9 +141,8 @@ class CompanyTextAreaField extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       maxLines: null,
       textAlignVertical: TextAlignVertical.center,
-      // textAlign: TextAlign.left,
+
       decoration: InputDecoration(
-        // contentPadding: const EdgeInsets.all(10.0),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
@@ -212,16 +152,11 @@ class CompanyTextAreaField extends StatelessWidget {
             borderRadius: BorderRadius.circular(30.0)),
         hintText: hintText,
         hintStyle: GoogleFonts.montserrat(color: Colors.black),
-        // isDense: true,
-        // helperText: 'Keep it short, this is just a demo.',
         prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 15, bottom: 75),
           child: prefixIcon,
         ),
         prefixText: ' ',
-        // suffixIcon: suffixIcon,
-        // suffixText: 'USD',
-        // suffixStyle: const TextStyle(color: Colors.green)),
       ),
       onSaved: (newValue) {
         textEditingController.text = newValue!;
@@ -246,9 +181,7 @@ class CompanySearchField extends StatelessWidget {
     return TextFormField(
       onTap: clickCallback,
       textAlignVertical: TextAlignVertical.center,
-      // textAlign: TextAlign.left,
       decoration: InputDecoration(
-        // contentPadding: const EdgeInsets.all(10.0),
         filled: true,
         fillColor: const Color(0xFFfff6f7),
         border: OutlineInputBorder(
@@ -256,19 +189,11 @@ class CompanySearchField extends StatelessWidget {
             borderRadius: BorderRadius.circular(30.0)),
         hintText: hintText,
         hintStyle: GoogleFonts.montserrat(color: Colors.black),
-        // isDense: true,
-        // helperText: 'Keep it short, this is just a demo.',
         prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 15),
           child: prefixIcon,
         ),
         prefixText: '  ',
-        // suffixIcon: Padding(
-        //   padding: const EdgeInsets.only(right: 10),
-        //   child: suffixIcon,
-        // ),
-        // suffixText: 'USD',
-        // suffixStyle: const TextStyle(color: Colors.green)),
       ),
     );
   }
@@ -306,8 +231,6 @@ class TextFormIconWidget extends StatelessWidget {
           selectAll: true,
           copy: true,
         ),
-        // maxLength: 8,
-        // onSaved: (val) => _password = val,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           filled: true,
@@ -318,17 +241,11 @@ class TextFormIconWidget extends StatelessWidget {
           ),
           hintText: hint,
           hintStyle: const TextStyle(color: Colors.black),
-          // hintStyle: GoogleFonts.montserrat(color: Colors.black),
-          // isDense: true,
-          // helperText: 'Keep it short, this is just a demo.',
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 15),
             child: prefixIcon,
           ),
           prefixText: '  ',
-          // suffixIcon: suffixIcon,
-          // suffixText: 'USD',
-          // suffixStyle: const TextStyle(color: Colors.green)),
           suffixIcon: GestureDetector(
             onTap: onPress,
             child: Padding(
@@ -345,7 +262,6 @@ class TextFormIconWidget extends StatelessWidget {
           textEditingController.text = newValue!;
         },
         validator: (value) {
-          print(confirmPassword != null);
           if (confirmPassword != null) {
             return errorGetter(value, confirmPassword!.text);
           } else {

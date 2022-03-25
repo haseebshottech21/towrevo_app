@@ -4,7 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/secrets.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -22,8 +23,7 @@ void main() async {
     MyApp.onBoard = '0';
     await Utilities().setSharedPrefValue('onboarding', '1');
   }
-  Stripe.publishableKey =
-      'pk_test_51IdtHCGmNbFgnn00GS9N3SgfZldmDiOvK5WbKahPhImD2ThfzRqUKTMYG3i4xwTcphNBUb9FfeQFmBK37t3h4Ewh00JnMUB9Ul';
+  Stripe.publishableKey = stripePublishableKey;
   try {
     if (Platform.isIOS) {
       Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
@@ -86,9 +86,6 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
         ),
         home: const SplashScreen(),
-        // home: const NumberField(),
-
-        // home: const CompanyHomeScreen(),
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
@@ -108,10 +105,8 @@ class _MyAppState extends State<MyApp> {
           UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),
           ListingOfCompaniesScreen.routeName: (ctx) =>
               const ListingOfCompaniesScreen(),
-          // GetLocationScreen.routeName: (ctx) => const GetLocationScreen(),
           DistanceScreen.routeName: (ctx) => const DistanceScreen(),
           UserLocationScreen.routeName: (ctx) => const UserLocationScreen(),
-          // MapDistanceScreen.routeName: (ctx) => const MapDistanceScreen(),
           AboutUsScreen.routeName: (ctx) => const AboutUsScreen(),
           FAQs.routeName: (ctx) => const FAQs(),
           ChangePasswordScreen.routeName: (ctx) => const ChangePasswordScreen(),

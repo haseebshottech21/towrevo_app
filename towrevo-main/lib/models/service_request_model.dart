@@ -1,5 +1,5 @@
 import 'package:towrevo/models/review_model.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/utilities.dart';
 
 class ServiceRequestModel {
   String id;

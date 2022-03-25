@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/secrets.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:http/http.dart' as http;
-import '../../utitlites/towrevo_appcolor.dart';
+import '../../utilities/towrevo_appcolor.dart';
 
 class CompanyPaymentScreen extends StatefulWidget {
   const CompanyPaymentScreen({Key? key}) : super(key: key);
@@ -47,13 +49,6 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
     try {
       paymentIntentData =
           await createPaymentIntent(currencyType: 'USD', price: '2000');
-      print(
-        'yes iam ' +
-            Provider.of<UserHomeScreenViewModel>(context, listen: false)
-                .drawerInfo['name']
-                .toString(),
-      );
-      print('make payment $paymentIntentData');
 
       if (paymentIntentData.isNotEmpty) {
         await Stripe.instance.initPaymentSheet(
@@ -73,7 +68,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
         displayPaymentSheet(context);
       }
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
@@ -86,26 +81,21 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
         'payment_method_types[]': 'card'
       };
 
-      print(body);
-
       final response = await http.post(
           Uri.parse('${Utilities.stripeBaseUrl}/v1/payment_intents'),
           body: body,
           headers: {
-            'Authorization':
-                'Bearer sk_test_51IdtHCGmNbFgnn002634Wne6qPdy0KfZyH19qLIq7SCFxNdWygtpxUc0d9VFQs55dlWs2sAp5O565RdTYfMpe0Op00fMGUCof1',
+            'Authorization': 'Bearer $stripeSecretKey',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       return jsonDecode(response.body);
     } catch (e) {
-      Utilities().showToast('Something Went Wrong');
-      print(e);
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final utlities = Utilities();
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(

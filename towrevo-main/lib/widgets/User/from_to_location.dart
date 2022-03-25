@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:towrevo/utitlites/towrevo_appcolor.dart';
+import 'package:towrevo/utilities/towrevo_appcolor.dart';
 
 class FromToLocation extends StatelessWidget {
   final String fromLocationText;
@@ -22,8 +22,6 @@ class FromToLocation extends StatelessWidget {
     return Row(
       children: [
         Column(
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Icon(
               Icons.my_location,
@@ -38,7 +36,6 @@ class FromToLocation extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              // child: const Text(""),
             ),
             const SizedBox(height: 8),
             Container(
@@ -48,7 +45,6 @@ class FromToLocation extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              // child: const Text(""),
             ),
             const SizedBox(height: 8),
             Container(
@@ -58,7 +54,6 @@ class FromToLocation extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              // child: const Text(""),
             ),
             const SizedBox(height: 8),
             Container(
@@ -68,7 +63,6 @@ class FromToLocation extends StatelessWidget {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              // child: const Text(""),
             ),
             const SizedBox(height: 8),
             const Icon(
@@ -85,7 +79,6 @@ class FromToLocation extends StatelessWidget {
             bottom: 12,
             left: 10,
             right: 15,
-            // horizontal: 15,
           ),
           width: MediaQuery.of(context).size.width * 0.76,
           decoration: BoxDecoration(
@@ -163,7 +156,6 @@ class FromToLocation extends StatelessWidget {
                   const SizedBox(height: 3),
                   Text(
                     location,
-                    // : getLocation.getAddress,
                     style: GoogleFonts.montserrat(
                       color: Colors.black87,
                       fontSize: 14,
@@ -175,11 +167,6 @@ class FromToLocation extends StatelessWidget {
                 ],
               ),
             ),
-            // Icon(
-            //   Icons.map,
-            //   size: 25,
-            //   color: AppColors.primaryColor,
-            // ),
           ],
         ),
       ),

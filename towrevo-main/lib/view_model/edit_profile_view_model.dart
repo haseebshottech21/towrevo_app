@@ -4,12 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/edit_profile_web_service.dart';
 
 class EditProfileViewModel with ChangeNotifier {
   Map body = {};
+  Utilities utilities = Utilities();
+  EditProfileWebService editProfileWebService = EditProfileWebService();
 
   bool isLoading = false;
   changeLoadingStatus(bool loadingStatus) {
@@ -24,8 +26,8 @@ class EditProfileViewModel with ChangeNotifier {
   Future<void> pickImage() async {
     final imageObject =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      imagePath = imageObject!.path;
+    if (imageObject != null) {
+      imagePath = imageObject.path;
       extension = imageObject.path.split('.').last;
       image = base64Encode(await File(imageObject.path).readAsBytes());
       notifyListeners();
@@ -49,7 +51,7 @@ class EditProfileViewModel with ChangeNotifier {
     changeLoadingStatus(true);
 
     body = {};
-    final loadedData = await EditProfileWebService().getEditFields();
+    final loadedData = await editProfileWebService.getEditFields();
 
     if (loadedData != null) {
       body = loadedData;
@@ -94,7 +96,6 @@ class EditProfileViewModel with ChangeNotifier {
   Future<void> setTimer(BuildContext context) async {
     final time = await Utilities().setTimer(context);
 
-    // print(time);
     if (time != null) {
       timerValues = time;
       notifyListeners();
@@ -103,14 +104,10 @@ class EditProfileViewModel with ChangeNotifier {
 
   Future<void> setTimerFieldsAfterGetRequestScucceed(
       String from, String to) async {
-    // print(from.toUpperCase());
-    // print(to.toUpperCase());
     timerValues['fromUtilize'] = from;
     timerValues['toUtilize'] = to;
     timerValues['from'] = Utilities().timeConverter(from.toUpperCase());
     timerValues['to'] = Utilities().timeConverter(to.toUpperCase());
-
-    // notifyListeners();
   }
 
   Future<void> changePassword(
@@ -129,7 +126,7 @@ class EditProfileViewModel with ChangeNotifier {
   Future<void> editProfileFields(
       Map<String, String> body, BuildContext context) async {
     changeLoadingStatus(true);
-    final loadedData = await EditProfileWebService().editProfileFields(body);
+    final loadedData = await editProfileWebService.editProfileFields(body);
     if (loadedData != null) {
       Provider.of<UserHomeScreenViewModel>(context, listen: false)
           .setDrawerInfo(
@@ -140,9 +137,9 @@ class EditProfileViewModel with ChangeNotifier {
       );
       final Map companyInfo = loadedData['data']['user']['company_info'] ?? {};
       if (companyInfo.isNotEmpty) {
-        Utilities().setSharedPrefValue(
+        utilities.setSharedPrefValue(
             'longitude', companyInfo['latitude'].toString());
-        Utilities().setSharedPrefValue(
+        utilities.setSharedPrefValue(
             'latitude', companyInfo['longitude'].toString());
       }
     }
@@ -156,7 +153,7 @@ class EditProfileViewModel with ChangeNotifier {
     selectedState = newValue.toString();
     body['state'] = newValue.toString();
     selectedCity = null;
-    // print(us_city_state[selectedState]);
+
     notifyListeners();
   }
 

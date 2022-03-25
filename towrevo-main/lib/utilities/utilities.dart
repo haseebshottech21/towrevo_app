@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -159,5 +160,39 @@ class Utilities {
       poly.add(p);
     }
     return poly;
+  }
+
+  Future<void> setUserDataToLocalStorage(Map loadedData) async {
+    await setSharedPrefValue('token', loadedData['token']);
+    await setSharedPrefValue('type', loadedData['user']['type']);
+
+    await setSharedPrefValue('email', loadedData['user']['email']);
+    await setSharedPrefValue('image', loadedData['user']['image'] ?? '');
+    final Map companyInfo = loadedData['user']['company_info'] ?? {};
+    if (companyInfo.isNotEmpty) {
+      await setSharedPrefValue(
+          'longitude', companyInfo['longitude'].toString());
+      await setSharedPrefValue('latitude', companyInfo['latitude'].toString());
+    }
+    await setSharedPrefValue(
+      'name',
+      loadedData['user']['first_name'].toString() +
+          ' ' +
+          (loadedData['user']['last_name'] ?? '').toString(),
+    );
+  }
+
+  Future<void> setUpRequestNotification() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
   }
 }

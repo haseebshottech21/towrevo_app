@@ -36,6 +36,7 @@ class CompanyModel {
   });
 
   factory CompanyModel.fromJson(Map<String, dynamic> json) {
+    print(json['distance']);
     return CompanyModel(
       id: json['id'].toString(),
       userId: json['user_id'].toString(),

@@ -1,15 +1,15 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/screens/user/user_notification_utilities.dart/user_side_notinfication_handler.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
-import '../../../utitlites/towrevo_appcolor.dart';
+import '../../../utilities/towrevo_appcolor.dart';
 
 class UsersHomeScreen extends StatefulWidget {
   const UsersHomeScreen({Key? key}) : super(key: key);
@@ -24,61 +24,11 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController describeController = TextEditingController();
-
+  UserSideNotificationHandler userSideNotificationHandler =
+      UserSideNotificationHandler();
   @override
   Widget build(BuildContext context) {
-    final provider =
-        Provider.of<UserHomeScreenViewModel>(context, listen: false);
-
-    if (provider.bottomSheetData['requested']) {
-      Future.delayed(Duration.zero).then(
-        (value) async {
-          Map<String, String> map = await provider.getRequestStatusData(
-              provider.bottomSheetData['requestedId'].toString());
-          if (map.isNotEmpty) {
-            await openBottomSheet(
-              context,
-              map['companyName'].toString(),
-            );
-          }
-        },
-      ).then(
-        (value) {
-          provider.bottomSheetData = {
-            'requestedId': '',
-            'requested': false,
-          };
-        },
-      );
-    }
-
-    if (provider.ratingData['requested']) {
-      Future.delayed(Duration.zero).then(
-        (value) async {
-          Map<String, String> map = await provider.getRequestStatusData(
-            provider.ratingData['requestedId'].toString(),
-          );
-          await showDialog(
-            context: context,
-            builder: (_) {
-              return UserRatingDialog(
-                reqId: provider.ratingData['requestedId'].toString(),
-                companyName: map['companyName'].toString(),
-                serviceName: map['serviceName'].toString(),
-              );
-            },
-          ).then((value) {
-            provider.ratingData = {
-              'requestedId': '',
-              'requested': false,
-            };
-          });
-        },
-      );
-    }
-
-    final primaryColors = Theme.of(context).primaryColor;
-
+    userSideNotificationHandler.checkRatingStatus(context);
     return Scaffold(
       key: scaffoldKey,
       drawerEnableOpenDragGesture: false,
@@ -307,16 +257,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     final serviceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
 
-    print('long ' +
-        lngLatProvider.myCurrentLocation.placeLocation.longitude.toString());
-    print('lat ' +
-        lngLatProvider.myCurrentLocation.placeLocation.latitude.toString());
-
-    print(
-        'address ' + lngLatProvider.myCurrentLocation.placeAddress.toString());
-
-    print('time ' + DateFormat.Hm().format(now));
-
     if (serviceProvider.serviceSelectedValue == null ||
         lngLatProvider.myCurrentLocation.placeAddress.isEmpty ||
         describeController.text.isEmpty) {
@@ -359,8 +299,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   @override
   void didChangeDependencies() async {
     if (_init) {
-      await setUpRequestNotification();
-      await setupInteracted();
+      await Utilities().setUpRequestNotification();
+      await UserSideNotificationHandler().notificationHandler(context);
 
       final serviceProvider =
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);
@@ -376,166 +316,5 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
     }
     _init = false;
     super.didChangeDependencies();
-  }
-
-  Future<void> setUpRequestNotification() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-  }
-
-  Future<void> setupInteracted() async {
-    final provider =
-        Provider.of<UserHomeScreenViewModel>(context, listen: false);
-
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
-
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-    FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) async {
-        if (message.data['screen'] == 'accept') {
-          showSnackBar(
-            context: context,
-            title: 'Request Accept From Company',
-            labelText: '',
-            onPress: () {},
-          ).then((value) {
-            provider.bottomSheetData = {
-              'requestedId': message.data['id'],
-              'requested': true,
-            };
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              UsersHomeScreen.routeName,
-              (route) => false,
-            );
-          });
-        }
-        if (message.data['screen'] == 'decline_from_company') {
-          showSnackBar(
-            context: context,
-            title: 'Decline From Company',
-            labelText: 'Ok',
-            onPress: () {},
-          );
-          Navigator.of(context).pop();
-        }
-        if (message.data['screen'] == 'request') {
-          showSnackBar(
-            context: context,
-            title: 'User Send Request',
-            labelText: 'Ok',
-            onPress: () {},
-          );
-        }
-        if (message.data['screen'] == 'complete') {
-          showSnackBar(
-            context: context,
-            title: 'Job Complete Successfully',
-            labelText: '',
-            onPress: () {},
-          ).then(
-            (value) {
-              provider.rating = 0;
-
-              provider.ratingData = {
-                'requestedId': message.data['id'],
-                'requested': true,
-              };
-              provider.bottomSheetData = {
-                'requestedId': '',
-                'requested': false,
-              };
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                UsersHomeScreen.routeName,
-                (route) => false,
-              );
-            },
-          );
-        }
-      },
-    );
-  }
-
-  void _handleMessage(RemoteMessage message) {
-    final provider =
-        Provider.of<UserHomeScreenViewModel>(context, listen: false);
-
-    if (message.data['screen'] == 'decline_from_user') {
-      showSnackBar(
-        context: context,
-        title: 'Time Delayed Request Decline',
-        labelText: '',
-        onPress: () {},
-      );
-    }
-    if (message.data['screen'] == 'decline_from_company') {
-      showSnackBar(
-        context: context,
-        title: 'Decline From Company',
-        labelText: '',
-        onPress: () {},
-      );
-      Navigator.of(context).pop();
-    }
-    if (message.data['screen'] == 'request') {
-      showSnackBar(
-        context: context,
-        title: 'User Send Request',
-        labelText: '',
-        onPress: () {},
-      );
-    }
-    if (message.data['screen'] == 'accept') {
-      showSnackBar(
-        context: context,
-        title: 'Accepted From Company',
-        labelText: '',
-        onPress: () {},
-      ).then(
-        (value) {
-          provider.bottomSheetData = {
-            'requestedId': message.data['id'],
-            'requested': true,
-          };
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              UsersHomeScreen.routeName, (route) => false);
-        },
-      );
-    }
-    if (message.data['screen'] == 'complete') {
-      showSnackBar(
-        context: context,
-        title: 'Job Complete Successfully',
-        labelText: '',
-        onPress: () {},
-      ).then(
-        (value) {
-          provider.rating = 0;
-
-          provider.ratingData = {
-            'requestedId': message.data['id'],
-            'requested': true,
-          };
-          provider.bottomSheetData = {
-            'requestedId': '',
-            'requested': false,
-          };
-
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            UsersHomeScreen.routeName,
-            (route) => false,
-          );
-        },
-      );
-    }
   }
 }

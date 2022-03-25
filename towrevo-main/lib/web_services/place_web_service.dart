@@ -4,40 +4,50 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:http/http.dart' as http;
+import 'package:towrevo/utilities/secrets.dart';
 
 class PlaceWebService {
-  final String key = "AIzaSyBgeFPOQMiMVVrElHYD5l5YSCmNlu8QFXI";
   Future<List<PlacesModel>> getPlaces(String query) async {
-    List<PlacesModel> placesList = [];
-    final response = await http.get(
-      Uri.parse(
-          'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=$key&input=$query'),
-    );
-    print(response.body);
-    final loadedData = jsonDecode(response.body);
+    try {
+      List<PlacesModel> placesList = [];
+      final response = await http.get(
+        Uri.parse(
+            'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=$mapAPIKey&input=$query'),
+      );
 
-    if (response.statusCode == 200) {
-      placesList = (loadedData['predictions'] as List)
-          .map((place) => PlacesModel.fromJson(place))
-          .toList();
-      return placesList;
-    } else {
-      return placesList;
+      final loadedData = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        placesList = (loadedData['predictions'] as List)
+            .map((place) => PlacesModel.fromJson(place))
+            .toList();
+        return placesList;
+      } else {
+        return placesList;
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+      return [];
     }
   }
 
   Future<PlaceDetailModel> getPlaceDetail(String placeId) async {
-    final response = await http.get(
-      Uri.parse(
-          'https://maps.googleapis.com/maps/api/place/details/json?key=$key&place_id=$placeId'),
-    );
-    print(response.body);
-    final loadedData = jsonDecode(response.body);
+    try {
+      final response = await http.get(
+        Uri.parse(
+            'https://maps.googleapis.com/maps/api/place/details/json?key=$mapAPIKey&place_id=$placeId'),
+      );
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      final placeDetail = PlaceDetailModel.fromJson(loadedData['result']);
-      return placeDetail;
-    } else {
+      final loadedData = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final placeDetail = PlaceDetailModel.fromJson(loadedData['result']);
+        return placeDetail;
+      } else {
+        return PlaceDetailModel.fromEmptyJson();
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
       return PlaceDetailModel.fromEmptyJson();
     }
   }
@@ -51,46 +61,48 @@ class PlaceWebService {
       bool avoidTolls = false,
       bool avoidFerries = true,
       bool optimizeWaypoints = false}) async {
-    print('$origin , $destination');
-    String mode = travelMode.toString().replaceAll('TravelMode.', '');
-    final params = {
-      "origin": "${origin.latitude},${origin.longitude}",
-      "destination": "${destination.latitude},${destination.longitude}",
-      "mode": mode,
-      "avoidHighways": "$avoidHighways",
-      "avoidFerries": "$avoidFerries",
-      "avoidTolls": "$avoidTolls",
-      "key": key
-    };
+    try {
+      String mode = travelMode.toString().replaceAll('TravelMode.', '');
+      final params = {
+        "origin": "${origin.latitude},${origin.longitude}",
+        "destination": "${destination.latitude},${destination.longitude}",
+        "mode": mode,
+        "avoidHighways": "$avoidHighways",
+        "avoidFerries": "$avoidFerries",
+        "avoidTolls": "$avoidTolls",
+        "key": mapAPIKey
+      };
 
-    if (wayPoints.isNotEmpty) {
-      List wayPointsArray = [];
-      wayPoints.forEach((point) => wayPointsArray.add(point.location));
-      String wayPointsString = wayPointsArray.join('|');
-      if (optimizeWaypoints) {
-        wayPointsString = 'optimize:true|$wayPointsString';
+      if (wayPoints.isNotEmpty) {
+        List wayPointsArray = [];
+        wayPoints.forEach((point) => wayPointsArray.add(point.location));
+        String wayPointsString = wayPointsArray.join('|');
+        if (optimizeWaypoints) {
+          wayPointsString = 'optimize:true|$wayPointsString';
+        }
+        params.addAll({"waypoints": wayPointsString});
       }
-      params.addAll({"waypoints": wayPointsString});
-    }
-    Uri uri =
-        Uri.https("maps.googleapis.com", "maps/api/directions/json", params);
+      Uri uri =
+          Uri.https("maps.googleapis.com", "maps/api/directions/json", params);
 
-    final response = await http.get(
-      uri,
-    );
-    print(response.body);
+      final response = await http.get(
+        uri,
+      );
 
-    if (response.statusCode == 200) {
-      final parsedJson = json.decode(response.body);
+      if (response.statusCode == 200) {
+        final parsedJson = json.decode(response.body);
 
-      if (parsedJson["status"].toString().toLowerCase() == 'ok' &&
-          parsedJson["routes"] != null &&
-          (parsedJson["routes"] as List).isNotEmpty) {
-        final placeDetail = DirectionsModel.fromMap(parsedJson);
-        return placeDetail;
-      } else {
-        Fluttertoast.showToast(msg: parsedJson["error_message"]);
+        if (parsedJson["status"].toString().toLowerCase() == 'ok' &&
+            parsedJson["routes"] != null &&
+            (parsedJson["routes"] as List).isNotEmpty) {
+          final placeDetail = DirectionsModel.fromMap(parsedJson);
+          return placeDetail;
+        } else {
+          Fluttertoast.showToast(msg: parsedJson["error_message"]);
+        }
       }
+    } catch (e) {
+     Fluttertoast.showToast(msg: e.toString());
     }
   }
 }

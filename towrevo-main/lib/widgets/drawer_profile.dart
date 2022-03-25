@@ -19,13 +19,10 @@ class DrawerProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      // width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.14,
       child: Row(
         children: [
           profileImage,
-          // Empty Image Widget
-
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

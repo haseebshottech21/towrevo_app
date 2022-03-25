@@ -11,7 +11,7 @@ class DaysCheckBoxWidget extends StatelessWidget {
     final days = Provider.of<DaysModel>(context, listen: true);
     final registerViewModel =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-    print(registerViewModel.daysId);
+
     return CheckboxListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       value: days.dayAvailable,
@@ -25,7 +25,6 @@ class DaysCheckBoxWidget extends StatelessWidget {
         }
 
         days.toggleDay();
-        // provider.filterCategories(provider.categoriesList.indexOf(item), item.keys.first);
       },
       title: Text(
         days.name,

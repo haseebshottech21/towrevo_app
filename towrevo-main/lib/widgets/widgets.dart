@@ -8,7 +8,7 @@ export 'package:towrevo/widgets/Company/job_complete_card.dart';
 export 'package:towrevo/widgets/Company/company_history_list.dart';
 
 // User Widgtes
-export 'package:towrevo/widgets/User/count_down_timer.dart';
+
 export 'package:towrevo/widgets/User/describe_field.dart';
 export 'package:towrevo/widgets/User/drawer_icon.dart';
 export 'package:towrevo/widgets/User/from_to_location.dart';
@@ -19,7 +19,7 @@ export 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
 export 'package:towrevo/widgets/company_item.dart';
 
 // Services And Days
-export 'package:towrevo/widgets/services_and_days_check_box/check_list.dart';
+
 export 'package:towrevo/widgets/services_and_days_check_box/days_check_box_widget.dart';
 export 'package:towrevo/widgets/services_and_days_check_box/services_check_box_widget.dart';
 

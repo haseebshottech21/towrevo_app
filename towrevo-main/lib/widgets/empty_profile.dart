@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:towrevo/utitlites/towrevo_appcolor.dart';
-
+import 'package:towrevo/utilities/towrevo_appcolor.dart';
 
 class EmptyProfile extends StatelessWidget {
   const EmptyProfile({Key? key}) : super(key: key);

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title, description;
-  // final Image image;
+
   const CustomDialog({
     required this.title,
     required this.description,
-    // required this.image,
     Key? key,
   }) : super(key: key);
 
@@ -52,13 +51,6 @@ class CustomDialog extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          // Text(
-          //   description,
-          //   style: const TextStyle(
-          //     fontSize: 16.0,
-          //   ),
-          // ),
-          // const SizedBox(height: 24),
         ],
       ),
     );

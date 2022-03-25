@@ -12,7 +12,6 @@ class CompanyHistoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('in company history');
     int rating = serviceRequestModel.reviewModel == null
         ? 0
         : serviceRequestModel.reviewModel!.rate;
@@ -89,7 +88,6 @@ class CompanyHistoryList extends StatelessWidget {
                         fontSize: 14.0,
                       ),
                     ),
-                    // Spacer(),
                     Container(
                       width: 100,
                       height: 35,

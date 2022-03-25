@@ -49,42 +49,5 @@ AlertDialog completeJobDialogbox(
         )
       ],
     ),
-    // actions: [
-    //   ElevatedButton(
-    //     onPressed: () {},
-    //     child: Text('Yes'),
-    //   )
-    // ],
   );
 }
-
-
-// showDialog(
-//                             context: context,
-//                             builder: (ctxt) => AlertDialog(
-//                               content: Column(
-//                                 mainAxisSize: MainAxisSize.min,
-//                                 children: [
-//                                   Container(
-//                                     height: 100,
-//                                     width: MediaQuery.of(context).size.width *
-//                                         0.40,
-//                                     child: const CircleAvatar(
-//                                       backgroundColor: Colors.green,
-//                                       child: FaIcon(FontAwesomeIcons.check),
-//                                     ),
-//                                   ),
-//                                   const SizedBox(
-//                                     height: 10,
-//                                   ),
-//                                   const Text(
-//                                     'SuccessFully Send!',
-//                                     style: TextStyle(
-//                                       fontSize: 20,
-//                                       fontWeight: FontWeight.bold,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           );

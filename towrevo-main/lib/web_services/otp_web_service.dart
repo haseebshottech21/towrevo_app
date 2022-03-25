@@ -1,96 +1,70 @@
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:towrevo/utitlites/utilities.dart';
+import 'package:towrevo/utilities/utilities.dart';
 
 class OTPWebService {
   Utilities utilities = Utilities();
   Future<dynamic> sendOTPConfirmationRequest(
       String uniqueId, String otp) async {
-    print({'uniqueId': uniqueId, 'otp': otp});
-    final response = await http.post(
+    try {
+      final response = await http.post(
         Uri.parse(
           Utilities.baseUrl + 'validate',
         ),
         headers: Utilities.header,
-        body: {'uniqueId': uniqueId, 'otp': otp});
-    final loadedData = json.decode(response.body);
-    // Utilities().showToast(loadedData.toString());
-    print(loadedData);
-    if (response.statusCode == 200) {
-      print('200');
-      print(response.body);
-      // print(loadedData['data']['type']);
-      // print(loadedData['data']['user']['token']);
-      await utilities.setSharedPrefValue('token', loadedData['data']['token']);
-      await utilities.setSharedPrefValue(
-          'type', loadedData['data']['user']['type']);
+        body: {
+          'uniqueId': uniqueId,
+          'otp': otp,
+        },
+      );
+      final loadedData = json.decode(response.body);
 
-      await utilities.setSharedPrefValue(
-        'email',
-        loadedData['data']['user']['email'],
-      );
-      await utilities.setSharedPrefValue(
-        'image',
-        loadedData['data']['user']['image'] ?? '',
-      );
-      final Map companyInfo = loadedData['data']['user']['company_info'] ?? {};
-      if (companyInfo.isNotEmpty) {
+      if (response.statusCode == 200) {
+        await utilities.setUserDataToLocalStorage(loadedData['data']);
+
+        Fluttertoast.showToast(msg: 'success');
+        return loadedData;
+      } else if (loadedData['success'] == false) {
         await utilities.setSharedPrefValue(
-          'longitude',
-          companyInfo['longitude'].toString(),
-        );
+            'validate', await getResendOTPOrOTPValue('validate'));
         await utilities.setSharedPrefValue(
-          'latitude',
-          companyInfo['latitude'].toString(),
-        );
+            'uniqueId', loadedData['data']['resendId']);
+        Fluttertoast.showToast(msg: loadedData['message'].toString());
+        return loadedData;
       }
-      await utilities.setSharedPrefValue(
-        'name',
-        loadedData['data']['user']['first_name'].toString() +
-            ' ' +
-            (loadedData['data']['user']['last_name'] ?? '').toString(),
-      );
-
-      utilities.showToast('success');
-      return loadedData;
-    } else if (loadedData['success'] == false) {
-      print('error vialidate ${loadedData['data']['resendId']}');
-      await utilities.setSharedPrefValue(
-          'validate', await getResendOTPOrOTPValue('validate'));
-      await utilities.setSharedPrefValue(
-          'uniqueId', loadedData['data']['resendId']);
-      utilities.showToast(loadedData['message'].toString());
-      return loadedData;
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
   Future<dynamic> resendOTPRequest(String uniqueId) async {
-    print('in req');
-    final response = await http.post(
+    try {
+      final response = await http.post(
         Uri.parse(
           Utilities.baseUrl + 'resend-otp',
         ),
         headers: Utilities.header,
         body: {
           'uniqueId': uniqueId,
-        });
-    print(uniqueId);
+        },
+      );
 
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      final loadedResponse = json.decode(response.body);
-      print('200');
-      print(loadedResponse);
-      await Utilities().setSharedPrefValue(
-          'resendOTP', await getResendOTPOrOTPValue('resendOTP'));
-      await utilities.setSharedPrefValue('validate', '0');
-      print(await utilities.getSharedPreferenceValue('validate'));
-      await utilities.setSharedPrefValue(
-          'uniqueId', loadedResponse['uniqueId']);
-      return loadedResponse;
-      //return loadedResponse['id'].toString();
-    } else {
-      return null;
+      if (response.statusCode == 200) {
+        final loadedResponse = json.decode(response.body);
+
+        await utilities.setSharedPrefValue(
+            'resendOTP', await getResendOTPOrOTPValue('resendOTP'));
+        await utilities.setSharedPrefValue('validate', '0');
+
+        await utilities.setSharedPrefValue(
+            'uniqueId', loadedResponse['uniqueId']);
+        return loadedResponse;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
@@ -98,7 +72,7 @@ class OTPWebService {
     String value =
         (int.parse(await utilities.getSharedPreferenceValue(key)) + 1)
             .toString();
-    print('$key : $value');
+
     return value;
   }
 }

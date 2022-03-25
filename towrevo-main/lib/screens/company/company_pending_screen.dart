@@ -1,8 +1,8 @@
-import 'package:animate_do/animate_do.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:animate_do/animate_do.dart'; 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/company/company_notification_utility/company_side_notification_handler.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 
@@ -71,8 +71,9 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) async {
-      await setupInteracted();
-      await setUpRequestNotification();
+      await CompanySideNotificationHandler()
+          .notificationHandler(context, getData);
+      await Utilities().setUpRequestNotification();
       await checkPayment();
       await getData();
     });
@@ -81,105 +82,12 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
   }
 
   Future<void> getData() async {
-    print('in data');
-    final provider =
-        Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
-    await provider.getRequests();
+    await Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+        .getRequests();
   }
 
   Future<void> checkPayment() async {
-    final provider =
-        Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-            .paymentStatusCheck(context);
-  }
-
-  Future<void> setUpRequestNotification() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-  }
-
-  Future<void> setupInteracted() async {
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
-
-    // print(initialMessage?.data.toString());
-
-    if (initialMessage != null) {
-      getData();
-    }
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print(message);
-      if (message.data['screen'] == 'decline_from_user') {
-        showSnackBar(
-          context: context,
-          title: 'Time Delayed Request Decline',
-          labelText: '',
-          onPress: () {},
-        );
-        getData();
-      }
-
-      if (message.data['screen'] == 'request') {
-        await playSound();
-
-        showSnackBar(
-          context: context,
-          title: 'User Send Request',
-          labelText: '',
-          onPress: () {},
-        );
-        getData();
-      }
-    });
-  }
-
-  AudioCache audioCache = AudioCache();
-  AudioPlayer advancedPlayer = AudioPlayer();
-  playSound() async {
-    final file = await audioCache.loadAsFile('sounds/sound_new.mp3');
-    final bytes = await file.readAsBytes();
-    audioCache.playBytes(bytes);
-  }
-
-  void _handleMessage(RemoteMessage message) {
-    print(message);
-    print(message.data);
-    if (message.data['screen'] == 'decline_from_user') {
-      showSnackBar(
-        context: context,
-        title: 'Time Delayed Request Decline',
-        labelText: '',
-        onPress: () {},
-      );
-      getData();
-    }
-    if (message.data['screen'] == 'decline_from_company') {
-      showSnackBar(
-        context: context,
-        title: 'Time Delayed Request Decline',
-        labelText: '',
-        onPress: () {},
-      );
-      getData();
-    }
-    if (message.data['screen'] == 'request') {
-      showSnackBar(
-        context: context,
-        title: 'User Send Request',
-        labelText: '',
-        onPress: () {},
-      );
-      getData();
-    }
+    Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+        .paymentStatusCheck(context);
   }
 }
