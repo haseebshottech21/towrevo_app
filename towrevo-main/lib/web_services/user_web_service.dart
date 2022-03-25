@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:towrevo/models/models.dart';
-import 'package:towrevo/utilities/secrets.dart';
 import 'package:towrevo/utilities/utilities.dart';
+
+import '../utilities/env_settings.dart';
 
 class UserWebService {
   Future<List<CompanyModel>> getCompaniesList(Map<String, String> body) async {
@@ -82,7 +83,7 @@ class UserWebService {
 
       var headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'key=$fcmKey'
+        'Authorization': 'key=${ENVSettings.fcmKey}'
       };
       var request = http.Request('POST', Uri.parse(fcmUrl));
       request.body =

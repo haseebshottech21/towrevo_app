@@ -33,7 +33,6 @@ dependencies:
   google_fonts: ^2.1.0
   otp_text_field: ^1.1.1
   page_transition: ^2.0.2
-  multi_select_flutter: ^4.0.0
   # flutter_verification_code: ^1.1.0
   animate_do: ^2.0.0
   expandable: ^5.0.1
@@ -54,6 +53,8 @@ dependencies:
   url_launcher: ^6.0.17
   connectivity_plus: ^2.2.0
   audioplayers: ^0.20.1
+  flutter_dotenv: ^5.0.2
+  
 
   # flutter_launcher_icons: ^0.9.2
 
@@ -98,7 +99,7 @@ flutter:
   assets:
      - assets/images/
      - assets/sounds/
-  #   - images/a_dot_burr.jpeg
+     - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -4,9 +4,9 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utilities/secrets.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import '../../utilities/env_settings.dart';
 import '../../utilities/towrevo_appcolor.dart';
 import '../../utilities/utilities.dart';
 import 'package:http/http.dart' as http;
@@ -86,7 +86,7 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
           Uri.parse('${Utilities.stripeBaseUrl}/v1/payment_intents'),
           body: body,
           headers: {
-            'Authorization': 'Bearer $stripeSecretKey',
+            'Authorization': 'Bearer ${ENVSettings.stripeSecretKey}',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       return jsonDecode(response.body);

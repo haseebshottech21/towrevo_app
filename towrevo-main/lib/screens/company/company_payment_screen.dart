@@ -4,11 +4,11 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utilities/secrets.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:http/http.dart' as http;
+import '../../utilities/env_settings.dart';
 import '../../utilities/towrevo_appcolor.dart';
 
 class CompanyPaymentScreen extends StatefulWidget {
@@ -68,7 +68,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
         displayPaymentSheet(context);
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
+      print(e);
     }
   }
 
@@ -85,7 +85,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
           Uri.parse('${Utilities.stripeBaseUrl}/v1/payment_intents'),
           body: body,
           headers: {
-            'Authorization': 'Bearer $stripeSecretKey',
+            'Authorization': 'Bearer ${ENVSettings.stripeSecretKey}',
             'Content-Type': 'application/x-www-form-urlencoded'
           });
       return jsonDecode(response.body);

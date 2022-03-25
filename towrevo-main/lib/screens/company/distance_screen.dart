@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utilities/secrets.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
+
+import '../../utilities/env_settings.dart';
 
 class DistanceScreen extends StatefulWidget {
   static String a = '';
@@ -222,7 +223,7 @@ class _DistanceScreenState extends State<DistanceScreen> {
     addMarkers(originLatlng, destLatlng);
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      mapAPIKey,
+      ENVSettings.mapAPIKey,
       PointLatLng(originLatlng.latitude, originLatlng.longitude),
       PointLatLng(destLatlng.latitude, destLatlng.longitude),
     );

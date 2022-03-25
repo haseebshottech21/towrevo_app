@@ -4,7 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:http/http.dart' as http;
-import 'package:towrevo/utilities/secrets.dart';
+
+import '../utilities/env_settings.dart';
 
 class PlaceWebService {
   Future<List<PlacesModel>> getPlaces(String query) async {
@@ -12,7 +13,7 @@ class PlaceWebService {
       List<PlacesModel> placesList = [];
       final response = await http.get(
         Uri.parse(
-            'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=$mapAPIKey&input=$query'),
+            'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${ENVSettings.mapAPIKey}&input=$query'),
       );
 
       final loadedData = jsonDecode(response.body);
@@ -35,7 +36,7 @@ class PlaceWebService {
     try {
       final response = await http.get(
         Uri.parse(
-            'https://maps.googleapis.com/maps/api/place/details/json?key=$mapAPIKey&place_id=$placeId'),
+            'https://maps.googleapis.com/maps/api/place/details/json?key=${ENVSettings.mapAPIKey}&place_id=$placeId'),
       );
 
       final loadedData = jsonDecode(response.body);
@@ -70,7 +71,7 @@ class PlaceWebService {
         "avoidHighways": "$avoidHighways",
         "avoidFerries": "$avoidFerries",
         "avoidTolls": "$avoidTolls",
-        "key": mapAPIKey
+        "key": ENVSettings.mapAPIKey,
       };
 
       if (wayPoints.isNotEmpty) {
@@ -102,7 +103,7 @@ class PlaceWebService {
         }
       }
     } catch (e) {
-     Fluttertoast.showToast(msg: e.toString());
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 }

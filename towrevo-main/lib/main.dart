@@ -1,21 +1,23 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/utilities/secrets.dart';
+import 'package:towrevo/utilities/env_settings.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'screens/screens.dart';
 
-void main() async {
+Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await dotenv.load(fileName: '.env');
   await Firebase.initializeApp();
   var onBoarding =
       await Utilities().getSharedPreferenceValue('onboarding') ?? '0';
@@ -23,7 +25,7 @@ void main() async {
     MyApp.onBoard = '0';
     await Utilities().setSharedPrefValue('onboarding', '1');
   }
-  Stripe.publishableKey = stripePublishableKey;
+  Stripe.publishableKey = ENVSettings.stripePublishableKey;
   try {
     if (Platform.isIOS) {
       Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
