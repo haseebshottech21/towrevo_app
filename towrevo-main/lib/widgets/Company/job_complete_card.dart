@@ -3,12 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/screens/company/distance_screen.dart';
-<<<<<<< HEAD
-
 import '../../utilities/utilities.dart';
-=======
-import '../../utitlites/utilities.dart';
->>>>>>> ff9873a7121e128d0bb1752ade55e09f5f42db0b
 import '../empty_profile.dart';
 import '../job_completed_dailogbox.dart';
 import '../profile_image_circle.dart';
