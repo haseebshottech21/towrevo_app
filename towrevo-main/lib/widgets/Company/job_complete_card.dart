@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/models/models.dart';
@@ -42,6 +44,9 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
   double animHeight = 0.0;
   double animHeightmain = 200.0;
   double heightMain = 220.0;
+
+  double animHeightmainIos = 230.0;
+  double heightMainIos = 240.0;
   bool anim = false;
 
   @override
@@ -53,8 +58,14 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 700),
             height: widget.serviceRequestModel.description.length > 50
-                ? heightMain
-                : animHeightmain,
+                ? Platform.isIOS
+                    ? widget.serviceRequestModel.description.length > 80
+                        ? heightMainIos + 15
+                        : heightMainIos
+                    : heightMain
+                : Platform.isIOS
+                    ? animHeightmainIos
+                    : animHeightmain,
             width: MediaQuery.of(context).size.width * 0.95,
             decoration: BoxDecoration(
               boxShadow: kElevationToShadow[2],
@@ -191,19 +202,44 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                             ? null
                             : () {
                                 setState(() {
+                                  // widget.serviceRequestModel.description
+                                  //             .length >
+                                  //         50
+                                  //     ? Platform.isIOS
+                                  //         ? heightMainIos = 370.0
+                                  //         : heightMain = 370.0
+                                  //     : heightMain = 200.0;
                                   widget.serviceRequestModel.description
                                               .length >
                                           50
-                                      ? heightMain = 370.0
-                                      : heightMain = 200.0;
-                                  widget.serviceRequestModel.destAddress.isEmpty
-                                      ? animHeight = 300
-                                      : animHeight = 200;
-                                  animHeightmain = animHeightmain +
-                                      (widget.serviceRequestModel.destAddress
+                                      ? widget.serviceRequestModel.destAddress
                                               .isEmpty
-                                          ? animHeight / 2.8
-                                          : animHeight / 1.3);
+                                          ? Platform.isIOS
+                                              ? heightMainIos = 370.0
+                                              : heightMain = 285.0
+                                          : Platform.isIOS
+                                              ? heightMainIos = 430.0
+                                              : heightMain = 345.0
+                                      : heightMain = 200.0;
+
+                                  widget.serviceRequestModel.destAddress.isEmpty
+                                      ? Platform.isIOS
+                                          ? animHeight = 320
+                                          : animHeight = 300
+                                      : Platform.isIOS
+                                          ? animHeight = 250
+                                          : animHeight = 200;
+                                  Platform.isIOS
+                                      ? animHeightmainIos = animHeightmainIos +
+                                          (widget.serviceRequestModel
+                                                  .destAddress.isEmpty
+                                              ? animHeight / 2.5
+                                              : animHeight / 1.6)
+                                      : animHeightmain = animHeightmain +
+                                          (widget.serviceRequestModel
+                                                  .destAddress.isEmpty
+                                              ? animHeight / 2.8
+                                              : animHeight / 1.3);
                                   anim = true;
                                 });
                               },

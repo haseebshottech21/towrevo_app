@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/main.dart';
-import 'package:towrevo/screens/term&condiotion/term&conditon_screen.dart';
+import 'package:towrevo/screens/term&condiotion/term_conditon_screen.dart';
 import 'package:towrevo/utilities/state_city_utility.dart';
 import '../../../utilities/towrevo_appcolor.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
@@ -312,7 +312,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                     value: registerUserViewModel.selectedState,
                                     onChanged: (val) => registerUserViewModel
                                         .changeState(val.toString()),
-                                    items: us_city_state.entries.map((state) {
+                                    items: usCityState.entries.map((state) {
                                       return DropdownMenuItem(
                                         child: Text(state.key),
                                         value: state.key,
@@ -349,15 +349,13 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                     value: registerUserViewModel.selectedCity,
                                     onChanged: (val) => registerUserViewModel
                                         .changeCity(val.toString()),
-                                    items:
-                                        (registerUserViewModel.selectedState ==
-                                                    null
-                                                ? []
-                                                : us_city_state[
-                                                        registerUserViewModel
-                                                            .selectedState]
-                                                    as List<String>)
-                                            .map((state) {
+                                    items: (registerUserViewModel
+                                                    .selectedState ==
+                                                null
+                                            ? []
+                                            : usCityState[registerUserViewModel
+                                                .selectedState] as List<String>)
+                                        .map((state) {
                                       return DropdownMenuItem(
                                         child: Text(state),
                                         value: state,

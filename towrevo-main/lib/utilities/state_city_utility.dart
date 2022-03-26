@@ -1,4 +1,4 @@
-Map<String, dynamic> us_city_state = {
+Map<String, dynamic> usCityState = {
   "New York": [
     "New York",
     "Buffalo",

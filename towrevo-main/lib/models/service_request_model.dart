@@ -71,7 +71,12 @@ class ServiceRequestModel {
       status: json['status'],
       distance: json['distance'] == null
           ? 0.0
-          : double.parse(json['distance'].toString().split('mi').first.trim()),
+          : double.parse(json['distance']
+              .toString()
+              .split('mi')
+              .first
+              .trim()
+              .replaceAll(',', '')),
       totalDistance: json['dropoff_distance'] == null
           ? 0.0
           : (double.tryParse(

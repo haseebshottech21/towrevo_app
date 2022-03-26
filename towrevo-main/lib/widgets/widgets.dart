@@ -24,7 +24,7 @@ export 'package:towrevo/widgets/services_and_days_check_box/days_check_box_widge
 export 'package:towrevo/widgets/services_and_days_check_box/services_check_box_widget.dart';
 
 // Loader
-export 'package:towrevo/widgets/Loaders/glowCircle.dart';
+export 'package:towrevo/widgets/Loaders/glow_circle.dart';
 
 // Others
 export 'package:towrevo/widgets/text_form_fields.dart';

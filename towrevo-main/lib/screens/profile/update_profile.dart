@@ -722,8 +722,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         onChanged: (val) =>
                                             registerUserViewModel
                                                 .changeState(val.toString()),
-                                        items:
-                                            us_city_state.entries.map((state) {
+                                        items: usCityState.entries.map((state) {
                                           return DropdownMenuItem(
                                             child: Text(state.key),
                                             value: state.key,
@@ -775,7 +774,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                                           .selectedState ==
                                                       null
                                                   ? []
-                                                  : us_city_state[
+                                                  : usCityState[
                                                           registerUserViewModel
                                                               .selectedState]
                                                       as List<String>)

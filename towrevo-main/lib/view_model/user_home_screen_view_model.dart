@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';

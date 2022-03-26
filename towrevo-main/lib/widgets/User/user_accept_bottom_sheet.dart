@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
 
-import 'package:towrevo/widgets/Loaders/glowCircle.dart';
+import 'package:towrevo/widgets/Loaders/glow_circle.dart';
 
 Future openBottomSheet(BuildContext context, String companyName) {
   return showModalBottomSheet(

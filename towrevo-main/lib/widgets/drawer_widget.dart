@@ -3,15 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/utilities/utilities.dart';
-import 'package:towrevo/view_model/company_home_screen_view_model.dart';
-import 'package:towrevo/view_model/login_view_model.dart';
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
-import 'package:towrevo/widgets/User/user_empty_icon.dart';
-import 'package:towrevo/widgets/profile_image_circle.dart';
+import 'package:towrevo/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'drawer_list_item_widget.dart';
-import 'drawer_profile.dart';
-import 'form_button_widget.dart';
+import '../view_model/view_model.dart';
 import 'package:towrevo/screens/screens.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -37,7 +31,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       },
     );
     //comment
-
     super.initState();
   }
 
@@ -129,10 +122,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           iconsData: FontAwesomeIcons.infoCircle,
                           onPressed: () {
                             type == '1'
-                                ? openUrl(
-                                    'https://myprojectstaging.net/html/towrevo/index.php')
-                                : openUrl(
-                                    'https://myprojectstaging.net/html/towrevo/provider.php');
+                                ? openUrl('http://towrevo.com/index.php')
+                                : openUrl('http://towrevo.com/provider.php');
                           },
                         );
                       }),
@@ -236,6 +227,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10),
               ],
             )
           ],

@@ -1,4 +1,4 @@
-import 'package:animate_do/animate_do.dart'; 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/company/company_notification_utility/company_side_notification_handler.dart';
@@ -43,23 +43,20 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
                               ),
                       ),
                     )
-                  : SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        physics: const ClampingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: provider.requestServiceList.length,
-                        itemBuilder: (context, index) {
-                          return FadeInUp(
-                            from: 30,
-                            child: AcceptDeclineCardItem(
-                              serviceRequestModel:
-                                  provider.requestServiceList[index],
-                            ),
-                          );
-                        },
-                      ),
+                  : ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      physics: const ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: provider.requestServiceList.length,
+                      itemBuilder: (context, index) {
+                        return FadeInUp(
+                          from: 30,
+                          child: AcceptDeclineCardItem(
+                            serviceRequestModel:
+                                provider.requestServiceList[index],
+                          ),
+                        );
+                      },
                     ),
             ],
           ),

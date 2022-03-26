@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -5,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
-
 import '../../utilities/env_settings.dart';
 
 class DistanceScreen extends StatefulWidget {
@@ -127,8 +127,8 @@ class _DistanceScreenState extends State<DistanceScreen> {
             ),
             if (totalDistanceAndDuration.isNotEmpty)
               Positioned(
-                left: 80,
-                right: 80,
+                left: Platform.isIOS ? 65 : 80,
+                right: Platform.isIOS ? 65 : 80,
                 top: 5,
                 // left: 20,
                 child: Container(
@@ -141,8 +141,8 @@ class _DistanceScreenState extends State<DistanceScreen> {
                   ),
                   child: Text(
                     totalDistanceAndDuration,
-                    style: const TextStyle(
-                      fontSize: 19.0,
+                    style: TextStyle(
+                      fontSize: Platform.isIOS ? 17.0 : 19.0,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

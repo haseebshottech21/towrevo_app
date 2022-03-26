@@ -51,7 +51,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                   ? Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.65,
+                        height: MediaQuery.of(context).size.height * 0.75,
                         child: userHomeProvider.isLoading
                             ? const GlowCircle(
                                 glowHeight: 50,

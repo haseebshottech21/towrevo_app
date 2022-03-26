@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,6 +35,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       drawerEnableOpenDragGesture: false,
       drawer: const DrawerWidget(),
       body: SingleChildScrollView(
+        // physics: const NeverScrollableScrollPhysics(),
         child: SizedBox(
           child: Stack(
             children: [
@@ -45,11 +47,11 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                 },
               ),
               Container(
-                margin: const EdgeInsets.only(top: 15),
+                margin: EdgeInsets.only(top: Platform.isIOS ? 25 : 15),
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 15.0,
-                  vertical: 20.0,
+                  vertical: 15.0,
                 ),
                 child: Column(
                   children: [
@@ -71,15 +73,15 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                     Text(
                       'Just give access to your current location and choose the type of towing vehicle you need',
                       style: GoogleFonts.montserrat(
-                        fontSize: 16,
+                        fontSize: Platform.isIOS ? 13 : 15,
                         fontWeight: FontWeight.w500,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 15),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 20,
+                      padding: EdgeInsets.symmetric(
+                        vertical: Platform.isIOS ? 20 : 15,
                         horizontal: 10,
                       ),
                       decoration: BoxDecoration(
@@ -185,12 +187,12 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        boxShadow: kElevationToShadow[10],
+                        boxShadow: kElevationToShadow[1],
                         gradient: const LinearGradient(
                           begin: Alignment.bottomLeft,
                           end: Alignment.topRight,
@@ -206,7 +208,6 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                           navigateUserHomeScreen();
                         },
                         style: ElevatedButton.styleFrom(
-                          elevation: 10,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),

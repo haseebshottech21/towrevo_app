@@ -6,12 +6,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import 'package:towrevo/widgets/widgets.dart';
-
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/screens/screens.dart';
-
 import '../../../utilities/state_city_utility.dart';
 import '../../../utilities/towrevo_appcolor.dart';
 
@@ -495,7 +492,7 @@ class _RegistrationCategoryAndTimingScreenState
                                 value: registerUserViewModel.selectedState,
                                 onChanged: (val) => registerUserViewModel
                                     .changeState(val.toString()),
-                                items: us_city_state.entries.map((state) {
+                                items: usCityState.entries.map((state) {
                                   return DropdownMenuItem(
                                     child: Text(state.key),
                                     value: state.key,
@@ -531,12 +528,12 @@ class _RegistrationCategoryAndTimingScreenState
                                 value: registerUserViewModel.selectedCity,
                                 onChanged: (val) => registerUserViewModel
                                     .changeCity(val.toString()),
-                                items: (registerUserViewModel.selectedState ==
-                                            null
-                                        ? []
-                                        : us_city_state[registerUserViewModel
-                                            .selectedState] as List<String>)
-                                    .map((state) {
+                                items:
+                                    (registerUserViewModel.selectedState == null
+                                            ? []
+                                            : usCityState[registerUserViewModel
+                                                .selectedState] as List<String>)
+                                        .map((state) {
                                   return DropdownMenuItem(
                                     child: Text(state),
                                     value: state,

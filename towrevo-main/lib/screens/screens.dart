@@ -34,4 +34,4 @@ export 'contactus/contact_us.dart';
 export 'faqs/faqs.dart';
 export 'onboard/on_board_towrevo.dart';
 export 'profile/update_profile.dart';
-export 'term&condiotion/term&conditon_screen.dart';
+export 'term&condiotion/term_conditon_screen.dart';
