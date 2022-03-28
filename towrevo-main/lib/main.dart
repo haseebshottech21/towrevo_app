@@ -28,7 +28,8 @@ Future<void> main() async {
   Stripe.publishableKey = ENVSettings.stripePublishableKey;
   try {
     if (Platform.isIOS) {
-      Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+      // Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+      Stripe.merchantIdentifier = 'merchant.thegreatestmarkeplace';
       Stripe.urlScheme = 'flutterstripe';
       await Stripe.instance.applySettings();
     }
