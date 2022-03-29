@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/main.dart';
 import 'package:towrevo/models/models.dart';
+// import 'package:towrevo/models/payment_model.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/web_services/company_web_service.dart';
@@ -10,6 +11,7 @@ import 'package:towrevo/web_services/user_web_service.dart';
 class CompanyHomeScreenViewModel with ChangeNotifier {
   List<ServiceRequestModel> requestServiceList = [];
   List<ServiceRequestModel> onGoingRequestsList = [];
+  Map<String, dynamic> couponModel = {};
   final companyWebService = CompanyWebService();
   final userWebService = UserWebService();
   final utilities = Utilities();
@@ -181,6 +183,26 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     if (loadedResponse != null) {
       await getRequests();
       Navigator.of(context).pop();
+    }
+    changeLoadingStatus(false);
+  }
+
+  Future<void> discountPayNow(
+    String userId,
+    String couponCode,
+    BuildContext context,
+  ) async {
+    if (!(await utilities.isInternetAvailable())) {
+      return;
+    }
+    changeLoadingStatus(true);
+
+    final loadedResponse = await companyWebService.discountPayment(
+      userId,
+      couponCode,
+    );
+    if (loadedResponse != null) {
+      couponModel = loadedResponse['data'];
     }
     changeLoadingStatus(false);
   }

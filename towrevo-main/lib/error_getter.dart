@@ -74,7 +74,7 @@ class ErrorGetter {
 
   dynamic passwordErrorGetter(String value) {
     if (value.isEmpty) {
-      return 'PLease Enter Password';
+      return 'Please Enter Password';
     }
     if (value.length < 8) {
       return 'Password Should be at least 8 characters';
@@ -84,7 +84,7 @@ class ErrorGetter {
 
   dynamic confirmPasswordErrorGetter(String confirmPassword, String password) {
     if (confirmPassword.isEmpty) {
-      return 'PLease Enter Confirm Password';
+      return 'Please Enter Confirm Password';
     } else if (confirmPassword.trim() != password.trim()) {
       return 'Confirm Password Should be Same as Password';
     }
@@ -93,10 +93,17 @@ class ErrorGetter {
 
   dynamic phoneNumberErrorGetter(String value) {
     if (value.isEmpty) {
-      return 'PLease Enter Phone Number';
+      return 'Please Enter Phone Number';
     }
     if (value.length != 10) {
       return 'Mobile Number must be of 10 digit';
+    }
+    return null;
+  }
+
+  dynamic couponCodeErrorGetter(String value) {
+    if (value.isEmpty) {
+      return 'Please Add Coupon';
     }
     return null;
   }

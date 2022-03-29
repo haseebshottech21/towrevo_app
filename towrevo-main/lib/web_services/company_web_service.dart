@@ -68,6 +68,33 @@ class CompanyWebService {
     }
   }
 
+  Future<dynamic> discountPayment(
+    String userId,
+    String couponCode,
+  ) async {
+    try {
+      final response = await http.post(
+        Uri.parse(Utilities.baseUrl + 'coupon'),
+        body: {
+          'user_id': userId,
+          'coupon_code': couponCode,
+        },
+        headers: await Utilities().headerWithAuth(),
+      );
+
+      final loadedData = json.decode(response.body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print(response.body);
+        Fluttertoast.showToast(msg: loadedData['message'].toString());
+        return loadedData;
+      } else {
+        Fluttertoast.showToast(msg: loadedData['message'].toString());
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
+
   Future<dynamic> setOnlineStatusRequest(String token) async {
     try {
       final response = await http.post(

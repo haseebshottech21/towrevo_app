@@ -47,7 +47,8 @@ class Utilities {
   }
 
   static const stripeBaseUrl = 'https://api.stripe.com';
-  static const baseUrl = 'https://myprojectstaging.net/tow_revo/public/api/';
+  // static const baseUrl = 'https://myprojectstaging.net/tow_revo/public/api/';
+  static const baseUrl = 'https://api.towrevo.com/public/api/';
   static const imageBaseUrl =
       'https://myprojectstaging.net/tow_revo/public/uploads/user/';
 
