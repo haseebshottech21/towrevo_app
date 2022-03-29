@@ -11,7 +11,7 @@ import 'package:towrevo/web_services/user_web_service.dart';
 class CompanyHomeScreenViewModel with ChangeNotifier {
   List<ServiceRequestModel> requestServiceList = [];
   List<ServiceRequestModel> onGoingRequestsList = [];
-  Map<String, dynamic> couponModel = {};
+
   final companyWebService = CompanyWebService();
   final userWebService = UserWebService();
   final utilities = Utilities();
@@ -173,15 +173,19 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> payNow(
-      String transactionId, String amount, BuildContext context) async {
+  Future<void> payNow({
+    required String transactionId,
+    required String amount,
+    required String couponId,
+    required BuildContext context,
+  }) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
 
     final loadedResponse =
-        await companyWebService.payNowRequest(transactionId, amount);
+        await companyWebService.payNowRequest(transactionId, amount,couponId);
     if (loadedResponse != null) {
       await getRequests();
       Navigator.of(context).pop();

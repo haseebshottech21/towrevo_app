@@ -48,16 +48,19 @@ class CompanyWebService {
     }
   }
 
-  Future<dynamic> payNowRequest(String transactionId, String amount) async {
+  Future<dynamic> payNowRequest(
+      String transactionId, String amount, String couponId) async {
     try {
       final response = await http.post(
         Uri.parse(Utilities.baseUrl + 'payment'),
         body: {
           'transaction_id': transactionId,
           'amount': amount,
+          'coupon_id': couponId,
         },
         headers: await Utilities().headerWithAuth(),
       );
+      print(response.body);
 
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -70,7 +73,6 @@ class CompanyWebService {
       Fluttertoast.showToast(msg: e.toString());
     }
   }
-
 
   Future<dynamic> setOnlineStatusRequest(String token) async {
     try {

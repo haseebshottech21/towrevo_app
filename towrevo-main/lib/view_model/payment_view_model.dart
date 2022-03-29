@@ -10,6 +10,7 @@ class PaymentViewModel with ChangeNotifier {
   final PaymentWebService paymentWebService = PaymentWebService();
 
   CouponModel couponModel = CouponModel.emptyObject();
+  bool isLoading = false;
 
   Future<void> checkCoupon(
       {required String coupon,
@@ -18,19 +19,29 @@ class PaymentViewModel with ChangeNotifier {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
+    isLoading = true;
+    notifyListeners();
     couponModel = await paymentWebService.checkCouponService(coupon: coupon);
+    isLoading = false;
+    notifyListeners();
     if (couponModel.id.isNotEmpty) {
       Navigator.of(context).pop();
-      showDiscountPayment(
-        context,
-        couponModel.couponDiscountPercent,
-        () async {
-          Navigator.of(context).pop();
+      Future.delayed(const Duration(seconds: 1), () {
+        showDiscountPayment(
+          context,
+          couponModel.couponCode,
+          couponModel.couponDiscountPercent,
+          () async {
+            Navigator.of(context).pop();
 
-          await makePament(context,
-              '${(CompanyPaymentScreen.payAmmount - (CompanyPaymentScreen.payAmmount / 100 * int.parse(couponModel.couponDiscountPercent))).round()}');
-        },
-      );
+            await makePament(
+              context,
+              '${(CompanyPaymentScreen.payAmmount - (CompanyPaymentScreen.payAmmount / 100 * int.parse(couponModel.couponDiscountPercent))).round()}',
+              couponModel.id,
+            );
+          },
+        );
+      });
     }
   }
 }

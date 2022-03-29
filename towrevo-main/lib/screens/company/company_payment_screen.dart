@@ -19,7 +19,7 @@ import '../../utilities/towrevo_appcolor.dart';
 
 class CompanyPaymentScreen extends StatefulWidget {
   const CompanyPaymentScreen({Key? key}) : super(key: key);
-  static const int payAmmount = 2000;
+  static const int payAmmount = 1995;
 
   static const routeName = '/company-payment';
 
@@ -45,15 +45,21 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
     );
   }
 
-  paynow(BuildContext context, String amount) async {
+  paynow(BuildContext context, String amount, String couponId) async {
     final companyViewModel =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
 
-    await companyViewModel.payNow(paymentIntentData['id'], amount, context);
+    await companyViewModel.payNow(
+      amount: (int.parse(amount) / 100).toString(),
+      transactionId: paymentIntentData['id'],
+      context: context,
+      couponId: couponId,
+    );
     paymentIntentData = {};
   }
 
-  displayPaymentSheet(BuildContext context, String amount) async {
+  displayPaymentSheet(
+      BuildContext context, String amount, String couponId) async {
     try {
       print(paymentIntentData);
       await Stripe.instance.presentPaymentSheet(
@@ -63,7 +69,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
         ),
       );
 
-      paynow(context, amount);
+      paynow(context, amount, couponId);
     } on StripeException catch (e) {
       Utilities().showToast('${e.error.localizedMessage}');
     }
@@ -72,6 +78,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
   Future<void> makePayment(
     BuildContext context,
     String price,
+    String couponId,
   ) async {
     try {
       paymentIntentData =
@@ -92,7 +99,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
           ),
         );
 
-        displayPaymentSheet(context, price);
+        displayPaymentSheet(context, price, couponId);
       }
     } catch (e) {
       Fluttertoast.showToast(
@@ -188,7 +195,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                             return;
                           }
                           await makePayment(context,
-                              CompanyPaymentScreen.payAmmount.toString());
+                              CompanyPaymentScreen.payAmmount.toString(), '');
                           // _show(context);
                         },
                         child: Container(
