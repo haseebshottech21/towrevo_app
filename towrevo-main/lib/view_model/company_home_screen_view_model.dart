@@ -84,9 +84,11 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
       return;
     }
 
-    bool loadedResponse = await companyWebService.paymentStatusCheckRequest();
-    if (!loadedResponse) {
-      Navigator.of(context).pushNamed(CompanyPaymentScreen.routeName);
+    bool? loadedResponse = await companyWebService.paymentStatusCheckRequest();
+    if (loadedResponse != null) {
+      if (!loadedResponse) {
+        Navigator.of(context).pushNamed(CompanyPaymentScreen.routeName);
+      }
     }
   }
 
@@ -183,26 +185,6 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     if (loadedResponse != null) {
       await getRequests();
       Navigator.of(context).pop();
-    }
-    changeLoadingStatus(false);
-  }
-
-  Future<void> discountPayNow(
-    String userId,
-    String couponCode,
-    BuildContext context,
-  ) async {
-    if (!(await utilities.isInternetAvailable())) {
-      return;
-    }
-    changeLoadingStatus(true);
-
-    final loadedResponse = await companyWebService.discountPayment(
-      userId,
-      couponCode,
-    );
-    if (loadedResponse != null) {
-      couponModel = loadedResponse['data'];
     }
     changeLoadingStatus(false);
   }

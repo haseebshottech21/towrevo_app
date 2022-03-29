@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:towrevo/screens/company/company_payment_screen.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
 
 // This function is triggered when the floating buttion is pressed
@@ -107,7 +109,7 @@ void showDiscountPayment(
   // String total,
   String discount,
   // String pay,
-  VoidCallback onPressed,
+  Function onPressed,
 ) {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -164,9 +166,9 @@ void showDiscountPayment(
           const SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Subtotal'),
-              Text('\$ 0'),
+            children: const [
+              Text('Subtotal'),
+              Text('\$ ${CompanyPaymentScreen.payAmmount / 100}'),
             ],
           ),
           const SizedBox(height: 5),
@@ -208,7 +210,7 @@ void showDiscountPayment(
                 ],
               ),
               Text(
-                '- \$8.55',
+                '- \$${(CompanyPaymentScreen.payAmmount / 100) / 100 * int.parse(discount)}',
                 style: GoogleFonts.montserrat(
                   color: Colors.black45,
                   fontWeight: FontWeight.w400,
@@ -225,7 +227,8 @@ void showDiscountPayment(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Total'),
-              Text('\$${double.parse('15.0') / 100}'),
+              Text(
+                  '\$${(CompanyPaymentScreen.payAmmount / 100) - ((CompanyPaymentScreen.payAmmount / 100) / 100 * int.parse(discount))}'),
             ],
           ),
           const SizedBox(height: 15),
@@ -235,7 +238,7 @@ void showDiscountPayment(
               style: ElevatedButton.styleFrom(
                 primary: AppColors.primaryColor,
               ),
-              onPressed: onPressed,
+              onPressed: () => onPressed(),
               child: const Text('PAY NOW'),
             ),
           ),

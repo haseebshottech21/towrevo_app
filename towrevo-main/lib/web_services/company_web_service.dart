@@ -28,20 +28,23 @@ class CompanyWebService {
     }
   }
 
-  Future<bool> paymentStatusCheckRequest() async {
+  Future<bool?> paymentStatusCheckRequest() async {
     try {
       final response = await http.get(
-          Uri.parse(Utilities.baseUrl + 'company-payment'),
-          headers: await Utilities().headerWithAuth());
+        Uri.parse(Utilities.baseUrl + 'company-payment'),
+        headers: await Utilities().headerWithAuth(),
+      );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return true;
-      } else {
+      } else if (response.statusCode == 404) {
         return false;
+      } else {
+        return null;
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
-      return false;
+      return null;
     }
   }
 
@@ -68,32 +71,6 @@ class CompanyWebService {
     }
   }
 
-  Future<dynamic> discountPayment(
-    String userId,
-    String couponCode,
-  ) async {
-    try {
-      final response = await http.post(
-        Uri.parse(Utilities.baseUrl + 'coupon'),
-        body: {
-          'user_id': userId,
-          'coupon_code': couponCode,
-        },
-        headers: await Utilities().headerWithAuth(),
-      );
-
-      final loadedData = json.decode(response.body);
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        print(response.body);
-        Fluttertoast.showToast(msg: loadedData['message'].toString());
-        return loadedData;
-      } else {
-        Fluttertoast.showToast(msg: loadedData['message'].toString());
-      }
-    } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
-    }
-  }
 
   Future<dynamic> setOnlineStatusRequest(String token) async {
     try {

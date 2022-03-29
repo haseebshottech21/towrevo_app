@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/utilities/env_settings.dart';
 import 'package:towrevo/utilities/utilities.dart';
+import 'package:towrevo/view_model/payment_view_model.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -81,6 +82,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (ctx) => CompanyHomeScreenViewModel()),
         ChangeNotifierProvider(create: (ctx) => EditProfileViewModel()),
         ChangeNotifierProvider(create: (ctx) => SplashViewModel()),
+        ChangeNotifierProvider(create: (ctx) => PaymentViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -7,8 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/models/company_model.dart';
-import 'package:towrevo/models/payment_model.dart';
+import 'package:towrevo/models/coupan_model.dart';
 import 'package:towrevo/utilities/utilities.dart';
+import 'package:towrevo/view_model/payment_view_model.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/Company/add_discount_bottom_sheet.dart';
 import 'package:towrevo/widgets/widgets.dart';
@@ -18,6 +19,7 @@ import '../../utilities/towrevo_appcolor.dart';
 
 class CompanyPaymentScreen extends StatefulWidget {
   const CompanyPaymentScreen({Key? key}) : super(key: key);
+  static const int payAmmount = 2000;
 
   static const routeName = '/company-payment';
 
@@ -28,42 +30,32 @@ class CompanyPaymentScreen extends StatefulWidget {
 class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
   Map<String, dynamic> paymentIntentData = {};
 
-  bool applyCoupon = false;
-
-  String totalAmount = '19.95';
-  String totalDiscount = '50%';
-  String payAmount = '1155';
-
   TextEditingController codeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  validateForm() async {
-    // final registerUserViewModel =
-    //     Provider.of<RegisterUserViewModel>(context, listen: false);
+  validateForm(BuildContext context, PaymentViewModel paymentViewModel) async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    _formKey.currentState!.save();
+    paymentViewModel.checkCoupon(
+      coupon: codeController.text.trim(),
+      context: context,
+      makePament: makePayment,
+    );
   }
 
-  paynow(BuildContext context) async {
+  paynow(BuildContext context, String amount) async {
     final companyViewModel =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
-    await companyViewModel.payNow(paymentIntentData['id'], '20', context);
+
+    await companyViewModel.payNow(paymentIntentData['id'], amount, context);
     paymentIntentData = {};
   }
 
-  applyDiscount(
-    BuildContext context,
-    String companyId,
-    String couponCode,
-  ) async {
-    final companyDiscount =
-        Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
-    await companyDiscount.discountPayNow(companyId, couponCode, context);
-  }
-
-  displayPaymentSheet(BuildContext context) async {
+  displayPaymentSheet(BuildContext context, String amount) async {
     try {
+      print(paymentIntentData);
       await Stripe.instance.presentPaymentSheet(
         parameters: PresentPaymentSheetParameters(
           clientSecret: paymentIntentData['client_secret'],
@@ -71,13 +63,16 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
         ),
       );
 
-      paynow(context);
+      paynow(context, amount);
     } on StripeException catch (e) {
       Utilities().showToast('${e.error.localizedMessage}');
     }
   }
 
-  Future<void> makePayment(BuildContext context, String price) async {
+  Future<void> makePayment(
+    BuildContext context,
+    String price,
+  ) async {
     try {
       paymentIntentData =
           await createPaymentIntent(currencyType: 'USD', price: price);
@@ -97,9 +92,12 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
           ),
         );
 
-        displayPaymentSheet(context);
+        displayPaymentSheet(context, price);
       }
     } catch (e) {
+      Fluttertoast.showToast(
+        msg: e.toString(),
+      );
       print(e);
     }
   }
@@ -128,8 +126,8 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final coupon =
-        Provider.of<CompanyHomeScreenViewModel>(context, listen: true);
+    final paymentViewModel =
+        Provider.of<PaymentViewModel>(context, listen: false);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -189,7 +187,8 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                           if (!(await Utilities().isInternetAvailable())) {
                             return;
                           }
-                          await makePayment(context, payAmount);
+                          await makePayment(context,
+                              CompanyPaymentScreen.payAmmount.toString());
                           // _show(context);
                         },
                         child: Container(
@@ -246,28 +245,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                         errorGetter: ErrorGetter().couponCodeErrorGetter,
                         formKey: _formKey,
                         onPressed: () {
-                          validateForm();
-                          if (applyDiscount(
-                            context,
-                            '160',
-                            codeController.text,
-                          )) {
-                            Navigator.of(context).pop();
-                            showDiscountPayment(
-                              context,
-                              // totalAmount,
-                              coupon.couponModel[0],
-                              // payAmount,
-                              () async {
-                                if (!(await Utilities()
-                                    .isInternetAvailable())) {
-                                  return;
-                                }
-                                await makePayment(context, payAmount);
-                                Navigator.of(context).pop();
-                              },
-                            );
-                          }
+                          validateForm(context, paymentViewModel);
                         },
                       );
                     },

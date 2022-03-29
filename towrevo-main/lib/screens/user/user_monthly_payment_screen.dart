@@ -83,12 +83,13 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
       };
 
       final response = await http.post(
-          Uri.parse('${Utilities.stripeBaseUrl}/v1/payment_intents'),
-          body: body,
-          headers: {
-            'Authorization': 'Bearer ${ENVSettings.stripeSecretKey}',
-            'Content-Type': 'application/x-www-form-urlencoded'
-          });
+        Uri.parse('${Utilities.stripeBaseUrl}/v1/payment_intents'),
+        body: body,
+        headers: {
+          'Authorization': 'Bearer ${ENVSettings.stripeSecretKey}',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+      );
       return jsonDecode(response.body);
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
