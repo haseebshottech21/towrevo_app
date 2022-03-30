@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:towrevo/models/models.dart';
@@ -45,7 +44,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
   double animHeightmain = 200.0;
   double heightMain = 220.0;
 
-  double animHeightmainIos = 230.0;
+  double animHeightmainIos = 220.0;
   double heightMainIos = 240.0;
   bool anim = false;
 
@@ -60,7 +59,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
             height: widget.serviceRequestModel.description.length > 50
                 ? Platform.isIOS
                     ? widget.serviceRequestModel.description.length > 80
-                        ? heightMainIos + 15
+                        ? heightMainIos + 10
                         : heightMainIos
                     : heightMain
                 : Platform.isIOS
@@ -233,13 +232,13 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                       ? animHeightmainIos = animHeightmainIos +
                                           (widget.serviceRequestModel
                                                   .destAddress.isEmpty
-                                              ? animHeight / 2.5
-                                              : animHeight / 1.6)
+                                              ? animHeight / 2.7
+                                              : animHeight / 1.8)
                                       : animHeightmain = animHeightmain +
                                           (widget.serviceRequestModel
                                                   .destAddress.isEmpty
-                                              ? animHeight / 2.8
-                                              : animHeight / 1.3);
+                                              ? animHeight / 2.5
+                                              : animHeight / 1.5);
                                   anim = true;
                                 });
                               },

@@ -6,7 +6,7 @@ import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/view_model/payment_view_model.dart';
 
 // This function is triggered when the floating buttion is pressed
-void showCouponField({
+void showVoucherField({
   required BuildContext context,
   required Function errorGetter,
   required TextEditingController controller,
@@ -41,7 +41,7 @@ void showCouponField({
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Apply Coupon',
+                  'Apply your Voucher Code',
                   style: GoogleFonts.montserrat(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
@@ -75,7 +75,7 @@ void showCouponField({
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                hintText: 'Add your coupon code',
+                hintText: 'Voucher code',
                 hintStyle: const TextStyle(color: Colors.black45),
                 // prefixIcon: Padding(
                 //   padding: const EdgeInsets.only(left: 20),
@@ -97,7 +97,14 @@ void showCouponField({
                 return TextButton(
                   onPressed: paymentViewModel.isLoading ? null : onPressed,
                   child: paymentViewModel.isLoading
-                      ? const CircularProgressIndicator()
+                      ? const SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator(
+                            color: Colors.grey,
+                            strokeWidth: 3,
+                          ),
+                        )
                       : const Text('APPLY'),
                 );
               }),
@@ -134,8 +141,8 @@ void showDiscountPayment(
     builder: (ctx) => Padding(
       padding: EdgeInsets.only(
         top: 5,
-        left: 10,
-        right: 10,
+        left: 12,
+        right: 12,
         bottom: MediaQuery.of(ctx).viewInsets.bottom + 15,
       ),
       child: Column(
@@ -146,7 +153,7 @@ void showDiscountPayment(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Discount Payment',
+                'Payment',
                 style: GoogleFonts.montserrat(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
@@ -171,14 +178,14 @@ void showDiscountPayment(
                 style: GoogleFonts.montserrat(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
-                  fontSize: 18.0,
+                  fontSize: 17.0,
                   letterSpacing: 0.5,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: AppColors.primaryColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
@@ -186,19 +193,35 @@ void showDiscountPayment(
                   style: GoogleFonts.montserrat(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
-                    fontSize: 12.0,
+                    fontSize: 13.0,
                     letterSpacing: 1,
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('Subtotal'),
-              Text('\$ ${CompanyPaymentScreen.payAmmount / 100}'),
+            children: [
+              Text(
+                'Subtotal',
+                style: GoogleFonts.montserrat(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 13.0,
+                  letterSpacing: 0.3,
+                ),
+              ),
+              Text(
+                '\$ ${CompanyPaymentScreen.payAmmount / 100}',
+                style: GoogleFonts.montserrat(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 13.0,
+                  letterSpacing: 0.3,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 5),
@@ -222,33 +245,33 @@ void showDiscountPayment(
                       style: GoogleFonts.montserrat(
                         color: Colors.deepOrange,
                         fontWeight: FontWeight.w500,
-                        fontSize: 12.0,
+                        fontSize: 13.0,
                         letterSpacing: 1,
                       ),
                     ),
                   ),
                   const SizedBox(height: 4),
                   Padding(
-                    padding: const EdgeInsets.only(left: 6),
+                    padding: const EdgeInsets.only(left: 5),
                     child: Text(
                       '$discount% OFF',
                       style: GoogleFonts.montserrat(
                         color: Colors.black45,
                         fontWeight: FontWeight.w400,
-                        fontSize: 12.0,
-                        letterSpacing: 1,
+                        fontSize: 13.0,
+                        letterSpacing: 0.5,
                       ),
                     ),
                   ),
                 ],
               ),
               Text(
-                '- \$${((CompanyPaymentScreen.payAmmount / 100) / 100 * int.parse(discount)).toStringAsFixed(2)}',
+                '- \$ ${((CompanyPaymentScreen.payAmmount / 100) / 100 * int.parse(discount)).toStringAsFixed(2)}',
                 style: GoogleFonts.montserrat(
                   color: Colors.black45,
                   fontWeight: FontWeight.w400,
-                  fontSize: 12.0,
-                  letterSpacing: 1,
+                  fontSize: 13.0,
+                  letterSpacing: 0.5,
                 ),
               ),
             ],
@@ -259,9 +282,24 @@ void showDiscountPayment(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Total'),
               Text(
-                  '\$${((CompanyPaymentScreen.payAmmount / 100) - ((CompanyPaymentScreen.payAmmount / 100) / 100 * int.parse(discount))).toStringAsFixed(2)}'),
+                'Total',
+                style: GoogleFonts.montserrat(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14.0,
+                  letterSpacing: 0.3,
+                ),
+              ),
+              Text(
+                '\$ ${((CompanyPaymentScreen.payAmmount / 100) - ((CompanyPaymentScreen.payAmmount / 100) / 100 * int.parse(discount))).toStringAsFixed(2)}',
+                style: GoogleFonts.montserrat(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14.0,
+                  letterSpacing: 0.3,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 15),
@@ -272,7 +310,15 @@ void showDiscountPayment(
                 primary: AppColors.primaryColor,
               ),
               onPressed: () => onPressed(),
-              child: const Text('PAY NOW'),
+              child: Text(
+                'PAY NOW',
+                style: GoogleFonts.montserrat(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15.0,
+                  letterSpacing: 0.5,
+                ),
+              ),
             ),
           ),
         ],

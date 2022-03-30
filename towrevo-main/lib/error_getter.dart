@@ -101,9 +101,9 @@ class ErrorGetter {
     return null;
   }
 
-  dynamic couponCodeErrorGetter(String value) {
+  dynamic voucherCodeErrorGetter(String value) {
     if (value.isEmpty) {
-      return 'Please Add Coupon';
+      return 'Please Add Voucher';
     }
     return null;
   }

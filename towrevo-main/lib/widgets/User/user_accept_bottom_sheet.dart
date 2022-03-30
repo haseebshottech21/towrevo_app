@@ -1,6 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
-
 import 'package:towrevo/widgets/Loaders/glow_circle.dart';
 
 Future openBottomSheet(BuildContext context, String companyName) {
@@ -23,7 +23,9 @@ Future openBottomSheet(BuildContext context, String companyName) {
     builder: (BuildContext context) {
       return Container(
         padding: const EdgeInsets.all(20.0),
-        height: MediaQuery.of(context).size.height * 0.22,
+        height: Platform.isIOS
+            ? MediaQuery.of(context).size.height * 0.20
+            : MediaQuery.of(context).size.height * 0.22,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

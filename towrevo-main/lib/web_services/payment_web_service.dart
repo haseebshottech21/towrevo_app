@@ -15,7 +15,7 @@ class PaymentWebService {
       print(response.body);
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
-        Fluttertoast.showToast(msg: 'Coupon Applied');
+        Fluttertoast.showToast(msg: 'Voucher Applied');
 
         return CouponModel.fromJson(loadedData['data']);
       } else if (response.statusCode >= 404 && response.statusCode <= 499) {

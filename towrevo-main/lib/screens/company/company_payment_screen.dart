@@ -2,12 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/models/company_model.dart';
-import 'package:towrevo/models/coupan_model.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/payment_view_model.dart';
 import 'package:towrevo/view_model/view_model.dart';
@@ -244,38 +241,112 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                       ),
                     ),
                   ),
-                  TextButton(
+                  const SizedBox(height: 5),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     showCouponField(
+                  //       context: context,
+                  //       controller: codeController,
+                  //       errorGetter: ErrorGetter().couponCodeErrorGetter,
+                  //       formKey: _formKey,
+                  //       onPressed: () {
+                  //         validateForm(context, paymentViewModel);
+                  //       },
+                  //     );
+                  //   },
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.only(left: 12),
+                  //     child: Row(
+                  //       children: [
+                  //         // UniconsLine.apps,(
+                  //         //   FontAwesomeIcons.tag,
+                  //         //   color: AppColors.primaryColor,
+                  //         //   size: 16,
+                  //         // ),
+
+                  //         Icon(
+                  //           UniconsSolid.apps,
+                  //           color: Colors.white,
+                  //           size: 16,
+                  //         ),
+
+                  //         const SizedBox(width: 8),
+                  //         Text(
+                  //           'Apply a Voucher',
+                  //           style: GoogleFonts.montserrat(
+                  //             color: Colors.white,
+                  //             fontWeight: FontWeight.w600,
+                  //             fontSize: 15,
+                  //             letterSpacing: 0.5,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  ElevatedButton(
                     onPressed: () {
-                      showCouponField(
-                        context: context,
-                        controller: codeController,
-                        errorGetter: ErrorGetter().couponCodeErrorGetter,
-                        formKey: _formKey,
-                        onPressed: () {
-                          validateForm(context, paymentViewModel);
-                        },
-                      );
+                      // navigateUserHomeScreen();
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Row(
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.tag,
-                            color: AppColors.primaryColor,
-                            size: 16,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      shadowColor: Colors.transparent,
+                      primary: Colors.transparent,
+                      minimumSize: Size(
+                        MediaQuery.of(context).size.width * 0.50,
+                        45,
+                      ),
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        showVoucherField(
+                          context: context,
+                          controller: codeController,
+                          errorGetter: ErrorGetter().voucherCodeErrorGetter,
+                          formKey: _formKey,
+                          onPressed: () {
+                            validateForm(context, paymentViewModel);
+                          },
+                        );
+                      },
+                      child: Container(
+                        height: 45,
+                        // width: MediaQuery.of(context).size.width * 0.90,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            stops: [0.1, 0.7],
+                            colors: [
+                              Color(0xFF0195f7),
+                              Color(0xFF083054),
+                            ],
                           ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Apply Coupoun',
-                            style: GoogleFonts.montserrat(
-                              color: AppColors.primaryColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              letterSpacing: 0.5,
+                          // color: Colors.deepPurple.shade300,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(width: 3),
+                            Image.asset(
+                              'assets/images/voucher.png',
+                              height: 25,
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: 40),
+                            Text(
+                              'APPLY A VOUCHER',
+                              style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

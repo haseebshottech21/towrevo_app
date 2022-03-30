@@ -46,8 +46,8 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
   double animHeightmain = 200.0;
   double heightMain = 230.0;
 
-  double animHeightmainIos = 230.0;
-  double heightMainIos = 250.0;
+  double animHeightmainIos = 220.0;
+  double heightMainIos = 240.0;
   bool anim = false;
 
   @override
@@ -61,7 +61,7 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
             height: widget.serviceRequestModel.description.length > 50
                 ? Platform.isIOS
                     ? widget.serviceRequestModel.description.length > 80
-                        ? heightMainIos + 15
+                        ? heightMainIos + 10
                         : heightMainIos
                     : heightMain
                 : Platform.isIOS
@@ -223,14 +223,14 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                                           ? animHeight = 160
                                           : animHeight = 150
                                       : Platform.isIOS
-                                          ? animHeight = 230
+                                          ? animHeight = 220
                                           : animHeight = 180;
                                   Platform.isIOS
                                       ? animHeightmainIos = animHeightmainIos +
                                           (widget.serviceRequestModel
                                                   .destAddress.isEmpty
-                                              ? animHeight / 2.5
-                                              : animHeight / 1.6)
+                                              ? animHeight / 2.7
+                                              : animHeight / 1.8)
                                       : animHeightmain = animHeightmain +
                                           (widget.serviceRequestModel
                                                   .destAddress.isEmpty
