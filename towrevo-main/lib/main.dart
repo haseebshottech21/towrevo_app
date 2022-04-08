@@ -11,18 +11,22 @@ import 'package:towrevo/view_model/payment_view_model.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'screens/screens.dart';
 
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.removeAfter(intialization);
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await dotenv.load(fileName: ENVSettings.fileName);
   await Firebase.initializeApp();
-  var onBoarding =
+
+  MyApp.onBoard =
       await Utilities().getSharedPreferenceValue('onboarding') ?? '0';
-  if (onBoarding == '0') {
+  MyApp.type = await Utilities().getSharedPreferenceValue('type') ?? '0';
+  if (MyApp.onBoard == '0') {
     MyApp.onBoard = '0';
     await Utilities().setSharedPrefValue('onboarding', '1');
   }
@@ -42,10 +46,15 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+Future intialization(BuildContext? context) async {
+  await Future.delayed(Duration(seconds: 2));
+}
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   static String notifyToken = '';
   static String onBoard = '';
+  static String type = '';
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -90,7 +99,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SplashScreen(),
+        home: getScreen(),
         routes: {
           RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
           LoginScreen.routeName: (ctx) => const LoginScreen(),
@@ -126,6 +135,16 @@ class _MyAppState extends State<MyApp> {
         },
       ),
     );
+  }
+
+  Widget getScreen() {
+    return MyApp.onBoard == '0'
+        ? const OnBoardTowrevo()
+        : MyApp.type == '1'
+            ? const UsersHomeScreen()
+            : MyApp.type == '2'
+                ? const CompanyHomeScreen()
+                : const WelcomeScreen();
   }
 }
 

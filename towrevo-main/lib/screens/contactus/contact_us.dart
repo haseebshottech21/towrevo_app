@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,6 +41,7 @@ class _ContactUsState extends State<ContactUs> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       // key: scaffoldKey,
       // drawerEnableOpenDragGesture: false,
@@ -63,7 +65,11 @@ class _ContactUsState extends State<ContactUs> {
                           }),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(top: 40, left: 45),
+                          margin: EdgeInsets.only(
+                              top: 40,
+                              left: Platform.isAndroid
+                                  ? screenSize.width * 0.15
+                                  : 50),
                           child: Text(
                             'CONTACT US',
                             textAlign: TextAlign.center,

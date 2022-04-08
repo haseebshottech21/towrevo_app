@@ -3,8 +3,8 @@ import '../utilities/towrevo_appcolor.dart';
 
 Container profileImageCircle(BuildContext context, String image) {
   return Container(
-    width: 55,
-    height: 55,
+    width: MediaQuery.of(context).size.height * 0.055,
+    height: MediaQuery.of(context).size.height * 0.055,
     decoration: BoxDecoration(
       border: Border.all(
         color: Theme.of(context).primaryColor,

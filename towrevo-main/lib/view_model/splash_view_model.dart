@@ -8,8 +8,9 @@ import 'package:towrevo/screens/screens.dart';
 class SplashViewModel with ChangeNotifier {
   Future<void> navigateToWelcome(BuildContext context) async {
     String type = await Utilities().getSharedPreferenceValue('type') ?? '0';
+    // String authToken= await Utilities().getSharedPreferenceValue('token') ?? '';
 
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 0), () {
       Navigator.pushReplacement(
         context,
         PageTransition(

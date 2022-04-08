@@ -17,6 +17,8 @@ class DrawerProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Orientation orientation = MediaQuery.of(context).orientation;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       height: MediaQuery.of(context).size.height * 0.14,
@@ -38,14 +40,14 @@ class DrawerProfile extends StatelessWidget {
               ),
               const SizedBox(height: 3),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.4,
+                width: MediaQuery.of(context).size.width * 0.40,
                 child: Text(
                   profileEmail,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.montserrat(
                     color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -58,7 +60,7 @@ class DrawerProfile extends StatelessWidget {
             child: const FaIcon(
               FontAwesomeIcons.edit,
               color: Colors.white,
-              size: 20,
+              size: 18,
             ),
           )
         ],

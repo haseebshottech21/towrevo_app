@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import 'dart:io';
 
 class CompanyHistoryScreen extends StatefulWidget {
   const CompanyHistoryScreen({Key? key}) : super(key: key);
@@ -33,6 +34,8 @@ class _CompanyHistoryScreenState extends State<CompanyHistoryScreen> {
       listen: true,
     );
 
+    Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
@@ -50,7 +53,11 @@ class _CompanyHistoryScreenState extends State<CompanyHistoryScreen> {
                       }),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 40, left: 45),
+                      margin: EdgeInsets.only(
+                          top: 40,
+                          left: Platform.isAndroid
+                              ? screenSize.width * 0.15
+                              : 50),
                       child: Text(
                         'MY HISTORY',
                         textAlign: TextAlign.center,

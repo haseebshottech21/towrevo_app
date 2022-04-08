@@ -53,15 +53,16 @@ class PlaceWebService {
     }
   }
 
-  Future<DirectionsModel?> getDirectionsRequest(
-      {required LatLng origin,
-      required LatLng destination,
-      TravelMode travelMode = TravelMode.driving,
-      List<PolylineWayPoint> wayPoints = const [],
-      bool avoidHighways = false,
-      bool avoidTolls = false,
-      bool avoidFerries = true,
-      bool optimizeWaypoints = false}) async {
+  Future<DirectionsModel?> getDirectionsRequest({
+    required LatLng origin,
+    required LatLng destination,
+    TravelMode travelMode = TravelMode.driving,
+    List<PolylineWayPoint> wayPoints = const [],
+    bool avoidHighways = false,
+    bool avoidTolls = false,
+    bool avoidFerries = true,
+    bool optimizeWaypoints = false,
+  }) async {
     try {
       String mode = travelMode.toString().replaceAll('TravelMode.', '');
       final params = {

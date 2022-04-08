@@ -54,6 +54,8 @@ dependencies:
   connectivity_plus: ^2.2.0
   audioplayers: ^0.20.1
   flutter_dotenv: ^5.0.2
+  flutter_native_splash: ^2.0.1+1
+
   
 
   # flutter_launcher_icons: ^0.9.2
@@ -68,6 +70,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  background_image: assets/images/bg.png
+  image: assets/images/logo.png
+  android: true
+  ios: true
   
 
   # The "flutter_lints" package below contains a set of recommended lints to
