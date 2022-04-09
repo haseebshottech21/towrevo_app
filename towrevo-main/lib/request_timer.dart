@@ -7,7 +7,6 @@ class NumberCreator {
   int _count = 30;
 
   NumberCreator(BuildContext context) {
-    
     _count = 30;
     Timer.periodic(const Duration(seconds: 1), (timer) {
       try {
@@ -21,7 +20,7 @@ class NumberCreator {
         _controller.sink.add(_count);
         _count--;
       } catch (e) {
-        print(e);
+        // print(e);
       }
     });
   }

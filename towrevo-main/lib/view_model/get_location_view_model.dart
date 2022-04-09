@@ -114,7 +114,7 @@ class GetLocationViewModel with ChangeNotifier {
   PlaceWebService placeWebService = PlaceWebService();
 
   Future<void> getPlaces(String query) async {
-    print(query);
+    // print(query);
     placesList = await placeWebService.getPlaces(query);
     notifyListeners();
   }

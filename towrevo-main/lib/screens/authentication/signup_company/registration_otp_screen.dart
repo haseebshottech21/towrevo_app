@@ -153,11 +153,11 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
                     fontSize: 18.0,
                     letterSpacing: 1.0),
                 onChanged: (pin) {
-                  print("Changed: " + pin);
+                  // print("Changed: " + pin);
                 },
                 onCompleted: (pin) {
                   inputOTP = pin;
-                  print(inputOTP);
+                  // print(inputOTP);
                 },
               ),
               const SizedBox(

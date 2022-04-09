@@ -149,11 +149,11 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                         fontSize: 18.0,
                         letterSpacing: 1.0),
                     onChanged: (pin) {
-                      print("Changed: " + pin);
+                      // print("Changed: " + pin);
                     },
                     onCompleted: (pin) {
                       inputOTP = pin;
-                      print(inputOTP);
+                      // print(inputOTP);
                     },
                   ),
                   const SizedBox(
@@ -174,7 +174,6 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                       const SizedBox(
                         width: 5,
                       ),
-                    
                       Countdown(
                         animation: StepTween(
                           begin: levelClock, // THIS IS A USER ENTERED NUMBER

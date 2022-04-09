@@ -41,7 +41,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
     drawerInfo['email'] =
         await utilities.getSharedPreferenceValue('email') ?? '';
 
-    print(drawerInfo['name']);
+    // print(drawerInfo['name']);
 
     notifyListeners();
   }
@@ -153,7 +153,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
   bool isAlive = false;
 
   Future<bool> willPopCallback() async {
-    print('there');
+    // print('there');
     if (isAlive) {
       return false;
     }

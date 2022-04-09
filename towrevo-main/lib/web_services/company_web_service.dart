@@ -60,7 +60,7 @@ class CompanyWebService {
         },
         headers: await Utilities().headerWithAuth(),
       );
-      print(response.body);
+      // print(response.body);
 
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {

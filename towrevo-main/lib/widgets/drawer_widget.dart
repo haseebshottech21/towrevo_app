@@ -122,8 +122,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           iconsData: FontAwesomeIcons.infoCircle,
                           onPressed: () {
                             type == '1'
-                                ? openUrl('http://towrevo.com/index.php')
-                                : openUrl('http://towrevo.com/provider.php');
+                                ? openUrl('https://towrevo.com')
+                                : openUrl('https://towrevo.com/provider');
                           },
                         );
                       }),

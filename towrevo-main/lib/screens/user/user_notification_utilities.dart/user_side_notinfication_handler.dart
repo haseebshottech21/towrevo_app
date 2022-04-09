@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/user/user_home_screen.dart';
 import 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
-
 import '../../../view_model/user_home_screen_view_model.dart';
 import '../../../widgets/User/user_rating_dialogbox.dart';
 import '../../../widgets/show_snackbar.dart';

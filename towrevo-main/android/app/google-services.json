@@ -7,20 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:453468732727:android:7f44fd5b9eca0618172eb2",
+        "mobilesdk_app_id": "1:453468732727:android:35bf8e60a8bf07e1172eb2",
         "android_client_info": {
-          "package_name": "com.android.towrevo"
+          "package_name": "com.towrevoapp.towrevo"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "453468732727-ut9oe843i5ar0f2rb5pctb2rvj5jb5rj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.android.towrevo",
-            "certificate_hash": "9742444dd9f10d78fd1637dfe55f7ce85871da14"
-          }
-        },
         {
           "client_id": "453468732727-vupei0tg3sf5ik7bp4c3hho9cni8n64e.apps.googleusercontent.com",
           "client_type": 3
@@ -37,6 +29,13 @@
             {
               "client_id": "453468732727-vupei0tg3sf5ik7bp4c3hho9cni8n64e.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "453468732727-9930ttdn99191fa22l18qof8mjhkst8c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iOS.towrevoapp"
+              }
             }
           ]
         }

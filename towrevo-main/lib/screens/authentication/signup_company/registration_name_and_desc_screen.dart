@@ -37,7 +37,7 @@ class _RegistrationNameAndDescScreenState
       _companySignUpProvider.body['first_name'] = companyNameController.text;
       _companySignUpProvider.body['description'] =
           companyDescriptionController.text;
-      print(_companySignUpProvider.body);
+      // print(_companySignUpProvider.body);
       Navigator.of(context).pushNamed(RegistrationCredentialScreen.routeName);
     }
   }

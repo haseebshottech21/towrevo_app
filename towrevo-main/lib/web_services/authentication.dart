@@ -32,7 +32,7 @@ class AuthenticationWebService {
         return null;
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
       Fluttertoast.showToast(msg: e.toString());
     }
   }

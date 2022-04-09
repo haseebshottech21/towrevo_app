@@ -37,7 +37,7 @@ class _RegistrationCredentialScreenState
       _companySignUpProvider.body['password'] = passwordController.text.trim();
       _companySignUpProvider.body['password_confirmation'] =
           confirmPasswordController.text.trim();
-      print(_companySignUpProvider.body);
+      // print(_companySignUpProvider.body);
       Navigator.of(context)
           .pushNamed(RegistrationCategoryAndTimingScreen.routeName);
     }

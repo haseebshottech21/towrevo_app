@@ -28,7 +28,7 @@ class _ContactUsState extends State<ContactUs> {
     if (!_formKey.currentState!.validate()) {
       return;
     } else {
-      print('in');
+      // print('in');
       final splashViewModel =
           Provider.of<SplashViewModel>(context, listen: false);
       bool success =

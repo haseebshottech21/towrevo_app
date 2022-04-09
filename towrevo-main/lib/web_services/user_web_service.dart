@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/utilities/utilities.dart';
-
 import '../utilities/env_settings.dart';
 
 class UserWebService {
@@ -93,9 +92,9 @@ class UserWebService {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        print(await response.stream.bytesToString());
+        // print(await response.stream.bytesToString());
       } else {
-        print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());

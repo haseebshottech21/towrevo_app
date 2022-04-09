@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/utilities/utilities.dart';
-import 'package:towrevo/view_model/payment_view_model.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/Company/add_discount_bottom_sheet.dart';
 import 'package:towrevo/widgets/widgets.dart';
@@ -58,7 +57,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
   displayPaymentSheet(
       BuildContext context, String amount, String couponId) async {
     try {
-      print(paymentIntentData);
+      // print(paymentIntentData);
       await Stripe.instance.presentPaymentSheet(
         parameters: PresentPaymentSheetParameters(
           clientSecret: paymentIntentData['client_secret'],

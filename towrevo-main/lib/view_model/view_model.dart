@@ -8,3 +8,4 @@ export 'package:towrevo/view_model/register_user_view_model.dart';
 export 'package:towrevo/view_model/services_and_day_view_model.dart';
 export 'package:towrevo/view_model/splash_view_model.dart';
 export 'package:towrevo/view_model/user_home_screen_view_model.dart';
+export 'package:towrevo/view_model/payment_view_model.dart';

@@ -49,11 +49,11 @@ class ServiceRequestModel {
 
   factory ServiceRequestModel.fromJson(Map<String, dynamic> json) {
     if (json['dropoff_distance'] != null) {
-      print(double.tryParse(
-          json['dropoff_distance'].toString().split('mi').first.trim()));
-      print(double.tryParse(
-              json['dropoff_distance'].toString().split('mi').first.trim()) ??
-          0.0);
+      // print(double.tryParse(
+      //     json['dropoff_distance'].toString().split('mi').first.trim()));
+      // print(double.tryParse(
+      //         json['dropoff_distance'].toString().split('mi').first.trim()) ??
+      //     0.0);
     }
     return ServiceRequestModel(
       id: json['id'].toString(),

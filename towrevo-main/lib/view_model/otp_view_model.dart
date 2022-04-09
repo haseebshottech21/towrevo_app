@@ -69,7 +69,7 @@ class OTPViewModel with ChangeNotifier {
     }
     if (resendUniqueId.isNotEmpty) {
       final response = await otpWebService.resendOTPRequest(uniqueId);
-      print(response);
+      // print(response);
       if (response['status']) {
         resendUniqueId = response['uniqueId'];
         Fluttertoast.showToast(msg: 'OTP Resend Success');

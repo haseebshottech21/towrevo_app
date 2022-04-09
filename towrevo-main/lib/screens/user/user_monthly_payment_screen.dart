@@ -69,7 +69,7 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
         displayPaymentSheet(context);
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 
