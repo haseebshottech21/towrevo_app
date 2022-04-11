@@ -20,7 +20,7 @@ class DrawerProfile extends StatelessWidget {
     // Orientation orientation = MediaQuery.of(context).orientation;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       height: MediaQuery.of(context).size.height * 0.14,
       child: Row(
         children: [
@@ -39,8 +39,9 @@ class DrawerProfile extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 3),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.40,
+              Container(
+                margin: const EdgeInsets.only(right: 12),
+                width: MediaQuery.of(context).size.width * 0.45,
                 child: Text(
                   profileEmail,
                   maxLines: 2,
@@ -54,7 +55,6 @@ class DrawerProfile extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
           GestureDetector(
             onTap: editOnPressed,
             child: const FaIcon(

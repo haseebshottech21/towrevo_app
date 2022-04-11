@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:towrevo/models/models.dart';
 
 class CompanyHistoryList extends StatelessWidget {
@@ -18,16 +19,13 @@ class CompanyHistoryList extends StatelessWidget {
     return FadeInUp(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
-        height: MediaQuery.of(context).size.height * 0.22,
+        // height: MediaQuery.of(context).size.height * 0.22,
         width: MediaQuery.of(context).size.width,
         child: Card(
           elevation: 5,
           color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 15,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -39,34 +37,30 @@ class CompanyHistoryList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          serviceRequestModel.name,
-                          style: const TextStyle(
+                          serviceRequestModel.name.toUpperCase(),
+                          style: GoogleFonts.montserrat(
                             color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                             fontSize: 17.0,
                           ),
                         ),
-                        const SizedBox(
-                          height: 4,
-                        ),
+                        const SizedBox(height: 6),
                         Text(
-                          serviceRequestModel.serviceName,
-                          style: const TextStyle(
+                          serviceRequestModel.serviceName.toUpperCase(),
+                          style: GoogleFonts.montserrat(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
                             fontSize: 14.0,
                           ),
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
+                        const SizedBox(height: 10),
                         Row(
                           children: List.generate(
                             5,
                             (index) => Icon(
                               rating <= index ? Icons.star_outline : Icons.star,
                               color: Colors.amber,
-                              size: 15,
+                              size: 18,
                             ),
                           ),
                         )
@@ -74,23 +68,21 @@ class CompanyHistoryList extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       serviceRequestModel.createdAt,
-                      style: const TextStyle(
-                        color: Colors.black87,
+                      style: GoogleFonts.montserrat(
+                        color: Colors.black54,
                         fontWeight: FontWeight.w400,
-                        fontSize: 14.0,
+                        fontSize: 12.0,
                       ),
                     ),
                     Container(
-                      width: 100,
-                      height: 35,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(50),
@@ -98,16 +90,19 @@ class CompanyHistoryList extends StatelessWidget {
                       child: Center(
                         child: Text(
                           serviceRequestModel.status == 1
-                              ? 'Accept'
+                              ? 'ACCEPT'
                               : serviceRequestModel.status == 2
-                                  ? 'Decline'
-                                  : 'Completed',
-                          style: TextStyle(
+                                  ? 'DECLINE'
+                                  : 'COMPLETED',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 0.5,
                             color: serviceRequestModel.status == 1
                                 ? Colors.green
                                 : serviceRequestModel.status == 2
                                     ? Colors.red
-                                    : Colors.blueGrey,
+                                    : Colors.green[800],
                           ),
                         ),
                       ),

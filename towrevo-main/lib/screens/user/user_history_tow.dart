@@ -69,9 +69,7 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
                   duration: const Duration(milliseconds: 500),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 5.0,
-                      vertical: 10.0,
-                    ),
+                        horizontal: 5.0, vertical: 10.0),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.90,
                     child: Column(
