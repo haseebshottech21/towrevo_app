@@ -436,8 +436,8 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                           from: 80,
                           delay: const Duration(milliseconds: 750),
                           child: FormButtonWidget(
-                            'SIGNUP',
-                            () {
+                            formBtnTxt: 'SIGNUP',
+                            onPressed: () {
                               validateForm();
                               // Navigator.of(context).pushNamed(RegistrationOTPScreen.routeName,arguments: false);
                             },

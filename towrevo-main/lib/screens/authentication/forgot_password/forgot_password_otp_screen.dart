@@ -217,8 +217,8 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                     height: 25,
                   ),
                   FormButtonWidget(
-                    'VERIFY',
-                    () {
+                    formBtnTxt: 'VERIFY',
+                    onPressed: () {
                       validateAndSendOTP(context);
                     },
                   ),

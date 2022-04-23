@@ -183,10 +183,10 @@ class _RegistrationNameAndDescScreenState
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             StepFormButtonNext(
-                              () {
+                              onPressed: () {
                                 validateFromAndSaveData();
                               },
-                              'NEXT',
+                              text: 'NEXT',
                             ),
                           ],
                         ),

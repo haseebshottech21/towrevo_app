@@ -795,8 +795,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                 from: 20,
                                 duration: const Duration(milliseconds: 1200),
                                 child: FormButtonWidget(
-                                  'UPDATE',
-                                  () {
+                                  formBtnTxt: 'UPDATE',
+                                  onPressed: () {
                                     if (type == '1') {
                                       validateAndUpdateUserForm();
                                     } else if (type == '2') {

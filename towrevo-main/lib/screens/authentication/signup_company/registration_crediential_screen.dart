@@ -166,10 +166,10 @@ class _RegistrationCredentialScreenState
                             'BACK',
                           ),
                           StepFormButtonNext(
-                            () {
+                            onPressed: () {
                               validateFromAndSaveData();
                             },
-                            'NEXT',
+                            text: 'NEXT',
                           ),
                         ],
                       ),

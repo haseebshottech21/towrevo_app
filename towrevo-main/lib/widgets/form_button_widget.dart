@@ -6,8 +6,14 @@ const double formButtonHeight = 45;
 class FormButtonWidget extends StatelessWidget {
   final String formBtnTxt;
   final VoidCallback onPressed;
-  const FormButtonWidget(this.formBtnTxt, this.onPressed, {Key? key})
-      : super(key: key);
+  final bool? signup;
+
+  const FormButtonWidget({
+    required this.onPressed,
+    required this.formBtnTxt,
+    this.signup = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +43,24 @@ class FormButtonWidget extends StatelessWidget {
             top: 10,
             bottom: 10,
           ),
-          child: Text(
-            formBtnTxt,
-            style: GoogleFonts.montserrat(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-              fontSize: 18.0,
-              letterSpacing: 1.0,
-            ),
-          ),
+          child: signup == true
+              ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2.0,
+                  ),
+                )
+              : Text(
+                  formBtnTxt,
+                  style: GoogleFonts.montserrat(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18.0,
+                    letterSpacing: 1.0,
+                  ),
+                ),
         ),
       ),
     );
@@ -55,8 +70,16 @@ class FormButtonWidget extends StatelessWidget {
 class StepFormButtonNext extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
-  const StepFormButtonNext(this.onPressed, this.text, {Key? key})
-      : super(key: key);
+  final bool? signup;
+  const StepFormButtonNext(
+      // this.onPressed,
+      // this.text,
+      {
+    required this.onPressed,
+    required this.text,
+    this.signup = false,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,15 +112,24 @@ class StepFormButtonNext extends StatelessWidget {
             top: 10,
             bottom: 10,
           ),
-          child: Text(
-            text,
-            style: GoogleFonts.montserrat(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-              fontSize: 18.0,
-              letterSpacing: 1.0,
-            ),
-          ),
+          child: signup == true
+              ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2.0,
+                  ),
+                )
+              : Text(
+                  text,
+                  style: GoogleFonts.montserrat(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17.0,
+                    letterSpacing: 1.0,
+                  ),
+                ),
         ),
       ),
     );
@@ -107,8 +139,11 @@ class StepFormButtonNext extends StatelessWidget {
 class StepFormButtonBack extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
-  const StepFormButtonBack(this.onPressed, this.text, {Key? key})
-      : super(key: key);
+  const StepFormButtonBack(
+    this.onPressed,
+    this.text, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +174,7 @@ class StepFormButtonBack extends StatelessWidget {
             style: GoogleFonts.montserrat(
               color: Colors.white,
               fontWeight: FontWeight.w500,
-              fontSize: 18.0,
+              fontSize: 17.0,
               letterSpacing: 1.0,
             ),
           ),

@@ -161,8 +161,8 @@ class _ContactUsState extends State<ContactUs> {
                               from: 20,
                               duration: const Duration(milliseconds: 1200),
                               child: FormButtonWidget(
-                                'SEND FEEDBACK',
-                                () {
+                                formBtnTxt: 'SEND FEEDBACK',
+                                onPressed: () {
                                   validateAndSubmitQuery();
                                 },
                               ),

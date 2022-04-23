@@ -127,9 +127,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   FadeInDown(
                     from: 45,
                     delay: const Duration(milliseconds: 750),
-                    child: FormButtonWidget('LOGIN', () {
-                      validateAndSubmitLoginForm();
-                    }),
+                    child: FormButtonWidget(
+                        formBtnTxt: 'LOGIN',
+                        onPressed: () {
+                          validateAndSubmitLoginForm();
+                        }),
                   ),
                   // Login Button
                   FadeInDown(

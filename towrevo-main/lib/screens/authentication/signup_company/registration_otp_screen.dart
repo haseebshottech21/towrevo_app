@@ -225,8 +225,8 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
                 height: 35,
               ),
               FormButtonWidget(
-                'VERIFY',
-                () {
+                formBtnTxt: 'VERIFY',
+                onPressed: () {
                   sendOTPRequest(reqFromCompany);
                 },
               ),

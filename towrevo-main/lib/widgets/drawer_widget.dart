@@ -163,8 +163,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Container(
                         margin: const EdgeInsets.symmetric(vertical: 25),
                         child: FormButtonWidget(
-                          'Logout',
-                          () {
+                          formBtnTxt: 'Logout',
+                          onPressed: () {
                             Provider.of<LoginViewModel>(context, listen: false)
                                 .logoutRequest(context);
                           },

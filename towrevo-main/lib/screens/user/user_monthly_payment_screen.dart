@@ -26,7 +26,7 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
   paynow(BuildContext context) async {
     final userViewModel =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
-    await userViewModel.payNow(paymentIntentData['id'], '2', context);
+    await userViewModel.payNow(paymentIntentData['id'], '1.99', context);
     paymentIntentData = {};
   }
 

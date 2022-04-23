@@ -25,17 +25,17 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Access camera</string>
+	<string>This app requires to access your camera to take image for user profile picture at the time of register account.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Always and when in use!</string>
+	<string>This app requires to get current location of both sides user side and company side as well to calculate the distance between origin and destination and distance will be shown to each other.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Can I have location always?</string>
+	<string>This app requires to get current location of both sides user side and company side as well to calculate the distance between origin and destination and distance will be shown to each other. </string>
 	<key>NSLocationUsageDescription</key>
-	<string>Older devices need location.</string>
+	<string>This app requires to get current location of both sides user side and company side as well to calculate the distance between origin and destination and distance will be shown to each other.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Need location when in use</string>
+	<string>This app requires to get current location of both sides user side and company side as well to calculate the distance between origin and destination and distance will be shown to each other.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This App requires access to the photo library</string>
+	<string>This app requires to access your photo library to pick image for user profile picture at the time of register account.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

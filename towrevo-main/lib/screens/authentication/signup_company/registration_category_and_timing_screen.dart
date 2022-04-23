@@ -166,18 +166,23 @@ class _RegistrationCategoryAndTimingScreenState
       Fluttertoast.showToast(msg: 'Please Select State And City');
       return;
     }
+    // print(registerProvider.body);
     final daysAndServiceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-    if (locationProvider.myCurrentLocation.placeAddress.isEmpty &&
+    // print(daysAndServiceProvider.daysId);
+    // print(daysAndServiceProvider.servicesId);
+
+    if (locationProvider.myCurrentLocation.placeAddress.isNotEmpty &&
         daysAndServiceProvider.daysId.isNotEmpty &&
         daysAndServiceProvider.servicesId.isNotEmpty &&
         registerProvider.body['from'] != '' &&
         registerProvider.body['to'] != '') {
+      print(registerProvider.body);
+
       registerProvider.body['services'] =
           json.encode(daysAndServiceProvider.servicesId);
       registerProvider.body['days'] =
           json.encode(daysAndServiceProvider.daysId);
-
       // Navigator.of(context).pushNamed(RegistrationPaymentScreen.routeName);
 
       bool response = await registerProvider.registerCompany(context);
@@ -255,25 +260,28 @@ class _RegistrationCategoryAndTimingScreenState
                                       Icons.location_on,
                                       color: primaryColors,
                                     ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 8,
-                                      ),
-                                      width: MediaQuery.of(context).size.width *
-                                          0.65,
-                                      child: Text(
-                                        getLocation.getMyAddress.isEmpty
-                                            ? 'Get Location'
-                                            : getLocation.getMyAddress,
-                                        style: GoogleFonts.montserrat(
-                                          color: Colors.black,
+                                    const SizedBox(width: 10),
+                                    Center(
+                                      child: Container(
+                                        alignment: Alignment.centerLeft,
+                                        height: 50,
+                                        // padding: const EdgeInsets.symmetric(
+                                        //   vertical: 8,
+                                        // ),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.65,
+                                        child: Text(
+                                          getLocation.getMyAddress.isEmpty
+                                              ? 'Get Company Location'
+                                              : getLocation.getMyAddress,
+                                          style: GoogleFonts.montserrat(
+                                            color: Colors.black,
+                                          ),
+                                          maxLines: 2,
+                                          // textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        maxLines: 3,
-                                        // textAlign: TextAlign.left,
-                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                   ],
@@ -619,11 +627,16 @@ class _RegistrationCategoryAndTimingScreenState
                         },
                         'BACK',
                       ),
-                      StepFormButtonNext(
-                        () {
-                          validate();
-                        },
-                        'NEXT',
+                      Consumer<RegisterCompanyViewModel>(
+                        builder: ((context, registerCompany, child) {
+                          return StepFormButtonNext(
+                            onPressed: () {
+                              validate();
+                            },
+                            text: 'SIGNUP',
+                            signup: registerCompany.isLoading ? true : false,
+                          );
+                        }),
                       ),
                     ],
                   ),
