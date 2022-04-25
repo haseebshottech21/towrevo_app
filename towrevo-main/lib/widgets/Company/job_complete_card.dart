@@ -110,7 +110,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                     .toStringAsFixed(2) +
                                 (widget.serviceRequestModel.destAddress.isEmpty
                                     ? ' miles away'
-                                    : ' total distance'),
+                                    : ' miles total distance'),
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black54,

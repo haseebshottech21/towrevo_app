@@ -108,7 +108,6 @@ flutter:
   assets:
      - assets/images/
      - assets/sounds/
-     - .env
      - .env.production
   #   - images/a_dot_ham.jpeg
 

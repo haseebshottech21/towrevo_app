@@ -18,6 +18,7 @@ class DrawerWidget extends StatefulWidget {
 class _DrawerWidgetState extends State<DrawerWidget> {
   @override
   void initState() {
+    getCurrentYear();
     Future.delayed(Duration.zero).then(
       (value) async {
         final provider =
@@ -35,6 +36,16 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   }
 
   String type = '';
+  String finalDate = '';
+
+  getCurrentYear() {
+    var date = DateTime.now().toString();
+    var dateParse = DateTime.parse(date);
+    var formattedDate = "${dateParse.year}";
+    setState(() {
+      finalDate = formattedDate.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,15 +183,15 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       ),
                       Center(
                         child: RichText(
-                          text: const TextSpan(
-                            style: TextStyle(
+                          text: TextSpan(
+                            style: const TextStyle(
                               fontSize: 14.0,
                               color: Colors.white,
                             ),
                             children: [
-                              TextSpan(text: 'Copyright © 2021, '),
-                              TextSpan(
-                                text: 'Towrevo',
+                              TextSpan(text: 'Copyright © $finalDate, '),
+                              const TextSpan(
+                                text: 'TowRevo',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),

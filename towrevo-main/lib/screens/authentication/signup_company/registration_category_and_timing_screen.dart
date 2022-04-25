@@ -609,9 +609,7 @@ class _RegistrationCategoryAndTimingScreenState
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               FadeInDown(
                 from: 40,
                 delay: const Duration(milliseconds: 650),

@@ -92,9 +92,11 @@ class UserWebService {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        // print(await response.stream.bytesToString());
+        print('there');
+        print(await response.stream.bytesToString());
       } else {
-        // print(response.reasonPhrase);
+        print('there');
+        print(response.reasonPhrase);
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
