@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -21,9 +22,7 @@ class WelcomeScreen extends StatelessWidget {
                       .pushReplacementNamed(LoginScreen.routeName);
                 },
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15.h),
               SignupButton(
                 'SIGN-UP',
                 () {

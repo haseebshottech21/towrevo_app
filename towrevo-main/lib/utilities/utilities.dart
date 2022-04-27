@@ -171,6 +171,7 @@ class Utilities {
     await setSharedPrefValue('email', loadedData['user']['email']);
     await setSharedPrefValue('image', loadedData['user']['image'] ?? '');
     final Map companyInfo = loadedData['user']['company_info'] ?? {};
+
     if (companyInfo.isNotEmpty) {
       await setSharedPrefValue(
           'longitude', companyInfo['longitude'].toString());

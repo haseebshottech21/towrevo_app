@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TowrevoLogo extends StatelessWidget {
   const TowrevoLogo({Key? key}) : super(key: key);
@@ -7,8 +8,8 @@ class TowrevoLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.18,
-        width: MediaQuery.of(context).size.width * 0.48,
+        height: 105.h,
+        width: 170.w,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/logo.png'),

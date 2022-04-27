@@ -9,6 +9,7 @@ import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/screens/screens.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -51,197 +52,196 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             const BackgroundImage(),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 25.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.0.w,
+                vertical: 20.0.h,
               ),
               child: Form(
                 key: _formKey,
-                child: Column(children: [
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  FadeInDown(
-                    from: 40,
-                    delay: const Duration(milliseconds: 400),
-                    child: const TowrevoLogo(),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  FadeInDown(
-                    from: 20,
-                    delay: const Duration(milliseconds: 500),
-                    child: Text(
-                      'LOGIN',
-                      style: GoogleFonts.montserrat(
+                child: Column(
+                  children: [
+                    SizedBox(height: 12.h),
+                    FadeInDown(
+                      from: 40,
+                      delay: const Duration(milliseconds: 400),
+                      child: const TowrevoLogo(),
+                    ),
+                    SizedBox(height: 30.h),
+                    FadeInDown(
+                      from: 20,
+                      delay: const Duration(milliseconds: 500),
+                      child: Text(
+                        'LOGIN',
+                        style: GoogleFonts.montserrat(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
-                          fontSize: 30.0,
-                          letterSpacing: 1.8),
-                    ),
-                  ),
-
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  FadeInDown(
-                    from: 30,
-                    delay: const Duration(milliseconds: 600),
-                    child: TextFieldForAll(
-                      errorGetter: ErrorGetter().emailErrorGetter,
-                      hintText: 'Email Address',
-                      prefixIcon: const Icon(
-                        FontAwesomeIcons.solidEnvelopeOpen,
-                        color: Color(0xFF019aff),
-                        size: 20.0,
-                      ),
-                      textEditingController: emailController,
-                      textInputType: TextInputType.emailAddress,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Consumer<LoginViewModel>(
-                    builder: (ctx, loginViewModel, neverBuildChild) {
-                      return FadeInDown(
-                        from: 35,
-                        delay: const Duration(milliseconds: 650),
-                        child: TextFormIconWidget(
-                          errorGetter: ErrorGetter().passwordErrorGetter,
-                          textEditingController: passwordController,
-                          obscureText: loginViewModel.obscurePassword,
-                          hint: 'Password',
-                          prefixIcon: const Icon(FontAwesomeIcons.qrcode,
-                              color: Color(0xFF019aff), size: 20.0),
-                          onPress: loginViewModel.toggleObscure,
+                          fontSize: 28.0.sp,
+                          letterSpacing: 1.8,
                         ),
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  // Login Button
-                  FadeInDown(
-                    from: 45,
-                    delay: const Duration(milliseconds: 750),
-                    child: FormButtonWidget(
+                      ),
+                    ),
+                    SizedBox(height: 20.h),
+                    FadeInDown(
+                      from: 30,
+                      delay: const Duration(milliseconds: 600),
+                      child: TextFieldForAll(
+                        errorGetter: ErrorGetter().emailErrorGetter,
+                        hintText: 'Email Address',
+                        prefixIcon: const Icon(
+                          FontAwesomeIcons.solidEnvelopeOpen,
+                          color: Color(0xFF019aff),
+                          size: 20.0,
+                        ),
+                        textEditingController: emailController,
+                        textInputType: TextInputType.emailAddress,
+                      ),
+                    ),
+                    SizedBox(height: 3.h),
+                    Consumer<LoginViewModel>(
+                      builder: (ctx, loginViewModel, neverBuildChild) {
+                        return FadeInDown(
+                          from: 35,
+                          delay: const Duration(milliseconds: 650),
+                          child: TextFormIconWidget(
+                            errorGetter: ErrorGetter().passwordErrorGetter,
+                            textEditingController: passwordController,
+                            obscureText: loginViewModel.obscurePassword,
+                            hint: 'Password',
+                            prefixIcon: const Icon(
+                              FontAwesomeIcons.qrcode,
+                              color: Color(0xFF019aff),
+                              size: 20.0,
+                            ),
+                            onPress: loginViewModel.toggleObscure,
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 12.h),
+                    // Login Button
+                    FadeInDown(
+                      from: 45,
+                      delay: const Duration(milliseconds: 750),
+                      child: FormButtonWidget(
                         formBtnTxt: 'LOGIN',
                         onPressed: () {
                           validateAndSubmitLoginForm();
-                        }),
-                  ),
-                  // Login Button
-                  FadeInDown(
-                    from: 25,
-                    delay: const Duration(milliseconds: 800),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Consumer<LoginViewModel>(
-                                builder:
-                                    (ctx, loginViewModel, neverBuildChild) {
-                                  return Checkbox(
-                                    activeColor: const Color(0xFF092848),
-                                    value: loginViewModel.isRememberChecked,
-                                    onChanged: (bool? value) {
-                                      loginViewModel.toggleRemember();
-                                    },
-                                  );
-                                },
-                              ),
-                              Text(
-                                'Remember Me',
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.white,
-                                  fontSize: 13.0,
+                        },
+                      ),
+                    ),
+                    // Login Button
+                    FadeInDown(
+                      from: 25,
+                      delay: const Duration(milliseconds: 800),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Consumer<LoginViewModel>(
+                                  builder:
+                                      (ctx, loginViewModel, neverBuildChild) {
+                                    return Checkbox(
+                                      activeColor: const Color(0xFF092848),
+                                      value: loginViewModel.isRememberChecked,
+                                      onChanged: (bool? value) {
+                                        loginViewModel.toggleRemember();
+                                      },
+                                    );
+                                  },
+                                ),
+                                Text(
+                                  'Remember Me',
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.white,
+                                    fontSize: 12.0.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed(ForgotPasswordScreen.routeName);
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: 'Forgot Password ?',
+                                      style: GoogleFonts.montserrat(
+                                        color: Colors.white,
+                                        fontSize: 12.0.sp,
+                                      ),
+                                      recognizer: null,
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context)
-                                  .pushNamed(ForgotPasswordScreen.routeName);
-                            },
-                            child: RichText(
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 30.h),
+                    FadeInUp(
+                      from: 50,
+                      delay: const Duration(milliseconds: 700),
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.userEdit,
+                              color: const Color(0xFF092847),
+                              size: 30.0.sp,
+                            ),
+                            SizedBox(height: 8.h),
+                            Text(
+                              'CREATE A NEW ACCOUNT',
+                              style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12.0.sp,
+                              ),
+                            ),
+                            SizedBox(height: 1.h),
+                            RichText(
                               text: TextSpan(
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: 'Forgot Password ?',
+                                    text: 'SIGN-UP',
                                     style: GoogleFonts.montserrat(
-                                        color: Colors.white, fontSize: 13.0),
-                                    recognizer: null,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15.0.sp,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Navigator.of(context).pushNamed(
+                                          RegisterMainScreen.routeName,
+                                        );
+                                      },
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  FadeInUp(
-                    from: 50,
-                    delay: const Duration(milliseconds: 700),
-                    child: Center(
-                      child: Column(
-                        children: [
-                          const Icon(FontAwesomeIcons.userEdit,
-                              color: Color(0xFF092847), size: 30.0),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            'CREATE A NEW ACCOUNT',
-                            style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13.0),
-                          ),
-                          const SizedBox(
-                            height: 2,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: 'SIGN-UP',
-                                  style: GoogleFonts.montserrat(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16.0),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Navigator.of(context).pushNamed(
-                                          RegisterMainScreen.routeName);
-                                    },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ]),
+                  ],
+                ),
               ),
             ),
             Consumer<LoginViewModel>(
               builder: (ctx, loginViewMode, neverUpdate) {
                 return loginViewMode.isLoading
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: circularProgress())
+                        height: ScreenUtil().screenHeight,
+                        child: circularProgress(),
+                      )
                     : const SizedBox();
               },
             )
@@ -262,7 +262,6 @@ class _LoginScreenState extends State<LoginScreen> {
             await utilities.getSharedPreferenceValue('remember_password') ?? '';
       },
     );
-
     super.initState();
   }
 }

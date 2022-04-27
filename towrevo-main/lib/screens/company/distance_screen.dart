@@ -9,7 +9,6 @@ import 'package:towrevo/view_model/view_model.dart';
 import '../../utilities/env_settings.dart';
 
 class DistanceScreen extends StatefulWidget {
-  static String a = '';
   static const routeName = '/map-distance';
   const DistanceScreen({Key? key}) : super(key: key);
 
@@ -56,6 +55,8 @@ class _DistanceScreenState extends State<DistanceScreen> {
           ModalRoute.of(context)!.settings.arguments as Map<String, LatLng>;
 
       locationRoute = args;
+      print(LatLng(locationRoute['origin']!.latitude,
+          locationRoute['origin']!.longitude));
 
       _getPolyline(
           locationViewModel!,
@@ -82,7 +83,7 @@ class _DistanceScreenState extends State<DistanceScreen> {
               onPressed: () {
                 if (fromCompanyToPickupLocation) {
                   animateTo(LatLng(compOriginLatitude, compOriginLongitude));
-                } else {
+                } else if (!fromCompanyToPickupLocation) {
                   animateTo(LatLng(locationRoute['origin']!.latitude,
                       locationRoute['origin']!.longitude));
                 }

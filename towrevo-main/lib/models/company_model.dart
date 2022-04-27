@@ -44,14 +44,17 @@ class CompanyModel {
       to: json['to'].toString().toUpperCase(),
       distance: json['distance'].toString() == 'Null'
           ? 'Not in range'
-          : double.tryParse(json['distance']
-                      .toString()
-                      .split('mi')
-                      .first
-                      .trim()
-                      .replaceAll(',', ''))
-                  .toString() +
-              ' mi',
+          : json['distance'].toString().contains('ft')
+              ? json['distance'].toString()
+              : (double.tryParse(json['distance']
+                              .toString()
+                              .split('mi')
+                              .first
+                              .trim()
+                              .replaceAll(',', '')) ??
+                          json['distance'].toString())
+                      .toString() +
+                  ' mi',
       isCompanyAvailable: json['distance'].toString() == 'Null' ? false : true,
       firstName: json['user']['first_name'],
       email: json['user']['email'] ?? '',

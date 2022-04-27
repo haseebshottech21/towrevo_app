@@ -138,9 +138,9 @@ class EditProfileViewModel with ChangeNotifier {
       final Map companyInfo = loadedData['data']['user']['company_info'] ?? {};
       if (companyInfo.isNotEmpty) {
         utilities.setSharedPrefValue(
-            'longitude', companyInfo['latitude'].toString());
+            'longitude', companyInfo['longitude'].toString());
         utilities.setSharedPrefValue(
-            'latitude', companyInfo['longitude'].toString());
+            'latitude', companyInfo['latitude'].toString());
       }
     }
     changeLoadingStatus(false);

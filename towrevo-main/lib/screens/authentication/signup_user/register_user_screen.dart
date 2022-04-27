@@ -14,6 +14,7 @@ import '../../../utilities/towrevo_appcolor.dart';
 import '/screens/authentication/signup_company/registration_otp_screen.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterUserScreen extends StatefulWidget {
   const RegisterUserScreen({Key? key}) : super(key: key);
@@ -104,81 +105,84 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        fontSize: 30.0,
-                        letterSpacing: 1.5,
+                        fontSize: 26.sp,
+                        letterSpacing: 1.5.w,
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 10,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
                   ),
                   child: Form(
                     key: _formKey,
                     child: Column(
                       children: [
-                        const SizedBox(
-                          height: 5,
-                        ),
+                        SizedBox(height: 5.h),
                         FadeInDown(
                           from: 30,
                           delay: const Duration(milliseconds: 550),
                           child: Consumer<RegisterUserViewModel>(
-                              builder: (ctx, imagePicker, neverBuildChild) {
-                            return Stack(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    imagePicker.pickImage();
-                                  },
-                                  child: Container(
-                                    width: 120,
-                                    height: 120,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFF09365f),
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                    child: imagePicker.imagePath.isEmpty
-                                        ? Icon(
-                                            FontAwesomeIcons.user,
-                                            color:
-                                                Colors.white.withOpacity(0.5),
-                                            size: 75.0,
-                                          )
-                                        : ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(20)),
-                                            child: Image.file(
-                                              File(imagePicker.imagePath),
-                                              fit: BoxFit.fill,
+                            builder: (ctx, imagePicker, neverBuildChild) {
+                              return Stack(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      imagePicker.pickImage();
+                                    },
+                                    child: Container(
+                                      width: 120.w,
+                                      height: 105.h,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF09365f),
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
+                                      ),
+                                      child: imagePicker.imagePath.isEmpty
+                                          ? Icon(
+                                              FontAwesomeIcons.user,
+                                              color:
+                                                  Colors.white.withOpacity(0.6),
+                                              size: 75.sp,
+                                            )
+                                          : ClipRRect(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(20.r),
+                                              ),
+                                              child: Image.file(
+                                                File(imagePicker.imagePath),
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
-                                          ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 85,
-                                  top: 85,
-                                  child: Container(
-                                    width: 35,
-                                    height: 35,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFF019aff),
-                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
-                                    child: const Icon(FontAwesomeIcons.camera,
-                                        color: Colors.white, size: 18.0),
                                   ),
-                                ),
-                              ],
-                            );
-                          }),
+                                  Positioned(
+                                    left: 85.w,
+                                    top: 75.h,
+                                    child: Container(
+                                      width: 35.w,
+                                      height: 30.h,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF019aff)
+                                            .withOpacity(0.8),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
+                                      ),
+                                      child: Icon(
+                                        FontAwesomeIcons.camera,
+                                        color: Colors.white,
+                                        size: 17.sp,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        SizedBox(height: 18.h),
                         FadeInDown(
                           from: 40,
                           delay: const Duration(milliseconds: 600),
@@ -194,9 +198,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             textInputType: TextInputType.name,
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         FadeInDown(
                           from: 45,
                           delay: const Duration(milliseconds: 620),
@@ -212,9 +214,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             textInputType: TextInputType.name,
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         FadeInDown(
                           from: 50,
                           delay: const Duration(milliseconds: 640),
@@ -230,9 +230,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             textInputType: TextInputType.emailAddress,
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         FadeInDown(
                           from: 55,
                           delay: const Duration(milliseconds: 660),
@@ -242,9 +240,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             textEditingController: phoneNumberController,
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         FadeInDown(
                           from: 60,
                           delay: const Duration(milliseconds: 680),
@@ -256,15 +252,16 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                               obscureText:
                                   registerUserViewModel.obscurePassword,
                               hint: 'Password',
-                              prefixIcon: const Icon(FontAwesomeIcons.qrcode,
-                                  color: Color(0xFF019aff), size: 20.0),
+                              prefixIcon: const Icon(
+                                FontAwesomeIcons.qrcode,
+                                color: Color(0xFF019aff),
+                                size: 20.0,
+                              ),
                               onPress: registerUserViewModel.toggleObscure,
                             );
                           }),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         FadeInDown(
                           from: 65,
                           delay: const Duration(milliseconds: 700),
@@ -285,9 +282,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             );
                           }),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         FadeInDown(
                           from: 70,
                           delay: const Duration(milliseconds: 700),
@@ -295,12 +290,15 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             builder:
                                 (ctx, registerUserViewModel, neverBuildChild) {
                               return Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 3),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 18.w,
+                                  vertical: 2.h,
+                                ),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(28),
-                                    color: Colors.white,
-                                    border: Border.all(color: Colors.black45)),
+                                  borderRadius: BorderRadius.circular(25.r),
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.black45),
+                                ),
                                 width: double.infinity,
                                 child: DropdownButton(
                                     underline: const SizedBox(),
@@ -322,9 +320,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             },
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         FadeInDown(
                           from: 70,
                           delay: const Duration(milliseconds: 700),
@@ -332,12 +328,15 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             builder:
                                 (ctx, registerUserViewModel, neverBuildChild) {
                               return Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 3),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 18.w,
+                                  vertical: 2.h,
+                                ),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(28),
-                                    color: Colors.white,
-                                    border: Border.all(color: Colors.black45)),
+                                  borderRadius: BorderRadius.circular(25.r),
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.black45),
+                                ),
                                 width: double.infinity,
                                 child: DropdownButton(
                                     underline: const SizedBox(),
@@ -372,18 +371,20 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Consumer<RegisterUserViewModel>(builder: (ctx,
-                                      userRegisterViewModel, neverBuildChild) {
-                                    return Checkbox(
-                                      activeColor: const Color(0xFF092848),
-                                      value: userRegisterViewModel
-                                          .isCheckedTermsAndCondition,
-                                      onChanged: (bool? value) {
-                                        userRegisterViewModel
-                                            .toggleTermsAndCondition();
-                                      },
-                                    );
-                                  }),
+                                  Consumer<RegisterUserViewModel>(
+                                    builder: (ctx, userRegisterViewModel,
+                                        neverBuildChild) {
+                                      return Checkbox(
+                                        activeColor: const Color(0xFF092848),
+                                        value: userRegisterViewModel
+                                            .isCheckedTermsAndCondition,
+                                        onChanged: (bool? value) {
+                                          userRegisterViewModel
+                                              .toggleTermsAndCondition();
+                                        },
+                                      );
+                                    },
+                                  ),
                                   Row(
                                     children: [
                                       Text(
@@ -391,12 +392,10 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                         style: GoogleFonts.montserrat(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 12.0,
+                                          fontSize: 11.sp,
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
+                                      SizedBox(width: 4.w),
                                       RichText(
                                         text: TextSpan(
                                           children: <TextSpan>[
@@ -406,7 +405,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                                 style: GoogleFonts.montserrat(
                                                   color: AppColors.primaryColor,
                                                   fontWeight: FontWeight.w600,
-                                                  fontSize: 12.0,
+                                                  fontSize: 11.sp,
                                                   decoration:
                                                       TextDecoration.underline,
                                                 ),
@@ -443,9 +442,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                             },
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                       ],
                     ),
                   ),
@@ -457,8 +454,9 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
             builder: (ctx, loginViewMode, neverUpdate) {
               return loginViewMode.isLoading
                   ? SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: circularProgress())
+                      height: ScreenUtil().screenHeight,
+                      child: circularProgress(),
+                    )
                   : const SizedBox();
             },
           )

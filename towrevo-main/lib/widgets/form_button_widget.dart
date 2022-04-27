@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const double formButtonHeight = 45;
 
@@ -32,11 +33,14 @@ class FormButtonWidget extends StatelessWidget {
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            shape: const StadiumBorder(),
-            shadowColor: Colors.transparent,
-            primary: Colors.transparent,
-            minimumSize: Size(
-                MediaQuery.of(context).size.width * 0.88, formButtonHeight)),
+          shape: const StadiumBorder(),
+          shadowColor: Colors.transparent,
+          primary: Colors.transparent,
+          minimumSize: Size(
+            325.w,
+            40.h,
+          ),
+        ),
         onPressed: onPressed,
         child: Padding(
           padding: const EdgeInsets.only(

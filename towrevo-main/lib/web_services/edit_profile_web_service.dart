@@ -17,7 +17,7 @@ class EditProfileWebService {
         return null;
       }
     } catch (e) {
-     Fluttertoast.showToast(msg: e.toString());
+      Fluttertoast.showToast(msg: e.toString());
       return null;
     }
   }
@@ -42,7 +42,7 @@ class EditProfileWebService {
         return null;
       }
     } catch (e) {
-    Fluttertoast.showToast(msg: e.toString());
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 
@@ -50,6 +50,7 @@ class EditProfileWebService {
     try {
       final response = await http.post(Uri.parse(Utilities.baseUrl + 'update'),
           headers: await Utilities().headerWithAuth(), body: body);
+
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg: 'Successfully Updated');

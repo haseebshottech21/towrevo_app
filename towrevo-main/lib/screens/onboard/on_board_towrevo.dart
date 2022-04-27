@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:towrevo/screens/screens.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'onboard_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnBoardTowrevo extends StatefulWidget {
   const OnBoardTowrevo({Key? key}) : super(key: key);
@@ -68,17 +69,23 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
                     ),
                   );
                 },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  child: Text(
-                    'SKIP',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 18.w, vertical: 6.h),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child: Text(
+                      'SKIP',
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontSize: 13.sp,
+                      ),
                     ),
                   ),
                 ),
@@ -88,9 +95,9 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 20,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 15.h,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,16 +121,16 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: const Color(0xFF092848),
-                                minimumSize: const Size(150, 45),
+                                minimumSize: Size(120.w, 40.h),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Get Started',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 15.sp,
                                   letterSpacing: 0.5,
                                 ),
                               ),
@@ -138,9 +145,9 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: const Color(0xFF092848),
-                                minimumSize: const Size(50, 45),
+                                minimumSize: Size(45.w, 40.h),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                               ),
                               child: const Icon(
@@ -151,9 +158,7 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                )
+                SizedBox(height: 15.h)
               ],
             )
           ],
@@ -165,12 +170,12 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
   AnimatedContainer builDot(int index) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
-      margin: const EdgeInsets.only(right: 8),
-      height: 8,
-      width: currentPage == index ? 20 : 15,
+      margin: EdgeInsets.only(right: 8.w),
+      height: 5.h,
+      width: currentPage == index ? 18.w : 13.w,
       decoration: BoxDecoration(
-        color: currentPage == index ? Colors.white : Colors.grey,
-        borderRadius: BorderRadius.circular(10),
+        color: currentPage == index ? Colors.white : Colors.grey[400],
+        borderRadius: BorderRadius.circular(12.r),
       ),
     );
   }

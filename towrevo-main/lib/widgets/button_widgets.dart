@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginButton extends StatelessWidget {
   final String? btnText;
@@ -12,10 +13,10 @@ class LoginButton extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.060,
-          width: MediaQuery.of(context).size.width * 0.75,
+          height: 40.h,
+          width: 280.w,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25.0),
+              borderRadius: BorderRadius.circular(25.r),
               gradient: const LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -28,10 +29,11 @@ class LoginButton extends StatelessWidget {
               child: Text(
             '$btnText',
             style: GoogleFonts.montserrat(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 18.0,
-                letterSpacing: 1.0),
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 18.0.sp,
+              letterSpacing: 1.0,
+            ),
           )),
         ),
       ),

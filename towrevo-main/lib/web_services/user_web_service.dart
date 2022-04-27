@@ -15,6 +15,7 @@ class UserWebService {
       );
       List<CompanyModel> companiesList = [];
       if (response.statusCode == 200) {
+        print(response.body);
         final loadedData = json.decode(response.body);
         for (var company in loadedData['data']) {
           companiesList.add(CompanyModel.fromJson(company));
@@ -92,10 +93,8 @@ class UserWebService {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        print('there');
         print(await response.stream.bytesToString());
       } else {
-        print('there');
         print(response.reasonPhrase);
       }
     } catch (e) {

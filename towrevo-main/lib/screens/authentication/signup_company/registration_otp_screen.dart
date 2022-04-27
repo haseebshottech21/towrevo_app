@@ -9,6 +9,7 @@ import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegistrationOTPScreen extends StatefulWidget {
   const RegistrationOTPScreen({Key? key}) : super(key: key);
@@ -82,157 +83,152 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
     bool reqFromCompany = ModalRoute.of(context)!.settings.arguments as bool;
     return Scaffold(
       body: SingleChildScrollView(
-        child: Stack(children: [
-          // Background Image
-          const BackgroundImage(),
-          // Back Icon
-          backIcon(context, () {
-            Navigator.pop(context);
-          }),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
-            child: Column(children: [
-              const SizedBox(
-                height: 5,
+        child: Stack(
+          children: [
+            // Background Image
+            const BackgroundImage(),
+            // Back Icon
+            backIcon(context, () {
+              Navigator.pop(context);
+            }),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+                vertical: 30.h,
               ),
-              const TowrevoLogo(),
-              const SizedBox(
-                height: 45,
-              ),
-              Text(
-                'OTP \nVERIFICATION',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 35.0,
-                    letterSpacing: 1),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Column(
+              child: Column(
                 children: [
+                  SizedBox(height: 5.h),
+                  const TowrevoLogo(),
+                  SizedBox(height: 35.h),
                   Text(
-                    'We have sent you an email with a code of the number',
+                    'OTP \nVERIFICATION',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
-                        color: const Color(0xFF0c355a),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12.0,
-                        letterSpacing: 0.5),
-                  ),
-                  Text(
-                    'on Your Email',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.montserrat(
-                        color: const Color(0xFF0c355a),
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20.0,
-                        letterSpacing: 0.5),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 35,
-              ),
-              OTPTextField(
-                length: 5,
-                width: MediaQuery.of(context).size.width,
-                textFieldAlignment: MainAxisAlignment.spaceAround,
-                fieldWidth: 55,
-                fieldStyle: FieldStyle.box,
-                otpFieldStyle: OtpFieldStyle(
-                  backgroundColor: Colors.white,
-                ),
-                outlineBorderRadius: 10,
-                style: GoogleFonts.montserrat(
-                    color: const Color(0xFF092e52),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18.0,
-                    letterSpacing: 1.0),
-                onChanged: (pin) {
-                  // print("Changed: " + pin);
-                },
-                onCompleted: (pin) {
-                  inputOTP = pin;
-                  // print(inputOTP);
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Expiring in',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.montserrat(
-                        color: const Color(0xFF0c355a),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14.0,
-                        letterSpacing: 0.5),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Countdown(
-                    animation: StepTween(
-                      begin: levelClock, // THIS IS A USER ENTERED NUMBER
-                      end: 0,
-                    ).animate(_controller),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't received the OTP?",
-                    style: GoogleFonts.montserrat(
-                        color: const Color(0xFF0c355a),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.0),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'RESEND OTP',
-                          style: GoogleFonts.montserrat(
-                              color: const Color(0xFF0c355a),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 15.0),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              resendOTPRequest();
-                            },
-                        )
-                      ],
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 32.sp,
+                      letterSpacing: 1.w,
                     ),
                   ),
+                  SizedBox(height: 10.h),
+                  Column(
+                    children: [
+                      Text(
+                        'We have sent you an email with a code of the number',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(
+                          color: const Color(0xFF0c355a),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 11.sp,
+                          letterSpacing: 0.2.w,
+                        ),
+                      ),
+                      Text(
+                        'on Your Email',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(
+                          color: const Color(0xFF0c355a),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18.sp,
+                          letterSpacing: 0.5.w,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 30.h),
+                  OTPTextField(
+                    length: 5,
+                    width: MediaQuery.of(context).size.width,
+                    textFieldAlignment: MainAxisAlignment.spaceAround,
+                    fieldWidth: 55,
+                    fieldStyle: FieldStyle.box,
+                    otpFieldStyle: OtpFieldStyle(
+                      backgroundColor: Colors.white,
+                    ),
+                    outlineBorderRadius: 10.r,
+                    style: GoogleFonts.montserrat(
+                      color: const Color(0xFF092e52),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17.sp,
+                      letterSpacing: 1.0.w,
+                    ),
+                    onChanged: (pin) {
+                      // print("Changed: " + pin);
+                    },
+                    onCompleted: (pin) {
+                      inputOTP = pin;
+                      // print(inputOTP);
+                    },
+                  ),
+                  SizedBox(height: 20.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Expiring in',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(
+                          color: const Color(0xFF0c355a),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          letterSpacing: 0.5.w,
+                        ),
+                      ),
+                      SizedBox(width: 5.w),
+                      Countdown(
+                        animation: StepTween(
+                          begin: levelClock, // THIS IS A USER ENTERED NUMBER
+                          end: 0,
+                        ).animate(_controller),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 18.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't received the OTP ?",
+                        style: GoogleFonts.montserrat(
+                          color: const Color(0xFF0c355a),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13.sp,
+                        ),
+                      ),
+                      SizedBox(width: 5.w),
+                      RichText(
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'RESEND OTP',
+                              style: GoogleFonts.montserrat(
+                                color: const Color(0xFF0c355a),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15.sp,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  // resendOTPRequest();
+                                },
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 35.h),
+                  FormButtonWidget(
+                    formBtnTxt: 'VERIFY',
+                    onPressed: () {
+                      sendOTPRequest(reqFromCompany);
+                    },
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 35,
-              ),
-              FormButtonWidget(
-                formBtnTxt: 'VERIFY',
-                onPressed: () {
-                  sendOTPRequest(reqFromCompany);
-                },
-              ),
-            ]),
-          )
-        ]),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -260,10 +256,11 @@ class Countdown extends AnimatedWidget {
       '( $timerText )',
       textAlign: TextAlign.center,
       style: GoogleFonts.montserrat(
-          color: const Color(0xFF0c355a),
-          fontWeight: FontWeight.w700,
-          fontSize: 20.0,
-          letterSpacing: 0.5),
+        color: const Color(0xFF0c355a),
+        fontWeight: FontWeight.w700,
+        fontSize: 18.sp,
+        letterSpacing: 0.5.w,
+      ),
     );
   }
 }

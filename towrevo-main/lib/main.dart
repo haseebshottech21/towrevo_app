@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -92,46 +93,54 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (ctx) => SplashViewModel()),
         ChangeNotifierProvider(create: (ctx) => PaymentViewModel()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Towrevo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      child: ScreenUtilInit(
+        builder: (context) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Towrevo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: getScreen(),
+          // home: RegistrationOTPScreen(),
+          routes: {
+            RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
+            LoginScreen.routeName: (ctx) => const LoginScreen(),
+            RegistrationNameAndDescScreen.routeName: (ctx) =>
+                const RegistrationNameAndDescScreen(),
+            RegistrationCredentialScreen.routeName: (ctx) =>
+                const RegistrationCredentialScreen(),
+            RegistrationCategoryAndTimingScreen.routeName: (ctx) =>
+                const RegistrationCategoryAndTimingScreen(),
+            UserMonthlyPaymentScreen.routeName: (ctx) =>
+                const UserMonthlyPaymentScreen(),
+            CompanyPaymentScreen.routeName: (ctx) =>
+                const CompanyPaymentScreen(),
+            RegistrationOTPScreen.routeName: (ctx) =>
+                const RegistrationOTPScreen(),
+            CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
+            RegisterUserScreen.routeName: (ctx) => const RegisterUserScreen(),
+            UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),
+            ListingOfCompaniesScreen.routeName: (ctx) =>
+                const ListingOfCompaniesScreen(),
+            DistanceScreen.routeName: (ctx) => const DistanceScreen(),
+            UserLocationScreen.routeName: (ctx) => const UserLocationScreen(),
+            AboutUsScreen.routeName: (ctx) => const AboutUsScreen(),
+            FAQs.routeName: (ctx) => const FAQs(),
+            ChangePasswordScreen.routeName: (ctx) =>
+                const ChangePasswordScreen(),
+            TermAndCondition.routeName: (ctx) => const TermAndCondition(),
+            CompanyHistoryScreen.routeName: (ctx) =>
+                const CompanyHistoryScreen(),
+            UserHistoryTow.routeName: (ctx) => const UserHistoryTow(),
+            ForgotPasswordScreen.routeName: (ctx) =>
+                const ForgotPasswordScreen(),
+            ForgotPasswordOTPScreen.routeName: (ctx) =>
+                const ForgotPasswordOTPScreen(),
+            UpdateProfile.routeName: (ctx) => const UpdateProfile(),
+            ContactUs.routeName: (ctx) => const ContactUs(),
+          },
         ),
-        home: getScreen(),
-        routes: {
-          RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
-          LoginScreen.routeName: (ctx) => const LoginScreen(),
-          RegistrationNameAndDescScreen.routeName: (ctx) =>
-              const RegistrationNameAndDescScreen(),
-          RegistrationCredentialScreen.routeName: (ctx) =>
-              const RegistrationCredentialScreen(),
-          RegistrationCategoryAndTimingScreen.routeName: (ctx) =>
-              const RegistrationCategoryAndTimingScreen(),
-          UserMonthlyPaymentScreen.routeName: (ctx) =>
-              const UserMonthlyPaymentScreen(),
-          CompanyPaymentScreen.routeName: (ctx) => const CompanyPaymentScreen(),
-          RegistrationOTPScreen.routeName: (ctx) =>
-              const RegistrationOTPScreen(),
-          CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
-          RegisterUserScreen.routeName: (ctx) => const RegisterUserScreen(),
-          UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),
-          ListingOfCompaniesScreen.routeName: (ctx) =>
-              const ListingOfCompaniesScreen(),
-          DistanceScreen.routeName: (ctx) => const DistanceScreen(),
-          UserLocationScreen.routeName: (ctx) => const UserLocationScreen(),
-          AboutUsScreen.routeName: (ctx) => const AboutUsScreen(),
-          FAQs.routeName: (ctx) => const FAQs(),
-          ChangePasswordScreen.routeName: (ctx) => const ChangePasswordScreen(),
-          TermAndCondition.routeName: (ctx) => const TermAndCondition(),
-          CompanyHistoryScreen.routeName: (ctx) => const CompanyHistoryScreen(),
-          UserHistoryTow.routeName: (ctx) => const UserHistoryTow(),
-          ForgotPasswordScreen.routeName: (ctx) => const ForgotPasswordScreen(),
-          ForgotPasswordOTPScreen.routeName: (ctx) =>
-              const ForgotPasswordOTPScreen(),
-          UpdateProfile.routeName: (ctx) => const UpdateProfile(),
-          ContactUs.routeName: (ctx) => const ContactUs(),
-        },
+        designSize: const Size(360, 640),
       ),
     );
   }

@@ -37,7 +37,6 @@ export 'package:towrevo/widgets/drawer_profile.dart';
 export 'package:towrevo/widgets/drawer_widget.dart';
 export 'package:towrevo/widgets/empty_profile.dart';
 export 'package:towrevo/widgets/form_button_widget.dart';
-export 'package:towrevo/widgets/full_background_image.dart';
 export 'package:towrevo/widgets/job_completed_dailogbox.dart';
 export 'package:towrevo/widgets/payment_detail.dart';
 export 'package:towrevo/widgets/profile_image_circle.dart';

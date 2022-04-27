@@ -382,6 +382,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                       ),
                     ),
                     onPressed: () {
+                      
                       Navigator.of(context).pushNamed(
                         DistanceScreen.routeName,
                         arguments: {
