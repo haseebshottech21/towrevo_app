@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Container drawerIcon(
   BuildContext context,
   VoidCallback onPressed,
 ) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.05,
-    width: MediaQuery.of(context).size.width * 0.10,
+    height: 50.h,
+    width: ScreenUtil().screenWidth * 0.10,
     padding: const EdgeInsets.all(0.5),
     decoration: BoxDecoration(
       color: const Color(0xFF092848).withOpacity(0.5),
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(10.r),
     ),
     child: IconButton(
       padding: EdgeInsets.zero,
-      icon: const FaIcon(
+      icon: FaIcon(
         FontAwesomeIcons.bars,
         color: Colors.white,
-        size: 15.0,
+        size: 15.sp,
       ),
       onPressed: onPressed,
     ),

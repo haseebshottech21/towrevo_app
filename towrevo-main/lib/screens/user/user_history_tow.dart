@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserHistoryTow extends StatefulWidget {
   const UserHistoryTow({Key? key}) : super(key: key);
@@ -49,37 +50,38 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
                       }),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 40, left: 45),
+                      margin: EdgeInsets.only(top: 30.h, left: 45.w),
                       child: Text(
                         'MY HISTORY',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
-                          fontSize: 28.0,
-                          letterSpacing: 1,
+                          fontSize: 25.sp,
+                          letterSpacing: 1.w,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(width: 50),
+                // SizedBox(width: 50.w),
                 FadeInUp(
                   from: 40,
                   duration: const Duration(milliseconds: 500),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 5.0, vertical: 10.0),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.90,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 5.w,
+                      vertical: 10.h,
+                    ),
+                    width: ScreenUtil().screenWidth,
+                    height: ScreenUtil().screenHeight * 0.90,
                     child: Column(
                       children: [
                         (provider.isLoading || provider.userHistoryList.isEmpty)
                             ? Align(
                                 alignment: Alignment.center,
                                 child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.65,
+                                  height: ScreenUtil().screenHeight * 0.65,
                                   child: provider.isLoading
                                       ? circularProgress()
                                       : noDataImage(

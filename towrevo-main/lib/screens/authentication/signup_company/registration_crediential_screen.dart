@@ -6,6 +6,7 @@ import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegistrationCredentialScreen extends StatefulWidget {
   const RegistrationCredentialScreen({Key? key}) : super(key: key);
@@ -54,23 +55,18 @@ class _RegistrationCredentialScreenState
           }),
           Container(
             alignment: Alignment.center,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
             child: Form(
               key: _formKey,
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 55,
-                  ),
+                  SizedBox(height: 55.h),
                   FadeInDown(
                     from: 15,
                     delay: const Duration(milliseconds: 500),
                     child: const CompanySignUpTitle(),
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ),
+                  SizedBox(height: 40.h),
                   SizedBox(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -90,9 +86,7 @@ class _RegistrationCredentialScreenState
                             textInputType: TextInputType.emailAddress,
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         FadeInDown(
                           from: 25,
                           delay: const Duration(milliseconds: 570),
@@ -102,9 +96,7 @@ class _RegistrationCredentialScreenState
                             textEditingController: phoneNumberController,
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         Consumer<RegisterCompanyViewModel>(
                           builder:
                               (ctx, registerCompanyViewModel, neverBuildChild) {
@@ -124,9 +116,7 @@ class _RegistrationCredentialScreenState
                             );
                           },
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 8.h),
                         Consumer<RegisterCompanyViewModel>(builder:
                             (ctx, registerUserViewModel, neverBuildChild) {
                           return FadeInDown(
@@ -154,8 +144,8 @@ class _RegistrationCredentialScreenState
                     from: 35,
                     delay: const Duration(milliseconds: 650),
                     child: Container(
-                      margin: const EdgeInsets.only(top: 40),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(top: 40.h),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

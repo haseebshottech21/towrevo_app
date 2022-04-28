@@ -8,8 +8,8 @@ class TowrevoLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: 105.h,
-        width: 170.w,
+        height: 110.h,
+        width: ScreenUtil().screenWidth * 0.45,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/logo.png'),
@@ -28,8 +28,8 @@ class TowrevoLogoSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.15,
-        width: MediaQuery.of(context).size.width * 0.34,
+        height: 75.h,
+        width: ScreenUtil().screenWidth * 0.35,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/logo.png'),
@@ -48,8 +48,8 @@ class TowrevoLogoExtraSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.11,
-        width: MediaQuery.of(context).size.width * 0.27,
+        height: 85.h,
+        width: ScreenUtil().screenWidth * 0.35,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/logo.png'),

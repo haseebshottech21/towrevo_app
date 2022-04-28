@@ -10,6 +10,7 @@ import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ForgotPasswordOTPScreen extends StatefulWidget {
   const ForgotPasswordOTPScreen({Key? key}) : super(key: key);
@@ -82,44 +83,39 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
             Form(
               key: _formKey,
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 30.0,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.w,
+                  vertical: 30.h,
                 ),
                 child: Column(children: [
-                  const SizedBox(
-                    height: 5,
-                  ),
+                  SizedBox(height: 5.h),
                   const TowrevoLogo(),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 15.h),
                   Text(
                     'FORGOT PASSWORD \nVERIFICATION',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
-                      fontSize: 28.0,
+                      fontSize: 25.sp,
                       letterSpacing: 1,
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10.h),
                   Column(
                     children: [
                       Text(
                         'We have sent you an email with a code of the number',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
-                            color: const Color(0xFF0c355a),
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12.0,
-                            letterSpacing: 0.5),
+                          color: const Color(0xFF0c355a),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 11.sp,
+                          letterSpacing: 0.5.w,
+                        ),
                       ),
                       Text(
-                        'on this Email : $email',
+                        'on this Email : \n$email',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
                           color: const Color(0xFF0c355a),
@@ -130,35 +126,35 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  OTPTextField(
-                    length: 5,
-                    width: MediaQuery.of(context).size.width,
-                    textFieldAlignment: MainAxisAlignment.spaceAround,
-                    fieldWidth: 55,
-                    fieldStyle: FieldStyle.box,
-                    otpFieldStyle: OtpFieldStyle(
-                      backgroundColor: Colors.white,
-                    ),
-                    outlineBorderRadius: 10,
-                    style: GoogleFonts.montserrat(
+                  SizedBox(height: 15.h),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    child: OTPTextField(
+                      length: 5,
+                      width: MediaQuery.of(context).size.width,
+                      textFieldAlignment: MainAxisAlignment.spaceAround,
+                      fieldWidth: 55,
+                      fieldStyle: FieldStyle.box,
+                      otpFieldStyle: OtpFieldStyle(
+                        backgroundColor: Colors.white,
+                      ),
+                      outlineBorderRadius: 10,
+                      style: GoogleFonts.montserrat(
                         color: const Color(0xFF092e52),
                         fontWeight: FontWeight.w500,
-                        fontSize: 18.0,
-                        letterSpacing: 1.0),
-                    onChanged: (pin) {
-                      // print("Changed: " + pin);
-                    },
-                    onCompleted: (pin) {
-                      inputOTP = pin;
-                      // print(inputOTP);
-                    },
+                        fontSize: 18.sp,
+                        letterSpacing: 1.w,
+                      ),
+                      onChanged: (pin) {
+                        // print("Changed: " + pin);
+                      },
+                      onCompleted: (pin) {
+                        inputOTP = pin;
+                        // print(inputOTP);
+                      },
+                    ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  SizedBox(height: 15.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -166,14 +162,13 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                         'Expiring in',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
-                            color: const Color(0xFF0c355a),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14.0,
-                            letterSpacing: 0.5),
+                          color: const Color(0xFF0c355a),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          letterSpacing: 0.5.w,
+                        ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
+                      SizedBox(width: 5.w),
                       Countdown(
                         animation: StepTween(
                           begin: levelClock, // THIS IS A USER ENTERED NUMBER
@@ -182,9 +177,7 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 15.h),
                   Consumer<RegisterUserViewModel>(
                       builder: (ctx, registerUserViewModel, neverBuildChild) {
                     return TextFormIconWidget(
@@ -192,14 +185,15 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                       textEditingController: password,
                       obscureText: registerUserViewModel.obscurePassword,
                       hint: 'Password',
-                      prefixIcon: const Icon(FontAwesomeIcons.qrcode,
-                          color: Color(0xFF019aff), size: 20.0),
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.qrcode,
+                        color: Color(0xFF019aff),
+                        size: 20.0,
+                      ),
                       onPress: registerUserViewModel.toggleObscure,
                     );
                   }),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10.h),
                   Consumer<RegisterUserViewModel>(
                       builder: (ctx, registerUserViewModel, neverBuildChild) {
                     return TextFormIconWidget(
@@ -213,9 +207,7 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                       onPress: registerUserViewModel.toggleObscureConfirm,
                     );
                   }),
-                  const SizedBox(
-                    height: 25,
-                  ),
+                  SizedBox(height: 20.h),
                   FormButtonWidget(
                     formBtnTxt: 'VERIFY',
                     onPressed: () {
@@ -229,7 +221,7 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
               builder: (ctx, loginViewMode, neverUpdate) {
                 return loginViewMode.isLoading
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height,
+                        height: ScreenUtil().screenHeight,
                         child: circularProgress())
                     : const SizedBox();
               },

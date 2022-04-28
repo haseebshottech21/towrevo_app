@@ -9,6 +9,7 @@ import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utilities/utilities.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompanyItem extends StatelessWidget {
   final CompanyModel companyModel;
@@ -61,14 +62,18 @@ class CompanyItem extends StatelessWidget {
         elevation: 5,
         shadowColor: Colors.black,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(15.r),
         ),
-        margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
+        margin: EdgeInsets.only(
+          left: 10.w,
+          right: 10.w,
+          top: 10.h,
+        ),
         child: Padding(
-          padding: const EdgeInsets.only(
-            left: 15,
-            right: 10,
-            top: 15,
+          padding: EdgeInsets.only(
+            left: 12.w,
+            right: 12.w,
+            top: 12.h,
           ),
           child: Column(
             children: [
@@ -85,35 +90,42 @@ class CompanyItem extends StatelessWidget {
                             companyModel.from +
                                 ' - ' +
                                 companyModel.to +
-                                ' (${companyModel.distance})',
+                                ' ( ${companyModel.distance} )',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black87,
+                            ),
                           ),
                         ),
+                        SizedBox(height: 2.h),
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            // SizedBox(width: 5.w),
                             Container(
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 companyModel.email.isEmpty
                                     ? 'Request Company'
                                     : companyModel.firstName,
-                                style: const TextStyle(
-                                  fontSize: 20,
+                                style: TextStyle(
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            const Icon(
+                            SizedBox(width: 4.w),
+                            Icon(
                               Icons.star,
                               color: Colors.orangeAccent,
-                              size: 17,
+                              size: 18.sp,
                             ),
-                            const SizedBox(width: 2),
+                            SizedBox(width: 3.w),
                             Text(
                               companyModel.avgRating,
-                              style: const TextStyle(
-                                fontSize: 15,
+                              style: TextStyle(
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                             )
@@ -125,14 +137,14 @@ class CompanyItem extends StatelessWidget {
                   companyModel.image.isNotEmpty
                       ? companyModel.email.isEmpty
                           ? Container(
-                              height: 55,
-                              width: 55,
+                              height: 55.h,
+                              width: ScreenUtil().screenWidth * 0.10,
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Theme.of(context).primaryColor,
                                   width: 2.5,
                                 ),
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(50.r),
                               ),
                               child: ClipOval(
                                 child: ImageFiltered(
@@ -165,30 +177,28 @@ class CompanyItem extends StatelessWidget {
                         ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 8.h),
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(companyModel.description),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
+                padding: EdgeInsets.symmetric(vertical: 12.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Available',
                       style: TextStyle(
-                        fontSize: 17,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                         color: Colors.green[700],
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 10),
+                      padding: EdgeInsets.only(right: 10.w),
                       child: SizedBox(
-                        width: 75,
+                        width: 75.w,
                         // color: Colors.black,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -213,14 +223,12 @@ class CompanyItem extends StatelessWidget {
                                       color: companyModel.isCompanyAvailable
                                           ? primaryColor
                                           : Colors.grey,
-                                      size: 22,
+                                      size: 20.sp,
                                     ),
                                   ),
                             companyModel.email.isEmpty
                                 ? const SizedBox()
-                                : const SizedBox(
-                                    width: 20,
-                                  ),
+                                : SizedBox(width: 18.w),
                             IconButton(
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
@@ -235,7 +243,7 @@ class CompanyItem extends StatelessWidget {
                                 color: companyModel.isCompanyAvailable
                                     ? primaryColor
                                     : Colors.grey,
-                                size: 25,
+                                size: 22.sp,
                               ),
                             ),
                           ],

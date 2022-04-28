@@ -9,8 +9,8 @@ Padding backIcon(
   return Padding(
     padding: EdgeInsets.only(top: 30.h, left: 18.w),
     child: Container(
-      height: 30.h,
-      width: 35.w,
+      height: 32.h,
+      width: 36.w,
       padding: const EdgeInsets.all(0.5),
       decoration: BoxDecoration(
         color: const Color(0xFF092848).withOpacity(0.5),

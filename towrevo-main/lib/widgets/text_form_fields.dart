@@ -42,12 +42,12 @@ class TextFieldForAll extends StatelessWidget {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(30.r),
         ),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.black87),
         prefixIcon: Padding(
-          padding: const EdgeInsets.only(left: 20),
+          padding: EdgeInsets.only(left: 20.w),
           child: prefixIcon,
         ),
         prefixText: '  ',
@@ -99,17 +99,17 @@ class PhoneField extends StatelessWidget {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(30.r),
         ),
-        prefixIcon: const Padding(
-          padding: EdgeInsets.only(bottom: 2),
+        prefixIcon: Padding(
+          padding: EdgeInsets.only(bottom: 2.h),
           child: Center(
             widthFactor: 0.0,
             child: Padding(
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20.w),
               child: Text(
                 '  🇺🇸 +1 ',
-                style: TextStyle(fontSize: 15.5),
+                style: TextStyle(fontSize: 14.sp),
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DrawerProfile extends StatelessWidget {
   final Widget profileImage;
@@ -20,12 +21,12 @@ class DrawerProfile extends StatelessWidget {
     // Orientation orientation = MediaQuery.of(context).orientation;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      height: MediaQuery.of(context).size.height * 0.14,
+      padding: EdgeInsets.only(left: 10.w, right: 10.w),
+      height: ScreenUtil().screenHeight * 0.14,
       child: Row(
         children: [
           profileImage,
-          const SizedBox(width: 12),
+          SizedBox(width: 12.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -34,33 +35,34 @@ class DrawerProfile extends StatelessWidget {
                 profileName,
                 style: GoogleFonts.montserrat(
                   color: Colors.white,
-                  fontSize: 15,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 3),
+              SizedBox(height: 2.h),
               Container(
-                margin: const EdgeInsets.only(right: 12),
-                width: MediaQuery.of(context).size.width * 0.45,
+                margin: EdgeInsets.only(right: 12.w),
+                width: ScreenUtil().screenWidth * 0.43,
                 child: Text(
                   profileEmail,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.montserrat(
                     color: Colors.white,
-                    fontSize: 13,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
             ],
           ),
+          const Spacer(),
           GestureDetector(
             onTap: editOnPressed,
-            child: const FaIcon(
+            child: FaIcon(
               FontAwesomeIcons.edit,
               color: Colors.white,
-              size: 18,
+              size: 16.sp,
             ),
           )
         ],

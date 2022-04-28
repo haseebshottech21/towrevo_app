@@ -101,7 +101,7 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.blue,
           ),
           home: getScreen(),
-          // home: RegistrationOTPScreen(),
+          // home: ForgotPasswordOTPScreen(),
           routes: {
             RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
             LoginScreen.routeName: (ctx) => const LoginScreen(),

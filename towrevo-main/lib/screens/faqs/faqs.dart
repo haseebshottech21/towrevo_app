@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FAQs extends StatefulWidget {
   static const routeName = '/faqs';
@@ -73,36 +75,46 @@ class _FAQsState extends State<FAQs> {
             ),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 20.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+                vertical: 12.h,
               ),
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  SizedBox(height: 20.h),
                   FadeInDown(
                     duration: const Duration(milliseconds: 600),
                     child: const TowrevoLogoSmall(),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(height: 12.h),
+                  FadeInDown(
+                    duration: const Duration(milliseconds: 650),
+                    child: Text(
+                      'FAQ\'s',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 25.sp,
+                        letterSpacing: 1.w,
+                      ),
+                    ),
                   ),
+                  SizedBox(height: 6.h),
                   FadeInUp(
                     duration: const Duration(milliseconds: 600),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5.0,
-                        vertical: 5.0,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 5.w,
+                        vertical: 5.h,
                       ),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.80,
+                      width: ScreenUtil().screenWidth,
+                      height: ScreenUtil().screenHeight * 0.80,
                       child: Column(
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.75,
+                            width: ScreenUtil().screenWidth,
+                            height: ScreenUtil().screenHeight * 0.75,
                             child: ListView.builder(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
@@ -119,7 +131,8 @@ class _FAQsState extends State<FAQs> {
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 6.h),
                 ],
               ),
             ),

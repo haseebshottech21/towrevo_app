@@ -12,6 +12,7 @@ import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import '/error_getter.dart';
 import 'package:towrevo/screens/screens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);
@@ -137,8 +138,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
     if (imagePicker.imagePath.isEmpty) {
       if (imagePicker.body['image'] != null) {
         return ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(20),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.r),
           ),
           child: Image.network(
             Utilities.imageBaseUrl + imagePicker.body['image'].toString(),
@@ -240,42 +241,36 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       }),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 40, left: 45),
+                      margin: EdgeInsets.only(top: 30.h, left: 25.w),
                       child: Text(
-                        'EDIT PROFILE',
+                        'UPDATE PROFILE',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
-                          fontSize: 28.0,
-                          letterSpacing: 1,
+                          fontSize: 25.sp,
+                          letterSpacing: 1.w,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                SizedBox(height: 12.h),
                 provider.isLoading
                     ? Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.7,
+                          height: ScreenUtil().screenHeight * 0.7,
                           child: circularProgress(),
                         ),
                       )
                     : Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 13.w),
                         child: Form(
                           key: _formKey,
                           child: Column(
                             children: [
-                              const SizedBox(
-                                height: 5,
-                              ),
+                              SizedBox(height: 5.h),
                               Consumer<EditProfileViewModel>(
                                   builder: (ctx, imagePicker, neverBuildChild) {
                                 // print(imagePicker.body['image']);
@@ -289,30 +284,30 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     child: Stack(
                                       children: [
                                         Container(
-                                          width: 120,
-                                          height: 120,
+                                          width: 120.w,
+                                          height: 105.h,
                                           decoration: BoxDecoration(
                                             color: const Color(0xFF09365f),
                                             borderRadius:
-                                                BorderRadius.circular(20.0),
+                                                BorderRadius.circular(10.r),
                                           ),
                                           child: image(imagePicker),
                                         ),
                                         Positioned(
-                                          left: 85,
-                                          top: 85,
+                                          left: 85.w,
+                                          top: 75.h,
                                           child: Container(
-                                            width: 35,
-                                            height: 35,
+                                            width: 35.w,
+                                            height: 30.h,
                                             decoration: BoxDecoration(
                                               color: const Color(0xFF019aff),
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
                                             ),
-                                            child: const Icon(
+                                            child: Icon(
                                               FontAwesomeIcons.camera,
                                               color: Colors.white,
-                                              size: 18.0,
+                                              size: 17.sp,
                                             ),
                                           ),
                                         ),
@@ -321,9 +316,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   ),
                                 );
                               }),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              SizedBox(height: 20.h),
                               FadeInDown(
                                 from: 10,
                                 delay: const Duration(milliseconds: 650),
@@ -340,9 +333,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   textInputType: TextInputType.name,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              SizedBox(height: 8.h),
                               if (type == '1')
                                 FadeInDown(
                                   from: 20,
@@ -351,10 +342,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     errorGetter:
                                         ErrorGetter().lastNameErrorGetter,
                                     hintText: 'Last Name',
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       FontAwesomeIcons.userAlt,
-                                      color: Color(0xFF019aff),
-                                      size: 20.0,
+                                      color: const Color(0xFF019aff),
+                                      size: 18.sp,
                                     ),
                                     textEditingController: lastNameController,
                                     textInputType: TextInputType.name,
@@ -368,37 +359,33 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     errorGetter: ErrorGetter()
                                         .companyDescriptionErrorGetter,
                                     hintText: 'Company Description',
-                                    prefixIcon: const Icon(
+                                    prefixIcon: Icon(
                                       FontAwesomeIcons.solidBuilding,
-                                      color: Color(0xFF019aff),
-                                      size: 20.0,
+                                      color: const Color(0xFF019aff),
+                                      size: 18.sp,
                                     ),
                                     textEditingController:
                                         descriptionController,
                                   ),
                                 ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              SizedBox(height: 8.h),
                               FadeInDown(
                                 from: 25,
                                 delay: const Duration(milliseconds: 690),
                                 child: TextFieldForAll(
                                   errorGetter: ErrorGetter().emailErrorGetter,
                                   hintText: 'Email Address',
-                                  prefixIcon: const Icon(
+                                  prefixIcon: Icon(
                                     FontAwesomeIcons.solidEnvelopeOpen,
-                                    color: Color(0xFF019aff),
-                                    size: 20.0,
+                                    color: const Color(0xFF019aff),
+                                    size: 18.sp,
                                   ),
                                   textEditingController: emailController,
                                   fieldDisable: true,
                                   textInputType: TextInputType.emailAddress,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              SizedBox(height: 8.h),
                               FadeInDown(
                                 from: 30,
                                 delay: const Duration(milliseconds: 710),
@@ -410,32 +397,34 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   textEditingController: phoneNumberController,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              SizedBox(height: 8.h),
                               if (type == '2')
                                 Consumer<GetLocationViewModel>(builder:
                                     (ctx, getLocation, neverBuildChild) {
+                                  // print(getLocation.getAddress);
                                   return InkWell(
                                     onTap: () async {
+                                      // Navigator.of(context).pushNamed(
+                                      //   GetLocationScreen.routeName,
+                                      // );
                                       Navigator.of(context).pushNamed(
                                         UserLocationScreen.routeName,
                                         arguments: true,
                                       );
                                     },
                                     child: FadeInDown(
-                                      from: 35,
-                                      delay: const Duration(milliseconds: 730),
+                                      from: 20,
+                                      delay: const Duration(milliseconds: 550),
                                       child: Container(
                                         height: getLocation.getMyAddress.isEmpty
-                                            ? 50
+                                            ? 50.h
                                             : null,
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 15),
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(30),
+                                            Radius.circular(30.r),
                                           ),
                                         ),
                                         child: Row(
@@ -448,31 +437,33 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                                   Icons.location_on,
                                                   color: Color(0xFF019aff),
                                                 ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    vertical: 8,
-                                                  ),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.65,
-                                                  child: Text(
-                                                    getLocation.getMyAddress
-                                                            .isEmpty
-                                                        ? 'Get Location'
-                                                        : getLocation
-                                                            .getMyAddress,
-                                                    style:
-                                                        GoogleFonts.montserrat(
-                                                      color: Colors.black,
+                                                SizedBox(width: 10.w),
+                                                Center(
+                                                  child: Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    height: 50.h,
+                                                    // padding: const EdgeInsets.symmetric(
+                                                    //   vertical: 8,
+                                                    // ),
+                                                    width: ScreenUtil()
+                                                            .screenWidth *
+                                                        0.65,
+                                                    child: Text(
+                                                      getLocation.getMyAddress
+                                                              .isEmpty
+                                                          ? 'Get Company Location'
+                                                          : getLocation
+                                                              .getMyAddress,
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                        color: Colors.black,
+                                                      ),
+                                                      maxLines: 2,
+                                                      // textAlign: TextAlign.center,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                     ),
-                                                    maxLines: 3,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                               ],
@@ -487,10 +478,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     ),
                                   );
                                 }),
-                              if (type == '2')
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                              if (type == '2') SizedBox(height: 10.h),
                               if (type == '2')
                                 Consumer<EditProfileViewModel>(
                                   builder: (ctx, timer, neverBuildChild) {
@@ -503,13 +491,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         delay:
                                             const Duration(milliseconds: 750),
                                         child: Container(
-                                          height: 50,
+                                          height: 50.h,
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 15),
-                                          decoration: const BoxDecoration(
+                                          decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.all(
-                                              Radius.circular(30),
+                                              Radius.circular(30.r),
                                             ),
                                           ),
                                           child: Row(
@@ -518,25 +506,22 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  const Icon(
+                                                  Icon(
                                                     FontAwesomeIcons.solidClock,
-                                                    color: Color(0xFF019aff),
-                                                    size: 20.0,
+                                                    color:
+                                                        const Color(0xFF019aff),
+                                                    size: 20.sp,
                                                   ),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
+                                                  SizedBox(width: 10.w),
                                                   Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      vertical: 8,
-                                                      horizontal: 5,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      vertical: 8.h,
+                                                      horizontal: 5.w,
                                                     ),
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.65,
+                                                    width: ScreenUtil()
+                                                            .screenWidth *
+                                                        0.65,
                                                     child: Text(
                                                       (timer.timerValues[
                                                                       'fromUtilize'] !=
@@ -564,10 +549,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     );
                                   },
                                 ),
-                              if (type == '2')
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                              if (type == '2') SizedBox(height: 8.h),
                               if (type == '2')
                                 Consumer<ServicesAndDaysViewModel>(
                                   builder: (ctx, days, neverBuildChild) {
@@ -580,13 +562,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         delay:
                                             const Duration(milliseconds: 770),
                                         child: Container(
-                                          height: 50,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 15),
-                                          decoration: const BoxDecoration(
+                                          height: 50.h,
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15.w,
+                                          ),
+                                          decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.all(
-                                              Radius.circular(30),
+                                              Radius.circular(30.r),
                                             ),
                                           ),
                                           child: Row(
@@ -595,25 +578,22 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  const Icon(
+                                                  Icon(
                                                     FontAwesomeIcons.solidClock,
-                                                    color: Color(0xFF019aff),
-                                                    size: 20.0,
+                                                    color:
+                                                        const Color(0xFF019aff),
+                                                    size: 20.sp,
                                                   ),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
+                                                  SizedBox(width: 10.w),
                                                   Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                      vertical: 8,
-                                                      horizontal: 5,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      vertical: 8.h,
+                                                      horizontal: 5.w,
                                                     ),
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.65,
+                                                    width: ScreenUtil()
+                                                            .screenWidth *
+                                                        0.65,
                                                     child: Text(
                                                       days.getDays(),
                                                       style: GoogleFonts
@@ -634,7 +614,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     );
                                   },
                                 ),
-                              if (type == '2') const SizedBox(height: 10),
+                              if (type == '2') SizedBox(height: 8.h),
                               if (type == '2')
                                 Consumer<ServicesAndDaysViewModel>(builder:
                                     (ctx, categories, neverBuildChild) {
@@ -646,14 +626,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       from: 50,
                                       delay: const Duration(milliseconds: 800),
                                       child: Container(
-                                        height: 55,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 15,
+                                        height: 55.h,
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 15.w,
                                         ),
-                                        decoration: const BoxDecoration(
+                                        decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.all(
-                                            Radius.circular(30),
+                                            Radius.circular(30.r),
                                           ),
                                         ),
                                         child: Row(
@@ -666,9 +646,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                                   Icons.category_outlined,
                                                   color: Color(0xFF019aff),
                                                 ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
+                                                SizedBox(width: 10.w),
                                                 Text(
                                                   categories.getService(),
                                                   style: GoogleFonts.montserrat(
@@ -696,11 +674,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   builder: (ctx, registerUserViewModel,
                                       neverBuildChild) {
                                     return Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 3),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w,
+                                        vertical: 3.h,
+                                      ),
                                       decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(28),
+                                              BorderRadius.circular(28.r),
                                           color: Colors.white,
                                           border: Border.all(
                                               color: Colors.black45)),
@@ -733,9 +713,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   },
                                 ),
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              SizedBox(height: 10.h),
                               FadeInDown(
                                 from: 60,
                                 delay: const Duration(milliseconds: 700),
@@ -743,54 +721,56 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   builder: (ctx, registerUserViewModel,
                                       neverBuildChild) {
                                     return Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 3),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w,
+                                        vertical: 3.h,
+                                      ),
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(28),
-                                          color: Colors.white,
-                                          border: Border.all(
-                                              color: Colors.black45)),
+                                        borderRadius:
+                                            BorderRadius.circular(28.r),
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: Colors.black45,
+                                        ),
+                                      ),
                                       width: double.infinity,
                                       child: DropdownButton(
-                                          icon: const Icon(
-                                            Icons.location_city,
-                                            // size: 18,
-                                            color: Color(0xFF019aff),
-                                          ),
-                                          underline: const SizedBox(),
-                                          isExpanded: true,
-                                          hint: const Text(
-                                            'Select City',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                          value: registerUserViewModel
-                                              .selectedCity,
-                                          onChanged: (val) =>
-                                              registerUserViewModel
-                                                  .changeCity(val.toString()),
-                                          items: (registerUserViewModel
-                                                          .selectedState ==
-                                                      null
-                                                  ? []
-                                                  : usCityState[
-                                                          registerUserViewModel
-                                                              .selectedState]
-                                                      as List<String>)
-                                              .map((city) {
-                                            return DropdownMenuItem(
-                                              child: Text(city),
-                                              value: city,
-                                            );
-                                          }).toList()),
+                                        icon: const Icon(
+                                          Icons.location_city,
+                                          // size: 18,
+                                          color: Color(0xFF019aff),
+                                        ),
+                                        underline: const SizedBox(),
+                                        isExpanded: true,
+                                        hint: const Text(
+                                          'Select City',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        value:
+                                            registerUserViewModel.selectedCity,
+                                        onChanged: (val) =>
+                                            registerUserViewModel
+                                                .changeCity(val.toString()),
+                                        items: (registerUserViewModel
+                                                        .selectedState ==
+                                                    null
+                                                ? []
+                                                : usCityState[
+                                                        registerUserViewModel
+                                                            .selectedState]
+                                                    as List<String>)
+                                            .map((city) {
+                                          return DropdownMenuItem(
+                                            child: Text(city),
+                                            value: city,
+                                          );
+                                        }).toList(),
+                                      ),
                                     );
                                   },
                                 ),
                               ),
-                              const SizedBox(
-                                height: 30,
-                              ),
+                              SizedBox(height: 30.h),
                               FadeInUp(
                                 from: 20,
                                 duration: const Duration(milliseconds: 1200),
@@ -805,9 +785,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   },
                                 ),
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              SizedBox(height: 20.h),
                             ],
                           ),
                         ),

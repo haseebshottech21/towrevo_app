@@ -11,6 +11,7 @@ import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/screens/screens.dart';
 import '../../../utilities/state_city_utility.dart';
 import '../../../utilities/towrevo_appcolor.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegistrationCategoryAndTimingScreen extends StatefulWidget {
   const RegistrationCategoryAndTimingScreen({Key? key}) : super(key: key);
@@ -41,9 +42,9 @@ class _RegistrationCategoryAndTimingScreenState
       context: context,
       builder: (_) {
         return AlertDialog(
-          shape: const RoundedRectangleBorder(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(15.0),
+              Radius.circular(15.r),
             ),
           ),
           title: Row(
@@ -99,9 +100,9 @@ class _RegistrationCategoryAndTimingScreenState
       barrierDismissible: false,
       builder: (_) {
         return AlertDialog(
-          shape: const RoundedRectangleBorder(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(15.0),
+              Radius.circular(15.r),
             ),
           ),
           title: Row(
@@ -207,20 +208,15 @@ class _RegistrationCategoryAndTimingScreenState
           }),
           Container(
             alignment: Alignment.center,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
             child: Column(children: [
-              const SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20.h),
               FadeInDown(
                 from: 15,
                 delay: const Duration(milliseconds: 500),
                 child: const CompanySignUpTitle(),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 18.h),
               SizedBox(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -243,12 +239,12 @@ class _RegistrationCategoryAndTimingScreenState
                           delay: const Duration(milliseconds: 550),
                           child: Container(
                             height:
-                                getLocation.getMyAddress.isEmpty ? 50 : null,
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            decoration: const BoxDecoration(
+                                getLocation.getMyAddress.isEmpty ? 50.h : null,
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
+                            decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.all(
-                                Radius.circular(30),
+                                Radius.circular(30.r),
                               ),
                             ),
                             child: Row(
@@ -260,17 +256,15 @@ class _RegistrationCategoryAndTimingScreenState
                                       Icons.location_on,
                                       color: primaryColors,
                                     ),
-                                    const SizedBox(width: 10),
+                                    SizedBox(width: 10.w),
                                     Center(
                                       child: Container(
                                         alignment: Alignment.centerLeft,
-                                        height: 50,
+                                        height: 40.h,
                                         // padding: const EdgeInsets.symmetric(
                                         //   vertical: 8,
                                         // ),
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.65,
+                                        width: ScreenUtil().screenWidth * 0.65,
                                         child: Text(
                                           getLocation.getMyAddress.isEmpty
                                               ? 'Get Company Location'
@@ -296,9 +290,7 @@ class _RegistrationCategoryAndTimingScreenState
                         ),
                       );
                     }),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 8.h),
                     Consumer<RegisterCompanyViewModel>(
                       builder: (ctx, timer, neverBuildChild) {
                         return InkWell(
@@ -309,13 +301,12 @@ class _RegistrationCategoryAndTimingScreenState
                             from: 25,
                             delay: const Duration(milliseconds: 570),
                             child: Container(
-                              height: 50,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              decoration: const BoxDecoration(
+                              height: 40.h,
+                              padding: EdgeInsets.symmetric(horizontal: 15.w),
+                              decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(30),
+                                  Radius.circular(30.r),
                                 ),
                               ),
                               child: Row(
@@ -329,17 +320,13 @@ class _RegistrationCategoryAndTimingScreenState
                                         color: Color(0xFF019aff),
                                         size: 20.0,
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
+                                      SizedBox(width: 10.w),
                                       Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 8,
-                                          horizontal: 5,
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: 8.h,
+                                          horizontal: 5.w,
                                         ),
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.65,
+                                        width: ScreenUtil().screenWidth * 0.65,
                                         child: Text(
                                           (timer.timerValues['from'] != '' ||
                                                   timer.timerValues['to'] != '')
@@ -361,9 +348,7 @@ class _RegistrationCategoryAndTimingScreenState
                         );
                       },
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 8.h),
                     Consumer<ServicesAndDaysViewModel>(
                       builder: (ctx, days, neverBuildChild) {
                         return InkWell(
@@ -374,13 +359,12 @@ class _RegistrationCategoryAndTimingScreenState
                             from: 25,
                             delay: const Duration(milliseconds: 570),
                             child: Container(
-                              height: 50,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              decoration: const BoxDecoration(
+                              height: 40.h,
+                              padding: EdgeInsets.symmetric(horizontal: 15.w),
+                              decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(30),
+                                  Radius.circular(30.r),
                                 ),
                               ),
                               child: Row(
@@ -394,17 +378,13 @@ class _RegistrationCategoryAndTimingScreenState
                                         color: Color(0xFF019aff),
                                         size: 20.0,
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
+                                      SizedBox(width: 10.w),
                                       Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 8,
-                                          horizontal: 5,
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: 8.h,
+                                          horizontal: 5.w,
                                         ),
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.65,
+                                        width: ScreenUtil().screenWidth * 0.65,
                                         child: Text(
                                           days.getDays(),
                                           style: GoogleFonts.montserrat(
@@ -423,9 +403,7 @@ class _RegistrationCategoryAndTimingScreenState
                         );
                       },
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 8.h),
                     Consumer<ServicesAndDaysViewModel>(
                         builder: (ctx, categories, neverBuildChild) {
                       return InkWell(
@@ -436,12 +414,12 @@ class _RegistrationCategoryAndTimingScreenState
                           from: 30,
                           delay: const Duration(milliseconds: 590),
                           child: Container(
-                            height: 55,
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            decoration: const BoxDecoration(
+                            height: 40.h,
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
+                            decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.all(
-                                Radius.circular(30),
+                                Radius.circular(30.r),
                               ),
                             ),
                             child: Row(
@@ -453,9 +431,7 @@ class _RegistrationCategoryAndTimingScreenState
                                       Icons.category_outlined,
                                       color: primaryColors,
                                     ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
+                                    SizedBox(width: 10.w),
                                     Text(
                                       categories.getService(),
                                       style: GoogleFonts.montserrat(
@@ -474,21 +450,22 @@ class _RegistrationCategoryAndTimingScreenState
                         ),
                       );
                     }),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 8.h),
                     FadeInDown(
                       from: 70,
                       delay: const Duration(milliseconds: 700),
                       child: Consumer<RegisterCompanyViewModel>(
                         builder: (ctx, registerUserViewModel, neverBuildChild) {
                           return Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 3),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20.w,
+                              vertical: 3.h,
+                            ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(28),
-                                color: Colors.white,
-                                border: Border.all(color: Colors.black45)),
+                              borderRadius: BorderRadius.circular(28.r),
+                              color: Colors.white,
+                              border: Border.all(color: Colors.black45),
+                            ),
                             width: double.infinity,
                             child: DropdownButton(
                                 underline: const SizedBox(),
@@ -510,19 +487,19 @@ class _RegistrationCategoryAndTimingScreenState
                         },
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 8.h),
                     FadeInDown(
                       from: 70,
                       delay: const Duration(milliseconds: 700),
                       child: Consumer<RegisterCompanyViewModel>(
                         builder: (ctx, registerUserViewModel, neverBuildChild) {
                           return Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 3),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20.w,
+                              vertical: 3.h,
+                            ),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(28),
+                                borderRadius: BorderRadius.circular(28.r),
                                 color: Colors.white,
                                 border: Border.all(color: Colors.black45)),
                             width: double.infinity,
@@ -574,30 +551,29 @@ class _RegistrationCategoryAndTimingScreenState
                                 style: GoogleFonts.montserrat(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 12.0,
+                                  fontSize: 11.sp,
                                 ),
                               ),
-                              const SizedBox(
-                                width: 3,
-                              ),
+                              SizedBox(width: 3.w),
                               RichText(
                                 text: TextSpan(
                                   children: <TextSpan>[
                                     TextSpan(
-                                        text:
-                                            'Term & Condition and Privacy Policay',
-                                        style: GoogleFonts.montserrat(
-                                          color: AppColors.primaryColor,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12.0,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () =>
-                                              Navigator.of(context).pushNamed(
-                                                TermAndCondition.routeName,
-                                                arguments: true,
-                                              )),
+                                      text:
+                                          'Term & Condition and Privacy Policay',
+                                      style: GoogleFonts.montserrat(
+                                        color: AppColors.primaryColor,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10.sp,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () =>
+                                            Navigator.of(context).pushNamed(
+                                              TermAndCondition.routeName,
+                                              arguments: true,
+                                            ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -609,13 +585,13 @@ class _RegistrationCategoryAndTimingScreenState
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 8.h),
               FadeInDown(
                 from: 40,
                 delay: const Duration(milliseconds: 650),
                 child: Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.only(top: 15.h),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListingOfCompaniesScreen extends StatefulWidget {
   const ListingOfCompaniesScreen({Key? key}) : super(key: key);
@@ -31,17 +32,15 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                   backIcon(context, () {
                     Navigator.of(context).pop();
                   }),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 40),
+                  SizedBox(width: 20.w),
+                  Padding(
+                    padding: EdgeInsets.only(top: 30.h),
                     child: Text(
                       'Near By Companies',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
-                        fontSize: 22.0,
+                        fontSize: 20.sp,
                       ),
                     ),
                   )
@@ -51,11 +50,11 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                   ? Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.75,
+                        height: ScreenUtil().screenHeight * 0.75,
                         child: userHomeProvider.isLoading
-                            ? const GlowCircle(
-                                glowHeight: 50,
-                                glowWidth: 50,
+                            ? GlowCircle(
+                                glowHeight: 50.h,
+                                glowWidth: 50.w,
                                 glowbegin: 0,
                                 glowend: 100,
                                 miliseconds: 800,

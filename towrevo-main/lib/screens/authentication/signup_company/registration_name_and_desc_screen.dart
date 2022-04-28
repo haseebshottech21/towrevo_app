@@ -8,6 +8,7 @@ import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegistrationNameAndDescScreen extends StatefulWidget {
   const RegistrationNameAndDescScreen({Key? key}) : super(key: key);
@@ -54,25 +55,21 @@ class _RegistrationNameAndDescScreenState
             }),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 30.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+                vertical: 30.h,
               ),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 55,
-                    ),
+                    SizedBox(height: 50.h),
                     FadeInDown(
                       from: 15,
                       delay: const Duration(milliseconds: 500),
                       child: const CompanySignUpTitle(),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    SizedBox(height: 25.h),
                     SizedBox(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -89,22 +86,24 @@ class _RegistrationNameAndDescScreenState
                                 child: Stack(
                                   children: [
                                     Container(
-                                      width: 120,
-                                      height: 120,
+                                      width: 120.w,
+                                      height: 105.h,
                                       decoration: BoxDecoration(
                                         color: const Color(0xFF09365f),
                                         borderRadius:
-                                            BorderRadius.circular(20.0),
+                                            BorderRadius.circular(10.r),
                                       ),
                                       child: imagePicker.body['image'] == ''
-                                          ? Icon(FontAwesomeIcons.building,
+                                          ? Icon(
+                                              FontAwesomeIcons.building,
                                               color:
                                                   Colors.white.withOpacity(0.5),
-                                              size: 75.0)
+                                              size: 75.sp,
+                                            )
                                           : ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(20)),
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(10.r),
+                                              ),
                                               child: Image.file(
                                                 File(imagePicker.imagePath),
                                                 fit: BoxFit.fill,
@@ -112,20 +111,18 @@ class _RegistrationNameAndDescScreenState
                                             ),
                                     ),
                                     Positioned(
-                                      left: 85,
-                                      top: 85,
+                                      left: 85.w,
+                                      top: 75.h,
                                       child: Container(
-                                        width: 35,
-                                        height: 35,
+                                        width: 35.w,
+                                        height: 30.h,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFF019aff),
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(5.r),
                                         ),
-                                        child: const Icon(
-                                            FontAwesomeIcons.camera,
-                                            color: Colors.white,
-                                            size: 18.0),
+                                        child: Icon(FontAwesomeIcons.camera,
+                                            color: Colors.white, size: 18.sp),
                                       ),
                                     ),
                                   ],
@@ -133,9 +130,7 @@ class _RegistrationNameAndDescScreenState
                               ),
                             );
                           }),
-                          const SizedBox(
-                            height: 20,
-                          ),
+                          SizedBox(height: 15.h),
                           FadeInDown(
                             from: 25,
                             delay: const Duration(milliseconds: 650),
@@ -151,9 +146,7 @@ class _RegistrationNameAndDescScreenState
                               textInputType: TextInputType.name,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 8.h),
                           FadeInDown(
                             from: 30,
                             delay: const Duration(milliseconds: 700),
@@ -177,8 +170,8 @@ class _RegistrationNameAndDescScreenState
                       from: 35,
                       delay: const Duration(milliseconds: 700),
                       child: Container(
-                        margin: const EdgeInsets.only(top: 40),
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        margin: EdgeInsets.only(top: 35.h),
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [

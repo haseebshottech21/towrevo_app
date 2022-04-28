@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:towrevo/models/models.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserHistoryList extends StatelessWidget {
   final UserHistoryModel userHistoryModel;
@@ -17,14 +18,14 @@ class UserHistoryList extends StatelessWidget {
         userHistoryModel.rating == null ? 0 : userHistoryModel.rating!.rate;
     return FadeInUp(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
         // height: MediaQuery.of(context).size.height * 0.16,
         width: MediaQuery.of(context).size.width,
         child: Card(
           elevation: 5,
           color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -40,19 +41,19 @@ class UserHistoryList extends StatelessWidget {
                           style: GoogleFonts.montserrat(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
-                            fontSize: 17.0,
+                            fontSize: 15.sp,
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        SizedBox(height: 5.h),
                         Text(
                           userHistoryModel.serviceName.toUpperCase(),
                           style: GoogleFonts.montserrat(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
-                            fontSize: 14.0,
+                            fontSize: 13.sp,
                           ),
                         ),
-                        const SizedBox(height: 15),
+                        SizedBox(height: 13.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: List.generate(
@@ -60,7 +61,7 @@ class UserHistoryList extends StatelessWidget {
                             (index) => Icon(
                               rating <= index ? Icons.star_outline : Icons.star,
                               color: Colors.amber,
-                              size: 18,
+                              size: 17.sp,
                             ),
                           ),
                         )
@@ -72,12 +73,12 @@ class UserHistoryList extends StatelessWidget {
                       style: GoogleFonts.montserrat(
                         color: Colors.black54,
                         fontWeight: FontWeight.w400,
-                        fontSize: 12.0,
+                        fontSize: 11.sp,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 5),
+                SizedBox(height: 5.h),
               ],
             ),
           ),

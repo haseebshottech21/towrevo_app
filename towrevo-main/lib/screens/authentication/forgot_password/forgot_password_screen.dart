@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -40,45 +41,37 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             }),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 30.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+                vertical: 30.h,
               ),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    // SizedBox(height: 5.h),
                     const TowrevoLogo(),
-                    const SizedBox(
-                      height: 45,
-                    ),
+                    SizedBox(height: 40.h),
                     Text(
                       'RESET PASSWORD',
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        fontSize: 25.0,
-                        letterSpacing: 1.2,
+                        fontSize: 22.sp,
+                        letterSpacing: 1.w,
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 12.h),
                     Text(
                       'Enter the email associated with your account and we\'ll send an email with instructions to reset your password.',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF0c355a),
                         fontWeight: FontWeight.w600,
-                        fontSize: 15.0,
+                        fontSize: 13.sp,
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20.h),
                     TextFieldForAll(
                       errorGetter: ErrorGetter().emailErrorGetter,
                       hintText: 'Email Address',
@@ -90,31 +83,27 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       textEditingController: _emailController,
                       textInputType: TextInputType.emailAddress,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10.h),
                     Text(
                       'Email sents to example@email.com',
                       textAlign: TextAlign.start,
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF0c355a),
                         fontWeight: FontWeight.w500,
-                        fontSize: 15.0,
+                        fontSize: 13.sp,
                       ),
                     ),
-                    const SizedBox(
-                      height: 50,
-                    ),
+                    SizedBox(height: 40.h),
                     Center(
                       child: InkWell(
                         onTap: () {
                           validateAndSendForgotPassword(context);
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.060,
-                          width: MediaQuery.of(context).size.width * 0.70,
+                          width: 300.w,
+                          height: 40.h,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25.0),
+                            borderRadius: BorderRadius.circular(25.r),
                             gradient: const LinearGradient(
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
@@ -130,8 +119,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 17.0,
-                                letterSpacing: 1.0,
+                                fontSize: 16.sp,
+                                letterSpacing: 1.w,
                               ),
                             ),
                           ),
@@ -146,8 +135,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               builder: (ctx, loginViewMode, neverUpdate) {
                 return loginViewMode.isLoading
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: circularProgress())
+                        height: ScreenUtil().screenHeight,
+                        child: circularProgress(),
+                      )
                     : const SizedBox();
               },
             )

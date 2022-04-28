@@ -9,6 +9,7 @@ import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import '../../../utilities/towrevo_appcolor.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);
@@ -48,8 +49,8 @@ class _ContactUsState extends State<ContactUs> {
       // drawer: const DrawerWidget(),
       body: SingleChildScrollView(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: ScreenUtil().screenHeight,
+          width: ScreenUtil().screenWidth,
           child: Stack(
             children: [
               const FullBackgroundImage(),
@@ -66,50 +67,47 @@ class _ContactUsState extends State<ContactUs> {
                         ),
                         Container(
                           margin: EdgeInsets.only(
-                              top: 40,
-                              left: Platform.isAndroid
-                                  ? screenSize.width * 0.15
-                                  : 50),
+                            top: 32.h,
+                            left: Platform.isAndroid
+                                ? screenSize.width * 0.10.w
+                                : 50.w,
+                          ),
                           child: Text(
                             'CONTACT US',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.montserrat(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: 28.0,
-                              letterSpacing: 1,
+                              fontSize: 25.sp,
+                              letterSpacing: 1.w,
                             ),
                           ),
                         ),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
                       child: Form(
                         key: _formKey,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
+                            SizedBox(height: 10.h),
                             const TowrevoLogoSmall(),
-                            const SizedBox(
-                              height: 15,
-                            ),
+                            SizedBox(height: 15.h),
                             Center(
                               child: Text(
                                 'PLEASE FILL THIS FORM!',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.montserrat(
                                   color: AppColors.primaryColor,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15.sp,
                                   letterSpacing: 0.5,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 12.h),
                             FadeInDown(
                               from: 15,
                               delay: const Duration(milliseconds: 670),
@@ -119,13 +117,13 @@ class _ContactUsState extends State<ContactUs> {
                                 prefixIcon: const Icon(
                                   FontAwesomeIcons.userAlt,
                                   color: Color(0xFF019aff),
-                                  size: 20.0,
+                                  size: 20,
                                 ),
                                 textEditingController: fullNameController,
                                 textInputType: TextInputType.name,
                               ),
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 6.h),
                             FadeInDown(
                               from: 25,
                               delay: const Duration(milliseconds: 710),
@@ -141,7 +139,7 @@ class _ContactUsState extends State<ContactUs> {
                                 textInputType: TextInputType.emailAddress,
                               ),
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 6.h),
                             FadeInDown(
                               from: 20,
                               delay: const Duration(milliseconds: 730),
@@ -156,7 +154,7 @@ class _ContactUsState extends State<ContactUs> {
                                 textEditingController: descriptionController,
                               ),
                             ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: 15.h),
                             FadeInUp(
                               from: 20,
                               duration: const Duration(milliseconds: 1200),
@@ -167,21 +165,21 @@ class _ContactUsState extends State<ContactUs> {
                                 },
                               ),
                             ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: 18.h),
                             SizedBox(
-                              height: 10.0,
+                              height: 10.h,
                               child: Center(
                                 child: Container(
                                   margin: const EdgeInsetsDirectional.only(
                                     start: 1.0,
                                     end: 1.0,
                                   ),
-                                  height: 2.0,
+                                  height: 1.5.h,
                                   color: AppColors.primaryColor,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 20),
+                            SizedBox(height: 20.h),
                             Consumer<SplashViewModel>(builder:
                                 (ctx, contactUsViewModel, neverUpdate) {
                               return contactUsViewModel.type == '2'
@@ -194,22 +192,22 @@ class _ContactUsState extends State<ContactUs> {
                                             style: GoogleFonts.montserrat(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 15.0,
-                                              letterSpacing: 0.5,
+                                              fontSize: 14.sp,
+                                              letterSpacing: 0.5.w,
                                             ),
                                           ),
                                         ),
-                                        const SizedBox(height: 5),
+                                        SizedBox(height: 5.h),
                                         Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 15,
-                                            vertical: 5,
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15.w,
+                                            vertical: 5.h,
                                           ),
                                           decoration: BoxDecoration(
                                             color: AppColors.primaryColor
                                                 .withOpacity(0.6),
                                             borderRadius:
-                                                BorderRadius.circular(30),
+                                                BorderRadius.circular(30.r),
                                           ),
                                           child: Text(
                                             '+1 (480) 406 5057',
@@ -217,12 +215,12 @@ class _ContactUsState extends State<ContactUs> {
                                             style: GoogleFonts.montserrat(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w500,
-                                              fontSize: 15.0,
-                                              letterSpacing: 0.5,
+                                              fontSize: 13.sp,
+                                              letterSpacing: 0.5.w,
                                             ),
                                           ),
                                         ),
-                                        const SizedBox(height: 25),
+                                        SizedBox(height: 22.h),
                                       ],
                                     )
                                   : const SizedBox();
@@ -234,23 +232,23 @@ class _ContactUsState extends State<ContactUs> {
                                 style: GoogleFonts.montserrat(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 15.0,
-                                  letterSpacing: 0.5,
+                                  fontSize: 14.sp,
+                                  letterSpacing: 0.5.w,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 5),
+                            SizedBox(height: 5.h),
                             Text(
                               'support@towrevo.com',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400,
-                                fontSize: 15.0,
-                                letterSpacing: 0.5,
+                                fontSize: 13.sp,
+                                letterSpacing: 0.5.w,
                               ),
                             ),
-                            const SizedBox(height: 25),
+                            SizedBox(height: 22.h),
                             Center(
                               child: Text(
                                 'ADDRESS:',
@@ -258,27 +256,27 @@ class _ContactUsState extends State<ContactUs> {
                                 style: GoogleFonts.montserrat(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 15.0,
-                                  letterSpacing: 0.5,
+                                  fontSize: 14.sp,
+                                  letterSpacing: 0.5.w,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 5),
+                            SizedBox(height: 5.h),
                             Text(
                               '711 West 43rd st Chicago IL 60609',
                               textAlign: TextAlign.center,
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400,
-                                fontSize: 15.0,
-                                letterSpacing: 0.5,
+                                fontSize: 13.sp,
+                                letterSpacing: 0.5.w,
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(height: 50),
+                    SizedBox(height: 50.h),
                   ],
                 ),
               )

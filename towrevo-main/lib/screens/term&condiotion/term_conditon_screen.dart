@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TermAndCondition extends StatefulWidget {
   static const routeName = '/terms-and-condition';
@@ -117,54 +119,50 @@ class _TermAndConditionState extends State<TermAndCondition> {
               }),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 20.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.h,
+                vertical: 20.w,
               ),
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  SizedBox(height: 25.h),
                   FadeInDown(
                     duration: const Duration(milliseconds: 600),
                     child: const TowrevoLogoSmall(),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  SizedBox(height: 15.h),
                   FadeInUp(
                     duration: const Duration(milliseconds: 600),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15.0,
-                        vertical: 5.0,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15.w,
+                        vertical: 5.h,
                       ),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.73,
+                      width: ScreenUtil().screenWidth,
+                      height: ScreenUtil().screenHeight * 0.75,
                       decoration: BoxDecoration(
                         color: const Color(0xFF092848).withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                       child: Column(
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.h),
                             child: Center(
                               child: Text(
                                 'Term & Condition \nPrivacy Policy',
-                                style: TextStyle(
+                                style: GoogleFonts.montserrat(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 25,
+                                  fontSize: 22.sp,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.60,
+                            width: ScreenUtil().screenWidth,
+                            height: ScreenUtil().screenHeight * 0.60,
                             child: ListView.builder(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
@@ -174,20 +172,17 @@ class _TermAndConditionState extends State<TermAndCondition> {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
+                                    SizedBox(height: 15.h),
                                     titleTermAndCond(
                                       termAndConditon[index]['title']
                                           .toString(),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
+                                    SizedBox(height: 5.h),
                                     descTermAndCond(
                                       termAndConditon[index]['description']
                                           .toString(),
                                     ),
+                                    SizedBox(height: 5.h),
                                   ],
                                 );
                               },
@@ -210,11 +205,11 @@ class _TermAndConditionState extends State<TermAndCondition> {
 Text titleTermAndCond(String title) {
   return Text(
     title,
-    style: const TextStyle(
+    style: GoogleFonts.montserrat(
       color: Colors.blue,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.italic,
-      fontSize: 23,
+      fontSize: 20.sp,
     ),
   );
 }
@@ -222,9 +217,11 @@ Text titleTermAndCond(String title) {
 Text descTermAndCond(String desc) {
   return Text(
     desc,
-    style: const TextStyle(
+    style: GoogleFonts.montserrat(
       color: Colors.white,
-      fontSize: 15,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.5.w,
+      fontSize: 13.sp,
     ),
   );
 }

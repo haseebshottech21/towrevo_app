@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/place_detail_model.dart';
 import 'package:towrevo/view_model/view_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserLocationScreen extends StatefulWidget {
   static const routeName = '/location-screen';
@@ -36,27 +37,30 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
     final placeViewModel =
         Provider.of<GetLocationViewModel>(context, listen: true);
     return Scaffold(
-
       body: Stack(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height,
+            height: ScreenUtil().screenHeight,
             width: double.infinity,
+            // width: ScreenUtil().screenWidth,
             child: const Gmap(),
           ),
           if (placeViewModel.placesList.isNotEmpty &&
               textSearchController.text.isNotEmpty)
             Container(
-              margin: const EdgeInsets.only(top: 120, left: 20, right: 20),
-
+              margin: EdgeInsets.only(
+                top: 90.h,
+                left: 20.w,
+                right: 20.w,
+              ),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.6),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
               ),
               width: double.infinity,
               child: ListView.builder(
                 physics: const ClampingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.symmetric(vertical: 10.h),
                 shrinkWrap: true,
                 itemCount: placeViewModel.placesList.length,
                 itemBuilder: (context, index) {
@@ -68,17 +72,15 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                       );
                     },
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: Container(
                         padding: const EdgeInsets.all(6),
-
-                        margin: const EdgeInsets.only(bottom: 5),
-                        decoration: const BoxDecoration(
-
+                        margin: EdgeInsets.only(bottom: 5.h),
+                        decoration: BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
                               color: Colors.white,
-                              width: 0.5,
+                              width: 0.5.w,
                             ),
                           ),
                         ),
@@ -89,13 +91,13 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                               color: Colors.white,
                               size: 22,
                             ),
-                            const SizedBox(width: 8),
+                            SizedBox(width: 8.w),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.7,
+                              width: ScreenUtil().screenWidth * 0.7,
                               child: Text(
                                 placeViewModel.placesList[index].description,
-                                style: const TextStyle(
-                                  fontSize: 15,
+                                style: TextStyle(
+                                  fontSize: 13.sp,
                                   color: Colors.white,
                                 ),
                               ),
@@ -109,11 +111,11 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
               ),
             ),
           Positioned(
-            top: 40,
-            right: 20,
-            left: 20,
+            top: 25.h,
+            right: 20.w,
+            left: 20.w,
             child: SizedBox(
-              height: 100,
+              height: 80.h,
               child: Row(
                 children: [
                   GestureDetector(
@@ -121,11 +123,11 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                       Navigator.of(context).pop();
                     },
                     child: Container(
-                      height: 45,
-                      width: 45,
+                      height: 38.h,
+                      width: 45.w,
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(5.r),
                       ),
                       child: const Icon(Icons.arrow_back),
                     ),
@@ -141,16 +143,16 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
             ),
           ),
           Positioned(
-            bottom: 40,
-            right: 15,
-            left: 15,
+            bottom: 25.h,
+            right: 15.w,
+            left: 15.w,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 70),
+              padding: EdgeInsets.symmetric(horizontal: 50.w),
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.90,
-                height: 40,
+                width: ScreenUtil().screenWidth * 0.80,
+                height: 35.h,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(15.r),
                   boxShadow: kElevationToShadow[10],
                   gradient: const LinearGradient(
                     begin: Alignment.bottomLeft,
@@ -166,13 +168,13 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                   style: ElevatedButton.styleFrom(
                     elevation: 10,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(15.r),
                     ),
                     shadowColor: Colors.transparent,
                     primary: Colors.transparent,
                     minimumSize: Size(
-                      MediaQuery.of(context).size.width * 0.90,
-                      40,
+                      ScreenUtil().screenWidth * 0.80,
+                      35.h,
                     ),
                   ),
                   onPressed: () {
@@ -182,10 +184,10 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                       placeViewModel.updatDestinationLoaction(context);
                     }
                   },
-                  child: const Text(
+                  child: Text(
                     'SAVE',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 17.sp,
                     ),
                   ),
                 ),
@@ -278,13 +280,13 @@ class LocationSearchBox extends StatelessWidget {
           fillColor: Colors.white,
           hintText: 'Enter Your Location',
           suffixIcon: const Icon(Icons.search),
-          contentPadding: const EdgeInsets.only(left: 20, bottom: 5, right: 5),
+          contentPadding: EdgeInsets.only(left: 15.w, bottom: 5.h, right: 5.w),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
             borderSide: const BorderSide(color: Colors.white),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
             borderSide: const BorderSide(color: Colors.white),
           ),
         ),

@@ -93,8 +93,8 @@ class RegisterMainScreen extends StatelessWidget {
                               ),
                             ),
                             child: SizedBox(
-                              width: 155.w,
-                              height: 190.h,
+                              width: ScreenUtil().screenWidth * 0.42,
+                              height: 195.h,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -152,8 +152,8 @@ class RegisterMainScreen extends StatelessWidget {
                               ),
                             ),
                             child: SizedBox(
-                              width: 155.w,
-                              height: 190.h,
+                              width: ScreenUtil().screenWidth * 0.42,
+                              height: 195.h,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

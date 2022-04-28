@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   static const routeName = '/change-password';
@@ -18,7 +19,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final passwordController = TextEditingController();
   final confirmPassword = TextEditingController();
 
-
   final _formKey = GlobalKey<FormState>();
 
   validateAndChangePassword(BuildContext context) {
@@ -29,44 +29,39 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           Provider.of<EditProfileViewModel>(context, listen: false);
 
       provider.changePassword(
-          passwordController.text.trim(), confirmPassword.text.trim(), context);
+        passwordController.text.trim(),
+        confirmPassword.text.trim(),
+        context,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  
       body: SingleChildScrollView(
         child: Stack(
           children: [
-           
             const FullBackgroundImage(),
-           
             Align(
               alignment: Alignment.topLeft,
               child: backIcon(context, () {
                 Navigator.of(context).pop();
               }),
             ),
-           
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 30.0,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.w,
+                vertical: 30.h,
               ),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 10.h),
                     const TowrevoLogo(),
-                    const SizedBox(
-                      height: 45,
-                    ),
+                    SizedBox(height: 45.h),
                     Text(
                       'CREATE NEW PASSWORD',
                       style: GoogleFonts.montserrat(
@@ -76,21 +71,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         letterSpacing: 1,
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 10.h),
                     Text(
                       'Your new password must be different from previous password',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF0c355a),
                         fontWeight: FontWeight.w600,
-                        fontSize: 15.0,
+                        fontSize: 14.sp,
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 25.h),
                     TextFormIconWidget(
                       errorGetter: ErrorGetter().passwordErrorGetter,
                       textEditingController: passwordController,
@@ -99,13 +90,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       prefixIcon: const Icon(
                         FontAwesomeIcons.qrcode,
                         color: Color(0xFF019aff),
-                        size: 20.0,
+                        size: 20,
                       ),
                       onPress: () {},
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 6.h),
                     TextFormIconWidget(
                       errorGetter: ErrorGetter().confirmPasswordErrorGetter,
                       confirmPassword: passwordController,
@@ -119,19 +108,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       onPress: () {},
                     ),
-                    const SizedBox(
-                      height: 50,
-                    ),
+                    SizedBox(height: 35.h),
                     Center(
                       child: InkWell(
                         onTap: () {
                           validateAndChangePassword(context);
                         },
                         child: Container(
-                          height: MediaQuery.of(context).size.height * 0.065,
-                          width: MediaQuery.of(context).size.width * 0.85,
+                          height: 40.h,
+                          width: ScreenUtil().screenWidth * 0.85,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25.0),
+                            borderRadius: BorderRadius.circular(25.r),
                             gradient: const LinearGradient(
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
@@ -147,8 +134,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 18.0,
-                                letterSpacing: 0.5,
+                                fontSize: 17.sp,
+                                letterSpacing: 0.5.w,
                               ),
                             ),
                           ),

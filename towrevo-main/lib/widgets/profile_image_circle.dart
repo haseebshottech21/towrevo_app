@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import '../utilities/towrevo_appcolor.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Container profileImageCircle(BuildContext context, String image) {
   return Container(
-    width: MediaQuery.of(context).size.height * 0.055,
-    height: MediaQuery.of(context).size.height * 0.055,
+    width: ScreenUtil().screenWidth * 0.12,
+    height: 40.h,
     decoration: BoxDecoration(
       border: Border.all(
         color: Theme.of(context).primaryColor,
         width: 2,
       ),
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(50.r),
       image: DecorationImage(
         image: NetworkImage(image),
         fit: BoxFit.cover,

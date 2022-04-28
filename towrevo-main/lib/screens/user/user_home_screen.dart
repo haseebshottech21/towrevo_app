@@ -11,6 +11,7 @@ import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 import '../../../utilities/towrevo_appcolor.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UsersHomeScreen extends StatefulWidget {
   const UsersHomeScreen({Key? key}) : super(key: key);
@@ -47,45 +48,43 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                 },
               ),
               Container(
-                margin: EdgeInsets.only(top: Platform.isIOS ? 25 : 15),
+                margin: EdgeInsets.only(top: Platform.isIOS ? 25.h : 15.h),
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                  vertical: 15.0,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.w,
+                  vertical: 15.h,
                 ),
                 child: Column(
                   children: [
                     const TowrevoLogoExtraSmall(),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     Text(
                       'PICKUP LOCATION',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
-                        fontSize: 30.0,
-                        letterSpacing: 2,
+                        fontSize: 26.sp,
+                        letterSpacing: 2.w,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 5.h),
                     Text(
                       'Just give access to your current location and choose the type of towing vehicle you need',
                       style: GoogleFonts.montserrat(
-                        fontSize: Platform.isIOS ? 13 : 15,
+                        fontSize: Platform.isIOS ? 11.sp : 13.sp,
                         fontWeight: FontWeight.w500,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: 12.h),
                     Container(
                       padding: EdgeInsets.symmetric(
-                        vertical: Platform.isIOS ? 20 : 15,
-                        horizontal: 10,
+                        vertical: Platform.isIOS ? 20.h : 15.h,
+                        horizontal: 10.w,
                       ),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(15.r),
                         boxShadow: kElevationToShadow[2],
                         gradient: const LinearGradient(
                           begin: Alignment.topLeft,
@@ -101,21 +100,19 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                         children: [
                           Row(
                             children: [
-                              const SizedBox(width: 5),
-                              const Icon(
+                              SizedBox(width: 5.w),
+                              Icon(
                                 FontAwesomeIcons.car,
                                 color: Colors.white,
-                                size: 20.0,
+                                size: 18.sp,
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 6.w),
                               Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                width: MediaQuery.of(context).size.width * 0.76,
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                width: ScreenUtil().screenWidth * 0.76,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10.r),
                                 ),
                                 child: Consumer<ServicesAndDaysViewModel>(
                                     builder: (ctx, service, neverBuildChild) {
@@ -125,7 +122,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                                         'Select Vehicle',
                                         style: GoogleFonts.montserrat(
                                           color: Colors.black54,
-                                          fontSize: 15,
+                                          fontSize: 13.sp,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -152,7 +149,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 8.h),
                           Consumer<GetLocationViewModel>(
                             builder: (ctx, getLocation, neverBuildChild) {
                               return FromToLocation(
@@ -179,19 +176,17 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                               );
                             },
                           ),
-                          const SizedBox(height: 10),
+                          SizedBox(height: 8.h),
                           DescribeProblemField(
                             describeController: describeController,
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    SizedBox(height: 13.h),
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30.r),
                         boxShadow: kElevationToShadow[1],
                         gradient: const LinearGradient(
                           begin: Alignment.bottomLeft,
@@ -209,13 +204,13 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+                            borderRadius: BorderRadius.circular(30.r),
                           ),
                           shadowColor: Colors.transparent,
                           primary: Colors.transparent,
                           minimumSize: Size(
-                            MediaQuery.of(context).size.width * 0.95,
-                            50,
+                            ScreenUtil().screenWidth,
+                            40.h,
                           ),
                         ),
                         child: Text(
@@ -223,8 +218,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                           style: GoogleFonts.montserrat(
                             color: Colors.white,
                             fontWeight: FontWeight.w400,
-                            fontSize: 20.0,
-                            letterSpacing: 1,
+                            fontSize: 20.sp,
+                            letterSpacing: 1.w,
                           ),
                         ),
                       ),
@@ -236,7 +231,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                 builder: (ctx, loginViewMode, neverUpdate) {
                   return loginViewMode.isLoading
                       ? SizedBox(
-                          height: MediaQuery.of(context).size.height,
+                          height: ScreenUtil().screenHeight,
                           child: circularProgress(),
                         )
                       : const SizedBox();

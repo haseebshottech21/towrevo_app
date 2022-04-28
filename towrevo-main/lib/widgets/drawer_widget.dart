@@ -7,6 +7,7 @@ import 'package:towrevo/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../view_model/view_model.dart';
 import 'package:towrevo/screens/screens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
@@ -94,7 +95,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                                       : 'Online',
                                   style: GoogleFonts.montserrat(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -108,11 +109,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           );
                   },
                 ),
-                const Divider(
-                  color: Colors.white,
-                ),
+                const Divider(color: Colors.white),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 18.w),
                   child: Column(
                     children: [
                       DrawerListItem(
@@ -172,7 +171,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         },
                       ),
                       Container(
-                        margin: const EdgeInsets.symmetric(vertical: 25),
+                        margin: EdgeInsets.symmetric(vertical: 20.h),
                         child: FormButtonWidget(
                           formBtnTxt: 'Logout',
                           onPressed: () {
@@ -184,8 +183,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       Center(
                         child: RichText(
                           text: TextSpan(
-                            style: const TextStyle(
-                              fontSize: 14.0,
+                            style: TextStyle(
+                              fontSize: 13.sp,
                               color: Colors.white,
                             ),
                             children: [
@@ -200,14 +199,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      const Center(
+                      SizedBox(height: 2.h),
+                      Center(
                         child: Text(
                           'All Rights Reserved',
                           style: TextStyle(
-                            fontSize: 14.0,
+                            fontSize: 13.sp,
                             color: Colors.white,
                           ),
                         ),
@@ -215,9 +212,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                SizedBox(height: 15.h),
                 InkWell(
                   onTap: () {
                     Navigator.of(context).pushNamed(
@@ -225,12 +220,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       arguments: false,
                     );
                   },
-                  child: const Center(
+                  child: Center(
                     child: Text(
                       'Term & Condition\nPrivacy Policy',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 15.0,
+                        fontSize: 14.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 0.5,
@@ -238,7 +233,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 12.h),
               ],
             )
           ],
