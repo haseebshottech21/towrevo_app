@@ -84,10 +84,12 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
       return;
     }
 
-    bool? loadedResponse = await companyWebService.paymentStatusCheckRequest();
-    if (loadedResponse != null) {
-      if (!loadedResponse) {
-        Navigator.of(context).pushNamed(CompanyPaymentScreen.routeName);
+    int? loadedResponseCode =
+        await companyWebService.paymentStatusCheckRequest();
+    if (loadedResponseCode != null) {
+      if (loadedResponseCode == 404 || loadedResponseCode == 401) {
+        Navigator.of(context).pushNamed(CompanyPaymentScreen.routeName,
+            arguments: loadedResponseCode);
       }
     }
   }
@@ -185,7 +187,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     changeLoadingStatus(true);
 
     final loadedResponse =
-        await companyWebService.payNowRequest(transactionId, amount,couponId);
+        await companyWebService.payNowRequest(transactionId, amount, couponId);
     if (loadedResponse != null) {
       await getRequests();
       Navigator.of(context).pop();

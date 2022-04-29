@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EmptyProfile extends StatelessWidget {
   const EmptyProfile({Key? key}) : super(key: key);
@@ -7,16 +8,16 @@ class EmptyProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      width: 50,
+      width: 45.w,
+      height: 40.h,
       decoration: BoxDecoration(
         boxShadow: kElevationToShadow[2],
         color: AppColors.primaryColor,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.r),
       ),
-      child: const Icon(
+      child: Icon(
         Icons.person,
-        size: 30,
+        size: 25.sp,
         color: Colors.white,
       ),
     );

@@ -28,20 +28,14 @@ class CompanyWebService {
     }
   }
 
-  Future<bool?> paymentStatusCheckRequest() async {
+  Future<int?> paymentStatusCheckRequest() async {
     try {
       final response = await http.get(
         Uri.parse(Utilities.baseUrl + 'company-payment'),
         headers: await Utilities().headerWithAuth(),
       );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return true;
-      } else if (response.statusCode == 404) {
-        return false;
-      } else {
-        return null;
-      }
+      return response.statusCode;
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
       return null;

@@ -44,7 +44,10 @@ class EditProfileViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getEditData(BuildContext context) async {
+  Future<void> getEditData(
+    BuildContext context,
+    TextEditingController descriptionController,
+  ) async {
     if (!(await Utilities().isInternetAvailable())) {
       return;
     }
@@ -58,12 +61,26 @@ class EditProfileViewModel with ChangeNotifier {
       selectedState = body['state'];
       selectedCity = body['city'];
       if (loadedData['type'] == '2') {
+        print(loadedData['company_info']['description']);
         final serviceProvider =
             Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-        await serviceProvider.getServices();
-
+        final registerCompanyViewModel =
+            Provider.of<RegisterCompanyViewModel>(context, listen: false);
         final getLocation =
             Provider.of<GetLocationViewModel>(context, listen: false);
+        await serviceProvider.getServices();
+
+        registerCompanyViewModel.updateDescription(
+            loadedData['company_info']['description'].toString());
+        if (loadedData['company_info']['description']
+            .toString()
+            .contains('Other')) {
+          descriptionController.text = loadedData['company_info']['description']
+              .toString()
+              .split('Other')
+              .last;
+        }
+
         getLocation.myCurrentLocation.placeLocation = LatLng(
           double.parse(loadedData['company_info']['latitude']),
           double.parse(loadedData['company_info']['longitude']),

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
@@ -60,10 +61,10 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
           // _controller.repeat();
         }
       } else {
-        Utilities().showToast('Please Fill Require Length');
+        Fluttertoast.showToast(msg: 'Please Fill Required Length');
       }
     } else {
-      Utilities().showToast('OTP is Expired, Please Resend it');
+      Fluttertoast.showToast(msg: 'OTP is Expired, Please Resend it');
     }
   }
 

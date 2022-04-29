@@ -42,7 +42,7 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
 
       paynow(context);
     } on StripeException catch (e) {
-      Utilities().showToast('${e.error.localizedMessage}');
+      Fluttertoast.showToast(msg: '${e.error.localizedMessage}');
     }
   }
 
@@ -98,6 +98,9 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final int statusCode = ModalRoute.of(context)!.settings.arguments as int;
+    //404 mean first time, 401 means expired subscription
+    print(statusCode);
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(

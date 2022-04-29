@@ -67,7 +67,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
 
       paynow(context, amount, couponId);
     } on StripeException catch (e) {
-      Utilities().showToast('${e.error.localizedMessage}');
+      Fluttertoast.showToast(msg: '${e.error.localizedMessage}');
     }
   }
 
@@ -131,6 +131,9 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
   Widget build(BuildContext context) {
     final paymentViewModel =
         Provider.of<PaymentViewModel>(context, listen: false);
+    final int statusCode = ModalRoute.of(context)!.settings.arguments as int;
+    //404 mean first time , 401 means expired subscription
+    print(statusCode);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -159,16 +162,30 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                     height: 70,
                   ),
                   Text(
-                    'MONTHLY SUBSCRIBTION',
+                    statusCode == 401
+                        ? 'MONTHLY SUBSCRIBTION EXPIRED'
+                        : 'MONTHLY SUBSCRIBTION',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
-                      fontSize: 28.0,
+                      fontSize: statusCode == 401 ? 20.0 : 28.0,
                       letterSpacing: 1.5,
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: Text(
+                      'Payment expired, please renew it.',
+                      style: GoogleFonts.montserrat(
+                        color: AppColors.primaryColor,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   Center(
                     child: ElevatedButton(
                       onPressed: () {

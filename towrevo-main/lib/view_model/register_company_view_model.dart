@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/main.dart';
+import 'package:towrevo/models/service_description.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/authentication.dart';
 import '../utilities/utilities.dart';
@@ -14,6 +15,54 @@ class RegisterCompanyViewModel with ChangeNotifier {
   bool isLoading = false;
   String? selectedState;
   String? selectedCity;
+
+  List<ServiceDescriptionModel> servicesDespriptionList = [
+    ServiceDescriptionModel(title: 'Battery Jump', isActive: false),
+    ServiceDescriptionModel(title: 'Gass Dilevery', isActive: false),
+    ServiceDescriptionModel(title: 'Door Loockout', isActive: false),
+    ServiceDescriptionModel(title: 'Tire Change', isActive: false),
+    ServiceDescriptionModel(
+        title: 'Long-Distance and Local Towing', isActive: false),
+    ServiceDescriptionModel(
+        title: 'Towing Services On A 24/7 Basis', isActive: false),
+    ServiceDescriptionModel(title: 'See Availabilty', isActive: false),
+    ServiceDescriptionModel(title: 'Truck Towing', isActive: false),
+    ServiceDescriptionModel(title: 'Other', isActive: false),
+  ];
+
+  updateDescription(String description) {
+    for (var element in servicesDespriptionList) {
+      if (description.contains(element.title)) {
+        servicesDespriptionList[servicesDespriptionList.indexOf(element)]
+            .isActive = true;
+      }
+    }
+    notifyListeners();
+  }
+
+  clearServiceDescriptionList() {
+    for (var element in servicesDespriptionList) {
+      servicesDespriptionList[servicesDespriptionList.indexOf(element)]
+          .isActive = false;
+    }
+    notifyListeners();
+  }
+
+  String servicesDescription() {
+    String description = '';
+    for (var element in servicesDespriptionList) {
+      if (element.isActive) {
+        if (element.title != 'Other') {
+          description += '● ' + element.title + '\n';
+        }
+      }
+    }
+    return description.trim();
+  }
+
+  notify() {
+    notifyListeners();
+  }
 
   changeState(String newValue) {
     selectedState = newValue.toString();
@@ -92,10 +141,11 @@ class RegisterCompanyViewModel with ChangeNotifier {
     selectedState = null;
   }
 
-  initalizeImageValues() {
+  initalize() {
     imagePath = '';
     body['image'] = '';
     body['extension'] = '';
+    clearServiceDescriptionList();
   }
 
   bool obscurePassword = true;

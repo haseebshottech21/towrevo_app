@@ -63,8 +63,8 @@ class OTPViewModel with ChangeNotifier {
     changeLoadingStatus(false);
 
     if (resendOTP >= 3) {
-      Utilities()
-          .showToast('Your OTP Reset Limit is Over Please contact to admin');
+      Fluttertoast.showToast(
+          msg: 'Your OTP Reset Limit is Over Please contact to admin');
       return false;
     }
     if (resendUniqueId.isNotEmpty) {

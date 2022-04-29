@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
-import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
@@ -22,8 +23,67 @@ class RegistrationNameAndDescScreen extends StatefulWidget {
 class _RegistrationNameAndDescScreenState
     extends State<RegistrationNameAndDescScreen> {
   final companyNameController = TextEditingController();
-  final companyDescriptionController = TextEditingController();
+  // final companyDescriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  // Future<void> showServiceDescription(
+  //     RegisterCompanyViewModel registerViewModel, BuildContext context) async {
+  //   await showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (_) {
+  //       return AlertDialog(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.all(
+  //             Radius.circular(15.r),
+  //           ),
+  //         ),
+  //         title: Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: const [
+  //             Text(
+  //               'Select Company Services',
+  //             ),
+  //             FaIcon(FontAwesomeIcons.servicestack)
+  //           ],
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () {
+  //               registerViewModel.clearServiceDescriptionList();
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: const Text(
+  //               'Cancel',
+  //             ),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: const Text(
+  //               'Done',
+  //             ),
+  //           ),
+  //         ],
+  //         content: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: registerViewModel.servicesDespriptionList.map(
+  //             (item) {
+  //               return ChangeNotifierProvider.value(
+  //                 value: registerViewModel.servicesDespriptionList[
+  //                     registerViewModel.servicesDespriptionList.indexOf(item)],
+  //                 child: DescriptionCheckBoxWidget(
+  //                   registerCompanyViewModel: registerViewModel,
+  //                 ),
+  //               );
+  //             },
+  //           ).toList(),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   void validateFromAndSaveData() {
     final _companySignUpProvider =
@@ -31,17 +91,23 @@ class _RegistrationNameAndDescScreenState
     if (!_formKey.currentState!.validate()) {
       return;
     } else if (_companySignUpProvider.body['image'].toString().isEmpty) {
-      Utilities().showToast('Please Enter Image');
-
+      Fluttertoast.showToast(msg: 'Please Enter Image');
+      return;
+    } else if (_companySignUpProvider.servicesDescription().isEmpty) {
+      Fluttertoast.showToast(msg: 'Please Enter Description');
       return;
     } else {
       _companySignUpProvider.body['first_name'] = companyNameController.text;
       _companySignUpProvider.body['description'] =
-          companyDescriptionController.text;
-      // print(_companySignUpProvider.body);
+          _companySignUpProvider.servicesDescription().trim() +
+              (descriptionController.text.isNotEmpty
+                  ? 'Other' + descriptionController.text.trim()
+                  : '');
       Navigator.of(context).pushNamed(RegistrationCredentialScreen.routeName);
     }
   }
+
+  final descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -147,21 +213,99 @@ class _RegistrationNameAndDescScreenState
                             ),
                           ),
                           SizedBox(height: 8.h),
-                          FadeInDown(
-                            from: 30,
-                            delay: const Duration(milliseconds: 700),
-                            child: CompanyTextAreaField(
-                              errorGetter:
-                                  ErrorGetter().companyDescriptionErrorGetter,
-                              hintText: 'Company Service',
-                              prefixIcon: const Icon(
-                                FontAwesomeIcons.solidBuilding,
-                                color: Color(0xFF019aff),
-                                size: 20.0,
-                              ),
-                              textEditingController:
-                                  companyDescriptionController,
-                            ),
+                          // FadeInDown(
+                          //   from: 30,
+                          //   delay: const Duration(milliseconds: 700),
+                          //   child: CompanyTextAreaField(
+                          //     errorGetter:
+                          //         ErrorGetter().companyDescriptionErrorGetter,
+                          //     hintText: 'Company Service',
+                          //     prefixIcon: const Icon(
+                          //       FontAwesomeIcons.solidBuilding,
+                          //       color: Color(0xFF019aff),
+                          //       size: 20.0,
+                          //     ),
+                          //     textEditingController:
+                          //         companyDescriptionController,
+                          //   ),
+                          // ),
+                          Consumer<RegisterCompanyViewModel>(
+                            builder: (ctx, registerViewModel, neverBuildChild) {
+                              print(registerViewModel.servicesDescription());
+                              return InkWell(
+                                onTap: () async {
+                                  showServiceDescription(
+                                    registerViewModel,
+                                    context,
+                                    true,
+                                    descriptionController,
+                                  );
+                                },
+                                child: FadeInDown(
+                                  from: 25,
+                                  delay: const Duration(milliseconds: 570),
+                                  child: Container(
+                                    height: registerViewModel
+                                            .servicesDescription()
+                                            .contains('\n')
+                                        ? null
+                                        : 40.h,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 15.w),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(30.r),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              FontAwesomeIcons.solidBuilding,
+                                              color: Color(0xFF019aff),
+                                              size: 20.0,
+                                            ),
+                                            SizedBox(width: 10.w),
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 8.h,
+                                                horizontal: 5.w,
+                                              ),
+                                              width: ScreenUtil().screenWidth *
+                                                  0.65,
+                                              child: Text(
+                                                registerViewModel
+                                                        .servicesDescription()
+                                                        .isEmpty
+                                                    ? 'Company Services'
+                                                    : registerViewModel
+                                                            .servicesDescription() +
+                                                        (descriptionController
+                                                                .text.isNotEmpty
+                                                            ? '\n● ' +
+                                                                descriptionController
+                                                                    .text
+                                                            : ''),
+                                                style: GoogleFonts.montserrat(
+                                                  color: Colors.black,
+                                                ),
+                                                // maxLines: 6,
+                                                textAlign: TextAlign.start,
+                                                // overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -199,7 +343,7 @@ class _RegistrationNameAndDescScreenState
   void initState() {
     final provider =
         Provider.of<RegisterCompanyViewModel>(context, listen: false);
-    provider.initalizeImageValues();
+    provider.initalize();
     super.initState();
   }
 }

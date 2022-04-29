@@ -34,125 +34,125 @@ class _RegistrationCategoryAndTimingScreenState
     'Sarturday': false,
     'Sunday': false,
   };
-  Future<void> showDays(BuildContext context) async {
-    final daysProvider =
-        Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(15.r),
-            ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                'Select Days',
-              ),
-              FaIcon(FontAwesomeIcons.calendarDay)
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                daysProvider.clearDaysList();
-                Navigator.pop(context, null);
-              },
-              child: const Text(
-                'Cancle',
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context, cityList);
-              },
-              child: const Text(
-                'Done',
-              ),
-            ),
-          ],
-          content: Consumer<ServicesAndDaysViewModel>(
-              builder: (ctx, provider, neverBuildChild) {
-            return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: provider.daysListViewModel.map((item) {
-                  return ChangeNotifierProvider.value(
-                    value: provider.daysListViewModel[
-                        provider.daysListViewModel.indexOf(item)],
-                    child: const DaysCheckBoxWidget(),
-                  );
-                }).toList());
-          }),
-        );
-      },
-    );
-  }
+  // Future<void> showDays(BuildContext context) async {
+  //   final daysProvider =
+  //       Provider.of<ServicesAndDaysViewModel>(context, listen: false);
+  //   await showDialog(
+  //     barrierDismissible: false,
+  //     context: context,
+  //     builder: (_) {
+  //       return AlertDialog(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.all(
+  //             Radius.circular(15.r),
+  //           ),
+  //         ),
+  //         title: Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: const [
+  //             Text(
+  //               'Select Days',
+  //             ),
+  //             FaIcon(FontAwesomeIcons.calendarDay)
+  //           ],
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () {
+  //               daysProvider.clearDaysList();
+  //               Navigator.pop(context, null);
+  //             },
+  //             child: const Text(
+  //               'Cancle',
+  //             ),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.pop(context, cityList);
+  //             },
+  //             child: const Text(
+  //               'Done',
+  //             ),
+  //           ),
+  //         ],
+  //         content: Consumer<ServicesAndDaysViewModel>(
+  //             builder: (ctx, provider, neverBuildChild) {
+  //           return Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: provider.daysListViewModel.map((item) {
+  //                 return ChangeNotifierProvider.value(
+  //                   value: provider.daysListViewModel[
+  //                       provider.daysListViewModel.indexOf(item)],
+  //                   child: const DaysCheckBoxWidget(),
+  //                 );
+  //               }).toList());
+  //         }),
+  //       );
+  //     },
+  //   );
+  // }
 
-  Future<void> showCategories(BuildContext context) async {
-    final servicesProvider =
-        Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-    await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(15.r),
-            ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
-                'Select Categories',
-              ),
-              FaIcon(FontAwesomeIcons.servicestack)
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                servicesProvider.clearServicesList();
-                Navigator.pop(context, null);
-              },
-              child: const Text(
-                'Cancel',
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context, cityList);
-              },
-              child: const Text(
-                'Done',
-              ),
-            ),
-          ],
-          content: Consumer<ServicesAndDaysViewModel>(
-            builder: (ctx, provider, neverBuildChild) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: provider.serviceListViewModel.map(
-                  (item) {
-                    return ChangeNotifierProvider.value(
-                      value: provider.serviceListViewModel[
-                          provider.serviceListViewModel.indexOf(item)],
-                      child: const ServiceCheckBoxWidget(),
-                    );
-                  },
-                ).toList(),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
+  // Future<void> showCategories(BuildContext context) async {
+  //   final servicesProvider =
+  //       Provider.of<ServicesAndDaysViewModel>(context, listen: false);
+  //   await showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (_) {
+  //       return AlertDialog(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.all(
+  //             Radius.circular(15.r),
+  //           ),
+  //         ),
+  //         title: Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: const [
+  //             Text(
+  //               'Select Categories',
+  //             ),
+  //             FaIcon(FontAwesomeIcons.servicestack)
+  //           ],
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () {
+  //               servicesProvider.clearServicesList();
+  //               Navigator.pop(context, null);
+  //             },
+  //             child: const Text(
+  //               'Cancel',
+  //             ),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.pop(context, cityList);
+  //             },
+  //             child: const Text(
+  //               'Done',
+  //             ),
+  //           ),
+  //         ],
+  //         content: Consumer<ServicesAndDaysViewModel>(
+  //           builder: (ctx, provider, neverBuildChild) {
+  //             return Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: provider.serviceListViewModel.map(
+  //                 (item) {
+  //                   return ChangeNotifierProvider.value(
+  //                     value: provider.serviceListViewModel[
+  //                         provider.serviceListViewModel.indexOf(item)],
+  //                     child: const ServiceCheckBoxWidget(),
+  //                   );
+  //                 },
+  //               ).toList(),
+  //             );
+  //           },
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   void validate() async {
     final locationProvider =
@@ -222,74 +222,78 @@ class _RegistrationCategoryAndTimingScreenState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Consumer<GetLocationViewModel>(
-                        builder: (ctx, getLocation, neverBuildChild) {
-                      // print(getLocation.getAddress);
-                      return InkWell(
-                        onTap: () async {
-                          // Navigator.of(context).pushNamed(
-                          //   GetLocationScreen.routeName,
-                          // );
-                          Navigator.of(context).pushNamed(
-                            UserLocationScreen.routeName,
-                            arguments: true,
-                          );
-                        },
-                        child: FadeInDown(
-                          from: 20,
-                          delay: const Duration(milliseconds: 550),
-                          child: Container(
-                            height:
-                                getLocation.getMyAddress.isEmpty ? 50.h : null,
-                            padding: EdgeInsets.symmetric(horizontal: 12.w),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(30.r),
+                      builder: (ctx, getLocation, neverBuildChild) {
+                        // print(getLocation.getAddress);
+                        return InkWell(
+                          onTap: () async {
+                            // Navigator.of(context).pushNamed(
+                            //   GetLocationScreen.routeName,
+                            // );
+                            Navigator.of(context).pushNamed(
+                              UserLocationScreen.routeName,
+                              arguments: true,
+                            );
+                          },
+                          child: FadeInDown(
+                            from: 20,
+                            delay: const Duration(milliseconds: 550),
+                            child: Container(
+                              height: getLocation.getMyAddress.isEmpty
+                                  ? 40.h
+                                  : null,
+                              padding: EdgeInsets.symmetric(horizontal: 12.w),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(30.r),
+                                ),
                               ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      color: primaryColors,
-                                    ),
-                                    SizedBox(width: 10.w),
-                                    Center(
-                                      child: Container(
-                                        alignment: Alignment.centerLeft,
-                                        height: 40.h,
-                                        // padding: const EdgeInsets.symmetric(
-                                        //   vertical: 8,
-                                        // ),
-                                        width: ScreenUtil().screenWidth * 0.65,
-                                        child: Text(
-                                          getLocation.getMyAddress.isEmpty
-                                              ? 'Get Company Location'
-                                              : getLocation.getMyAddress,
-                                          style: GoogleFonts.montserrat(
-                                            color: Colors.black,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_on,
+                                        color: primaryColors,
+                                      ),
+                                      SizedBox(width: 10.w),
+                                      Center(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 40.h,
+                                          // padding: const EdgeInsets.symmetric(
+                                          //   vertical: 8,
+                                          // ),
+                                          width:
+                                              ScreenUtil().screenWidth * 0.65,
+                                          child: Text(
+                                            getLocation.getMyAddress.isEmpty
+                                                ? 'Get Company Location'
+                                                : getLocation.getMyAddress,
+                                            style: GoogleFonts.montserrat(
+                                              color: Colors.black,
+                                            ),
+                                            maxLines: 2,
+                                            // textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
-                                          maxLines: 2,
-                                          // textAlign: TextAlign.center,
-                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Icon(
-                                  Icons.my_location,
-                                  color: primaryColors,
-                                ),
-                              ],
+                                    ],
+                                  ),
+                                  Icon(
+                                    Icons.my_location,
+                                    color: primaryColors,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      },
+                    ),
                     SizedBox(height: 8.h),
                     Consumer<RegisterCompanyViewModel>(
                       builder: (ctx, timer, neverBuildChild) {
@@ -353,7 +357,7 @@ class _RegistrationCategoryAndTimingScreenState
                       builder: (ctx, days, neverBuildChild) {
                         return InkWell(
                           onTap: () async {
-                            await showDays(context);
+                            await showDays(context, true);
                           },
                           child: FadeInDown(
                             from: 25,
@@ -408,7 +412,7 @@ class _RegistrationCategoryAndTimingScreenState
                         builder: (ctx, categories, neverBuildChild) {
                       return InkWell(
                         onTap: () async {
-                          await showCategories(context);
+                          await showCategories(context, true);
                         },
                         child: FadeInDown(
                           from: 30,

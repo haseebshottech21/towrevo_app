@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Container userEmptyProfile(BuildContext context) {
   return Container(
-    width: ScreenUtil().screenWidth * 0.13,
-    height: 50.h,
+    width: 45.w,
+    height: 40.h,
     decoration: BoxDecoration(
       color: Theme.of(context).primaryColor,
       border: Border.all(color: AppColors.primaryColor2, width: 2),
@@ -17,7 +17,7 @@ Container userEmptyProfile(BuildContext context) {
         child: Icon(
           FontAwesomeIcons.user,
           color: Colors.white,
-          size: 25.sp,
+          size: 23.sp,
         ),
       ),
     ),

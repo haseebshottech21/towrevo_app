@@ -25,7 +25,7 @@ class UpdateProfile extends StatefulWidget {
 class _UpdateProfileState extends State<UpdateProfile> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-  final descriptionController = TextEditingController();
+  // final descriptionController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -42,8 +42,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
             Provider.of<EditProfileViewModel>(context, listen: false);
         provider.initFields();
 
-        await provider.getEditData(context);
-        _init = true;
+        await provider.getEditData(context, descriptionController);
+        setFields(provider);
+        // _init = true;
         type = await Utilities().getSharedPreferenceValue('type');
       },
     );
@@ -59,10 +60,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
     emailController.text = (provider.body['email'] ?? '').toString();
     phoneNumberController.text = (provider.body['phone'] ?? '').toString();
 
-    if (type == '2') {
-      descriptionController.text =
-          (provider.body['company_info']['description'] ?? '').toString();
-    }
+    // if (type == '2') {
+    //   descriptionController.text =
+    //       (provider.body['company_info']['description'] ?? '').toString();
+    // }
   }
 
   validateAndUpdateUserForm() async {
@@ -96,11 +97,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);
       final locationProvider =
           Provider.of<GetLocationViewModel>(context, listen: false);
+      final companyRegisterProvider =
+          Provider.of<RegisterCompanyViewModel>(context, listen: false);
 
       provider.editProfileFields(
         {
           'first_name': firstNameController.text.trim(),
-          'description': descriptionController.text.trim(),
+          'description': companyRegisterProvider.servicesDescription().trim() +
+              (descriptionController.text.isNotEmpty
+                  ? 'Other' + descriptionController.text.trim()
+                  : ''),
           'state': provider.selectedState!,
           'city': provider.selectedCity!,
           if (provider.imagePath.isNotEmpty) 'image': provider.image,
@@ -139,7 +145,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       if (imagePicker.body['image'] != null) {
         return ClipRRect(
           borderRadius: BorderRadius.all(
-            Radius.circular(20.r),
+            Radius.circular(15.r),
           ),
           child: Image.network(
             Utilities.imageBaseUrl + imagePicker.body['image'].toString(),
@@ -155,7 +161,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       }
     } else {
       return ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        borderRadius: BorderRadius.all(Radius.circular(10.r)),
         child: Image.file(
           File(imagePicker.imagePath),
           fit: BoxFit.fill,
@@ -164,64 +170,22 @@ class _UpdateProfileState extends State<UpdateProfile> {
     }
   }
 
-  Future<void> showCategories(BuildContext context) async {
-    await showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          content: Consumer<ServicesAndDaysViewModel>(
-              builder: (ctx, provider, neverBuildChild) {
-            return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: provider.serviceListViewModel.map((item) {
-                  return ChangeNotifierProvider.value(
-                    value: provider.serviceListViewModel[
-                        provider.serviceListViewModel.indexOf(item)],
-                    child: const ServiceCheckBoxWidget(),
-                  );
-                }).toList());
-          }),
-        );
-      },
-    );
-  }
+  final descriptionController = TextEditingController();
 
-  Future<void> showDays(BuildContext context) async {
-    await showDialog(
-      context: context,
-      builder: (_) {
-        return AlertDialog(
-          content: Consumer<ServicesAndDaysViewModel>(
-              builder: (ctx, provider, neverBuildChild) {
-            return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: provider.daysListViewModel.map((item) {
-                  return ChangeNotifierProvider.value(
-                    value: provider.daysListViewModel[
-                        provider.daysListViewModel.indexOf(item)],
-                    child: const DaysCheckBoxWidget(),
-                  );
-                }).toList());
-          }),
-        );
-      },
-    );
-  }
-
-  bool _init = true;
+  // bool _init = true;
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EditProfileViewModel>(context, listen: true);
 
-    if (_init) {
-      setFields(provider);
-      _init = false;
-    }
+    // if (_init) {
+    //   setFields(provider);
+    //   _init = false;
+    // }
     return Scaffold(
-      key: scaffoldKey,
-      drawerEnableOpenDragGesture: false,
-      drawer: const DrawerWidget(),
+      // key: scaffoldKey,
+      // drawerEnableOpenDragGesture: false,
+      // drawer: const DrawerWidget(),
       body: Stack(
         children: [
           const SingleChildScrollView(
@@ -352,21 +316,105 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   ),
                                 ),
                               if (type == '2')
-                                FadeInDown(
-                                  from: 20,
-                                  delay: const Duration(milliseconds: 670),
-                                  child: CompanyTextAreaField(
-                                    errorGetter: ErrorGetter()
-                                        .companyDescriptionErrorGetter,
-                                    hintText: 'Company Description',
-                                    prefixIcon: Icon(
-                                      FontAwesomeIcons.solidBuilding,
-                                      color: const Color(0xFF019aff),
-                                      size: 18.sp,
-                                    ),
-                                    textEditingController:
-                                        descriptionController,
-                                  ),
+                                // FadeInDown(
+                                //   from: 20,
+                                //   delay: const Duration(milliseconds: 670),
+                                //   child: CompanyTextAreaField(
+                                //     errorGetter: ErrorGetter()
+                                //         .companyDescriptionErrorGetter,
+                                //     hintText: 'Company Description',
+                                //     prefixIcon: Icon(
+                                //       FontAwesomeIcons.solidBuilding,
+                                //       color: const Color(0xFF019aff),
+                                //       size: 18.sp,
+                                //     ),
+                                //     textEditingController:
+                                //         descriptionController,
+                                //   ),
+                                // ),
+                                Consumer<RegisterCompanyViewModel>(
+                                  builder: (ctx, registerViewModel,
+                                      neverBuildChild) {
+                                    return InkWell(
+                                      onTap: () async {
+                                        showServiceDescription(
+                                          registerViewModel,
+                                          context,
+                                          false,
+                                          descriptionController,
+                                        );
+                                      },
+                                      child: FadeInDown(
+                                        from: 25,
+                                        delay:
+                                            const Duration(milliseconds: 570),
+                                        child: Container(
+                                          height: registerViewModel
+                                                  .servicesDescription()
+                                                  .contains('\n')
+                                              ? null
+                                              : 40.h,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 15.w),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(30.r),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    FontAwesomeIcons
+                                                        .solidBuilding,
+                                                    color: Color(0xFF019aff),
+                                                    size: 20.0,
+                                                  ),
+                                                  SizedBox(width: 10.w),
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                      vertical: 8.h,
+                                                      horizontal: 5.w,
+                                                    ),
+                                                    width: ScreenUtil()
+                                                            .screenWidth *
+                                                        0.65,
+                                                    child: Text(
+                                                      registerViewModel
+                                                              .servicesDescription()
+                                                              .isEmpty
+                                                          ? 'Company Services'
+                                                          : registerViewModel
+                                                                  .servicesDescription() +
+                                                              (descriptionController
+                                                                      .text
+                                                                      .isNotEmpty
+                                                                  ? '\n● ' +
+                                                                      descriptionController
+                                                                          .text
+                                                                  : ''),
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                        color: Colors.black,
+                                                      ),
+                                                      // maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               SizedBox(height: 8.h),
                               FadeInDown(
@@ -555,7 +603,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   builder: (ctx, days, neverBuildChild) {
                                     return InkWell(
                                       onTap: () async {
-                                        await showDays(context);
+                                        await showDays(context, false);
                                       },
                                       child: FadeInDown(
                                         from: 40,
@@ -620,7 +668,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     (ctx, categories, neverBuildChild) {
                                   return InkWell(
                                     onTap: () async {
-                                      await showCategories(context);
+                                      await showCategories(context, false);
                                     },
                                     child: FadeInDown(
                                       from: 50,

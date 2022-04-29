@@ -8,6 +8,7 @@ import '../../utilities/utilities.dart';
 import '../empty_profile.dart';
 import '../job_completed_dailogbox.dart';
 import '../profile_image_circle.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class JobCompleteCard extends StatefulWidget {
   final ServiceRequestModel serviceRequestModel;
@@ -41,8 +42,8 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
   }
 
   double animHeight = 0.0;
-  double animHeightmain = 200.0;
-  double heightMain = 220.0;
+  double animHeightmain = 160.h;
+  double heightMain = 200.h;
 
   double animHeightmainIos = 220.0;
   double heightMainIos = 240.0;
@@ -51,30 +52,35 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       child: Stack(
         children: [
           AnimatedContainer(
             duration: const Duration(milliseconds: 700),
+            // height: widget.serviceRequestModel.description.length > 50
+            //     ? Platform.isIOS
+            //         ? widget.serviceRequestModel.description.length > 80
+            //             ? heightMainIos + 10
+            //             : heightMainIos
+            //         : heightMain
+            //     : Platform.isIOS
+            //         ? animHeightmainIos
+            //         : animHeightmain,
             height: widget.serviceRequestModel.description.length > 50
                 ? Platform.isIOS
-                    ? widget.serviceRequestModel.description.length > 80
-                        ? heightMainIos + 10
-                        : heightMainIos
+                    ? heightMain + 20.h
                     : heightMain
-                : Platform.isIOS
-                    ? animHeightmainIos
-                    : animHeightmain,
-            width: MediaQuery.of(context).size.width * 0.95,
+                : animHeightmain,
+            width: ScreenUtil().screenWidth * 0.95,
             decoration: BoxDecoration(
               boxShadow: kElevationToShadow[2],
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 10,
+              padding: EdgeInsets.symmetric(
+                horizontal: 12.w,
+                vertical: 10.h,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,20 +94,20 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                   widget.serviceRequestModel.image,
                             )
                           : const EmptyProfile(),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             widget.serviceRequestModel.name,
-                            style: const TextStyle(
-                              fontSize: 18,
+                            style: TextStyle(
+                              fontSize: 17.sp,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                             ),
                           ),
-                          const SizedBox(height: 2),
+                          SizedBox(height: 2.h),
                           Text(
                             (widget.serviceRequestModel.destAddress.isEmpty
                                         ? widget.serviceRequestModel.distance
@@ -111,8 +117,8 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                 (widget.serviceRequestModel.destAddress.isEmpty
                                     ? ' miles away'
                                     : ' miles total distance'),
-                            style: const TextStyle(
-                              fontSize: 14,
+                            style: TextStyle(
+                              fontSize: 13.sp,
                               color: Colors.black54,
                             ),
                           ),
@@ -120,8 +126,10 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                       ),
                       const Spacer(),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 10),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 10.h,
+                        ),
                         decoration: BoxDecoration(
                           boxShadow: kElevationToShadow[1],
                           color: AppColors.primaryColor.withOpacity(0.8),
@@ -130,26 +138,26 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                         child: Center(
                           child: Text(
                             widget.serviceRequestModel.serviceName,
-                            style: const TextStyle(
-                              fontSize: 15,
+                            style: TextStyle(
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
-                              letterSpacing: 0.5,
+                              letterSpacing: 0.5.w,
                             ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 15),
-                  const Text(
+                  SizedBox(height: 12.h),
+                  Text(
                     'Issue',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 12.sp,
                       color: Colors.black54,
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  SizedBox(height: 2.h),
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
@@ -171,7 +179,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
                                       Text(
-                                        flag ? "show more" : "show less",
+                                        flag ? "\nshow more" : "\nshow less",
                                         style:
                                             const TextStyle(color: Colors.blue),
                                       ),
@@ -187,13 +195,16 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                             ),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(
+                      height: widget.serviceRequestModel.description.length > 50
+                          ? 15.h
+                          : 10.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
                           shape: const StadiumBorder(),
                           primary: Colors.blue[50],
                         ),
@@ -201,6 +212,34 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                             ? null
                             : () {
                                 setState(() {
+                                  if (widget.serviceRequestModel.description
+                                          .length >
+                                      50) {
+                                    Platform.isIOS
+                                        ? heightMain = 280.h
+                                        : heightMain = 290.h;
+                                  }
+                                  if (widget.serviceRequestModel.description
+                                          .length <
+                                      50) {
+                                    Platform.isIOS
+                                        ? animHeightmain = 150.h
+                                        : animHeightmain = 125.h;
+                                  }
+                                  if (widget.serviceRequestModel.description
+                                              .length >
+                                          50 &&
+                                      widget.serviceRequestModel.destAddress
+                                          .isNotEmpty) {
+                                    Platform.isIOS
+                                        ? heightMain = 350.h
+                                        : heightMain = 330.h;
+                                  }
+                                  if (widget.serviceRequestModel.description
+                                              .length <
+                                          50 &&
+                                      widget.serviceRequestModel.destAddress
+                                          .isNotEmpty) animHeightmain = 160.h;
                                   // widget.serviceRequestModel.description
                                   //             .length >
                                   //         50
@@ -208,37 +247,37 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                   //         ? heightMainIos = 370.0
                                   //         : heightMain = 370.0
                                   //     : heightMain = 200.0;
-                                  widget.serviceRequestModel.description
-                                              .length >
-                                          50
-                                      ? widget.serviceRequestModel.destAddress
-                                              .isEmpty
-                                          ? Platform.isIOS
-                                              ? heightMainIos = 370.0
-                                              : heightMain = 285.0
-                                          : Platform.isIOS
-                                              ? heightMainIos = 430.0
-                                              : heightMain = 345.0
-                                      : heightMain = 200.0;
+                                  // widget.serviceRequestModel.description
+                                  //             .length >
+                                  //         50
+                                  //     ? widget.serviceRequestModel.destAddress
+                                  //             .isEmpty
+                                  //         ? Platform.isIOS
+                                  //             ? heightMainIos = 370.0
+                                  //             : heightMain = 285.0
+                                  //         : Platform.isIOS
+                                  //             ? heightMainIos = 430.0
+                                  //             : heightMain = 345.0
+                                  //     : heightMain = 200.0;
 
                                   widget.serviceRequestModel.destAddress.isEmpty
                                       ? Platform.isIOS
-                                          ? animHeight = 320
-                                          : animHeight = 300
+                                          ? animHeight = 350.h
+                                          : animHeight = 300.h
                                       : Platform.isIOS
-                                          ? animHeight = 250
-                                          : animHeight = 200;
-                                  Platform.isIOS
-                                      ? animHeightmainIos = animHeightmainIos +
-                                          (widget.serviceRequestModel
-                                                  .destAddress.isEmpty
-                                              ? animHeight / 2.7
-                                              : animHeight / 1.8)
-                                      : animHeightmain = animHeightmain +
-                                          (widget.serviceRequestModel
-                                                  .destAddress.isEmpty
-                                              ? animHeight / 2.5
-                                              : animHeight / 1.5);
+                                          ? animHeight = 230.h
+                                          : animHeight = 200.h;
+                                  // Platform.isIOS
+                                  //     ? animHeightmainIos = animHeightmainIos +
+                                  //         (widget.serviceRequestModel
+                                  //                 .destAddress.isEmpty
+                                  //             ? animHeight / 2.7
+                                  //             : animHeight / 1.8)
+                                  //     : animHeightmain = animHeightmain +
+                                  //         (widget.serviceRequestModel
+                                  //                 .destAddress.isEmpty
+                                  //             ? animHeight / 2.5
+                                  //             : animHeight / 1.5);
                                   anim = true;
                                 });
                               },
@@ -283,20 +322,20 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
           Positioned(
             bottom: 0,
             child: AnimatedContainer(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
               duration: const Duration(microseconds: 400),
               height: widget.serviceRequestModel.destAddress.isEmpty
-                  ? animHeight / 2.5
-                  : animHeight / 1.2,
-              width: MediaQuery.of(context).size.width * 0.95,
+                  ? animHeight / 2.5.h
+                  : animHeight / 1.2.h,
+              width: ScreenUtil().screenWidth * 0.95,
               decoration: BoxDecoration(
                 boxShadow: kElevationToShadow[4],
                 color: const Color(0xFFF5F5F5),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.r),
+                  topRight: Radius.circular(10.r),
+                  bottomLeft: Radius.circular(10.r),
+                  bottomRight: Radius.circular(10.r),
                 ),
               ),
               child: Column(
@@ -305,30 +344,30 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Icon(
                         Icons.location_pin,
-                        size: 12,
+                        size: 11.sp,
                         color: Colors.black54,
                       ),
-                      SizedBox(width: 2),
+                      SizedBox(width: 2.w),
                       Text(
                         'Pick Location',
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 11.sp,
                           color: Colors.black54,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 2),
+                  SizedBox(height: 2.h),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    padding: EdgeInsets.symmetric(horizontal: 3.w),
                     child: Text(
                       widget.serviceRequestModel.address,
-                      style: const TextStyle(
-                        fontSize: 14,
+                      style: TextStyle(
+                        fontSize: 13.sp,
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                       ),
@@ -339,17 +378,17 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                   if (widget.serviceRequestModel.destAddress.isNotEmpty)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
+                      children: [
                         Icon(
                           Icons.location_pin,
-                          size: 12,
+                          size: 11.sp,
                           color: Colors.black54,
                         ),
-                        SizedBox(width: 2),
+                        SizedBox(width: 2.w),
                         Text(
                           'Drop Location',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 11.sp,
                             color: Colors.black54,
                             fontWeight: FontWeight.w500,
                           ),
@@ -357,32 +396,31 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                       ],
                     ),
                   if (widget.serviceRequestModel.destAddress.isNotEmpty)
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2.h),
                   if (widget.serviceRequestModel.destAddress.isNotEmpty)
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      padding: EdgeInsets.symmetric(horizontal: 2.w),
                       child: Text(
                         widget.serviceRequestModel.destAddress,
-                        style: const TextStyle(
-                          fontSize: 14,
+                        style: TextStyle(
+                          fontSize: 13.sp,
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 9.h),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
                       // padding: EdgeInsets.only(bottom: 0),
                       primary: AppColors.primaryColor2,
                       minimumSize: Size(
-                        MediaQuery.of(context).size.width * 0.90,
-                        40,
+                        ScreenUtil().screenWidth * 0.90,
+                        35.h,
                       ),
                     ),
                     onPressed: () {
-                      
                       Navigator.of(context).pushNamed(
                         DistanceScreen.routeName,
                         arguments: {
@@ -401,10 +439,12 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                         },
                       );
                     },
-                    child: const Text(
+                    child: Text(
                       'Get Direction',
                       style: TextStyle(
                         color: Colors.white,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),

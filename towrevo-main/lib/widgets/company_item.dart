@@ -21,8 +21,9 @@ class CompanyItem extends StatelessWidget {
     BuildContext context,
     String notificationId,
     String phoneNumber,
+    String email,
   ) async {
-    if (phoneNumber.isNotEmpty) {
+    if (email.isNotEmpty) {
       final provider =
           Provider.of<UserHomeScreenViewModel>(context, listen: false);
 
@@ -40,22 +41,39 @@ class CompanyItem extends StatelessWidget {
         notificationId,
       );
     } else {
-      Navigator.of(context).pushNamed(UserMonthlyPaymentScreen.routeName);
+      Navigator.of(context).pushNamed(
+        UserMonthlyPaymentScreen.routeName,
+        arguments: (phoneNumber.isEmpty && email.isEmpty)
+            ? 404
+            : email.isEmpty
+                ? 401
+                : 0,
+      );
     }
   }
 
-  openDialPad(String phoneNumber, BuildContext context) {
-    if (phoneNumber.isNotEmpty) {
+  openDialPad(
+    String phoneNumber,
+    String email,
+    BuildContext context,
+  ) {
+    if (email.isNotEmpty) {
       launch("tel://+1$phoneNumber");
     } else {
-      Navigator.of(context).pushNamed(UserMonthlyPaymentScreen.routeName);
+      Navigator.of(context).pushNamed(
+        UserMonthlyPaymentScreen.routeName,
+        arguments: (phoneNumber.isEmpty && email.isEmpty)
+            ? 404
+            : email.isEmpty
+                ? 401
+                : 0,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
-    print('distance' + companyModel.distance);
     return FadeInUp(
       from: 50,
       child: Card(
@@ -137,8 +155,8 @@ class CompanyItem extends StatelessWidget {
                   companyModel.image.isNotEmpty
                       ? companyModel.email.isEmpty
                           ? Container(
-                              height: 55.h,
-                              width: ScreenUtil().screenWidth * 0.10,
+                              height: 40.h,
+                              width: 45.w,
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Theme.of(context).primaryColor,
@@ -149,8 +167,8 @@ class CompanyItem extends StatelessWidget {
                               child: ClipOval(
                                 child: ImageFiltered(
                                     imageFilter: ImageFilter.blur(
-                                      sigmaY: 5,
-                                      sigmaX: 5,
+                                      sigmaY: 3,
+                                      sigmaX: 3,
                                     ), //SigmaX and Y are just for X and Y directions
                                     child: Image.network(
                                       Utilities.imageBaseUrl +
@@ -215,6 +233,7 @@ class CompanyItem extends StatelessWidget {
                                               context,
                                               companyModel.notificationId,
                                               companyModel.phoneNumber,
+                                              companyModel.email,
                                             );
                                           }
                                         : null,
@@ -235,7 +254,10 @@ class CompanyItem extends StatelessWidget {
                               onPressed: companyModel.isCompanyAvailable
                                   ? () {
                                       openDialPad(
-                                          companyModel.phoneNumber, context);
+                                        companyModel.phoneNumber,
+                                        companyModel.email,
+                                        context,
+                                      );
                                     }
                                   : null,
                               icon: Icon(

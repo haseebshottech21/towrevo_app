@@ -63,9 +63,7 @@ class Utilities {
     };
   }
 
-  void showToast(String message) {
-    Fluttertoast.showToast(msg: message);
-  }
+
 
   Future<dynamic> getSharedPreferenceValue(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
