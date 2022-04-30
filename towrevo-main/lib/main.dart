@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/payment/user_paymnets.dart';
 import 'package:towrevo/utilities/env_settings.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
@@ -132,6 +133,7 @@ class _MyAppState extends State<MyApp> {
             CompanyHistoryScreen.routeName: (ctx) =>
                 const CompanyHistoryScreen(),
             UserHistoryTow.routeName: (ctx) => const UserHistoryTow(),
+            UserPaymnets.routeName: (ctx) => const UserPaymnets(),
             ForgotPasswordScreen.routeName: (ctx) =>
                 const ForgotPasswordScreen(),
             ForgotPasswordOTPScreen.routeName: (ctx) =>

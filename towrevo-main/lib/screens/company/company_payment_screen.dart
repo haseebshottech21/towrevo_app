@@ -173,18 +173,19 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                       letterSpacing: 1.5,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Center(
-                    child: Text(
-                      'Payment expired, please renew it.',
-                      style: GoogleFonts.montserrat(
-                        color: AppColors.primaryColor,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
+                  if (statusCode == 401) const SizedBox(height: 10),
+                  if (statusCode == 401)
+                    Center(
+                      child: Text(
+                        'Payment expired, please renew it.',
+                        style: GoogleFonts.montserrat(
+                          color: AppColors.primaryColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
                   const SizedBox(height: 20),
                   Center(
                     child: ElevatedButton(

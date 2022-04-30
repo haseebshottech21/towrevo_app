@@ -17,7 +17,8 @@ class Utilities {
           startTime: const TimeOfDay(hour: 23, minute: 55),
           endTime: const TimeOfDay(hour: 0, minute: 05),
         ),
-        minDuration: const Duration(hours: 2),
+        minDuration: const Duration(hours: 3),
+        // start: TimeOfDay(hour: hour, minute: minute)
       );
 
       if (result != null) {
@@ -62,8 +63,6 @@ class Utilities {
       'Authorization': 'Bearer ${await getSharedPreferenceValue('token')}'
     };
   }
-
-
 
   Future<dynamic> getSharedPreferenceValue(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

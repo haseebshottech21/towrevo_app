@@ -37,7 +37,7 @@ class CompanyModel {
     return CompanyModel(
       id: json['id'].toString(),
       userId: json['user_id'].toString(),
-      description: json['description'] ?? 'There is no Description',
+      description: json['description'].toString().replaceAll(r'Other', '\n● '),
       latitude: json['latitude'].toString(),
       longitude: json['longitude'].toString(),
       from: json['from'].toString().toUpperCase(),

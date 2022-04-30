@@ -19,13 +19,13 @@ class RegisterCompanyViewModel with ChangeNotifier {
   List<ServiceDescriptionModel> servicesDespriptionList = [
     ServiceDescriptionModel(title: 'Battery Jump', isActive: false),
     ServiceDescriptionModel(title: 'Gass Dilevery', isActive: false),
-    ServiceDescriptionModel(title: 'Door Loockout', isActive: false),
+    ServiceDescriptionModel(title: 'Door Lockout', isActive: false),
     ServiceDescriptionModel(title: 'Tire Change', isActive: false),
+    ServiceDescriptionModel(title: 'Roadside Assistance', isActive: false),
     ServiceDescriptionModel(
         title: 'Long-Distance and Local Towing', isActive: false),
     ServiceDescriptionModel(
         title: 'Towing Services On A 24/7 Basis', isActive: false),
-    ServiceDescriptionModel(title: 'See Availabilty', isActive: false),
     ServiceDescriptionModel(title: 'Truck Towing', isActive: false),
     ServiceDescriptionModel(title: 'Other', isActive: false),
   ];

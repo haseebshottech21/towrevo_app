@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/payment/user_paymnets.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -168,6 +169,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         onPressed: () {
                           Navigator.of(context)
                               .pushNamed(ChangePasswordScreen.routeName);
+                        },
+                      ),
+                      DrawerListItem(
+                        title: 'Payments',
+                        iconsData: FontAwesomeIcons.moneyCheck,
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(UserPaymnets.routeName);
                         },
                       ),
                       Container(

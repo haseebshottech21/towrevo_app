@@ -249,14 +249,14 @@ class _RegistrationNameAndDescScreenState
                                             .servicesDescription()
                                             .contains('\n')
                                         ? null
-                                        : 40.h,
+                                        : 48.h,
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 15.w),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(
-                                        Radius.circular(30.r),
-                                      ),
+                                          Radius.circular(30.r)),
+                                      border: Border.all(color: Colors.black45),
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
@@ -292,6 +292,7 @@ class _RegistrationNameAndDescScreenState
                                                             : ''),
                                                 style: GoogleFonts.montserrat(
                                                   color: Colors.black,
+                                                  fontSize: 14.sp,
                                                 ),
                                                 // maxLines: 6,
                                                 textAlign: TextAlign.start,
