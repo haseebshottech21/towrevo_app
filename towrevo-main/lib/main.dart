@@ -100,6 +100,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Towrevo',
           theme: ThemeData(
             primarySwatch: Colors.blue,
+            androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
           ),
           home: getScreen(),
           // home: ForgotPasswordOTPScreen(),
