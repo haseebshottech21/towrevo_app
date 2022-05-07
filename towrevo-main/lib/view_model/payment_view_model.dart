@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:towrevo/models/coupan_model.dart';
+import 'package:towrevo/models/payment.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
 import 'package:towrevo/web_services/payment_web_service.dart';
 
@@ -42,6 +43,30 @@ class PaymentViewModel with ChangeNotifier {
           },
         );
       });
+    }
+  }
+
+  List<Payment> paymentHistoryList = [];
+  Map<String, String> dates = {
+    'difference': '',
+    'last_payment_date': '',
+    'expire_date': '',
+  };
+
+  Future<void> paymentHistory() async {
+    isLoading = true;
+    // notifyListeners();
+    final Map<String, dynamic> loadedData =
+        await paymentWebService.paymentHistoryWebService();
+    if (loadedData.isNotEmpty) {
+      dates = {
+        'difference': loadedData['difference'].toString(),
+        'last_payment_date': loadedData['last_payment_date'].toString(),
+        'expire_date': loadedData['expire_date'].toString(),
+      };
+      paymentHistoryList = loadedData['payment'] as List<Payment>;
+      isLoading = false;
+      notifyListeners();
     }
   }
 }

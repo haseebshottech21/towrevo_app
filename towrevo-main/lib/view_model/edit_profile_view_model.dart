@@ -110,6 +110,18 @@ class EditProfileViewModel with ChangeNotifier {
     'to': '',
   };
 
+  int? timeRadioValue;
+  changeTimeRadio(int val) {
+    timeRadioValue = val;
+    timerValues = {
+      'from': '',
+      'to': '',
+    };
+    body['from'] = '';
+    body['to'] = '';
+    notifyListeners();
+  }
+
   Future<void> setTimer(BuildContext context) async {
     final time = await Utilities().setTimer(context);
 

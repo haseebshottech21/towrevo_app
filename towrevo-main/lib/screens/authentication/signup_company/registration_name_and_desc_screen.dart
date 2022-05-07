@@ -3,10 +3,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
 import 'package:towrevo/view_model/view_model.dart';
+// import 'package:towrevo/widgets/services_days_and_description_check_box/selector_widget.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -229,11 +230,29 @@ class _RegistrationNameAndDescScreenState
                           //         companyDescriptionController,
                           //   ),
                           // ),
+
                           Consumer<RegisterCompanyViewModel>(
                             builder: (ctx, registerViewModel, neverBuildChild) {
-                              print(registerViewModel.servicesDescription());
-                              return InkWell(
-                                onTap: () async {
+                              return SelectorWidget(
+                                context: context,
+                                delayMilliseconds: 570,
+                                title: registerViewModel
+                                        .servicesDescription()
+                                        .isEmpty
+                                    ? 'Company Services'
+                                    : registerViewModel.servicesDescription() +
+                                        (descriptionController.text.isNotEmpty
+                                            ? '\n● ' +
+                                                descriptionController.text
+                                            : ''),
+                                height: registerViewModel
+                                        .servicesDescription()
+                                        .contains('\n')
+                                    ? null
+                                    : 45.h,
+                                icon: FontAwesomeIcons.solidBuilding,
+                                // trailingIcon: FontAwesomeIcons.solidBuilding,
+                                onTap: () {
                                   showServiceDescription(
                                     registerViewModel,
                                     context,
@@ -241,71 +260,82 @@ class _RegistrationNameAndDescScreenState
                                     descriptionController,
                                   );
                                 },
-                                child: FadeInDown(
-                                  from: 25,
-                                  delay: const Duration(milliseconds: 570),
-                                  child: Container(
-                                    height: registerViewModel
-                                            .servicesDescription()
-                                            .contains('\n')
-                                        ? null
-                                        : 48.h,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 15.w),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(30.r)),
-                                      border: Border.all(color: Colors.black45),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            const Icon(
-                                              FontAwesomeIcons.solidBuilding,
-                                              color: Color(0xFF019aff),
-                                              size: 20.0,
-                                            ),
-                                            SizedBox(width: 10.w),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                vertical: 8.h,
-                                                horizontal: 5.w,
-                                              ),
-                                              width: ScreenUtil().screenWidth *
-                                                  0.65,
-                                              child: Text(
-                                                registerViewModel
-                                                        .servicesDescription()
-                                                        .isEmpty
-                                                    ? 'Company Services'
-                                                    : registerViewModel
-                                                            .servicesDescription() +
-                                                        (descriptionController
-                                                                .text.isNotEmpty
-                                                            ? '\n● ' +
-                                                                descriptionController
-                                                                    .text
-                                                            : ''),
-                                                style: GoogleFonts.montserrat(
-                                                  color: Colors.black,
-                                                  fontSize: 14.sp,
-                                                ),
-                                                // maxLines: 6,
-                                                textAlign: TextAlign.start,
-                                                // overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
                               );
+
+                              // InkWell(
+                              //   onTap: () async {
+                              //     showServiceDescription(
+                              //       registerViewModel,
+                              //       context,
+                              //       true,
+                              //       descriptionController,
+                              //     );
+                              //   },
+                              //   child: FadeInDown(
+                              //     from: 25,
+                              //     delay: const Duration(milliseconds: 570),
+                              //     child: Container(
+                              //       height: registerViewModel
+                              //               .servicesDescription()
+                              //               .contains('\n')
+                              //           ? null
+                              //           : 45.h,
+                              //       padding:
+                              //           EdgeInsets.symmetric(horizontal: 15.w),
+                              //       decoration: BoxDecoration(
+                              //         color: Colors.white,
+                              //         borderRadius: BorderRadius.all(
+                              //             Radius.circular(30.r)),
+                              //         border: Border.all(color: Colors.black45),
+                              //       ),
+                              //       child: Row(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.spaceBetween,
+                              //         children: [
+                              //           Row(
+                              //             children: [
+                              //               const Icon(
+                              //                 FontAwesomeIcons.solidBuilding,
+                              //                 color: Color(0xFF019aff),
+                              //                 size: 20.0,
+                              //               ),
+                              //               SizedBox(width: 10.w),
+                              //               Container(
+                              //                 padding: EdgeInsets.symmetric(
+                              //                   vertical: 8.h,
+                              //                   horizontal: 5.w,
+                              //                 ),
+                              //                 width: ScreenUtil().screenWidth *
+                              //                     0.65,
+                              //                 child: Text(
+                              //                   registerViewModel
+                              //                           .servicesDescription()
+                              //                           .isEmpty
+                              //                       ? 'Company Services'
+                              //                       : registerViewModel
+                              //                               .servicesDescription() +
+                              //                           (descriptionController
+                              //                                   .text.isNotEmpty
+                              //                               ? '\n● ' +
+                              //                                   descriptionController
+                              //                                       .text
+                              //                               : ''),
+                              //                   style: GoogleFonts.montserrat(
+                              //                     color: Colors.black,
+                              //                     fontSize: 14.sp,
+                              //                   ),
+                              //                   // maxLines: 6,
+                              //                   textAlign: TextAlign.start,
+                              //                   // overflow: TextOverflow.ellipsis,
+                              //                 ),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // );
                             },
                           ),
                         ],

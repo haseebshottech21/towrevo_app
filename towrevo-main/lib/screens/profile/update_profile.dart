@@ -335,8 +335,30 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                 Consumer<RegisterCompanyViewModel>(
                                   builder: (ctx, registerViewModel,
                                       neverBuildChild) {
-                                    return InkWell(
-                                      onTap: () async {
+                                    return SelectorWidget(
+                                      context: context,
+                                      delayMilliseconds: 570,
+                                      title: registerViewModel
+                                              .servicesDescription()
+                                              .isEmpty
+                                          ? 'Company Services'
+                                          : registerViewModel
+                                                  .servicesDescription() +
+                                              (descriptionController
+                                                      .text.isNotEmpty
+                                                  ? '\n● ' +
+                                                      descriptionController.text
+                                                  : ''),
+                                      height: registerViewModel
+                                              .servicesDescription()
+                                              .contains('\n')
+                                          ? null
+                                          : 40.h,
+                                      icon: FontAwesomeIcons.solidBuilding,
+                                      // maxlines: 5,
+                                      trailingIcon:
+                                          Icons.arrow_drop_down_circle_outlined,
+                                      onTap: () {
                                         showServiceDescription(
                                           registerViewModel,
                                           context,
@@ -344,76 +366,86 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                           descriptionController,
                                         );
                                       },
-                                      child: FadeInDown(
-                                        from: 25,
-                                        delay:
-                                            const Duration(milliseconds: 570),
-                                        child: Container(
-                                          height: registerViewModel
-                                                  .servicesDescription()
-                                                  .contains('\n')
-                                              ? null
-                                              : 40.h,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 15.w),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(30.r),
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  const Icon(
-                                                    FontAwesomeIcons
-                                                        .solidBuilding,
-                                                    color: Color(0xFF019aff),
-                                                    size: 20.0,
-                                                  ),
-                                                  SizedBox(width: 10.w),
-                                                  Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                      vertical: 8.h,
-                                                      horizontal: 5.w,
-                                                    ),
-                                                    width: ScreenUtil()
-                                                            .screenWidth *
-                                                        0.65,
-                                                    child: Text(
-                                                      registerViewModel
-                                                              .servicesDescription()
-                                                              .isEmpty
-                                                          ? 'Company Services'
-                                                          : registerViewModel
-                                                                  .servicesDescription() +
-                                                              (descriptionController
-                                                                      .text
-                                                                      .isNotEmpty
-                                                                  ? '\n● ' +
-                                                                      descriptionController
-                                                                          .text
-                                                                  : ''),
-                                                      style: GoogleFonts
-                                                          .montserrat(
-                                                        color: Colors.black,
-                                                      ),
-                                                      // maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                     );
+                                    // return InkWell(
+                                    //   onTap: () async {
+                                    //     showServiceDescription(
+                                    //       registerViewModel,
+                                    //       context,
+                                    //       false,
+                                    //       descriptionController,
+                                    //     );
+                                    //   },
+                                    //   child: FadeInDown(
+                                    //     from: 25,
+                                    //     delay:
+                                    //         const Duration(milliseconds: 570),
+                                    //     child: Container(
+                                    //       height: registerViewModel
+                                    //               .servicesDescription()
+                                    //               .contains('\n')
+                                    //           ? null
+                                    //           : 40.h,
+                                    //       padding: EdgeInsets.symmetric(
+                                    //           horizontal: 15.w),
+                                    //       decoration: BoxDecoration(
+                                    //         color: Colors.white,
+                                    //         borderRadius: BorderRadius.all(
+                                    //           Radius.circular(30.r),
+                                    //         ),
+                                    //       ),
+                                    //       child: Row(
+                                    //         mainAxisAlignment:
+                                    //             MainAxisAlignment.spaceBetween,
+                                    //         children: [
+                                    //           Row(
+                                    //             children: [
+                                    //               const Icon(
+                                    //                 FontAwesomeIcons
+                                    //                     .solidBuilding,
+                                    //                 color: Color(0xFF019aff),
+                                    //                 size: 20.0,
+                                    //               ),
+                                    //               SizedBox(width: 10.w),
+                                    //               Container(
+                                    //                 padding:
+                                    //                     EdgeInsets.symmetric(
+                                    //                   vertical: 8.h,
+                                    //                   horizontal: 5.w,
+                                    //                 ),
+                                    //                 width: ScreenUtil()
+                                    //                         .screenWidth *
+                                    //                     0.65,
+                                    //                 child: Text(
+                                    //                   registerViewModel
+                                    //                           .servicesDescription()
+                                    //                           .isEmpty
+                                    //                       ? 'Company Services'
+                                    //                       : registerViewModel
+                                    //                               .servicesDescription() +
+                                    //                           (descriptionController
+                                    //                                   .text
+                                    //                                   .isNotEmpty
+                                    //                               ? '\n● ' +
+                                    //                                   descriptionController
+                                    //                                       .text
+                                    //                               : ''),
+                                    //                   style: GoogleFonts
+                                    //                       .montserrat(
+                                    //                     color: Colors.black,
+                                    //                   ),
+                                    //                   // maxLines: 2,
+                                    //                   overflow:
+                                    //                       TextOverflow.ellipsis,
+                                    //                 ),
+                                    //               ),
+                                    //             ],
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // );
                                   },
                                 ),
                               SizedBox(height: 8.h),
@@ -447,272 +479,359 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               ),
                               SizedBox(height: 8.h),
                               if (type == '2')
-                                Consumer<GetLocationViewModel>(builder:
-                                    (ctx, getLocation, neverBuildChild) {
-                                  // print(getLocation.getAddress);
-                                  return InkWell(
-                                    onTap: () async {
-                                      // Navigator.of(context).pushNamed(
-                                      //   GetLocationScreen.routeName,
-                                      // );
-                                      Navigator.of(context).pushNamed(
-                                        UserLocationScreen.routeName,
-                                        arguments: true,
-                                      );
-                                    },
-                                    child: FadeInDown(
-                                      from: 20,
-                                      delay: const Duration(milliseconds: 550),
-                                      child: Container(
-                                        height: getLocation.getMyAddress.isEmpty
-                                            ? 50.h
-                                            : null,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(30.r),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.location_on,
-                                                  color: Color(0xFF019aff),
-                                                ),
-                                                SizedBox(width: 10.w),
-                                                Center(
-                                                  child: Container(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    height: 50.h,
-                                                    // padding: const EdgeInsets.symmetric(
-                                                    //   vertical: 8,
-                                                    // ),
-                                                    width: ScreenUtil()
-                                                            .screenWidth *
-                                                        0.65,
-                                                    child: Text(
-                                                      getLocation.getMyAddress
-                                                              .isEmpty
-                                                          ? 'Get Company Location'
-                                                          : getLocation
-                                                              .getMyAddress,
-                                                      style: GoogleFonts
-                                                          .montserrat(
-                                                        color: Colors.black,
-                                                      ),
-                                                      maxLines: 2,
-                                                      // textAlign: TextAlign.center,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const Icon(
-                                              Icons.my_location,
-                                              color: Color(0xFF019aff),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }),
+                                Consumer<GetLocationViewModel>(
+                                  builder: (ctx, getLocation, neverBuildChild) {
+                                    // print(getLocation.getAddress);
+                                    return SelectorWidget(
+                                      context: context,
+                                      delayMilliseconds: 550,
+                                      title: getLocation.getMyAddress.isEmpty
+                                          ? 'Get Company Location'
+                                          : getLocation.getMyAddress,
+                                      height: getLocation.getMyAddress.isEmpty
+                                          ? 50.h
+                                          : null,
+                                      icon: Icons.location_on,
+                                      trailingIcon: Icons.my_location,
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                          UserLocationScreen.routeName,
+                                          arguments: true,
+                                        );
+                                      },
+                                    );
+                                    // return InkWell(
+                                    //   onTap: () async {
+                                    //     // Navigator.of(context).pushNamed(
+                                    //     //   GetLocationScreen.routeName,
+                                    //     // );
+                                    //     Navigator.of(context).pushNamed(
+                                    //       UserLocationScreen.routeName,
+                                    //       arguments: true,
+                                    //     );
+                                    //   },
+                                    //   child: FadeInDown(
+                                    //     from: 20,
+                                    //     delay:
+                                    //         const Duration(milliseconds: 550),
+                                    //     child: Container(
+                                    //       height:
+                                    //           getLocation.getMyAddress.isEmpty
+                                    //               ? 50.h
+                                    //               : null,
+                                    //       padding: const EdgeInsets.symmetric(
+                                    //           horizontal: 15),
+                                    //       decoration: BoxDecoration(
+                                    //         color: Colors.white,
+                                    //         borderRadius: BorderRadius.all(
+                                    //           Radius.circular(30.r),
+                                    //         ),
+                                    //       ),
+                                    //       child: Row(
+                                    //         mainAxisAlignment:
+                                    //             MainAxisAlignment.spaceBetween,
+                                    //         children: [
+                                    //           Row(
+                                    //             children: [
+                                    //               const Icon(
+                                    //                 Icons.location_on,
+                                    //                 color: Color(0xFF019aff),
+                                    //               ),
+                                    //               SizedBox(width: 10.w),
+                                    //               Center(
+                                    //                 child: Container(
+                                    //                   alignment:
+                                    //                       Alignment.centerLeft,
+                                    //                   height: 50.h,
+                                    //                   // padding: const EdgeInsets.symmetric(
+                                    //                   //   vertical: 8,
+                                    //                   // ),
+                                    //                   width: ScreenUtil()
+                                    //                           .screenWidth *
+                                    //                       0.65,
+                                    //                   child: Text(
+                                    //                     getLocation.getMyAddress
+                                    //                             .isEmpty
+                                    //                         ? 'Get Company Location'
+                                    //                         : getLocation
+                                    //                             .getMyAddress,
+                                    //                     style: GoogleFonts
+                                    //                         .montserrat(
+                                    //                       color: Colors.black,
+                                    //                     ),
+                                    //                     maxLines: 2,
+                                    //                     // textAlign: TextAlign.center,
+                                    //                     overflow: TextOverflow
+                                    //                         .ellipsis,
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //             ],
+                                    //           ),
+                                    //           const Icon(
+                                    //             Icons.my_location,
+                                    //             color: Color(0xFF019aff),
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // );
+                                  },
+                                ),
                               if (type == '2') SizedBox(height: 10.h),
                               if (type == '2')
                                 Consumer<EditProfileViewModel>(
                                   builder: (ctx, timer, neverBuildChild) {
-                                    return InkWell(
-                                      onTap: () async {
-                                        await timer.setTimer(context);
+                                    return SelectorWidget(
+                                      context: context,
+                                      delayMilliseconds: 570,
+                                      title: timer.timeRadioValue == 0
+                                          ? '24 Hours'
+                                          : timer.timeRadioValue == 1
+                                              ? 'Custom'
+                                              : 'Select Time',
+                                      height: 40.h,
+                                      icon: FontAwesomeIcons.solidClock,
+                                      onTap: () {
+                                        showTimeDialog();
                                       },
-                                      child: FadeInDown(
-                                        from: 40,
-                                        delay:
-                                            const Duration(milliseconds: 750),
-                                        child: Container(
-                                          height: 50.h,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 15),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(30.r),
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    FontAwesomeIcons.solidClock,
-                                                    color:
-                                                        const Color(0xFF019aff),
-                                                    size: 20.sp,
-                                                  ),
-                                                  SizedBox(width: 10.w),
-                                                  Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                      vertical: 8.h,
-                                                      horizontal: 5.w,
-                                                    ),
-                                                    width: ScreenUtil()
-                                                            .screenWidth *
-                                                        0.65,
-                                                    child: Text(
-                                                      (timer.timerValues[
-                                                                      'fromUtilize'] !=
-                                                                  '' ||
-                                                              timer.timerValues[
-                                                                      'toUtilize'] !=
-                                                                  '')
-                                                          ? '${(timer.timerValues['fromUtilize'])} - ${(timer.timerValues['toUtilize'])}'
-                                                          : 'Select Time',
-                                                      style: GoogleFonts
-                                                          .montserrat(
-                                                        color: Colors.black,
-                                                      ),
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                     );
                                   },
                                 ),
+                              if (provider.timeRadioValue == 1)
+                                if (type == '2') SizedBox(height: 10.h),
+                              if (provider.timeRadioValue == 1)
+                                if (type == '2')
+                                  Consumer<EditProfileViewModel>(
+                                    builder: (ctx, timer, neverBuildChild) {
+                                      return SelectorWidget(
+                                        context: context,
+                                        delayMilliseconds: 750,
+                                        // title: (timer.timerValues['from'] !=
+                                        //             '' ||
+                                        //         timer.timerValues['to'] != '')
+                                        //     ? '${(timer.timerValues['from'])} - ${(timer.timerValues['to'])}'
+                                        //     : 'Select Custom Time',
+                                        title: (timer.timerValues[
+                                                        'fromUtilize'] !=
+                                                    '' ||
+                                                timer.timerValues[
+                                                        'toUtilize'] !=
+                                                    '')
+                                            ? '${(timer.timerValues['fromUtilize'])} - ${(timer.timerValues['toUtilize'])}'
+                                            : 'Select Time',
+                                        height: 40.h,
+                                        icon: FontAwesomeIcons.solidClock,
+                                        onTap: () {
+                                          timer.setTimer(context);
+                                        },
+                                      );
+                                      // return InkWell(
+                                      //   onTap: () async {
+                                      //     await timer.setTimer(context);
+                                      //   },
+                                      //   child: FadeInDown(
+                                      //     from: 40,
+                                      //     delay:
+                                      //         const Duration(milliseconds: 750),
+                                      //     child: Container(
+                                      //       height: 50.h,
+                                      //       padding: const EdgeInsets.symmetric(
+                                      //           horizontal: 15),
+                                      //       decoration: BoxDecoration(
+                                      //         color: Colors.white,
+                                      //         borderRadius: BorderRadius.all(
+                                      //           Radius.circular(30.r),
+                                      //         ),
+                                      //       ),
+                                      //       child: Row(
+                                      //         mainAxisAlignment:
+                                      //             MainAxisAlignment.spaceBetween,
+                                      //         children: [
+                                      //           Row(
+                                      //             children: [
+                                      //               Icon(
+                                      //                 FontAwesomeIcons.solidClock,
+                                      //                 color:
+                                      //                     const Color(0xFF019aff),
+                                      //                 size: 20.sp,
+                                      //               ),
+                                      //               SizedBox(width: 10.w),
+                                      //               Container(
+                                      //                 padding:
+                                      //                     EdgeInsets.symmetric(
+                                      //                   vertical: 8.h,
+                                      //                   horizontal: 5.w,
+                                      //                 ),
+                                      //                 width: ScreenUtil()
+                                      //                         .screenWidth *
+                                      //                     0.65,
+                                      //                 child: Text(
+                                      //                   (timer.timerValues[
+                                      //                                   'fromUtilize'] !=
+                                      //                               '' ||
+                                      //                           timer.timerValues[
+                                      //                                   'toUtilize'] !=
+                                      //                               '')
+                                      //                       ? '${(timer.timerValues['fromUtilize'])} - ${(timer.timerValues['toUtilize'])}'
+                                      //                       : 'Select Time',
+                                      //                   style: GoogleFonts
+                                      //                       .montserrat(
+                                      //                     color: Colors.black,
+                                      //                   ),
+                                      //                   maxLines: 2,
+                                      //                   overflow:
+                                      //                       TextOverflow.ellipsis,
+                                      //                 ),
+                                      //               ),
+                                      //             ],
+                                      //           ),
+                                      //         ],
+                                      //       ),
+                                      //     ),
+                                      //   ),
+                                      // );
+                                    },
+                                  ),
                               if (type == '2') SizedBox(height: 8.h),
                               if (type == '2')
                                 Consumer<ServicesAndDaysViewModel>(
                                   builder: (ctx, days, neverBuildChild) {
-                                    return InkWell(
-                                      onTap: () async {
-                                        await showDays(context, false);
+                                    return SelectorWidget(
+                                      context: context,
+                                      delayMilliseconds: 770,
+                                      title: days.getDays(),
+                                      height: 50.h,
+                                      icon: FontAwesomeIcons.solidClock,
+                                      onTap: () {
+                                        showDays(context, true);
                                       },
-                                      child: FadeInDown(
-                                        from: 40,
-                                        delay:
-                                            const Duration(milliseconds: 770),
-                                        child: Container(
-                                          height: 50.h,
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 15.w,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(30.r),
-                                            ),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    FontAwesomeIcons.solidClock,
-                                                    color:
-                                                        const Color(0xFF019aff),
-                                                    size: 20.sp,
-                                                  ),
-                                                  SizedBox(width: 10.w),
-                                                  Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                      vertical: 8.h,
-                                                      horizontal: 5.w,
-                                                    ),
-                                                    width: ScreenUtil()
-                                                            .screenWidth *
-                                                        0.65,
-                                                    child: Text(
-                                                      days.getDays(),
-                                                      style: GoogleFonts
-                                                          .montserrat(
-                                                        color: Colors.black,
-                                                      ),
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                     );
+                                    // return InkWell(
+                                    //   onTap: () async {
+                                    //     await showDays(context, false);
+                                    //   },
+                                    //   child: FadeInDown(
+                                    //     from: 40,
+                                    //     delay:
+                                    //         const Duration(milliseconds: 770),
+                                    //     child: Container(
+                                    //       height: 50.h,
+                                    //       padding: EdgeInsets.symmetric(
+                                    //         horizontal: 15.w,
+                                    //       ),
+                                    //       decoration: BoxDecoration(
+                                    //         color: Colors.white,
+                                    //         borderRadius: BorderRadius.all(
+                                    //           Radius.circular(30.r),
+                                    //         ),
+                                    //       ),
+                                    //       child: Row(
+                                    //         mainAxisAlignment:
+                                    //             MainAxisAlignment.spaceBetween,
+                                    //         children: [
+                                    //           Row(
+                                    //             children: [
+                                    //               Icon(
+                                    //                 FontAwesomeIcons.solidClock,
+                                    //                 color:
+                                    //                     const Color(0xFF019aff),
+                                    //                 size: 20.sp,
+                                    //               ),
+                                    //               SizedBox(width: 10.w),
+                                    //               Container(
+                                    //                 padding:
+                                    //                     EdgeInsets.symmetric(
+                                    //                   vertical: 8.h,
+                                    //                   horizontal: 5.w,
+                                    //                 ),
+                                    //                 width: ScreenUtil()
+                                    //                         .screenWidth *
+                                    //                     0.65,
+                                    //                 child: Text(
+                                    //                   days.getDays(),
+                                    //                   style: GoogleFonts
+                                    //                       .montserrat(
+                                    //                     color: Colors.black,
+                                    //                   ),
+                                    //                   maxLines: 3,
+                                    //                   overflow:
+                                    //                       TextOverflow.ellipsis,
+                                    //                 ),
+                                    //               ),
+                                    //             ],
+                                    //           ),
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // );
                                   },
                                 ),
                               if (type == '2') SizedBox(height: 8.h),
                               if (type == '2')
                                 Consumer<ServicesAndDaysViewModel>(builder:
                                     (ctx, categories, neverBuildChild) {
-                                  return InkWell(
-                                    onTap: () async {
-                                      await showCategories(context, false);
+                                  return SelectorWidget(
+                                    context: context,
+                                    delayMilliseconds: 800,
+                                    title: categories.getService(),
+                                    height: 55.h,
+                                    icon: Icons.category_outlined,
+                                    trailingIcon:
+                                        Icons.arrow_drop_down_circle_outlined,
+                                    onTap: () {
+                                      showCategories(context, true);
                                     },
-                                    child: FadeInDown(
-                                      from: 50,
-                                      delay: const Duration(milliseconds: 800),
-                                      child: Container(
-                                        height: 55.h,
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 15.w,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(30.r),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.category_outlined,
-                                                  color: Color(0xFF019aff),
-                                                ),
-                                                SizedBox(width: 10.w),
-                                                Text(
-                                                  categories.getService(),
-                                                  style: GoogleFonts.montserrat(
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const Icon(
-                                              Icons
-                                                  .arrow_drop_down_circle_outlined,
-                                              color: Color(0xFF019aff),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
                                   );
+                                  // return InkWell(
+                                  //   onTap: () async {
+                                  //     await showCategories(context, false);
+                                  //   },
+                                  //   child: FadeInDown(
+                                  //     from: 50,
+                                  //     delay: const Duration(milliseconds: 800),
+                                  //     child: Container(
+                                  //       height: 55.h,
+                                  //       padding: EdgeInsets.symmetric(
+                                  //         horizontal: 15.w,
+                                  //       ),
+                                  //       decoration: BoxDecoration(
+                                  //         color: Colors.white,
+                                  //         borderRadius: BorderRadius.all(
+                                  //           Radius.circular(30.r),
+                                  //         ),
+                                  //       ),
+                                  //       child: Row(
+                                  //         mainAxisAlignment:
+                                  //             MainAxisAlignment.spaceBetween,
+                                  //         children: [
+                                  //           Row(
+                                  //             children: [
+                                  //               const Icon(
+                                  //                 Icons.category_outlined,
+                                  //                 color: Color(0xFF019aff),
+                                  //               ),
+                                  //               SizedBox(width: 10.w),
+                                  //               Text(
+                                  //                 categories.getService(),
+                                  //                 style: GoogleFonts.montserrat(
+                                  //                   color: Colors.black,
+                                  //                 ),
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //           const Icon(
+                                  //             Icons
+                                  //                 .arrow_drop_down_circle_outlined,
+                                  //             color: Color(0xFF019aff),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // );
                                 }),
                               if (type == '2') const SizedBox(height: 10),
                               FadeInDown(
@@ -843,6 +962,57 @@ class _UpdateProfileState extends State<UpdateProfile> {
           ),
         ],
       ),
+    );
+  }
+
+  showTimeDialog() {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return Consumer<EditProfileViewModel>(
+          builder: (context, value, child) {
+            return AlertDialog(
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RadioListTile(
+                    value: 0,
+                    groupValue: value.timeRadioValue,
+                    onChanged: (val) {
+                      value.changeTimeRadio(
+                        int.parse(
+                          val.toString(),
+                        ),
+                      );
+                    },
+                    title: const Text('24 Hours'),
+                  ),
+                  RadioListTile(
+                    value: 1,
+                    groupValue: value.timeRadioValue,
+                    onChanged: (val) {
+                      value.changeTimeRadio(
+                        int.parse(
+                          val.toString(),
+                        ),
+                      );
+                    },
+                    title: const Text('Custom'),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Ok'),
+                )
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

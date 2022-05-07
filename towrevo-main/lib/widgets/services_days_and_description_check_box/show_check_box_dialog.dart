@@ -220,15 +220,18 @@ Future<void> showServiceDescription(
             Radius.circular(15.r),
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text(
-              'Select Company Services',
-            ),
-            FaIcon(FontAwesomeIcons.servicestack)
-          ],
+        title: Text(
+          'Select Company Services',
         ),
+        //      Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: const [
+        //     Text(
+        //       'Select Company Services',
+        //     ),
+        //     FaIcon(FontAwesomeIcons.servicestack)
+        //   ],
+        // ),
         actions: <Widget>[
           if (fromSignUp)
             TextButton(

@@ -18,14 +18,13 @@ class RegisterCompanyViewModel with ChangeNotifier {
 
   List<ServiceDescriptionModel> servicesDespriptionList = [
     ServiceDescriptionModel(title: 'Battery Jump', isActive: false),
-    ServiceDescriptionModel(title: 'Gass Dilevery', isActive: false),
+    ServiceDescriptionModel(title: 'Gas Delivery', isActive: false),
     ServiceDescriptionModel(title: 'Door Lockout', isActive: false),
     ServiceDescriptionModel(title: 'Tire Change', isActive: false),
     ServiceDescriptionModel(title: 'Roadside Assistance', isActive: false),
     ServiceDescriptionModel(
         title: 'Long-Distance and Local Towing', isActive: false),
-    ServiceDescriptionModel(
-        title: 'Towing Services On A 24/7 Basis', isActive: false),
+    ServiceDescriptionModel(title: 'Towing Services 24/7', isActive: false),
     ServiceDescriptionModel(title: 'Truck Towing', isActive: false),
     ServiceDescriptionModel(title: 'Other', isActive: false),
   ];
@@ -61,6 +60,18 @@ class RegisterCompanyViewModel with ChangeNotifier {
   }
 
   notify() {
+    notifyListeners();
+  }
+
+  int? timeRadioValue;
+  changeTimeRadio(int val) {
+    timeRadioValue = val;
+    timerValues = {
+      'from': '',
+      'to': '',
+    };
+    body['from'] = '';
+    body['to'] = '';
     notifyListeners();
   }
 
@@ -132,13 +143,13 @@ class RegisterCompanyViewModel with ChangeNotifier {
     obscurePassword = true;
     obscureConfirmPassword = true;
     isCheckedTermsAndCondition = false;
-
     timerValues = {
       'from': '',
       'to': '',
     };
     selectedCity = null;
     selectedState = null;
+    timeRadioValue = null;
   }
 
   initalize() {
@@ -171,13 +182,15 @@ class RegisterCompanyViewModel with ChangeNotifier {
     final provider =
         Provider.of<RegisterCompanyViewModel>(context, listen: false);
     final time = await Utilities().setTimer(context);
-    provider.body['from'] = time!['from']!;
-    provider.body['to'] = time['to']!;
-    timerValues = {
-      'from': time['fromUtilize']!,
-      'to': time['toUtilize']!,
-    };
-    notifyListeners();
+    if (time != null) {
+      provider.body['from'] = time['from']!;
+      provider.body['to'] = time['to']!;
+      timerValues = {
+        'from': time['fromUtilize']!,
+        'to': time['toUtilize']!,
+      };
+      notifyListeners();
+    }
   }
 
   String imagePath = '';

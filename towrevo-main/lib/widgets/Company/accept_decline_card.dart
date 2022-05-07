@@ -45,7 +45,8 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
 
   double animHeight = 0.0;
   double animHeightmain = 160.h;
-  double heightMain = 190.h;
+  double heightMain = 200.h;
+  double heightMain80 = 220.h;
 
   double animHeightmainIos = 220.0.h;
   double heightMainIos = 240.0.h;
@@ -68,9 +69,11 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
             //     : Platform.isIOS
             //         ? animHeightmainIos
             //         : animHeightmain,
-            height: widget.serviceRequestModel.description.length > 50
-                ? heightMain
-                : animHeightmain,
+            height: widget.serviceRequestModel.description.length > 80
+                ? heightMain + 15.h
+                : widget.serviceRequestModel.description.length > 50
+                    ? heightMain
+                    : animHeightmain,
             width: ScreenUtil().screenWidth * 0.95,
             decoration: BoxDecoration(
               boxShadow: kElevationToShadow[2],
@@ -196,9 +199,11 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                     ),
                   ),
                   SizedBox(
-                      height: widget.serviceRequestModel.description.length > 50
-                          ? 18.h
-                          : 15.h),
+                      height: widget.serviceRequestModel.description.length > 80
+                          ? 22.h
+                          : widget.serviceRequestModel.description.length > 50
+                              ? 18.h
+                              : 15.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

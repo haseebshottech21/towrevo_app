@@ -23,6 +23,7 @@ export 'package:towrevo/widgets/company_item.dart';
 export 'package:towrevo/widgets/services_days_and_description_check_box/days_check_box_widget.dart';
 export 'package:towrevo/widgets/services_days_and_description_check_box/services_check_box_widget.dart';
 export 'package:towrevo/widgets/services_days_and_description_check_box/show_check_box_dialog.dart';
+export 'package:towrevo/widgets/services_days_and_description_check_box/selector_widget.dart';
 
 // Loader
 export 'package:towrevo/widgets/Loaders/glow_circle.dart';

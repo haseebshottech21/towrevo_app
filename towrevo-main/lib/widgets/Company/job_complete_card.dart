@@ -66,11 +66,13 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
             //     : Platform.isIOS
             //         ? animHeightmainIos
             //         : animHeightmain,
-            height: widget.serviceRequestModel.description.length > 50
-                ? Platform.isIOS
-                    ? heightMain + 20.h
-                    : heightMain
-                : animHeightmain,
+            height: widget.serviceRequestModel.description.length > 80
+                ? heightMain + 12.h
+                : widget.serviceRequestModel.description.length > 50
+                    ? Platform.isIOS
+                        ? heightMain + 20.h
+                        : heightMain
+                    : animHeightmain,
             width: ScreenUtil().screenWidth * 0.95,
             decoration: BoxDecoration(
               boxShadow: kElevationToShadow[2],

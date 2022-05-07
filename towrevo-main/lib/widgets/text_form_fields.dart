@@ -45,7 +45,8 @@ class TextFieldForAll extends StatelessWidget {
           borderRadius: BorderRadius.circular(30.r),
         ),
         hintText: hintText,
-        hintStyle: const TextStyle(color: Colors.black87),
+        hintStyle:
+            GoogleFonts.montserrat(color: Colors.black87, fontSize: 14.sp),
         prefixIcon: Padding(
           padding: EdgeInsets.only(left: 20.w),
           child: prefixIcon,

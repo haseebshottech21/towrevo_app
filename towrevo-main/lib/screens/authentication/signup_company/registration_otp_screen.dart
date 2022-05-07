@@ -7,7 +7,6 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/view_model.dart';
-import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -210,7 +209,7 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  // resendOTPRequest();
+                                  resendOTPRequest();
                                 },
                             )
                           ],
