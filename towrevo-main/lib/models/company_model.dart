@@ -40,8 +40,8 @@ class CompanyModel {
       description: json['description'].toString().replaceAll(r'Other', '\n● '),
       latitude: json['latitude'].toString(),
       longitude: json['longitude'].toString(),
-      from: json['from'].toString().toUpperCase(),
-      to: json['to'].toString().toUpperCase(),
+      from: (json['from'] ?? '24 Hours Open').toString().toUpperCase(),
+      to: (json['to'] ?? '').toString().toUpperCase(),
       distance: json['distance'].toString() == 'Null'
           ? 'Not in range'
           : json['distance'].toString().contains('ft')

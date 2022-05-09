@@ -69,91 +69,97 @@ class _UserPaymnetsState extends State<UserPaymnets> {
                     ),
                   ],
                 ),
-                FadeInDown(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      // left: 5.w,
-                      // right: 5.w,
-                      top: 10.h,
-                      bottom: 1.h,
-                    ),
-                    child: Container(
-                      width: ScreenUtil().screenWidth,
-                      // height: 70.h,
-                      color: AppColors.primaryColor,
-                      padding: EdgeInsets.only(
-                        left: 10.w,
-                        right: 10.w,
-                        top: 10.h,
-                        bottom: 10.h,
+                paymentViewModel.paymentHistoryList.isEmpty
+                    ? const SizedBox()
+                    : FadeInDown(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            // left: 5.w,
+                            // right: 5.w,
+                            top: 10.h,
+                            bottom: 1.h,
+                          ),
+                          child: Container(
+                            width: ScreenUtil().screenWidth,
+                            // height: 70.h,
+                            color: AppColors.primaryColor,
+                            padding: EdgeInsets.only(
+                              left: 10.w,
+                              right: 10.w,
+                              top: 10.h,
+                              bottom: 10.h,
+                            ),
+                            // decoration: BoxDecoration(
+                            //   color: AppColors.primaryColor,
+                            //   borderRadius: BorderRadius.circular(5.r),
+                            // ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    'MONTHLY SUBSCRIPTION',
+                                    style: TextStyle(
+                                      color: AppColors.primaryColor2
+                                          .withOpacity(0.7),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.sp,
+                                      letterSpacing: 1.w,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 2.h),
+                                Center(
+                                  child: Text(
+                                    paymentViewModel.dates['difference']
+                                            .toString()
+                                            .isEmpty
+                                        ? ''
+                                        : paymentViewModel.dates['difference']
+                                            .toString()
+                                            .toUpperCase(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15.sp,
+                                      letterSpacing: 1.w,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 12.h),
+                                if (paymentViewModel.dates['difference']
+                                        .toString() !=
+                                    'Payment Expire')
+                                  payCardHeader(
+                                    title: 'LAST PAID',
+                                    subTitle: paymentViewModel
+                                            .dates['last_payment_date']
+                                            .toString()
+                                            .isEmpty
+                                        ? ''
+                                        : paymentViewModel
+                                            .dates['last_payment_date']
+                                            .toString(),
+                                    color: Colors.green,
+                                  ),
+                                SizedBox(height: 5.h),
+                                payCardHeader(
+                                  title: 'SUBSCRIPTION EXPIRED',
+                                  subTitle: paymentViewModel
+                                          .dates['expire_date']
+                                          .toString()
+                                          .isEmpty
+                                      ? ''
+                                      : paymentViewModel.dates['expire_date']
+                                          .toString(),
+                                  color: Colors.red,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      // decoration: BoxDecoration(
-                      //   color: AppColors.primaryColor,
-                      //   borderRadius: BorderRadius.circular(5.r),
-                      // ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: Text(
-                              'MONTHLY SUBSCRIPTION',
-                              style: TextStyle(
-                                color: AppColors.primaryColor2.withOpacity(0.7),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18.sp,
-                                letterSpacing: 1.w,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 2.h),
-                          Center(
-                            child: Text(
-                              paymentViewModel.dates['difference']
-                                      .toString()
-                                      .isEmpty
-                                  ? ''
-                                  : paymentViewModel.dates['difference']
-                                      .toString()
-                                      .toUpperCase(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15.sp,
-                                letterSpacing: 1.w,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 12.h),
-                          if (paymentViewModel.dates['difference'].toString() !=
-                              'Payment Expire')
-                            payCardHeader(
-                              title: 'LAST PAID',
-                              subTitle: paymentViewModel
-                                      .dates['last_payment_date']
-                                      .toString()
-                                      .isEmpty
-                                  ? ''
-                                  : paymentViewModel.dates['last_payment_date']
-                                      .toString(),
-                              color: Colors.green,
-                            ),
-                          SizedBox(height: 5.h),
-                          payCardHeader(
-                            title: 'SUBSCRIPTION EXPIRED',
-                            subTitle: paymentViewModel.dates['expire_date']
-                                    .toString()
-                                    .isEmpty
-                                ? ''
-                                : paymentViewModel.dates['expire_date']
-                                    .toString(),
-                            color: Colors.red,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
                 RefreshIndicator(
                   onRefresh: _refresh,
                   child: paymentViewModel.isLoading ||
@@ -161,8 +167,20 @@ class _UserPaymnetsState extends State<UserPaymnets> {
                       ? Align(
                           alignment: Alignment.center,
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.50,
-                            child: circularProgress(),
+                            height: MediaQuery.of(context).size.height * 0.55,
+                            child: paymentViewModel.paymentHistoryList.isEmpty
+                                ? Center(
+                                    child: Text(
+                                      '',
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 25.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 1.5.w,
+                                      ),
+                                    ),
+                                  )
+                                : circularProgress(),
                           ),
                         )
                       : SizedBox(

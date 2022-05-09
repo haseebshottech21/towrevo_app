@@ -5,8 +5,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:new_version/new_version.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/payment/user_paymnets.dart';
 import 'package:towrevo/utilities/env_settings.dart';
@@ -76,62 +74,62 @@ class _MyAppState extends State<MyApp> {
     );
 
     super.initState();
-    appInfo();
+    // appInfo();
 
-    _checkNewVersion();
+    // _checkNewVersion();
   }
 
-  appInfo() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  // appInfo() async {
+  //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-    String appName = packageInfo.appName;
-    String packageName = packageInfo.packageName;
-    String version = packageInfo.version;
-    String buildNumber = packageInfo.buildNumber;
+  //   String appName = packageInfo.appName;
+  //   String packageName = packageInfo.packageName;
+  //   String version = packageInfo.version;
+  //   String buildNumber = packageInfo.buildNumber;
 
-    print(appName);
-    print(packageName);
-    print(version);
-    print(buildNumber);
-  }
+  //   print(appName);
+  //   print(packageName);
+  //   print(version);
+  //   print(buildNumber);
+  // }
 
-  void _checkNewVersion() {
-    final newVersion = NewVersion(
-      // iOSId: 'com.google.Vespa',
-      androidId: 'com.towrevoapp.towrevo',
-    );
+  // void _checkNewVersion() {
+  //   final newVersion = NewVersion(
+  //     // iOSId: 'com.google.Vespa',
+  //     androidId: 'com.towrevoapp.towrevo',
+  //   );
 
-    // You can let the plugin handle fetching the status and showing a dialog,
-    // or you can fetch the status and display your own dialog, or no dialog.
-    const simpleBehavior = true;
+  //   // You can let the plugin handle fetching the status and showing a dialog,
+  //   // or you can fetch the status and display your own dialog, or no dialog.
+  //   const simpleBehavior = true;
 
-    if (simpleBehavior) {
-      basicStatusCheck(newVersion);
-    } else {
-      advancedStatusCheck(newVersion);
-    }
-  }
+  //   if (simpleBehavior) {
+  //     basicStatusCheck(newVersion);
+  //   } else {
+  //     advancedStatusCheck(newVersion);
+  //   }
+  // }
 
-  basicStatusCheck(NewVersion newVersion) {
-    newVersion.showAlertIfNecessary(context: context);
-  }
+  // basicStatusCheck(NewVersion newVersion) {
+  //   newVersion.showAlertIfNecessary(context: context);
+  // }
 
-  advancedStatusCheck(NewVersion newVersion) async {
-    final status = await newVersion.getVersionStatus();
-    if (status != null) {
-      debugPrint(status.releaseNotes);
-      debugPrint(status.appStoreLink);
-      debugPrint(status.localVersion);
-      debugPrint(status.storeVersion);
-      debugPrint(status.canUpdate.toString());
-      newVersion.showUpdateDialog(
-        context: context,
-        versionStatus: status,
-        dialogTitle: 'Custom Title',
-        dialogText: 'Custom Text',
-      );
-    }
-  }
+  // advancedStatusCheck(NewVersion newVersion) async {
+  //   final status = await newVersion.getVersionStatus();
+  //   if (status != null) {
+  //     debugPrint(status.releaseNotes);
+  //     debugPrint(status.appStoreLink);
+  //     debugPrint(status.localVersion);
+  //     debugPrint(status.storeVersion);
+  //     debugPrint(status.canUpdate.toString());
+  //     newVersion.showUpdateDialog(
+  //       context: context,
+  //       versionStatus: status,
+  //       dialogTitle: 'Custom Title',
+  //       dialogText: 'Custom Text',
+  //     );
+  //   }
+  // }
 
   // This widget is the root of your application.
   @override

@@ -37,6 +37,7 @@ class EditProfileViewModel with ChangeNotifier {
   initFields() {
     selectedState = null;
     selectedCity = null;
+    timeRadioValue = null;
     body = {};
     extension = '';
     image = '';
@@ -61,7 +62,6 @@ class EditProfileViewModel with ChangeNotifier {
       selectedState = body['state'];
       selectedCity = body['city'];
       if (loadedData['type'] == '2') {
-        print(loadedData['company_info']['description']);
         final serviceProvider =
             Provider.of<ServicesAndDaysViewModel>(context, listen: false);
         final registerCompanyViewModel =
@@ -116,6 +116,8 @@ class EditProfileViewModel with ChangeNotifier {
     timerValues = {
       'from': '',
       'to': '',
+      'fromUtilize': '',
+      'toUtilize': '',
     };
     body['from'] = '';
     body['to'] = '';
@@ -132,11 +134,20 @@ class EditProfileViewModel with ChangeNotifier {
   }
 
   Future<void> setTimerFieldsAfterGetRequestScucceed(
-      String from, String to) async {
-    timerValues['fromUtilize'] = from;
-    timerValues['toUtilize'] = to;
-    timerValues['from'] = Utilities().timeConverter(from.toUpperCase());
-    timerValues['to'] = Utilities().timeConverter(to.toUpperCase());
+      String? from, String? to) async {
+    if (from == null || to == null) {
+      timerValues['fromUtilize'] = '';
+      timerValues['toUtilize'] = '';
+      timerValues['from'] = '';
+      timerValues['to'] = '';
+      timeRadioValue = 0;
+    } else {
+      timerValues['fromUtilize'] = from;
+      timerValues['toUtilize'] = to;
+      timerValues['from'] = Utilities().timeConverter(from.toUpperCase());
+      timerValues['to'] = Utilities().timeConverter(to.toUpperCase());
+      timeRadioValue = 1;
+    }
   }
 
   Future<void> changePassword(
@@ -154,6 +165,7 @@ class EditProfileViewModel with ChangeNotifier {
 
   Future<void> editProfileFields(
       Map<String, String> body, BuildContext context) async {
+    // print(body);
     changeLoadingStatus(true);
     final loadedData = await editProfileWebService.editProfileFields(body);
     if (loadedData != null) {

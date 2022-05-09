@@ -51,9 +51,9 @@ class EditProfileWebService {
       final response = await http.post(Uri.parse(Utilities.baseUrl + 'update'),
           headers: await Utilities().headerWithAuth(), body: body);
 
+      print(response.body);
       final loadedData = json.decode(response.body);
-      // print('body ' + loadedData);
-      print('status code ' + response.statusCode.toString());
+
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg: 'Successfully Updated');
 

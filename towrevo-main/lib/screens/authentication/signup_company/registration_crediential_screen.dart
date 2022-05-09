@@ -78,7 +78,7 @@ class _RegistrationCredentialScreenState
                             errorGetter: ErrorGetter().emailErrorGetter,
                             hintText: 'Email Address',
                             prefixIcon: const Icon(
-                              FontAwesomeIcons.userAlt,
+                              FontAwesomeIcons.solidEnvelopeOpen,
                               color: Color(0xFF019aff),
                               size: 20.0,
                             ),

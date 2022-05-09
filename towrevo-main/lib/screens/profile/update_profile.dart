@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -95,48 +96,70 @@ class _UpdateProfileState extends State<UpdateProfile> {
           Provider.of<EditProfileViewModel>(context, listen: false);
       final daysAndServiceProvider =
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);
+
       final locationProvider =
           Provider.of<GetLocationViewModel>(context, listen: false);
       final companyRegisterProvider =
           Provider.of<RegisterCompanyViewModel>(context, listen: false);
 
-      provider.editProfileFields(
-        {
-          'first_name': firstNameController.text.trim(),
-          'description': companyRegisterProvider.servicesDescription().trim() +
-              (descriptionController.text.isNotEmpty
-                  ? 'Other' + descriptionController.text.trim()
-                  : ''),
-          'state': provider.selectedState!,
-          'city': provider.selectedCity!,
-          if (provider.imagePath.isNotEmpty) 'image': provider.image,
-          if (provider.imagePath.isNotEmpty) 'extension': provider.extension,
-          if (provider.timerValues['from'].toString().isNotEmpty)
-            'from': provider.timerValues['from'].toString(),
-          if (provider.timerValues['to'].toString().isNotEmpty)
-            'to': provider.timerValues['to'].toString(),
-          if (daysAndServiceProvider.servicesId.isNotEmpty)
-            'services': json.encode(
-              daysAndServiceProvider.servicesId,
-            ),
-          if (daysAndServiceProvider.daysId.isNotEmpty)
-            'days': json.encode(
-              daysAndServiceProvider.daysId,
-            ),
-          if (locationProvider.myCurrentLocation.placeLocation !=
-              const LatLng(0.0, 0.0))
-            'latitude': locationProvider
-                .myCurrentLocation.placeLocation.latitude
-                .toString(),
-          if (locationProvider.myCurrentLocation.placeLocation !=
-              const LatLng(0.0, 0.0))
-            'longitude': locationProvider
-                .myCurrentLocation.placeLocation.longitude
-                .toString(),
-          'type': type,
-        },
-        context,
-      );
+      if (daysAndServiceProvider.daysId.isNotEmpty &&
+          daysAndServiceProvider.servicesId.isNotEmpty &&
+          companyRegisterProvider.servicesDescription().isNotEmpty) {
+        companyRegisterProvider.body['description'] =
+            companyRegisterProvider.servicesDescription().trim();
+        provider.body['services'] =
+            json.encode(daysAndServiceProvider.servicesId);
+        provider.body['days'] = json.encode(daysAndServiceProvider.daysId);
+
+        provider.editProfileFields(
+          {
+            'first_name': firstNameController.text.trim(),
+            'description':
+                companyRegisterProvider.servicesDescription().trim() +
+                    (descriptionController.text.isNotEmpty
+                        ? 'Other' + descriptionController.text.trim()
+                        : ''),
+            'state': provider.selectedState!,
+            'city': provider.selectedCity!,
+            if (provider.imagePath.isNotEmpty) 'image': provider.image,
+            if (provider.imagePath.isNotEmpty) 'extension': provider.extension,
+            if (provider.timerValues['from'].toString().isNotEmpty &&
+                provider.timeRadioValue == 1)
+              'from': provider.timerValues['from'].toString(),
+            if (provider.timerValues['to'].toString().isNotEmpty &&
+                provider.timeRadioValue == 1)
+              'to': provider.timerValues['to'].toString(),
+            if (daysAndServiceProvider.servicesId.isNotEmpty)
+              'services': json.encode(
+                daysAndServiceProvider.servicesId,
+              ),
+            if (daysAndServiceProvider.daysId.isNotEmpty)
+              'days': json.encode(
+                daysAndServiceProvider.daysId,
+              ),
+            if (locationProvider.myCurrentLocation.placeLocation !=
+                const LatLng(0.0, 0.0))
+              'latitude': locationProvider
+                  .myCurrentLocation.placeLocation.latitude
+                  .toString(),
+            if (locationProvider.myCurrentLocation.placeLocation !=
+                const LatLng(0.0, 0.0))
+              'longitude': locationProvider
+                  .myCurrentLocation.placeLocation.longitude
+                  .toString(),
+            'type': type,
+          },
+          context,
+        );
+
+        // bool response = await registerProvider.registerCompany(context);
+        // if (response) {
+        //   Navigator.of(context)
+        //       .pushNamed(RegistrationOTPScreen.routeName, arguments: true);
+        // }
+      } else {
+        Fluttertoast.showToast(msg: 'Please Fill All Required Fields');
+      }
     }
   }
 
@@ -253,7 +276,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                           decoration: BoxDecoration(
                                             color: const Color(0xFF09365f),
                                             borderRadius:
-                                                BorderRadius.circular(10.r),
+                                                BorderRadius.circular(15.r),
                                           ),
                                           child: image(imagePicker),
                                         ),
@@ -316,22 +339,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   ),
                                 ),
                               if (type == '2')
-                                // FadeInDown(
-                                //   from: 20,
-                                //   delay: const Duration(milliseconds: 670),
-                                //   child: CompanyTextAreaField(
-                                //     errorGetter: ErrorGetter()
-                                //         .companyDescriptionErrorGetter,
-                                //     hintText: 'Company Description',
-                                //     prefixIcon: Icon(
-                                //       FontAwesomeIcons.solidBuilding,
-                                //       color: const Color(0xFF019aff),
-                                //       size: 18.sp,
-                                //     ),
-                                //     textEditingController:
-                                //         descriptionController,
-                                //   ),
-                                // ),
                                 Consumer<RegisterCompanyViewModel>(
                                   builder: (ctx, registerViewModel,
                                       neverBuildChild) {
@@ -367,85 +374,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         );
                                       },
                                     );
-                                    // return InkWell(
-                                    //   onTap: () async {
-                                    //     showServiceDescription(
-                                    //       registerViewModel,
-                                    //       context,
-                                    //       false,
-                                    //       descriptionController,
-                                    //     );
-                                    //   },
-                                    //   child: FadeInDown(
-                                    //     from: 25,
-                                    //     delay:
-                                    //         const Duration(milliseconds: 570),
-                                    //     child: Container(
-                                    //       height: registerViewModel
-                                    //               .servicesDescription()
-                                    //               .contains('\n')
-                                    //           ? null
-                                    //           : 40.h,
-                                    //       padding: EdgeInsets.symmetric(
-                                    //           horizontal: 15.w),
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.white,
-                                    //         borderRadius: BorderRadius.all(
-                                    //           Radius.circular(30.r),
-                                    //         ),
-                                    //       ),
-                                    //       child: Row(
-                                    //         mainAxisAlignment:
-                                    //             MainAxisAlignment.spaceBetween,
-                                    //         children: [
-                                    //           Row(
-                                    //             children: [
-                                    //               const Icon(
-                                    //                 FontAwesomeIcons
-                                    //                     .solidBuilding,
-                                    //                 color: Color(0xFF019aff),
-                                    //                 size: 20.0,
-                                    //               ),
-                                    //               SizedBox(width: 10.w),
-                                    //               Container(
-                                    //                 padding:
-                                    //                     EdgeInsets.symmetric(
-                                    //                   vertical: 8.h,
-                                    //                   horizontal: 5.w,
-                                    //                 ),
-                                    //                 width: ScreenUtil()
-                                    //                         .screenWidth *
-                                    //                     0.65,
-                                    //                 child: Text(
-                                    //                   registerViewModel
-                                    //                           .servicesDescription()
-                                    //                           .isEmpty
-                                    //                       ? 'Company Services'
-                                    //                       : registerViewModel
-                                    //                               .servicesDescription() +
-                                    //                           (descriptionController
-                                    //                                   .text
-                                    //                                   .isNotEmpty
-                                    //                               ? '\n● ' +
-                                    //                                   descriptionController
-                                    //                                       .text
-                                    //                               : ''),
-                                    //                   style: GoogleFonts
-                                    //                       .montserrat(
-                                    //                     color: Colors.black,
-                                    //                   ),
-                                    //                   // maxLines: 2,
-                                    //                   overflow:
-                                    //                       TextOverflow.ellipsis,
-                                    //                 ),
-                                    //               ),
-                                    //             ],
-                                    //           ),
-                                    //         ],
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // );
                                   },
                                 ),
                               SizedBox(height: 8.h),
@@ -488,9 +416,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       title: getLocation.getMyAddress.isEmpty
                                           ? 'Get Company Location'
                                           : getLocation.getMyAddress,
-                                      height: getLocation.getMyAddress.isEmpty
-                                          ? 50.h
-                                          : null,
+                                      height: 45.h,
+                                      maxlines: 3,
                                       icon: Icons.location_on,
                                       trailingIcon: Icons.my_location,
                                       onTap: () {
@@ -500,83 +427,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         );
                                       },
                                     );
-                                    // return InkWell(
-                                    //   onTap: () async {
-                                    //     // Navigator.of(context).pushNamed(
-                                    //     //   GetLocationScreen.routeName,
-                                    //     // );
-                                    //     Navigator.of(context).pushNamed(
-                                    //       UserLocationScreen.routeName,
-                                    //       arguments: true,
-                                    //     );
-                                    //   },
-                                    //   child: FadeInDown(
-                                    //     from: 20,
-                                    //     delay:
-                                    //         const Duration(milliseconds: 550),
-                                    //     child: Container(
-                                    //       height:
-                                    //           getLocation.getMyAddress.isEmpty
-                                    //               ? 50.h
-                                    //               : null,
-                                    //       padding: const EdgeInsets.symmetric(
-                                    //           horizontal: 15),
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.white,
-                                    //         borderRadius: BorderRadius.all(
-                                    //           Radius.circular(30.r),
-                                    //         ),
-                                    //       ),
-                                    //       child: Row(
-                                    //         mainAxisAlignment:
-                                    //             MainAxisAlignment.spaceBetween,
-                                    //         children: [
-                                    //           Row(
-                                    //             children: [
-                                    //               const Icon(
-                                    //                 Icons.location_on,
-                                    //                 color: Color(0xFF019aff),
-                                    //               ),
-                                    //               SizedBox(width: 10.w),
-                                    //               Center(
-                                    //                 child: Container(
-                                    //                   alignment:
-                                    //                       Alignment.centerLeft,
-                                    //                   height: 50.h,
-                                    //                   // padding: const EdgeInsets.symmetric(
-                                    //                   //   vertical: 8,
-                                    //                   // ),
-                                    //                   width: ScreenUtil()
-                                    //                           .screenWidth *
-                                    //                       0.65,
-                                    //                   child: Text(
-                                    //                     getLocation.getMyAddress
-                                    //                             .isEmpty
-                                    //                         ? 'Get Company Location'
-                                    //                         : getLocation
-                                    //                             .getMyAddress,
-                                    //                     style: GoogleFonts
-                                    //                         .montserrat(
-                                    //                       color: Colors.black,
-                                    //                     ),
-                                    //                     maxLines: 2,
-                                    //                     // textAlign: TextAlign.center,
-                                    //                     overflow: TextOverflow
-                                    //                         .ellipsis,
-                                    //                   ),
-                                    //                 ),
-                                    //               ),
-                                    //             ],
-                                    //           ),
-                                    //           const Icon(
-                                    //             Icons.my_location,
-                                    //             color: Color(0xFF019aff),
-                                    //           ),
-                                    //         ],
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // );
                                   },
                                 ),
                               if (type == '2') SizedBox(height: 10.h),
@@ -627,71 +477,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                           timer.setTimer(context);
                                         },
                                       );
-                                      // return InkWell(
-                                      //   onTap: () async {
-                                      //     await timer.setTimer(context);
-                                      //   },
-                                      //   child: FadeInDown(
-                                      //     from: 40,
-                                      //     delay:
-                                      //         const Duration(milliseconds: 750),
-                                      //     child: Container(
-                                      //       height: 50.h,
-                                      //       padding: const EdgeInsets.symmetric(
-                                      //           horizontal: 15),
-                                      //       decoration: BoxDecoration(
-                                      //         color: Colors.white,
-                                      //         borderRadius: BorderRadius.all(
-                                      //           Radius.circular(30.r),
-                                      //         ),
-                                      //       ),
-                                      //       child: Row(
-                                      //         mainAxisAlignment:
-                                      //             MainAxisAlignment.spaceBetween,
-                                      //         children: [
-                                      //           Row(
-                                      //             children: [
-                                      //               Icon(
-                                      //                 FontAwesomeIcons.solidClock,
-                                      //                 color:
-                                      //                     const Color(0xFF019aff),
-                                      //                 size: 20.sp,
-                                      //               ),
-                                      //               SizedBox(width: 10.w),
-                                      //               Container(
-                                      //                 padding:
-                                      //                     EdgeInsets.symmetric(
-                                      //                   vertical: 8.h,
-                                      //                   horizontal: 5.w,
-                                      //                 ),
-                                      //                 width: ScreenUtil()
-                                      //                         .screenWidth *
-                                      //                     0.65,
-                                      //                 child: Text(
-                                      //                   (timer.timerValues[
-                                      //                                   'fromUtilize'] !=
-                                      //                               '' ||
-                                      //                           timer.timerValues[
-                                      //                                   'toUtilize'] !=
-                                      //                               '')
-                                      //                       ? '${(timer.timerValues['fromUtilize'])} - ${(timer.timerValues['toUtilize'])}'
-                                      //                       : 'Select Time',
-                                      //                   style: GoogleFonts
-                                      //                       .montserrat(
-                                      //                     color: Colors.black,
-                                      //                   ),
-                                      //                   maxLines: 2,
-                                      //                   overflow:
-                                      //                       TextOverflow.ellipsis,
-                                      //                 ),
-                                      //               ),
-                                      //             ],
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // );
                                     },
                                   ),
                               if (type == '2') SizedBox(height: 8.h),
@@ -703,70 +488,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       delayMilliseconds: 770,
                                       title: days.getDays(),
                                       height: 50.h,
-                                      icon: FontAwesomeIcons.solidClock,
+                                      icon: FontAwesomeIcons.calendar,
                                       onTap: () {
                                         showDays(context, true);
                                       },
                                     );
-                                    // return InkWell(
-                                    //   onTap: () async {
-                                    //     await showDays(context, false);
-                                    //   },
-                                    //   child: FadeInDown(
-                                    //     from: 40,
-                                    //     delay:
-                                    //         const Duration(milliseconds: 770),
-                                    //     child: Container(
-                                    //       height: 50.h,
-                                    //       padding: EdgeInsets.symmetric(
-                                    //         horizontal: 15.w,
-                                    //       ),
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.white,
-                                    //         borderRadius: BorderRadius.all(
-                                    //           Radius.circular(30.r),
-                                    //         ),
-                                    //       ),
-                                    //       child: Row(
-                                    //         mainAxisAlignment:
-                                    //             MainAxisAlignment.spaceBetween,
-                                    //         children: [
-                                    //           Row(
-                                    //             children: [
-                                    //               Icon(
-                                    //                 FontAwesomeIcons.solidClock,
-                                    //                 color:
-                                    //                     const Color(0xFF019aff),
-                                    //                 size: 20.sp,
-                                    //               ),
-                                    //               SizedBox(width: 10.w),
-                                    //               Container(
-                                    //                 padding:
-                                    //                     EdgeInsets.symmetric(
-                                    //                   vertical: 8.h,
-                                    //                   horizontal: 5.w,
-                                    //                 ),
-                                    //                 width: ScreenUtil()
-                                    //                         .screenWidth *
-                                    //                     0.65,
-                                    //                 child: Text(
-                                    //                   days.getDays(),
-                                    //                   style: GoogleFonts
-                                    //                       .montserrat(
-                                    //                     color: Colors.black,
-                                    //                   ),
-                                    //                   maxLines: 3,
-                                    //                   overflow:
-                                    //                       TextOverflow.ellipsis,
-                                    //                 ),
-                                    //               ),
-                                    //             ],
-                                    //           ),
-                                    //         ],
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // );
                                   },
                                 ),
                               if (type == '2') SizedBox(height: 8.h),
@@ -777,7 +503,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     context: context,
                                     delayMilliseconds: 800,
                                     title: categories.getService(),
-                                    height: 55.h,
+                                    height: 50.h,
                                     icon: Icons.category_outlined,
                                     trailingIcon:
                                         Icons.arrow_drop_down_circle_outlined,
@@ -785,53 +511,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       showCategories(context, true);
                                     },
                                   );
-                                  // return InkWell(
-                                  //   onTap: () async {
-                                  //     await showCategories(context, false);
-                                  //   },
-                                  //   child: FadeInDown(
-                                  //     from: 50,
-                                  //     delay: const Duration(milliseconds: 800),
-                                  //     child: Container(
-                                  //       height: 55.h,
-                                  //       padding: EdgeInsets.symmetric(
-                                  //         horizontal: 15.w,
-                                  //       ),
-                                  //       decoration: BoxDecoration(
-                                  //         color: Colors.white,
-                                  //         borderRadius: BorderRadius.all(
-                                  //           Radius.circular(30.r),
-                                  //         ),
-                                  //       ),
-                                  //       child: Row(
-                                  //         mainAxisAlignment:
-                                  //             MainAxisAlignment.spaceBetween,
-                                  //         children: [
-                                  //           Row(
-                                  //             children: [
-                                  //               const Icon(
-                                  //                 Icons.category_outlined,
-                                  //                 color: Color(0xFF019aff),
-                                  //               ),
-                                  //               SizedBox(width: 10.w),
-                                  //               Text(
-                                  //                 categories.getService(),
-                                  //                 style: GoogleFonts.montserrat(
-                                  //                   color: Colors.black,
-                                  //                 ),
-                                  //               ),
-                                  //             ],
-                                  //           ),
-                                  //           const Icon(
-                                  //             Icons
-                                  //                 .arrow_drop_down_circle_outlined,
-                                  //             color: Color(0xFF019aff),
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // );
                                 }),
                               if (type == '2') const SizedBox(height: 10),
                               FadeInDown(

@@ -712,6 +712,7 @@ class _RegistrationCategoryAndTimingScreenState
                           val.toString(),
                         ),
                       );
+                      // print(val.toString());
                     },
                     title: const Text('24 Hours'),
                   ),
@@ -724,6 +725,7 @@ class _RegistrationCategoryAndTimingScreenState
                           val.toString(),
                         ),
                       );
+                      // print(val.toString());
                     },
                     title: const Text('Custom'),
                   ),

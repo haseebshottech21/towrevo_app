@@ -78,6 +78,8 @@ class CompanyWebService {
         body: {'token': token},
       );
 
+      print(response.body);
+
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         return loadedData;

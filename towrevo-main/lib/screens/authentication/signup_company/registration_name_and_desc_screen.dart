@@ -95,7 +95,7 @@ class _RegistrationNameAndDescScreenState
       Fluttertoast.showToast(msg: 'Please Enter Image');
       return;
     } else if (_companySignUpProvider.servicesDescription().isEmpty) {
-      Fluttertoast.showToast(msg: 'Please Enter Description');
+      Fluttertoast.showToast(msg: 'Please Select Description');
       return;
     } else {
       _companySignUpProvider.body['first_name'] = companyNameController.text;

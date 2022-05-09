@@ -106,8 +106,9 @@ class CompanyItem extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             companyModel.from +
-                                ' - ' +
-                                companyModel.to +
+                                (companyModel.to.isEmpty
+                                    ? ''
+                                    : ' - ' + companyModel.to) +
                                 ' ( ${companyModel.distance} )',
                             style: TextStyle(
                               fontSize: 12.sp,

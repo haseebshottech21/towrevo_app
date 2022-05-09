@@ -1,6 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 
 class UserRatingDialog extends StatelessWidget {
@@ -26,13 +29,14 @@ class UserRatingDialog extends StatelessWidget {
             Radius.circular(15.0),
           ),
         ),
-        backgroundColor: Colors.white,
-        titlePadding: const EdgeInsets.symmetric(vertical: 10),
-        title: const Text(
-          'Rate Company',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 22,
+        backgroundColor: AppColors.primaryColor.withOpacity(0.9),
+        titlePadding: EdgeInsets.symmetric(vertical: 10.h),
+        title: Text(
+          'RATE COMPANY',
+          style: GoogleFonts.montserrat(
+            color: Colors.grey[200],
+            fontSize: 22.sp,
+            fontWeight: FontWeight.w500,
           ),
           textAlign: TextAlign.center,
         ),
@@ -43,16 +47,20 @@ class UserRatingDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Company : ' + companyName,
-                style: const TextStyle(fontSize: 18),
+                'COMPANY : ' + companyName.toUpperCase(),
+                style: GoogleFonts.montserrat(
+                  color: Colors.white,
+                  fontSize: 16.sp,
+                ),
               ),
               Text(
-                'Service : ' + serviceName,
-                style: const TextStyle(fontSize: 18),
+                'SERVICE : ' + serviceName.toUpperCase(),
+                style: GoogleFonts.montserrat(
+                  color: Colors.white,
+                  fontSize: 16.sp,
+                ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              SizedBox(height: 15.h),
               Consumer<UserHomeScreenViewModel>(
                   builder: (ctx, userViewModel, neverBuildChild) {
                 return Row(
@@ -66,7 +74,7 @@ class UserRatingDialog extends StatelessWidget {
                         Icons.star,
                         color: userViewModel.rating >= 1
                             ? Colors.orange
-                            : Colors.grey,
+                            : Colors.grey[50],
                         size: 45,
                       ),
                     ),
@@ -78,7 +86,7 @@ class UserRatingDialog extends StatelessWidget {
                         Icons.star,
                         color: userViewModel.rating >= 2
                             ? Colors.orange
-                            : Colors.grey,
+                            : Colors.grey[50],
                         size: 45,
                       ),
                     ),
@@ -90,7 +98,7 @@ class UserRatingDialog extends StatelessWidget {
                         Icons.star,
                         color: userViewModel.rating >= 3
                             ? Colors.orange
-                            : Colors.grey,
+                            : Colors.grey[50],
                         size: 45,
                       ),
                     ),
@@ -102,7 +110,7 @@ class UserRatingDialog extends StatelessWidget {
                         Icons.star,
                         color: userViewModel.rating >= 4
                             ? Colors.orange
-                            : Colors.grey,
+                            : Colors.grey[50],
                         size: 45,
                       ),
                     ),
@@ -114,7 +122,7 @@ class UserRatingDialog extends StatelessWidget {
                         Icons.star,
                         color: userViewModel.rating >= 5
                             ? Colors.orange
-                            : Colors.grey,
+                            : Colors.grey[50],
                         size: 45,
                       ),
                     ),
@@ -125,17 +133,25 @@ class UserRatingDialog extends StatelessWidget {
           ),
         ),
         actions: [
-          ElevatedButton(
+          TextButton(
             onPressed: () {
               final provider =
                   Provider.of<UserHomeScreenViewModel>(context, listen: false);
               provider.subimtRating(reqId, provider.rating.toString(), context);
             },
             style: ElevatedButton.styleFrom(
-              primary: const Color(0xFF092848),
-              shape: const StadiumBorder(),
+              shadowColor: Colors.transparent,
+              primary: Colors.transparent,
             ),
-            child: const Text('SUBMIT'),
+            child: Text(
+              'SUBMIT',
+              style: GoogleFonts.montserrat(
+                color: Colors.white,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w500,
+                letterSpacing: 1.0,
+              ),
+            ),
           )
         ],
       ),

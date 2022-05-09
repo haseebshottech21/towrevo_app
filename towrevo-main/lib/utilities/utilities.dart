@@ -37,8 +37,8 @@ class Utilities {
   }
 
   //12 to 24
-  String timeConverter(String datee) {
-    DateTime date = DateFormat.jm().parse(datee);
+  String timeConverter(String dates) {
+    DateTime date = DateFormat.jm().parse(dates);
     // DateTime date2= DateFormat("hh:mma").parse("6:45PM"); // think this will work better for you
 
     // format date 12 to 24

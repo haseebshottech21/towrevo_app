@@ -69,6 +69,8 @@ class RegisterCompanyViewModel with ChangeNotifier {
     timerValues = {
       'from': '',
       'to': '',
+      'fromUtilize': '',
+      'toUtilize': '',
     };
     body['from'] = '';
     body['to'] = '';
@@ -123,6 +125,8 @@ class RegisterCompanyViewModel with ChangeNotifier {
     changeLoadingStatus(true);
     final responseBody = await AuthenticationWebService().signUpCompany(body);
     final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
+    print(timeRadioValue);
+    // print(body['to']);
     changeLoadingStatus(false);
 
     if (responseBody != null) {
