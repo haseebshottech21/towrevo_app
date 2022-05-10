@@ -49,7 +49,7 @@ class EditProfileViewModel with ChangeNotifier {
     BuildContext context,
     TextEditingController descriptionController,
   ) async {
-    if (!(await Utilities().isInternetAvailable())) {
+    if (!(await utilities.isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
@@ -125,7 +125,7 @@ class EditProfileViewModel with ChangeNotifier {
   }
 
   Future<void> setTimer(BuildContext context) async {
-    final time = await Utilities().setTimer(context);
+    final time = await utilities.setTimer(context);
 
     if (time != null) {
       timerValues = time;
@@ -144,16 +144,19 @@ class EditProfileViewModel with ChangeNotifier {
     } else {
       timerValues['fromUtilize'] = from;
       timerValues['toUtilize'] = to;
-      timerValues['from'] = Utilities().timeConverter(from.toUpperCase());
-      timerValues['to'] = Utilities().timeConverter(to.toUpperCase());
+      timerValues['from'] = utilities.timeConverter(from.toUpperCase());
+      timerValues['to'] = utilities.timeConverter(to.toUpperCase());
       timeRadioValue = 1;
     }
   }
 
   Future<void> changePassword(
       String password, String confirmPassword, BuildContext context) async {
+    if (!(await utilities.isInternetAvailable())) {
+      return;
+    }
     changeLoadingStatus(true);
-    final loadedData = await EditProfileWebService().changePassword(
+    final loadedData = await editProfileWebService.changePassword(
       password,
       confirmPassword,
     );
@@ -165,7 +168,9 @@ class EditProfileViewModel with ChangeNotifier {
 
   Future<void> editProfileFields(
       Map<String, String> body, BuildContext context) async {
-    // print(body);
+    if (!(await utilities.isInternetAvailable())) {
+      return;
+    }
     changeLoadingStatus(true);
     final loadedData = await editProfileWebService.editProfileFields(body);
     if (loadedData != null) {

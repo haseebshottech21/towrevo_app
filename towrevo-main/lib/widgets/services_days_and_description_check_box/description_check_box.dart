@@ -6,11 +6,11 @@ import 'package:towrevo/view_model/register_company_view_model.dart';
 class DescriptionCheckBoxWidget extends StatelessWidget {
   final RegisterCompanyViewModel registerCompanyViewModel;
   final TextEditingController descriptionController;
-  const DescriptionCheckBoxWidget(
-      {required this.registerCompanyViewModel,
-      required this.descriptionController,
-      Key? key})
-      : super(key: key);
+  const DescriptionCheckBoxWidget({
+    required this.registerCompanyViewModel,
+    required this.descriptionController,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

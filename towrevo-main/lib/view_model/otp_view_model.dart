@@ -55,7 +55,7 @@ class OTPViewModel with ChangeNotifier {
   }
 
   Future<bool> resendOTP(String uniqueId) async {
-    if (!(await Utilities().isInternetAvailable())) {
+    if (!(await utilities.isInternetAvailable())) {
       return false;
     }
     changeLoadingStatus(true);

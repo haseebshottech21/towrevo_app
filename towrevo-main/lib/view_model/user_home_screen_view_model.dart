@@ -47,7 +47,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
   }
 
   getType() async {
-    String type = (await Utilities().getSharedPreferenceValue('type'));
+    String type = (await utilities.getSharedPreferenceValue('type'));
     notifyListeners();
     return type;
   }
@@ -155,7 +155,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
   Future<bool> willPopCallback() async {
     // print('there');
     if (isAlive) {
-      return true;
+      return false;
     }
     return true;
   }
@@ -173,7 +173,10 @@ class UserHomeScreenViewModel with ChangeNotifier {
     String companyId,
     String notificationId,
   ) async {
-    final response = await UserWebService().sendRequestToCompany(
+    if (!(await utilities.isInternetAvailable())) {
+      return;
+    }
+    final response = await userWebService.sendRequestToCompany(
       longitude,
       latitude,
       address,

@@ -12,12 +12,13 @@ class PaymentViewModel with ChangeNotifier {
 
   CouponModel couponModel = CouponModel.emptyObject();
   bool isLoading = false;
+  final Utilities utilities = Utilities();
 
   Future<void> checkCoupon(
       {required String coupon,
       required BuildContext context,
       required Function makePament}) async {
-    if (!(await Utilities().isInternetAvailable())) {
+    if (!(await utilities.isInternetAvailable())) {
       return;
     }
     isLoading = true;
@@ -54,6 +55,9 @@ class PaymentViewModel with ChangeNotifier {
   };
 
   Future<void> paymentHistory() async {
+    if (!(await utilities.isInternetAvailable())) {
+      return;
+    }
     isLoading = true;
     // notifyListeners();
     final Map<String, dynamic> loadedData =

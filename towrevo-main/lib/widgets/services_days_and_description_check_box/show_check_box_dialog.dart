@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:towrevo/models/service_description.dart';
+// import 'package:towrevo/models/service_description.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
 import 'package:towrevo/view_model/services_and_day_view_model.dart';
-import 'package:towrevo/widgets/services_days_and_description_check_box/days_check_box_widget.dart';
+// import 'package:towrevo/widgets/services_days_and_description_check_box/days_check_box_widget.dart';
 import 'package:towrevo/widgets/services_days_and_description_check_box/description_check_box.dart';
-import 'package:towrevo/widgets/services_days_and_description_check_box/services_check_box_widget.dart';
+// import 'package:towrevo/widgets/services_days_and_description_check_box/services_check_box_widget.dart';
 import 'package:towrevo/widgets/widgets.dart';
 
 // Future<void> showCategories(BuildContext context) async {
@@ -220,9 +220,7 @@ Future<void> showServiceDescription(
             Radius.circular(15.r),
           ),
         ),
-        title: Text(
-          'Select Company Services',
-        ),
+        title: const Text('Select Company Services'),
         //      Row(
         //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
         //   children: const [

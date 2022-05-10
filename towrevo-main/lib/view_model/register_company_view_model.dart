@@ -116,16 +116,17 @@ class RegisterCompanyViewModel with ChangeNotifier {
     'notification_id': MyApp.notifyToken,
     'image': '',
   };
+  final Utilities utilities = Utilities();
 
   Future<bool> registerCompany(BuildContext context) async {
-    if (!(await Utilities().isInternetAvailable())) {
+    if (!(await utilities.isInternetAvailable())) {
       return false;
     }
 
     changeLoadingStatus(true);
     final responseBody = await AuthenticationWebService().signUpCompany(body);
     final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
-    print(timeRadioValue);
+
     // print(body['to']);
     changeLoadingStatus(false);
 

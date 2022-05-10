@@ -8,6 +8,8 @@ import 'package:towrevo/models/models.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/place_web_service.dart';
 
+import '../utilities/utilities.dart';
+
 class GetLocationViewModel with ChangeNotifier {
   PlaceDetailModel myCurrentLocation = PlaceDetailModel.fromEmptyJson();
   PlaceDetailModel myDestinationLocation = PlaceDetailModel.fromEmptyJson();
@@ -114,6 +116,9 @@ class GetLocationViewModel with ChangeNotifier {
   PlaceWebService placeWebService = PlaceWebService();
 
   Future<void> getPlaces(String query) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     // print(query);
     placesList = await placeWebService.getPlaces(query);
     notifyListeners();
@@ -128,6 +133,9 @@ class GetLocationViewModel with ChangeNotifier {
 
   Future<void> getDirections(
       {required LatLng origin, required LatLng destination}) async {
+    if (!(await Utilities().isInternetAvailable())) {
+      return;
+    }
     final loadedData = await placeWebService.getDirectionsRequest(
         origin: origin, destination: destination);
     if (loadedData != null) {

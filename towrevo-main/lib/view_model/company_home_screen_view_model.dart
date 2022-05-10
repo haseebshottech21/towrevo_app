@@ -86,7 +86,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
     int? loadedResponseCode =
         await companyWebService.paymentStatusCheckRequest();
-    print(loadedResponseCode);
+   
     if (loadedResponseCode != null) {
       if (loadedResponseCode == 403 || loadedResponseCode == 401) {
         Navigator.of(context).pushNamed(CompanyPaymentScreen.routeName,

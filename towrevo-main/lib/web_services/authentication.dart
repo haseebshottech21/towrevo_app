@@ -13,7 +13,7 @@ class AuthenticationWebService {
         body: body,
         headers: Utilities.header,
       );
-
+      print(response.body);
       final loadedData = json.decode(response.body);
 
       if (response.statusCode == 200) {
@@ -49,6 +49,8 @@ class AuthenticationWebService {
         headers: Utilities.header,
       );
 
+      print(response.statusCode);
+
       final responseLoaded = json.decode(response.body);
 
       if (response.statusCode == 200) {
@@ -61,7 +63,6 @@ class AuthenticationWebService {
           await utilities.removeSharedPreferenceValue('remember_email');
           await utilities.removeSharedPreferenceValue('remember_password');
         }
-
         Fluttertoast.showToast(msg: 'Successfully Logged In');
         return true;
       } else {
@@ -70,6 +71,7 @@ class AuthenticationWebService {
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
+      print(e.toString());
       return false;
     }
   }
@@ -190,6 +192,21 @@ class AuthenticationWebService {
     }
     if (body['errors']['phone'] != null) {
       for (var error in body['errors']['phone']) {
+        errorMessage += error + '\n';
+      }
+    }
+    if (body['errors']['notification_id'] != null) {
+      for (var error in body['errors']['notification_id']) {
+        errorMessage += error + '\n';
+      }
+    }
+    if (body['errors']['from'] != null) {
+      for (var error in body['errors']['from']) {
+        errorMessage += error + '\n';
+      }
+    }
+    if (body['errors']['to'] != null) {
+      for (var error in body['errors']['from']) {
         errorMessage += error + '\n';
       }
     }

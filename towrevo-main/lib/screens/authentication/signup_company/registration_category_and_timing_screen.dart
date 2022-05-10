@@ -170,8 +170,8 @@ class _RegistrationCategoryAndTimingScreenState
         registerProvider.body['to'] == '') {
       Fluttertoast.showToast(msg: 'Please Select Custom Time');
     } else if (registerProvider.timeRadioValue == 0) {
-      registerProvider.body['from'] = '';
-      registerProvider.body['to'] = '';
+      registerProvider.body.remove('from');
+      registerProvider.body.remove('to');
     }
     final daysAndServiceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
