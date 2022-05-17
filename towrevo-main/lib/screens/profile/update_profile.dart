@@ -29,6 +29,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   // final descriptionController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final startAmountController = TextEditingController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   String type = '';
@@ -406,6 +407,25 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                 ),
                               ),
                               SizedBox(height: 8.h),
+                              if (type == '2')
+                                FadeInDown(
+                                  from: 25,
+                                  delay: const Duration(milliseconds: 520),
+                                  child: TextFieldForAll(
+                                    errorGetter:
+                                        ErrorGetter().companyNameErrorGetter,
+                                    hintText: 'Starting Price',
+                                    prefixIcon: const Icon(
+                                      FontAwesomeIcons.dollarSign,
+                                      color: Color(0xFF019aff),
+                                      size: 20.0,
+                                    ),
+                                    textEditingController:
+                                        startAmountController,
+                                    textInputType: TextInputType.number,
+                                  ),
+                                ),
+                              if (type == '2') SizedBox(height: 10.h),
                               if (type == '2')
                                 Consumer<GetLocationViewModel>(
                                   builder: (ctx, getLocation, neverBuildChild) {

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/models/company_model.dart';
 import 'package:towrevo/screens/user/user_monthly_payment_screen.dart';
+import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/view_model/user_home_screen_view_model.dart';
 import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -194,6 +195,38 @@ class CompanyItem extends StatelessWidget {
                             ),
                           ),
                         ),
+                ],
+              ),
+              SizedBox(height: 2.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    'STARTING AT ',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  SizedBox(width: 2.h),
+                  // Container(
+                  //   padding:
+                  //       const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.grey[50],
+                  //     borderRadius: BorderRadius.circular(5),
+                  //   ),
+                  //   child:
+                  Text(
+                    '\$10',
+                    style: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  // ),
                 ],
               ),
               SizedBox(height: 8.h),
