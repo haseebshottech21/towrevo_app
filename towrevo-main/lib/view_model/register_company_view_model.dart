@@ -106,6 +106,7 @@ class RegisterCompanyViewModel with ChangeNotifier {
     'phone': '',
     'password': '',
     'password_confirmation': '',
+    'starting_price': '',
     'latitude': '',
     'longitude': '',
     'from': '',

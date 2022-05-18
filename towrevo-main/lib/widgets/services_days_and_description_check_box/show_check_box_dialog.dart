@@ -77,7 +77,11 @@ import 'package:towrevo/widgets/widgets.dart';
 //   );
 // }
 
-Future<void> showDays(BuildContext context, bool fromSignUp) async {
+Future<void> showDays(
+  BuildContext context,
+  bool fromSignUp,
+  bool update,
+) async {
   final daysProvider =
       Provider.of<ServicesAndDaysViewModel>(context, listen: false);
   await showDialog(
@@ -107,7 +111,16 @@ Future<void> showDays(BuildContext context, bool fromSignUp) async {
                 Navigator.pop(context, null);
               },
               child: const Text(
-                'Cancle',
+                'Cancel',
+              ),
+            ),
+          if (update)
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Cancel',
               ),
             ),
           TextButton(
@@ -140,7 +153,11 @@ Future<void> showDays(BuildContext context, bool fromSignUp) async {
   );
 }
 
-Future<void> showCategories(BuildContext context, bool fromSignUp) async {
+Future<void> showCategories(
+  BuildContext context,
+  bool fromSignUp,
+  bool update,
+) async {
   final servicesProvider =
       Provider.of<ServicesAndDaysViewModel>(context, listen: false);
   await showDialog(
@@ -168,6 +185,15 @@ Future<void> showCategories(BuildContext context, bool fromSignUp) async {
               onPressed: () {
                 servicesProvider.clearServicesList();
                 Navigator.pop(context, null);
+              },
+              child: const Text(
+                'Cancel',
+              ),
+            ),
+          if (update)
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
               },
               child: const Text(
                 'Cancel',

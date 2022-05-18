@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_range_picker/time_range_picker.dart';
+import 'package:towrevo/view_model/register_company_view_model.dart';
 
 class Utilities {
   Future<Map<String, String>?> setTimer(BuildContext context) async {
@@ -194,5 +195,21 @@ class Utilities {
       provisional: false,
       sound: true,
     );
+  }
+
+  static String getDesc(RegisterCompanyViewModel registerViewModel,
+      TextEditingController descriptionController) {
+    final description = registerViewModel.servicesDescription();
+    return (description.trim() + descriptionController.text).isEmpty
+        ? 'Company Services'
+        : description +
+            ((descriptionController.text).isNotEmpty &&
+                    description.trim().isNotEmpty
+                ? '\n'
+                : '') +
+            (descriptionController.text.isNotEmpty
+                    ? '● ' + descriptionController.text
+                    : '')
+                .trim();
   }
 }

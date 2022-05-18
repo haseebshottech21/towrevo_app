@@ -74,7 +74,6 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                           shrinkWrap: true,
                           itemCount: userHomeProvider.list.length,
                           itemBuilder: (ctx, index) {
-                            print(userHomeProvider.list.length);
                             return CompanyItem(
                               companyModel: userHomeProvider.list[index],
                             );

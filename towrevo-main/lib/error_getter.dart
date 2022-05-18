@@ -10,6 +10,16 @@ class ErrorGetter {
     return null;
   }
 
+  dynamic startingPriceErrorGetter(String value) {
+    if (value.isEmpty) {
+      return 'Please Enter Starting Price';
+    }
+    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+      return 'Price must be in numbers';
+    }
+    return null;
+  }
+
   dynamic lastNameErrorGetter(String value) {
     if (value.isEmpty) {
       return 'Please Enter Last Name';

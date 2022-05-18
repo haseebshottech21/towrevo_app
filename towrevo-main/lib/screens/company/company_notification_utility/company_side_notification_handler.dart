@@ -29,6 +29,21 @@ class CompanySideNotificationHandler {
 
         if (message.data['screen'] == 'request') {
           await playSound();
+          Future.delayed(const Duration(seconds: 3)).then((value) {
+            playSound();
+          });
+          Future.delayed(const Duration(seconds: 6)).then((value) {
+            playSound();
+          });
+          Future.delayed(const Duration(seconds: 9)).then((value) {
+            playSound();
+          });
+          Future.delayed(const Duration(seconds: 12)).then((value) {
+            playSound();
+          });
+          Future.delayed(const Duration(seconds: 15)).then((value) {
+            playSound();
+          });
 
           showSnackBar(
             context: context,

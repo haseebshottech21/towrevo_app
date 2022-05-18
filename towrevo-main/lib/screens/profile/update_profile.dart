@@ -45,9 +45,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
         provider.initFields();
 
         await provider.getEditData(context, descriptionController);
-        setFields(provider);
         // _init = true;
         type = await Utilities().getSharedPreferenceValue('type');
+        setFields(provider);
       },
     );
 
@@ -60,6 +60,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
       lastNameController.text = (provider.body['last_name'] ?? '').toString();
     }
     emailController.text = (provider.body['email'] ?? '').toString();
+    print(type);
+    if (type == '2') {
+      startAmountController.text =
+          (provider.body['company_info']['starting_price'] ?? '').toString();
+    }
+
     phoneNumberController.text = (provider.body['phone'] ?? '').toString();
 
     // if (type == '2') {
@@ -105,9 +111,17 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
       if (daysAndServiceProvider.daysId.isNotEmpty &&
           daysAndServiceProvider.servicesId.isNotEmpty &&
-          companyRegisterProvider.servicesDescription().isNotEmpty) {
+          (companyRegisterProvider.servicesDescription().trim() +
+                  (descriptionController.text.isNotEmpty
+                      ? 'Other' + descriptionController.text.trim()
+                      : ''))
+              .isNotEmpty) {
         companyRegisterProvider.body['description'] =
-            companyRegisterProvider.servicesDescription().trim();
+            // companyRegisterProvider.servicesDescription().trim();
+            companyRegisterProvider.servicesDescription().trim() +
+                (descriptionController.text.isNotEmpty
+                    ? 'Other' + descriptionController.text.trim()
+                    : '');
         provider.body['services'] =
             json.encode(daysAndServiceProvider.servicesId);
         provider.body['days'] = json.encode(daysAndServiceProvider.daysId);
@@ -122,6 +136,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         : ''),
             'state': provider.selectedState!,
             'city': provider.selectedCity!,
+            'starting_price': startAmountController.text.trim(),
             if (provider.imagePath.isNotEmpty) 'image': provider.image,
             if (provider.imagePath.isNotEmpty) 'extension': provider.extension,
             if (provider.timerValues['from'].toString().isNotEmpty &&
@@ -346,22 +361,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                     return SelectorWidget(
                                       context: context,
                                       delayMilliseconds: 570,
-                                      title: registerViewModel
-                                              .servicesDescription()
-                                              .isEmpty
-                                          ? 'Company Services'
-                                          : registerViewModel
-                                                  .servicesDescription() +
-                                              (descriptionController
-                                                      .text.isNotEmpty
-                                                  ? '\n● ' +
-                                                      descriptionController.text
-                                                  : ''),
+                                      title: Utilities.getDesc(
+                                        registerViewModel,
+                                        descriptionController,
+                                      ),
                                       height: registerViewModel
                                               .servicesDescription()
                                               .contains('\n')
                                           ? null
-                                          : 40.h,
+                                          : 50.h,
                                       icon: FontAwesomeIcons.solidBuilding,
                                       // maxlines: 5,
                                       trailingIcon:
@@ -413,7 +421,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   delay: const Duration(milliseconds: 520),
                                   child: TextFieldForAll(
                                     errorGetter:
-                                        ErrorGetter().companyNameErrorGetter,
+                                        ErrorGetter().startingPriceErrorGetter,
                                     hintText: 'Starting Price',
                                     prefixIcon: const Icon(
                                       FontAwesomeIcons.dollarSign,
@@ -436,7 +444,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       title: getLocation.getMyAddress.isEmpty
                                           ? 'Get Company Location'
                                           : getLocation.getMyAddress,
-                                      height: 45.h,
+                                      height: 50.h,
                                       maxlines: 3,
                                       icon: Icons.location_on,
                                       trailingIcon: Icons.my_location,
@@ -461,7 +469,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                           : timer.timeRadioValue == 1
                                               ? 'Custom'
                                               : 'Select Time',
-                                      height: 40.h,
+                                      height: 50.h,
                                       icon: FontAwesomeIcons.solidClock,
                                       onTap: () {
                                         showTimeDialog();
@@ -491,7 +499,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                                     '')
                                             ? '${(timer.timerValues['fromUtilize'])} - ${(timer.timerValues['toUtilize'])}'
                                             : 'Select Time',
-                                        height: 40.h,
+                                        height: 50.h,
                                         icon: FontAwesomeIcons.solidClock,
                                         onTap: () {
                                           timer.setTimer(context);
@@ -510,28 +518,29 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       height: 50.h,
                                       icon: FontAwesomeIcons.calendar,
                                       onTap: () {
-                                        showDays(context, true);
+                                        showDays(context, false, true);
                                       },
                                     );
                                   },
                                 ),
                               if (type == '2') SizedBox(height: 8.h),
                               if (type == '2')
-                                Consumer<ServicesAndDaysViewModel>(builder:
-                                    (ctx, categories, neverBuildChild) {
-                                  return SelectorWidget(
-                                    context: context,
-                                    delayMilliseconds: 800,
-                                    title: categories.getService(),
-                                    height: 50.h,
-                                    icon: Icons.category_outlined,
-                                    trailingIcon:
-                                        Icons.arrow_drop_down_circle_outlined,
-                                    onTap: () {
-                                      showCategories(context, true);
-                                    },
-                                  );
-                                }),
+                                Consumer<ServicesAndDaysViewModel>(
+                                  builder: (ctx, categories, neverBuildChild) {
+                                    return SelectorWidget(
+                                      context: context,
+                                      delayMilliseconds: 800,
+                                      title: categories.getService(),
+                                      height: 50.h,
+                                      icon: Icons.category_outlined,
+                                      trailingIcon:
+                                          Icons.arrow_drop_down_circle_outlined,
+                                      onTap: () {
+                                        showCategories(context, false, true);
+                                      },
+                                    );
+                                  },
+                                ),
                               if (type == '2') const SizedBox(height: 10),
                               FadeInDown(
                                 from: 55,

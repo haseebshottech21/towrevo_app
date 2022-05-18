@@ -2,6 +2,7 @@ class CompanyModel {
   String id;
   String userId;
   String description;
+  String startingPrice;
   String latitude;
   String longitude;
   String from;
@@ -19,6 +20,7 @@ class CompanyModel {
     required this.id,
     required this.userId,
     required this.description,
+    required this.startingPrice,
     required this.latitude,
     required this.longitude,
     required this.from,
@@ -40,6 +42,7 @@ class CompanyModel {
       description: json['description'].toString().replaceAll(r'Other', '\n● '),
       latitude: json['latitude'].toString(),
       longitude: json['longitude'].toString(),
+      startingPrice: (json['starting_price'] ?? '').toString(),
       from: (json['from'] ?? '24 Hours Open').toString().toUpperCase(),
       to: (json['to'] ?? '').toString().toUpperCase(),
       distance: json['distance'].toString() == 'Null'

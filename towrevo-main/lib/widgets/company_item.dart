@@ -200,14 +200,14 @@ class CompanyItem extends StatelessWidget {
               SizedBox(height: 2.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     'STARTING AT ',
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
-                      color: Colors.black54,
+                      color: Colors.black87,
                     ),
                   ),
                   SizedBox(width: 2.h),
@@ -220,16 +220,17 @@ class CompanyItem extends StatelessWidget {
                   //   ),
                   //   child:
                   Text(
-                    '\$10',
+                    '\$${companyModel.startingPrice}',
                     style: TextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 17.sp,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primaryColor2,
                     ),
                   ),
                   // ),
                 ],
               ),
-              SizedBox(height: 8.h),
+              SizedBox(height: 6.h),
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(companyModel.description),

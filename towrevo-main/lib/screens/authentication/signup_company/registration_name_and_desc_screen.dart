@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/error_getter.dart';
+import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 // import 'package:towrevo/widgets/services_days_and_description_check_box/selector_widget.dart';
 import 'package:towrevo/widgets/widgets.dart';
@@ -26,65 +27,6 @@ class _RegistrationNameAndDescScreenState
   final companyNameController = TextEditingController();
   // final companyDescriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  // Future<void> showServiceDescription(
-  //     RegisterCompanyViewModel registerViewModel, BuildContext context) async {
-  //   await showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (_) {
-  //       return AlertDialog(
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.all(
-  //             Radius.circular(15.r),
-  //           ),
-  //         ),
-  //         title: Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: const [
-  //             Text(
-  //               'Select Company Services',
-  //             ),
-  //             FaIcon(FontAwesomeIcons.servicestack)
-  //           ],
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             onPressed: () {
-  //               registerViewModel.clearServiceDescriptionList();
-  //               Navigator.of(context).pop();
-  //             },
-  //             child: const Text(
-  //               'Cancel',
-  //             ),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //             child: const Text(
-  //               'Done',
-  //             ),
-  //           ),
-  //         ],
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: registerViewModel.servicesDespriptionList.map(
-  //             (item) {
-  //               return ChangeNotifierProvider.value(
-  //                 value: registerViewModel.servicesDespriptionList[
-  //                     registerViewModel.servicesDespriptionList.indexOf(item)],
-  //                 child: DescriptionCheckBoxWidget(
-  //                   registerCompanyViewModel: registerViewModel,
-  //                 ),
-  //               );
-  //             },
-  //           ).toList(),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 
   void validateFromAndSaveData() {
     final _companySignUpProvider =
@@ -214,42 +156,18 @@ class _RegistrationNameAndDescScreenState
                             ),
                           ),
                           SizedBox(height: 8.h),
-                          // FadeInDown(
-                          //   from: 30,
-                          //   delay: const Duration(milliseconds: 700),
-                          //   child: CompanyTextAreaField(
-                          //     errorGetter:
-                          //         ErrorGetter().companyDescriptionErrorGetter,
-                          //     hintText: 'Company Service',
-                          //     prefixIcon: const Icon(
-                          //       FontAwesomeIcons.solidBuilding,
-                          //       color: Color(0xFF019aff),
-                          //       size: 20.0,
-                          //     ),
-                          //     textEditingController:
-                          //         companyDescriptionController,
-                          //   ),
-                          // ),
-
                           Consumer<RegisterCompanyViewModel>(
                             builder: (ctx, registerViewModel, neverBuildChild) {
                               return SelectorWidget(
                                 context: context,
                                 delayMilliseconds: 570,
-                                title: registerViewModel
-                                        .servicesDescription()
-                                        .isEmpty
-                                    ? 'Company Services'
-                                    : registerViewModel.servicesDescription() +
-                                        (descriptionController.text.isNotEmpty
-                                            ? '\n● ' +
-                                                descriptionController.text
-                                            : ''),
+                                title: Utilities.getDesc(
+                                    registerViewModel, descriptionController),
                                 height: registerViewModel
                                         .servicesDescription()
                                         .contains('\n')
                                     ? null
-                                    : 45.h,
+                                    : 50.h,
                                 icon: FontAwesomeIcons.solidBuilding,
                                 // trailingIcon: FontAwesomeIcons.solidBuilding,
                                 onTap: () {
@@ -261,81 +179,6 @@ class _RegistrationNameAndDescScreenState
                                   );
                                 },
                               );
-
-                              // InkWell(
-                              //   onTap: () async {
-                              //     showServiceDescription(
-                              //       registerViewModel,
-                              //       context,
-                              //       true,
-                              //       descriptionController,
-                              //     );
-                              //   },
-                              //   child: FadeInDown(
-                              //     from: 25,
-                              //     delay: const Duration(milliseconds: 570),
-                              //     child: Container(
-                              //       height: registerViewModel
-                              //               .servicesDescription()
-                              //               .contains('\n')
-                              //           ? null
-                              //           : 45.h,
-                              //       padding:
-                              //           EdgeInsets.symmetric(horizontal: 15.w),
-                              //       decoration: BoxDecoration(
-                              //         color: Colors.white,
-                              //         borderRadius: BorderRadius.all(
-                              //             Radius.circular(30.r)),
-                              //         border: Border.all(color: Colors.black45),
-                              //       ),
-                              //       child: Row(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.spaceBetween,
-                              //         children: [
-                              //           Row(
-                              //             children: [
-                              //               const Icon(
-                              //                 FontAwesomeIcons.solidBuilding,
-                              //                 color: Color(0xFF019aff),
-                              //                 size: 20.0,
-                              //               ),
-                              //               SizedBox(width: 10.w),
-                              //               Container(
-                              //                 padding: EdgeInsets.symmetric(
-                              //                   vertical: 8.h,
-                              //                   horizontal: 5.w,
-                              //                 ),
-                              //                 width: ScreenUtil().screenWidth *
-                              //                     0.65,
-                              //                 child: Text(
-                              //                   registerViewModel
-                              //                           .servicesDescription()
-                              //                           .isEmpty
-                              //                       ? 'Company Services'
-                              //                       : registerViewModel
-                              //                               .servicesDescription() +
-                              //                           (descriptionController
-                              //                                   .text.isNotEmpty
-                              //                               ? '\n● ' +
-                              //                                   descriptionController
-                              //                                       .text
-                              //                               : ''),
-                              //                   style: GoogleFonts.montserrat(
-                              //                     color: Colors.black,
-                              //                     fontSize: 14.sp,
-                              //                   ),
-                              //                   // maxLines: 6,
-                              //                   textAlign: TextAlign.start,
-                              //                   // overflow: TextOverflow.ellipsis,
-                              //                 ),
-                              //               ),
-                              //             ],
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // );
                             },
                           ),
                         ],
