@@ -101,7 +101,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
       Fluttertoast.showToast(
         msg: e.toString(),
       );
-      print(e);
+      // print(e);
     }
   }
 
@@ -133,7 +133,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
         Provider.of<PaymentViewModel>(context, listen: false);
     final int statusCode = ModalRoute.of(context)!.settings.arguments as int;
     //404 mean first time , 401 means expired subscription
-    print(statusCode);
+    // print(statusCode);
 
     return Scaffold(
       body: SingleChildScrollView(

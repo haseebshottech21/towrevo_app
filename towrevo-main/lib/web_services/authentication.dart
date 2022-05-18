@@ -13,7 +13,7 @@ class AuthenticationWebService {
         body: body,
         headers: Utilities.header,
       );
-      print(response.body);
+      // print(response.body);
       final loadedData = json.decode(response.body);
 
       if (response.statusCode == 200) {
@@ -49,7 +49,7 @@ class AuthenticationWebService {
         headers: Utilities.header,
       );
 
-      print(response.statusCode);
+      // print(response.statusCode);
 
       final responseLoaded = json.decode(response.body);
 
@@ -71,7 +71,7 @@ class AuthenticationWebService {
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
-      print(e.toString());
+      // print(e.toString());
       return false;
     }
   }

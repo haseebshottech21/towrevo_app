@@ -51,7 +51,7 @@ class EditProfileWebService {
       final response = await http.post(Uri.parse(Utilities.baseUrl + 'update'),
           headers: await Utilities().headerWithAuth(), body: body);
 
-      print(response.body);
+      // print(response.body);
       final loadedData = json.decode(response.body);
 
       if (response.statusCode == 200) {

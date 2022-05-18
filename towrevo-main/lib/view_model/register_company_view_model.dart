@@ -153,9 +153,13 @@ class RegisterCompanyViewModel with ChangeNotifier {
       'from': '',
       'to': '',
     };
+
+    timeRadioValue = null;
+  }
+
+  initStateAndCountry() {
     selectedCity = null;
     selectedState = null;
-    timeRadioValue = null;
   }
 
   initalize() {

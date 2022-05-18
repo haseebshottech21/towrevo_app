@@ -49,7 +49,7 @@ class _RegisterationLocationAndStateState
       companySignUpProvider.body['longitude'] =
           locationProvider.myCurrentLocation.placeLocation.longitude.toString();
 
-      print(companySignUpProvider.body);
+      // print(companySignUpProvider.body);
 
       Navigator.of(context).pushNamed(RegisterationCompleteScreen.routeName);
       // } else {
@@ -106,13 +106,14 @@ class _RegisterationLocationAndStateState
                     //     children: [
                     Consumer<GetLocationViewModel>(
                       builder: (ctx, getLocation, neverBuildChild) {
-                        return SelectorWidget(
+                        return SelectLocation(
                           context: context,
                           delayMilliseconds: 570,
                           title: getLocation.getMyAddress.isEmpty
                               ? 'Company Location'
                               : getLocation.getMyAddress,
                           height: 50.h,
+                          maxlines: 2,
                           icon: Icons.location_on,
                           trailingIcon: Icons.my_location,
                           onTap: () {
@@ -245,6 +246,7 @@ class _RegisterationLocationAndStateState
 
       locationProvider.myCurrentLocation.placeAddress = '';
       provider.initializeValues();
+      provider.initStateAndCountry();
       // serviceProvider.initializeValues();
       // //services e.g car, bike
       // serviceProvider.getServices();
@@ -252,6 +254,7 @@ class _RegisterationLocationAndStateState
       // get current location
       await locationProvider.getCurrentLocation(context);
     }
+
     _init = false;
     super.didChangeDependencies();
   }

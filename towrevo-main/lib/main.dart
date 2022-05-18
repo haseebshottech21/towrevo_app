@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/screens/authentication/signup_company/registration_complete_screen.dart';
 import 'package:towrevo/screens/payment/user_paymnets.dart';
 import 'package:towrevo/utilities/env_settings.dart';
 import 'package:towrevo/utilities/utilities.dart';
@@ -14,7 +13,6 @@ import 'package:towrevo/view_model/view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'screens/authentication/signup_company/registeration_location_statecity_screen.dart';
 import 'screens/screens.dart';
 
 Future<void> main() async {

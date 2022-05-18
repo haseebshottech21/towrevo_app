@@ -36,7 +36,7 @@ class PaymentWebService {
         Uri.parse(Utilities.baseUrl + 'payment-history'),
         headers: await Utilities().headerWithAuth(),
       );
-      print(response.body);
+      // print(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         final loadedData = jsonDecode(response.body);
         final List<Payment> paymentList = (loadedData['payment'] as List)

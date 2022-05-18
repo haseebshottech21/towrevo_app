@@ -55,8 +55,8 @@ class _DistanceScreenState extends State<DistanceScreen> {
           ModalRoute.of(context)!.settings.arguments as Map<String, LatLng>;
 
       locationRoute = args;
-      print(LatLng(locationRoute['origin']!.latitude,
-          locationRoute['origin']!.longitude));
+      // print(LatLng(locationRoute['origin']!.latitude,
+      //     locationRoute['origin']!.longitude));
 
       _getPolyline(
           locationViewModel!,

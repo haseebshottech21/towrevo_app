@@ -60,7 +60,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       lastNameController.text = (provider.body['last_name'] ?? '').toString();
     }
     emailController.text = (provider.body['email'] ?? '').toString();
-    print(type);
+    // print(type);
     if (type == '2') {
       startAmountController.text =
           (provider.body['company_info']['starting_price'] ?? '').toString();
@@ -438,14 +438,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                 Consumer<GetLocationViewModel>(
                                   builder: (ctx, getLocation, neverBuildChild) {
                                     // print(getLocation.getAddress);
-                                    return SelectorWidget(
+                                    return SelectLocation(
                                       context: context,
                                       delayMilliseconds: 550,
                                       title: getLocation.getMyAddress.isEmpty
                                           ? 'Get Company Location'
                                           : getLocation.getMyAddress,
                                       height: 50.h,
-                                      maxlines: 3,
+                                      maxlines: 2,
                                       icon: Icons.location_on,
                                       trailingIcon: Icons.my_location,
                                       onTap: () {

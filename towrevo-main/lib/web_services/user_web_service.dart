@@ -15,7 +15,7 @@ class UserWebService {
       );
       List<CompanyModel> companiesList = [];
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         final loadedData = json.decode(response.body);
         for (var company in loadedData['data']) {
           companiesList.add(CompanyModel.fromJson(company));
@@ -93,9 +93,9 @@ class UserWebService {
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode == 200) {
-        print(await response.stream.bytesToString());
+        // print(await response.stream.bytesToString());
       } else {
-        print(response.reasonPhrase);
+        // print(response.reasonPhrase);
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
