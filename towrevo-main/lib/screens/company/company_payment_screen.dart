@@ -15,7 +15,7 @@ import '../../utilities/towrevo_appcolor.dart';
 
 class CompanyPaymentScreen extends StatefulWidget {
   const CompanyPaymentScreen({Key? key}) : super(key: key);
-  static const int payAmmount = 1995;
+  static const int payAmmount = 3995;
 
   static const routeName = '/company-payment';
 
@@ -245,7 +245,7 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                                 ),
                               ),
                               Text(
-                                '\$ 19.95',
+                                '\$ 39.95',
                                 style: GoogleFonts.montserrat(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
