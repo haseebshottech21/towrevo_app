@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/main.dart';
 import 'package:towrevo/models/models.dart';
-// import 'package:towrevo/models/payment_model.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/web_services/company_web_service.dart';
@@ -86,7 +85,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
     int? loadedResponseCode =
         await companyWebService.paymentStatusCheckRequest();
-   
+
     if (loadedResponseCode != null) {
       if (loadedResponseCode == 403 || loadedResponseCode == 401) {
         Navigator.of(context).pushNamed(CompanyPaymentScreen.routeName,

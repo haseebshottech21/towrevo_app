@@ -134,74 +134,79 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (ctx) => RegisterCompanyViewModel()),
-        ChangeNotifierProvider(create: (ctx) => RegisterUserViewModel()),
-        ChangeNotifierProvider(create: (ctx) => LoginViewModel()),
-        ChangeNotifierProvider(create: (ctx) => GetLocationViewModel()),
-        ChangeNotifierProvider(create: (ctx) => ServicesAndDaysViewModel()),
-        ChangeNotifierProvider(create: (ctx) => ServicesAndDaysViewModel()),
-        ChangeNotifierProvider(create: (ctx) => OTPViewModel()),
-        ChangeNotifierProvider(create: (ctx) => UserHomeScreenViewModel()),
-        ChangeNotifierProvider(create: (ctx) => CompanyHomeScreenViewModel()),
-        ChangeNotifierProvider(create: (ctx) => EditProfileViewModel()),
-        ChangeNotifierProvider(create: (ctx) => SplashViewModel()),
-        ChangeNotifierProvider(create: (ctx) => PaymentViewModel()),
-      ],
-      child: ScreenUtilInit(
-        builder: (context) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Towrevo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      // minTextAdapt: true,
+      // splitScreenMode: true,
+      builder: (context, child) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (ctx) => RegisterCompanyViewModel()),
+            ChangeNotifierProvider(create: (ctx) => RegisterUserViewModel()),
+            ChangeNotifierProvider(create: (ctx) => LoginViewModel()),
+            ChangeNotifierProvider(create: (ctx) => GetLocationViewModel()),
+            ChangeNotifierProvider(create: (ctx) => ServicesAndDaysViewModel()),
+            ChangeNotifierProvider(create: (ctx) => ServicesAndDaysViewModel()),
+            ChangeNotifierProvider(create: (ctx) => OTPViewModel()),
+            ChangeNotifierProvider(create: (ctx) => UserHomeScreenViewModel()),
+            ChangeNotifierProvider(
+                create: (ctx) => CompanyHomeScreenViewModel()),
+            ChangeNotifierProvider(create: (ctx) => EditProfileViewModel()),
+            ChangeNotifierProvider(create: (ctx) => SplashViewModel()),
+            ChangeNotifierProvider(create: (ctx) => PaymentViewModel()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Towrevo',
+            // You can use the library anywhere in the app even in theme
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+              // textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
+            ),
+            home: getScreen(),
+            routes: {
+              RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
+              LoginScreen.routeName: (ctx) => const LoginScreen(),
+              RegistrationNameAndDescScreen.routeName: (ctx) =>
+                  const RegistrationNameAndDescScreen(),
+              RegistrationCredentialScreen.routeName: (ctx) =>
+                  const RegistrationCredentialScreen(),
+              RegisterationLocationAndState.routeName: (ctx) =>
+                  const RegisterationLocationAndState(),
+              RegisterationCompleteScreen.routeName: (ctx) =>
+                  const RegisterationCompleteScreen(),
+              UserMonthlyPaymentScreen.routeName: (ctx) =>
+                  const UserMonthlyPaymentScreen(),
+              CompanyPaymentScreen.routeName: (ctx) =>
+                  const CompanyPaymentScreen(),
+              RegistrationOTPScreen.routeName: (ctx) =>
+                  const RegistrationOTPScreen(),
+              CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
+              RegisterUserScreen.routeName: (ctx) => const RegisterUserScreen(),
+              UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),
+              ListingOfCompaniesScreen.routeName: (ctx) =>
+                  const ListingOfCompaniesScreen(),
+              DistanceScreen.routeName: (ctx) => const DistanceScreen(),
+              UserLocationScreen.routeName: (ctx) => const UserLocationScreen(),
+              AboutUsScreen.routeName: (ctx) => const AboutUsScreen(),
+              FAQs.routeName: (ctx) => const FAQs(),
+              ChangePasswordScreen.routeName: (ctx) =>
+                  const ChangePasswordScreen(),
+              TermAndCondition.routeName: (ctx) => const TermAndCondition(),
+              CompanyHistoryScreen.routeName: (ctx) =>
+                  const CompanyHistoryScreen(),
+              UserHistoryTow.routeName: (ctx) => const UserHistoryTow(),
+              UserPaymnets.routeName: (ctx) => const UserPaymnets(),
+              ForgotPasswordScreen.routeName: (ctx) =>
+                  const ForgotPasswordScreen(),
+              ForgotPasswordOTPScreen.routeName: (ctx) =>
+                  const ForgotPasswordOTPScreen(),
+              UpdateProfile.routeName: (ctx) => const UpdateProfile(),
+              ContactUs.routeName: (ctx) => const ContactUs(),
+            },
           ),
-          home: getScreen(),
-          // home: ForgotPasswordOTPScreen(),
-          routes: {
-            RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
-            LoginScreen.routeName: (ctx) => const LoginScreen(),
-            RegistrationNameAndDescScreen.routeName: (ctx) =>
-                const RegistrationNameAndDescScreen(),
-            RegistrationCredentialScreen.routeName: (ctx) =>
-                const RegistrationCredentialScreen(),
-            RegisterationLocationAndState.routeName: (ctx) =>
-                const RegisterationLocationAndState(),
-            RegisterationCompleteScreen.routeName: (ctx) =>
-                const RegisterationCompleteScreen(),
-            UserMonthlyPaymentScreen.routeName: (ctx) =>
-                const UserMonthlyPaymentScreen(),
-            CompanyPaymentScreen.routeName: (ctx) =>
-                const CompanyPaymentScreen(),
-            RegistrationOTPScreen.routeName: (ctx) =>
-                const RegistrationOTPScreen(),
-            CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
-            RegisterUserScreen.routeName: (ctx) => const RegisterUserScreen(),
-            UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),
-            ListingOfCompaniesScreen.routeName: (ctx) =>
-                const ListingOfCompaniesScreen(),
-            DistanceScreen.routeName: (ctx) => const DistanceScreen(),
-            UserLocationScreen.routeName: (ctx) => const UserLocationScreen(),
-            AboutUsScreen.routeName: (ctx) => const AboutUsScreen(),
-            FAQs.routeName: (ctx) => const FAQs(),
-            ChangePasswordScreen.routeName: (ctx) =>
-                const ChangePasswordScreen(),
-            TermAndCondition.routeName: (ctx) => const TermAndCondition(),
-            CompanyHistoryScreen.routeName: (ctx) =>
-                const CompanyHistoryScreen(),
-            UserHistoryTow.routeName: (ctx) => const UserHistoryTow(),
-            UserPaymnets.routeName: (ctx) => const UserPaymnets(),
-            ForgotPasswordScreen.routeName: (ctx) =>
-                const ForgotPasswordScreen(),
-            ForgotPasswordOTPScreen.routeName: (ctx) =>
-                const ForgotPasswordOTPScreen(),
-            UpdateProfile.routeName: (ctx) => const UpdateProfile(),
-            ContactUs.routeName: (ctx) => const ContactUs(),
-          },
-        ),
-        designSize: const Size(360, 640),
-      ),
+        );
+      },
     );
   }
 

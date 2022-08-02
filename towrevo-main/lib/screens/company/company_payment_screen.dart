@@ -131,7 +131,8 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
   Widget build(BuildContext context) {
     final paymentViewModel =
         Provider.of<PaymentViewModel>(context, listen: false);
-    final int statusCode = ModalRoute.of(context)!.settings.arguments as int;
+    int statusCode = ModalRoute.of(context)!.settings.arguments as int;
+    // statusCode = 401;
     //404 mean first time , 401 means expired subscription
     // print(statusCode);
 
@@ -161,16 +162,18 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                   const SizedBox(
                     height: 70,
                   ),
-                  Text(
-                    statusCode == 401
-                        ? 'MONTHLY SUBSCRIBTION EXPIRED'
-                        : 'MONTHLY SUBSCRIBTION',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: statusCode == 401 ? 20.0 : 28.0,
-                      letterSpacing: 1.5,
+                  Center(
+                    child: Text(
+                      statusCode == 401
+                          ? 'SUBSCRIPTION EXPIRED'
+                          : '\$39.95 EVERY 3 MONTH SUBSCRIPTION',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: statusCode == 401 ? 22.0 : 24.0,
+                        letterSpacing: 1.5,
+                      ),
                     ),
                   ),
                   if (statusCode == 401) const SizedBox(height: 10),
@@ -236,13 +239,29 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                                 color: Colors.white,
                                 size: 25,
                               ),
-                              Text(
-                                'SUBSCRIBE NOW',
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15,
-                                ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'SUBSCRIBE NOW',
+                                    style: GoogleFonts.montserrat(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  if (statusCode == 401)
+                                    const SizedBox(height: 2),
+                                  if (statusCode == 401)
+                                    Text(
+                                      '( 3 MONTH )',
+                                      style: GoogleFonts.montserrat(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                ],
                               ),
                               Text(
                                 '\$ 39.95',
@@ -259,52 +278,8 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  // TextButton(
-                  //   onPressed: () {
-                  //     showCouponField(
-                  //       context: context,
-                  //       controller: codeController,
-                  //       errorGetter: ErrorGetter().couponCodeErrorGetter,
-                  //       formKey: _formKey,
-                  //       onPressed: () {
-                  //         validateForm(context, paymentViewModel);
-                  //       },
-                  //     );
-                  //   },
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.only(left: 12),
-                  //     child: Row(
-                  //       children: [
-                  //         // UniconsLine.apps,(
-                  //         //   FontAwesomeIcons.tag,
-                  //         //   color: AppColors.primaryColor,
-                  //         //   size: 16,
-                  //         // ),
-
-                  //         Icon(
-                  //           UniconsSolid.apps,
-                  //           color: Colors.white,
-                  //           size: 16,
-                  //         ),
-
-                  //         const SizedBox(width: 8),
-                  //         Text(
-                  //           'Apply a Voucher',
-                  //           style: GoogleFonts.montserrat(
-                  //             color: Colors.white,
-                  //             fontWeight: FontWeight.w600,
-                  //             fontSize: 15,
-                  //             letterSpacing: 0.5,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
                   ElevatedButton(
-                    onPressed: () {
-                      // navigateUserHomeScreen();
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25.0),
@@ -330,7 +305,6 @@ class _CompanyPaymentScreenState extends State<CompanyPaymentScreen> {
                       },
                       child: Container(
                         height: 45,
-                        // width: MediaQuery.of(context).size.width * 0.90,
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(

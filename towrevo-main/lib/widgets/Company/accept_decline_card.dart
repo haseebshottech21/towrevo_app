@@ -281,6 +281,7 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                               primary: Colors.red[50],
                             ),
                             onPressed: () async {
+                              // CompanySideNotificationHandler().closeAudio();
                               await CompanyHomeScreenViewModel()
                                   .acceptDeclineOrDone(
                                 '2',

@@ -2,15 +2,16 @@ import 'dart:convert';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 // import 'package:towrevo/widgets/services_days_and_description_check_box/selector_widget.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/screens/screens.dart';
+import '../../../error_getter.dart';
 import '../../../utilities/towrevo_appcolor.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,6 +28,7 @@ class RegisterationCompleteScreen extends StatefulWidget {
 class _RegisterationCompleteScreenState
     extends State<RegisterationCompleteScreen> {
   final key = GlobalKey<FormState>();
+  final einNumberController = TextEditingController();
 
   void validate(RegisterCompanyViewModel registerProvider) async {
     if (!key.currentState!.validate()) {
@@ -163,6 +165,27 @@ class _RegisterationCompleteScreenState
                               },
                             );
                           }),
+                          SizedBox(height: 8.h),
+                          // EIN Number Field
+                          // FadeInDown(
+                          //   from: 25,
+                          //   delay: const Duration(milliseconds: 550),
+                          //   child: TextFieldForAll(
+                          //     errorGetter: ErrorGetter().isEINNumberValid,
+                          //     hintText: 'EIN Business Number',
+                          //     inputFormatters: [
+                          //       FilteringTextInputFormatter.digitsOnly,
+                          //       LengthLimitingTextInputFormatter(9),
+                          //     ],
+                          //     prefixIcon: const Icon(
+                          //       FontAwesomeIcons.idBadge,
+                          //       color: Color(0xFF019aff),
+                          //       size: 20.0,
+                          //     ),
+                          //     textEditingController: einNumberController,
+                          //     textInputType: TextInputType.number,
+                          //   ),
+                          // ),
                           SizedBox(height: 8.h),
                           FadeInDown(
                             from: 35,
@@ -335,80 +358,3 @@ class _RegisterationCompleteScreenState
     );
   }
 }
-
-// class RegistrationCategoryAndTimingScreen extends StatefulWidget {
-//   const RegistrationCategoryAndTimingScreen({Key? key}) : super(key: key);
-
-//   static const routeName = '/category-and-timing';
-
-//   @override
-//   State<RegistrationCategoryAndTimingScreen> createState() =>
-//       _RegistrationCategoryAndTimingScreenState();
-// }
-
-// class _RegistrationCategoryAndTimingScreenState
-//     extends State<RegistrationCategoryAndTimingScreen> {
-//   // final startAmountController = TextEditingController();
-//   // Map<String, bool> cityList = {
-//   //   'Monday': false,
-//   //   'Tuesday': false,
-//   //   'Wednesday': false,
-//   //   'Thursday': false,
-//   //   'Friday': false,
-//   //   'Sarturday': false,
-//   //   'Sunday': false,
-//   // };
-
-//   void validate(RegisterCompanyViewModel registerProvider) async {
-//     if (!key.currentState!.validate()) {
-//       return;
-//     }
-//     final locationProvider =
-//         Provider.of<GetLocationViewModel>(context, listen: false);
-//     if (!registerProvider.isCheckedTermsAndCondition) {
-//       Fluttertoast.showToast(msg: 'Please Accept Term&Conditions');
-//       return;
-//     } else if (registerProvider.timeRadioValue == 1 &&
-//         registerProvider.body['from'] == '' &&
-//         registerProvider.body['to'] == '') {
-//       Fluttertoast.showToast(msg: 'Please Select Custom Time');
-//     } else if (registerProvider.timeRadioValue == 0) {
-//       registerProvider.body.remove('from');
-//       registerProvider.body.remove('to');
-//     }
-//     final daysAndServiceProvider =
-//         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-
-//     if (locationProvider.myCurrentLocation.placeAddress.isNotEmpty &&
-//         daysAndServiceProvider.daysId.isNotEmpty &&
-//         daysAndServiceProvider.servicesId.isNotEmpty) {
-//       registerProvider.body['services'] =
-//           json.encode(daysAndServiceProvider.servicesId);
-//       registerProvider.body['days'] =
-//           json.encode(daysAndServiceProvider.daysId);
-//       // registerProvider.body['starting_price'] =
-//       //     startAmountController.text.trim();
-
-//       bool response = await registerProvider.registerCompany(context);
-//       if (response) {
-//         Navigator.of(context)
-//             .pushNamed(RegistrationOTPScreen.routeName, arguments: true);
-//       }
-//     } else {
-//       Fluttertoast.showToast(msg: 'Please Fill All Required Fields');
-//     }
-//   }
-
-//   final key = GlobalKey<FormState>();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final registerViewModel =
-//         Provider.of<RegisterCompanyViewModel>(context, listen: true);
-//     return 
-//   }
-
-
-
-
-// }

@@ -29,22 +29,6 @@ class CompanySideNotificationHandler {
 
         if (message.data['screen'] == 'request') {
           await playSound();
-          Future.delayed(const Duration(seconds: 3)).then((value) {
-            playSound();
-          });
-          Future.delayed(const Duration(seconds: 6)).then((value) {
-            playSound();
-          });
-          Future.delayed(const Duration(seconds: 9)).then((value) {
-            playSound();
-          });
-          Future.delayed(const Duration(seconds: 12)).then((value) {
-            playSound();
-          });
-          Future.delayed(const Duration(seconds: 15)).then((value) {
-            playSound();
-          });
-
           showSnackBar(
             context: context,
             title: 'User Send Request',
@@ -57,12 +41,27 @@ class CompanySideNotificationHandler {
     );
   }
 
+  // bool close = false;
+
+  // closeAudio() {
+  //   // print('ok');
+  //   close = true;
+  //   // advancedPlayer.stop();
+  //   // // audioCache.clearAll();
+  //   // advancedPlayer.stop();
+  // }
+
   AudioCache audioCache = AudioCache();
   AudioPlayer advancedPlayer = AudioPlayer();
   playSound() async {
-    final file = await audioCache.loadAsFile('sounds/sound_new.mp3');
-    final bytes = await file.readAsBytes();
-    audioCache.playBytes(bytes);
+    advancedPlayer = await audioCache.loop('sounds/sound_new.mp3');
+    // await advancedPlayer.setUrl(file.toString());
+    // final bytes = await file.readAsBytes();
+    // audioCache.playBytes(bytes, loop: true);
+
+    Future.delayed(const Duration(seconds: 15)).then((value) {
+      advancedPlayer.stop();
+    });
   }
 
   void _handleMessage(

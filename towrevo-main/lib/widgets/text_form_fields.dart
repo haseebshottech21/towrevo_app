@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,8 @@ class TextFieldForAll extends StatelessWidget {
   final bool fieldDisable;
   final bool prefixPhone;
   final TextInputType textInputType;
+  final List<TextInputFormatter>? inputFormatters;
+  // final Function? onChanged;
 
   const TextFieldForAll({
     required this.hintText,
@@ -18,9 +21,11 @@ class TextFieldForAll extends StatelessWidget {
     required this.prefixIcon,
     required this.textEditingController,
     required this.textInputType,
+    // this.onChanged,
     Key? key,
     this.fieldDisable = false,
     this.prefixPhone = false,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -38,6 +43,7 @@ class TextFieldForAll extends StatelessWidget {
         selectAll: true,
         copy: true,
       ),
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -54,6 +60,7 @@ class TextFieldForAll extends StatelessWidget {
         prefixText: '  ',
         prefixStyle: const TextStyle(color: Colors.black, fontSize: 16),
       ),
+      // onChanged: (value) => onChanged,
       onSaved: (newValue) {
         textEditingController.text = newValue!;
       },

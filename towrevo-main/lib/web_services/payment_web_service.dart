@@ -32,11 +32,15 @@ class PaymentWebService {
 
   Future<Map<String, dynamic>> paymentHistoryWebService() async {
     try {
+      var type = await Utilities().getSharedPreferenceValue('type');
+
+      type = type == '2' ? '0' : '1';
+
       final response = await http.get(
-        Uri.parse(Utilities.baseUrl + 'payment-history'),
+        Uri.parse(Utilities.baseUrl + 'payment-history/' + type),
         headers: await Utilities().headerWithAuth(),
       );
-      // print(response.body);
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         final loadedData = jsonDecode(response.body);
         final List<Payment> paymentList = (loadedData['payment'] as List)
