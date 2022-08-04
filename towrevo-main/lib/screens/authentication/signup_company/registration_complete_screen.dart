@@ -57,8 +57,7 @@ class _RegisterationCompleteScreenState
           json.encode(daysAndServiceProvider.servicesId);
       registerProvider.body['days'] =
           json.encode(daysAndServiceProvider.daysId);
-      // registerProvider.body['starting_price'] =
-      //     startAmountController.text.trim();
+      registerProvider.body['ein_number'] = einNumberController.text.trim();
 
       bool response = await registerProvider.registerCompany(context);
       if (response) {
@@ -151,41 +150,42 @@ class _RegisterationCompleteScreenState
                           ),
                           SizedBox(height: 8.h),
                           Consumer<ServicesAndDaysViewModel>(
-                              builder: (ctx, categories, neverBuildChild) {
-                            return SelectorWidget(
-                              context: context,
-                              delayMilliseconds: 590,
-                              title: categories.getService(),
-                              height: 50.h,
-                              icon: Icons.category_outlined,
-                              trailingIcon:
-                                  Icons.arrow_drop_down_circle_outlined,
-                              onTap: () {
-                                showCategories(context, true, false);
-                              },
-                            );
-                          }),
+                            builder: (ctx, categories, neverBuildChild) {
+                              return SelectorWidget(
+                                context: context,
+                                delayMilliseconds: 590,
+                                title: categories.getService(),
+                                height: 50.h,
+                                icon: Icons.category_outlined,
+                                trailingIcon:
+                                    Icons.arrow_drop_down_circle_outlined,
+                                onTap: () {
+                                  showCategories(context, true, false);
+                                },
+                              );
+                            },
+                          ),
                           SizedBox(height: 8.h),
                           // EIN Number Field
-                          // FadeInDown(
-                          //   from: 25,
-                          //   delay: const Duration(milliseconds: 550),
-                          //   child: TextFieldForAll(
-                          //     errorGetter: ErrorGetter().isEINNumberValid,
-                          //     hintText: 'EIN Business Number',
-                          //     inputFormatters: [
-                          //       FilteringTextInputFormatter.digitsOnly,
-                          //       LengthLimitingTextInputFormatter(9),
-                          //     ],
-                          //     prefixIcon: const Icon(
-                          //       FontAwesomeIcons.idBadge,
-                          //       color: Color(0xFF019aff),
-                          //       size: 20.0,
-                          //     ),
-                          //     textEditingController: einNumberController,
-                          //     textInputType: TextInputType.number,
-                          //   ),
-                          // ),
+                          FadeInDown(
+                            from: 25,
+                            delay: const Duration(milliseconds: 550),
+                            child: TextFieldForAll(
+                              errorGetter: ErrorGetter().isEINNumberValid,
+                              hintText: 'EIN Business Number',
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(9),
+                              ],
+                              prefixIcon: const Icon(
+                                FontAwesomeIcons.idBadge,
+                                color: Color(0xFF019aff),
+                                size: 20.0,
+                              ),
+                              textEditingController: einNumberController,
+                              textInputType: TextInputType.number,
+                            ),
+                          ),
                           SizedBox(height: 8.h),
                           FadeInDown(
                             from: 35,
@@ -260,9 +260,11 @@ class _RegisterationCompleteScreenState
                               'BACK',
                             ),
                             StepFormButtonNext(
-                              onPressed: () {
-                                validate(registerViewModel);
-                              },
+                              onPressed: registerViewModel.isLoading
+                                  ? null
+                                  : () {
+                                      validate(registerViewModel);
+                                    },
                               text: 'SIGNUP',
                               signup:
                                   registerViewModel.isLoading ? true : false,

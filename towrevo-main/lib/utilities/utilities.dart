@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -7,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
+
+import '../screens/authentication/login/login_screen.dart';
 
 class Utilities {
   Future<Map<String, String>?> setTimer(BuildContext context) async {
@@ -49,15 +52,18 @@ class Utilities {
   }
 
   static const stripeBaseUrl = 'https://api.stripe.com';
-  // static const baseUrl = 'https://myprojectstaging.net/tow_revo/public/api/';
-  static const baseUrl = 'https://api.towrevo.com/public/api/';
+  // static const baseUrl = 'https://api.towrevo.com/public/api/';
+  // static const imageBaseUrl = 'https://api.towrevo.com/public/uploads/user/';
+
+  static const baseUrl = 'http://10.0.0.61:3000/api/';
+  static const imageBaseUrl = 'http://10.0.0.61:3000/public/uploads/user/';
   // static const imageBaseUrl =
   //     'https://myprojectstaging.net/tow_revo/public/uploads/user/';
-  static const imageBaseUrl = 'https://api.towrevo.com/public/uploads/user/';
 
   static const Map<String, String> header = {
     'Accept': 'application/json',
   };
+
   Future<Map<String, String>> headerWithAuth() async {
     return {
       'Accept': 'application/json',
@@ -111,6 +117,12 @@ class Utilities {
       );
       return false;
     }
+  }
+
+  unauthenticatedLogout(BuildContext context) async {
+    removeSharedPreferenceValue('token');
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
   }
 
 //time stamp to dd/MM/yyyy

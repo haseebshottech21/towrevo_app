@@ -21,7 +21,9 @@ class OTPWebService {
       final loadedData = json.decode(response.body);
 
       if (response.statusCode == 200) {
-        await utilities.setUserDataToLocalStorage(loadedData['data']);
+        if (loadedData['data']['user']['type'] != '2') {
+          await utilities.setUserDataToLocalStorage(loadedData['data']);
+        }
 
         Fluttertoast.showToast(msg: 'success');
         return loadedData;

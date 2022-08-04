@@ -7,6 +7,7 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/view_model.dart';
+import 'package:towrevo/widgets/Dialogs/success_dialog.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,8 +41,8 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
       if (inputOTP.length == 5) {
         final provider = Provider.of<OTPViewModel>(context, listen: false);
 
-        bool response =
-            await provider.sendOTP(provider.resendUniqueId, inputOTP, context);
+        bool response = await provider.validateOTP(
+            provider.resendUniqueId, inputOTP, context);
 
         if (!requestFromCompany && response) {
           //user entry
@@ -49,8 +50,11 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
               UsersHomeScreen.routeName, (route) => false);
         } else if (requestFromCompany && response) {
           //company entry
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              CompanyHomeScreen.routeName, (route) => false);
+          // Navigator.of(context).pushNamedAndRemoveUntil(
+          //     CompanyHomeScreen.routeName, (route) => false);
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+          showSuccessDialog(context);
         } else if (!response) {
           if (provider.otpExpire == true) {
             isTimeAvailable = false;
@@ -81,6 +85,7 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
   @override
   Widget build(BuildContext context) {
     bool reqFromCompany = ModalRoute.of(context)!.settings.arguments as bool;
+    final otpViewModel = Provider.of<OTPViewModel>(context, listen: true);
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -220,9 +225,13 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
                   SizedBox(height: 35.h),
                   FormButtonWidget(
                     formBtnTxt: 'VERIFY',
-                    onPressed: () {
-                      sendOTPRequest(reqFromCompany);
-                    },
+                    onPressed: otpViewModel.isLoading
+                        ? null
+                        : () {
+                            // print(reqFromCompany);
+                            sendOTPRequest(reqFromCompany);
+                          },
+                    isLoading: otpViewModel.isLoading ? true : false,
                   ),
                 ],
               ),

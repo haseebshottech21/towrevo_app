@@ -69,6 +69,6 @@ class _CompanyOngoingScreenState extends State<CompanyOngoingScreen> {
   Future<void> getData() async {
     final provider =
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false);
-    await provider.getOnGoingRequests();
+    await provider.getOnGoingRequests(context);
   }
 }

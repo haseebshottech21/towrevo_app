@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/utilities/utilities.dart';
 
 class CompanyWebService {
-  Future<List<ServiceRequestModel>> requestsOfUser(String type,
+  final utilities = Utilities();
+
+  Future<List<ServiceRequestModel>> requestsOfUser(
+      String type, BuildContext context,
       {bool history = false}) async {
     try {
       final response = await http.post(
@@ -13,11 +17,15 @@ class CompanyWebService {
               Utilities.baseUrl + 'service-requests${history ? '' : '/$type'}'),
           headers: await Utilities().headerWithAuth());
       final loadedData = json.decode(response.body);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         List<ServiceRequestModel> list = (loadedData['data'] as List)
             .map((request) => ServiceRequestModel.fromJson(request))
             .toList();
         return list;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
         return [];

@@ -18,6 +18,9 @@ class ServicesAndDaysViewModel with ChangeNotifier {
     for (var element in daysListViewModel) {
       element.dayAvailable = false;
     }
+    for (var element in serviceListViewModel) {
+      element.serviceAvailable = false;
+    }
   }
 
   bool isLoading = false;

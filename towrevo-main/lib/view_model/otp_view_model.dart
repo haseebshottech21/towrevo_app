@@ -15,8 +15,11 @@ class OTPViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> sendOTP(
-      String uniqueId, String otp, BuildContext context) async {
+  Future<bool> validateOTP(
+    String uniqueId,
+    String otp,
+    BuildContext context,
+  ) async {
     if (!(await utilities.isInternetAvailable())) {
       return false;
     }
@@ -37,7 +40,7 @@ class OTPViewModel with ChangeNotifier {
     changeLoadingStatus(true);
     final response =
         await otpWebService.sendOTPConfirmationRequest(uniqueId, otp);
-    changeLoadingStatus(true);
+    changeLoadingStatus(false);
 
     if (response['success']) {
       Fluttertoast.showToast(msg: 'success');

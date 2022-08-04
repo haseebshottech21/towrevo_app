@@ -70,7 +70,7 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
       await CompanySideNotificationHandler()
           .notificationHandler(context, getData);
       await Utilities().setUpRequestNotification();
-      await checkPayment();
+      // await checkPayment();
       await getData();
     });
 
@@ -79,11 +79,11 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
 
   Future<void> getData() async {
     await Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-        .getRequests();
+        .getRequests(context);
   }
 
-  Future<void> checkPayment() async {
-    Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-        .paymentStatusCheck(context);
-  }
+  // Future<void> checkPayment() async {
+  //   Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+  //       .paymentStatusCheck(context);
+  // }
 }

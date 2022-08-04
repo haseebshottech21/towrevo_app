@@ -6,13 +6,13 @@ const double formButtonHeight = 45;
 
 class FormButtonWidget extends StatelessWidget {
   final String formBtnTxt;
-  final VoidCallback onPressed;
-  final bool? signup;
+  final VoidCallback? onPressed;
+  final bool? isLoading;
 
   const FormButtonWidget({
     required this.onPressed,
     required this.formBtnTxt,
-    this.signup = false,
+    this.isLoading = false,
     Key? key,
   }) : super(key: key);
 
@@ -47,7 +47,7 @@ class FormButtonWidget extends StatelessWidget {
             top: 10,
             bottom: 10,
           ),
-          child: signup == true
+          child: isLoading == true
               ? const SizedBox(
                   height: 20,
                   width: 20,
@@ -72,7 +72,7 @@ class FormButtonWidget extends StatelessWidget {
 }
 
 class StepFormButtonNext extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String text;
   final bool? signup;
   const StepFormButtonNext(

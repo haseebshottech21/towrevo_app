@@ -46,13 +46,14 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> getRequests() async {
+  Future<void> getRequests(BuildContext context) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
     requestServiceList = [];
-    final loadedResponse = await companyWebService.requestsOfUser('0');
+    print(requestServiceList);
+    final loadedResponse = await companyWebService.requestsOfUser('0', context);
     if (loadedResponse.isNotEmpty) {
       requestServiceList = loadedResponse;
     }
@@ -96,27 +97,27 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
   List<ServiceRequestModel> companyHistoryList = [];
 
-  Future<void> getCompanyHistrory() async {
+  Future<void> getCompanyHistrory(BuildContext context) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
     companyHistoryList = [];
     final loadedResponse =
-        await companyWebService.requestsOfUser('', history: true);
+        await companyWebService.requestsOfUser('', context, history: true);
     if (loadedResponse.isNotEmpty) {
       companyHistoryList = loadedResponse.reversed.toList();
     }
     changeLoadingStatus(false);
   }
 
-  Future<void> getOnGoingRequests() async {
+  Future<void> getOnGoingRequests(BuildContext context) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
     onGoingRequestsList = [];
-    final loadedResponse = await companyWebService.requestsOfUser('1');
+    final loadedResponse = await companyWebService.requestsOfUser('1', context);
     if (loadedResponse.isNotEmpty) {
       onGoingRequestsList = loadedResponse;
     }
@@ -142,7 +143,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     changeLoadingStatus(false);
     if (loadedData != null) {
       if (type == '3') {
-        companyProvider.getOnGoingRequests();
+        companyProvider.getOnGoingRequests(context);
         notifyListeners();
         await userWebService.sendNotification('Job Complete',
             'Your Job Has Been Compataed', notificationId, 'complete',
@@ -150,7 +151,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
         Navigator.of(context).pop();
       } else {
         if (getData) {
-          companyProvider.getRequests();
+          companyProvider.getRequests(context);
           notifyListeners();
         } else if (!getData) {
           userWebService.sendNotification('Decline', 'Request Time Over',
@@ -189,7 +190,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     final loadedResponse =
         await companyWebService.payNowRequest(transactionId, amount, couponId);
     if (loadedResponse != null) {
-      await getRequests();
+      await getRequests(context);
       Navigator.of(context).pop();
     }
     changeLoadingStatus(false);

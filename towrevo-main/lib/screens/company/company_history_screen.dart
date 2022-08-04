@@ -21,7 +21,7 @@ class _CompanyHistoryScreenState extends State<CompanyHistoryScreen> {
     Future.delayed(Duration.zero).then(
       (value) {
         Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
-            .getCompanyHistrory();
+            .getCompanyHistrory(context);
       },
     );
     super.initState();

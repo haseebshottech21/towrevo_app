@@ -125,6 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: FormButtonWidget(
                         formBtnTxt: 'LOGIN',
                         onPressed: () {
+                          // print('LOGIN');
                           validateAndSubmitLoginForm();
                         },
                       ),

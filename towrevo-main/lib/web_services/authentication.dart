@@ -7,34 +7,35 @@ import 'package:towrevo/utilities/utilities.dart';
 class AuthenticationWebService {
   final utilities = Utilities();
   Future<dynamic> signUpCompany(Map<String, dynamic> body) async {
-    try {
-      final response = await http.post(
-        Uri.parse(Utilities.baseUrl + 'register'),
-        body: body,
-        headers: Utilities.header,
+    // try {
+    final response = await http.post(
+      Uri.parse(Utilities.baseUrl + 'register'),
+      body: body,
+      headers: Utilities.header,
+    );
+    // print(response.body);
+    final loadedData = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+        msg: loadedData['message'].toString(),
       );
-      // print(response.body);
-      final loadedData = json.decode(response.body);
 
-      if (response.statusCode == 200) {
-        Fluttertoast.showToast(
-          msg: loadedData['message'].toString(),
-        );
+      // print(loadedData);
+      await utilities.setSharedPrefValue(
+          'uniqueId', loadedData['data']['uniqueId']);
+      await utilities.setSharedPrefValue('validate', '0');
+      await utilities.setSharedPrefValue('resendOTP', '0');
 
-        await utilities.setSharedPrefValue(
-            'uniqueId', loadedData['data']['uniqueId']);
-        await utilities.setSharedPrefValue('validate', '0');
-        await utilities.setSharedPrefValue('resendOTP', '0');
-
-        return loadedData;
-      } else {
-        Fluttertoast.showToast(msg: signUpErrorHandle(loadedData));
-        return null;
-      }
-    } catch (e) {
-      // print(e.toString());
-      Fluttertoast.showToast(msg: e.toString());
+      return loadedData;
+    } else {
+      Fluttertoast.showToast(msg: signUpErrorHandle(loadedData));
+      return null;
     }
+    // } catch (e) {
+    //   // print(e.toString());
+    //   Fluttertoast.showToast(msg: e.toString());
+    // }
   }
 
   Future<bool> login(String email, String password, bool remember) async {
@@ -207,6 +208,11 @@ class AuthenticationWebService {
     }
     if (body['errors']['to'] != null) {
       for (var error in body['errors']['from']) {
+        errorMessage += error + '\n';
+      }
+    }
+    if (body['errors']['ein_number'] != null) {
+      for (var error in body['errors']['ein_number']) {
         errorMessage += error + '\n';
       }
     }
