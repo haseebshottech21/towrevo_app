@@ -17,7 +17,7 @@ class CompanyWebService {
               Utilities.baseUrl + 'service-requests${history ? '' : '/$type'}'),
           headers: await Utilities().headerWithAuth());
       final loadedData = json.decode(response.body);
-      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         List<ServiceRequestModel> list = (loadedData['data'] as List)
             .map((request) => ServiceRequestModel.fromJson(request))
@@ -76,7 +76,10 @@ class CompanyWebService {
     }
   }
 
-  Future<dynamic> setOnlineStatusRequest(String token) async {
+  Future<dynamic> setOnlineStatusRequest(
+    String token,
+    BuildContext context,
+  ) async {
     try {
       final response = await http.post(
         Uri.parse(
@@ -91,6 +94,9 @@ class CompanyWebService {
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         return loadedData;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
         return null;
@@ -101,7 +107,11 @@ class CompanyWebService {
     }
   }
 
-  Future<dynamic> acceptDeclineOrDone(String status, String requestId) async {
+  Future<dynamic> acceptDeclineOrDone(
+    String status,
+    String requestId,
+    BuildContext context,
+  ) async {
     try {
       final response = await http.post(
         Uri.parse(Utilities.baseUrl + 'respond-request'),
@@ -115,6 +125,9 @@ class CompanyWebService {
       final responseData = json.decode(response.body);
       if (response.statusCode == 200) {
         return responseData;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         return null;
       }

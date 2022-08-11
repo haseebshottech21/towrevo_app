@@ -55,7 +55,7 @@ class EditProfileViewModel with ChangeNotifier {
     changeLoadingStatus(true);
 
     body = {};
-    final loadedData = await editProfileWebService.getEditFields();
+    final loadedData = await editProfileWebService.getEditFields(context);
 
     if (loadedData != null) {
       body = loadedData;
@@ -151,7 +151,10 @@ class EditProfileViewModel with ChangeNotifier {
   }
 
   Future<void> changePassword(
-      String password, String confirmPassword, BuildContext context) async {
+    String password,
+    String confirmPassword,
+    BuildContext context,
+  ) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
@@ -159,6 +162,7 @@ class EditProfileViewModel with ChangeNotifier {
     final loadedData = await editProfileWebService.changePassword(
       password,
       confirmPassword,
+      context,
     );
     changeLoadingStatus(false);
     if (loadedData != null) {
@@ -167,12 +171,15 @@ class EditProfileViewModel with ChangeNotifier {
   }
 
   Future<void> editProfileFields(
-      Map<String, String> body, BuildContext context) async {
+    Map<String, String> body,
+    BuildContext context,
+  ) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
-    final loadedData = await editProfileWebService.editProfileFields(body);
+    final loadedData =
+        await editProfileWebService.editProfileFields(body, context);
     if (loadedData != null) {
       Provider.of<UserHomeScreenViewModel>(context, listen: false)
           .setDrawerInfo(

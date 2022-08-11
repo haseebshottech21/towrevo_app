@@ -32,14 +32,15 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  changeOnlineStatus(bool status) async {
+  changeOnlineStatus(bool status, BuildContext context) async {
     if (!(await utilities.isInternetAvailable())) {
       return null;
     }
     bool oldStatus = status;
     isSwitched = status;
     notifyListeners();
-    dynamic success = await setOnlineStatus(status ? MyApp.notifyToken : '');
+    dynamic success =
+        await setOnlineStatus(status ? MyApp.notifyToken : '', context);
     if (success == null) {
       isSwitched = oldStatus;
       notifyListeners();
@@ -60,9 +61,9 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     changeLoadingStatus(false);
   }
 
-  Future<bool?> setOnlineStatus(String token) async {
+  Future<bool?> setOnlineStatus(String token, BuildContext context) async {
     final loadedResponse =
-        await companyWebService.setOnlineStatusRequest(token);
+        await companyWebService.setOnlineStatusRequest(token, context);
     if (loadedResponse != null) {
       if (token.isEmpty) {
         await utilities.setSharedPrefValue('is_online', '1');
@@ -139,7 +140,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
     changeLoadingStatus(true);
     final loadedData =
-        await companyWebService.acceptDeclineOrDone(type, requestId);
+        await companyWebService.acceptDeclineOrDone(type, requestId, context);
     changeLoadingStatus(false);
     if (loadedData != null) {
       if (type == '3') {

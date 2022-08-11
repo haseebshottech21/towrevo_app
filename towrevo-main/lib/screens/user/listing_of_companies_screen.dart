@@ -98,7 +98,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
     final userHomeProvider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
     Future.delayed(Duration.zero).then((value) async {
-      await userHomeProvider.getCompanies(userHomeProvider.body);
+      await userHomeProvider.getCompanies(userHomeProvider.body, context);
     });
   }
 }

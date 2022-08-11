@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           from: 35,
                           delay: const Duration(milliseconds: 650),
                           child: TextFormIconWidget(
-                            errorGetter: ErrorGetter().passwordErrorGetter,
+                            errorGetter: ErrorGetter().passwordLogin,
                             textEditingController: passwordController,
                             obscureText: loginViewModel.obscurePassword,
                             hint: 'Password',

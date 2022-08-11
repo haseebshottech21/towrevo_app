@@ -277,9 +277,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
           : lngLatProvider.myDestinationLocation.placeLocation.latitude
               .toString(),
       'time': DateFormat.Hm().format(now),
-      'day': await Utilities().dayToInt(
-        DateFormat('EEEE').format(now),
-      ),
+      'day': await Utilities().dayToInt(DateFormat('EEEE').format(now)),
       'service': serviceProvider.serviceListViewModel
           .firstWhere((element) =>
               element.name == serviceProvider.serviceSelectedValue!)
@@ -300,15 +298,18 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
 
       final serviceProvider =
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);
-      serviceProvider.serviceSelectedValue = null;
+      // serviceProvider.serviceSelectedValue = null;
       serviceProvider.getServices();
       final locationProvider =
           Provider.of<GetLocationViewModel>(context, listen: false);
-      locationProvider.myCurrentLocation.placeAddress = '';
+      // locationProvider.myCurrentLocation.placeAddress = '';
       locationProvider.myDestinationLocation.placeAddress = '';
 
+      // Provider.of<GetLocationViewModel>(context, listen: false)
+      //     .getStoreLocationIfExist(context);
+
       // get current location
-      await locationProvider.getCurrentLocation(context);
+      await locationProvider.getStoreLocationIfExist(context);
     }
     _init = false;
     super.didChangeDependencies();

@@ -199,11 +199,12 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                     ),
                   ),
                   SizedBox(
-                      height: widget.serviceRequestModel.description.length > 80
-                          ? 22.h
-                          : widget.serviceRequestModel.description.length > 50
-                              ? 18.h
-                              : 15.h),
+                    height: widget.serviceRequestModel.description.length > 80
+                        ? 22.h
+                        : widget.serviceRequestModel.description.length > 50
+                            ? 18.h
+                            : 12.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

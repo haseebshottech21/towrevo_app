@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:towrevo/models/models.dart';
@@ -6,7 +7,12 @@ import 'package:towrevo/utilities/utilities.dart';
 import '../utilities/env_settings.dart';
 
 class UserWebService {
-  Future<List<CompanyModel>> getCompaniesList(Map<String, String> body) async {
+  final utilities = Utilities();
+
+  Future<List<CompanyModel>> getCompaniesList(
+    Map<String, String> body,
+    BuildContext context,
+  ) async {
     try {
       final response = await http.post(
         Uri.parse(Utilities.baseUrl + 'companies'),
@@ -22,6 +28,9 @@ class UserWebService {
         }
 
         return companiesList;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         return [];
       }
@@ -42,6 +51,7 @@ class UserWebService {
     String serviceId,
     String companyId,
     String notificationId,
+    BuildContext context,
   ) async {
     try {
       final response = await http.post(
@@ -66,6 +76,9 @@ class UserWebService {
         await sendNotification(
             'Request', 'Requested For Tow', notificationId, 'request');
         return json.decode(response.body);
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         return null;
       }

@@ -101,8 +101,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                                   ),
                                 ),
                                 value: companyViewModel.isSwitched,
-                                onChanged: (value) =>
-                                    companyViewModel.changeOnlineStatus(value),
+                                onChanged: (value) => companyViewModel
+                                    .changeOnlineStatus(value, context),
                                 activeTrackColor: Colors.lightGreenAccent,
                                 activeColor: Colors.green,
                               );

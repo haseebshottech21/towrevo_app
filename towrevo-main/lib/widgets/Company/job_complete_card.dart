@@ -228,7 +228,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                           .isEmpty) {
                                     Platform.isIOS
                                         ? animHeightmain = 150.h
-                                        : animHeightmain = 250.h;
+                                        : animHeightmain = 270.h;
                                   }
                                   if (widget.serviceRequestModel.description
                                               .length >

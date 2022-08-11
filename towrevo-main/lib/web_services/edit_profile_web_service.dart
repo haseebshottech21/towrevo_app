@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:towrevo/utilities/utilities.dart';
 
 class EditProfileWebService {
-  Future<dynamic> getEditFields() async {
+  final utilities = Utilities();
+
+  Future<dynamic> getEditFields(BuildContext context) async {
     try {
       final response = await http.get(
         Uri.parse(Utilities.baseUrl + 'user'),
@@ -13,6 +16,9 @@ class EditProfileWebService {
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200) {
         return loadedData;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         return null;
       }
@@ -23,7 +29,10 @@ class EditProfileWebService {
   }
 
   Future<dynamic> changePassword(
-      String password, String confirmPassword) async {
+    String password,
+    String confirmPassword,
+    BuildContext context,
+  ) async {
     try {
       final response = await http.post(
           Uri.parse(Utilities.baseUrl + 'password'),
@@ -35,8 +44,10 @@ class EditProfileWebService {
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200) {
         Fluttertoast.showToast(msg: 'Successfully Updated');
-
         return loadedData;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         Fluttertoast.showToast(msg: loadedData['errors'].toString());
         return null;
@@ -46,7 +57,10 @@ class EditProfileWebService {
     }
   }
 
-  Future<dynamic> editProfileFields(Map<String, String> body) async {
+  Future<dynamic> editProfileFields(
+    Map<String, String> body,
+    BuildContext context,
+  ) async {
     try {
       final response = await http.post(Uri.parse(Utilities.baseUrl + 'update'),
           headers: await Utilities().headerWithAuth(), body: body);
@@ -58,6 +72,9 @@ class EditProfileWebService {
         Fluttertoast.showToast(msg: 'Successfully Updated');
 
         return loadedData;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         Fluttertoast.showToast(msg: 'Failed');
         return null;

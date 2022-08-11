@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
+import 'package:towrevo/widgets/Dialogs/success_dialog.dart';
 
 import '../screens/authentication/login/login_screen.dart';
 
@@ -55,8 +56,8 @@ class Utilities {
   // static const baseUrl = 'https://api.towrevo.com/public/api/';
   // static const imageBaseUrl = 'https://api.towrevo.com/public/uploads/user/';
 
-  static const baseUrl = 'http://10.0.0.61:3000/api/';
-  static const imageBaseUrl = 'http://10.0.0.61:3000/public/uploads/user/';
+  static const baseUrl = 'http://10.0.0.39:8000/api/';
+  static const imageBaseUrl = 'http://10.0.0.39:8000/public/uploads/user/';
   // static const imageBaseUrl =
   //     'https://myprojectstaging.net/tow_revo/public/uploads/user/';
 
@@ -69,6 +70,11 @@ class Utilities {
       'Accept': 'application/json',
       'Authorization': 'Bearer ${await getSharedPreferenceValue('token')}'
     };
+  }
+
+  Future<void> setSharedPrefValue(String key, String value) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString(key, value);
   }
 
   Future<dynamic> getSharedPreferenceValue(String key) async {
@@ -101,11 +107,6 @@ class Utilities {
     }
   }
 
-  Future<void> setSharedPrefValue(String key, String value) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString(key, value);
-  }
-
   Future<bool> isInternetAvailable() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile ||
@@ -123,6 +124,7 @@ class Utilities {
     removeSharedPreferenceValue('token');
     Navigator.of(context)
         .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+    showCancelDialog(context);
   }
 
 //time stamp to dd/MM/yyyy

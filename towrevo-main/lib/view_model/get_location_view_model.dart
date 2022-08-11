@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/place_web_service.dart';
@@ -13,6 +14,8 @@ import '../utilities/utilities.dart';
 class GetLocationViewModel with ChangeNotifier {
   PlaceDetailModel myCurrentLocation = PlaceDetailModel.fromEmptyJson();
   PlaceDetailModel myDestinationLocation = PlaceDetailModel.fromEmptyJson();
+  LatLng latLng = const LatLng(0.0, 0.0);
+  String address = '';
 
   bool isLoading = false;
   changeLoadingStatus(bool loadingStatus) {
@@ -26,6 +29,8 @@ class GetLocationViewModel with ChangeNotifier {
     myCurrentLocation.placeAddress = address;
     notifyListeners();
   }
+
+  String get getAddress => address;
 
   updateMyLocation(context) {
     if (placeDetailModel.placeAddress.isNotEmpty) {
@@ -85,24 +90,93 @@ class GetLocationViewModel with ChangeNotifier {
         .replaceAll(', ,', ',');
   }
 
+  final utilities = Utilities();
+
+  setLocalCoordinates(LatLng coordinate, String address) {
+    placeDetailModel = PlaceDetailModel(
+      placeAddress: getAddress,
+      placeLocation: coordinate,
+    );
+    utilities.setSharedPrefValue(
+      'longitude',
+      coordinate.longitude.toString(),
+    );
+    utilities.setSharedPrefValue(
+      'latitude',
+      coordinate.latitude.toString(),
+    );
+    utilities.setSharedPrefValue('address', address);
+    // notifyListeners();
+    getLocalCoordinates();
+  }
+
+  Future<void> getLocalCoordinates() async {
+    final longitude = await utilities.getSharedPreferenceValue('longitude');
+    final latitude = await utilities.getSharedPreferenceValue('latitude');
+    final address = await utilities.getSharedPreferenceValue('address');
+    placeDetailModel = PlaceDetailModel(
+      placeAddress: address.toString(),
+      placeLocation: LatLng(
+        double.parse(latitude.toString()),
+        double.parse(longitude.toString()),
+      ),
+    );
+  }
+
+  // Future<void> getCurrentLocation(BuildContext context) async {
+  //   changeLoadingStatus(true);
+  //   bool permission = await _handlePermission();
+  //   if (permission) {
+  //     final geoPosition = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high,
+  //     );
+  //     myCurrentLocation.placeLocation =
+  //         LatLng(geoPosition.latitude, geoPosition.longitude);
+  //     final registrationCompanyProvider =
+  //         Provider.of<RegisterCompanyViewModel>(context, listen: false);
+
+  //     registrationCompanyProvider.body['longitude'] =
+  //         myCurrentLocation.placeLocation.longitude.toString();
+  //     registrationCompanyProvider.body['latitude'] =
+  //         myCurrentLocation.placeLocation.latitude.toString();
+
+  //     await getLocationFromCoordinates(myCurrentLocation.placeLocation);
+  //   }
+  //   changeLoadingStatus(false);
+  // }
+
   Future<void> getCurrentLocation(BuildContext context) async {
     changeLoadingStatus(true);
+
     bool permission = await _handlePermission();
     if (permission) {
       final geoPosition = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      myCurrentLocation.placeLocation =
-          LatLng(geoPosition.latitude, geoPosition.longitude);
-      final registrationCompanyProvider =
-          Provider.of<RegisterCompanyViewModel>(context, listen: false);
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      latLng = LatLng(geoPosition.latitude, geoPosition.longitude);
+      // final registrationCompanyProvider =
+      //     Provider.of<RegisterCompanyViewModel>(context, listen: false);
 
-      registrationCompanyProvider.body['longitude'] =
-          myCurrentLocation.placeLocation.longitude.toString();
-      registrationCompanyProvider.body['latitude'] =
-          myCurrentLocation.placeLocation.latitude.toString();
-      await getLocationFromCoordinates(myCurrentLocation.placeLocation);
+      await getLocationFromCoordinates(latLng);
     }
+    // return null;
     changeLoadingStatus(false);
+  }
+
+  Future<void> getStoreLocationIfExist(BuildContext context) async {
+    final longitude = await utilities.getSharedPreferenceValue('longitude');
+    // final latitude = await utilities.getSharedPreferenceValue('latitude');
+    // final address = await utilities.getSharedPreferenceValue('address');
+    // print('$longitude long');
+    // print('$latitude lat');
+    // print('$address address');
+    if (longitude == null) {
+      await getCurrentLocation(context);
+    }
+    if (longitude != null) {
+      await getLocalCoordinates();
+    }
+    notifyListeners();
   }
 
   setLatLng(LatLng latitudeAndLogitude) async {
@@ -124,8 +198,14 @@ class GetLocationViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  // Future<void> getPlaceDetail(String placeId) async {
+  //   placeDetailModel = await placeWebService.getPlaceDetail(placeId);
+  //   notifyListeners();
+  // }
+
   Future<void> getPlaceDetail(String placeId) async {
-    placeDetailModel = await placeWebService.getPlaceDetail(placeId);
+    final detailModel = await placeWebService.getPlaceDetail(placeId);
+    setLocalCoordinates(detailModel.placeLocation, detailModel.placeAddress);
     notifyListeners();
   }
 

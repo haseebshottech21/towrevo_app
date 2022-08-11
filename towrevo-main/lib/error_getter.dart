@@ -212,6 +212,24 @@ class ErrorGetter {
     }
   }
 
+  dynamic passwordLogin(String password) {
+    // RegExp regex =
+    //     RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+    if (password.isEmpty) {
+      return 'Please enter password';
+    }
+    return null;
+    // } else if (password.length < 8) {
+    //   return 'Password Should be at least 8 characters';
+    // } else {
+    //   if (!regex.hasMatch(password)) {
+    //     return 'Password should contain Capital, small letter & Number & Special';
+    //   } else {
+    //     return null;
+    //   }
+    // }
+  }
+
   dynamic confirmPasswordErrorGetter(String confirmPassword, String password) {
     if (confirmPassword.isEmpty) {
       return 'Please Enter Confirm Password';

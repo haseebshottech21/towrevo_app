@@ -256,7 +256,8 @@ class CompanyItem extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            companyModel.email.isEmpty
+                            companyModel.email.isEmpty ||
+                                    companyModel.distance.contains('ft')
                                 ? const SizedBox()
                                 : IconButton(
                                     padding: EdgeInsets.zero,

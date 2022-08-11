@@ -98,20 +98,23 @@ class UserHomeScreenViewModel with ChangeNotifier {
     final loadedResponse =
         await userWebService.payNowRequest(transactionId, amount);
     if (loadedResponse != null) {
-      await getCompanies(body);
+      await getCompanies(body, context);
       Navigator.of(context).pop();
     }
     changeLoadingStatus(false);
   }
 
-  Future<void> getCompanies(Map<String, String> requestedBody) async {
+  Future<void> getCompanies(
+    Map<String, String> requestedBody,
+    BuildContext context,
+  ) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
     list = [];
     changeLoadingStatus(true);
 
-    list = await userWebService.getCompaniesList(requestedBody);
+    list = await userWebService.getCompaniesList(requestedBody, context);
     changeLoadingStatus(false);
   }
 
@@ -155,7 +158,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
   Future<bool> willPopCallback() async {
     // print('there');
     if (isAlive) {
-      return false;
+      return true;
     }
     return true;
   }
@@ -187,6 +190,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
       serviceId,
       companyId,
       notificationId,
+      context,
     );
 
     if (response != null) {
