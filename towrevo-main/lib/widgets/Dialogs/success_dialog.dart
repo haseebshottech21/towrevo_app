@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../screens/authentication/login/login_screen.dart';
+
 // class CustomDialog extends StatelessWidget {
 //   final String title, description;
 
@@ -202,5 +204,8 @@ showCancelDialog(
         ],
       );
     },
-  );
+  ).then((value) {
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+  });
 }

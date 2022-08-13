@@ -158,7 +158,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
   Future<bool> willPopCallback() async {
     // print('there');
     if (isAlive) {
-      return true;
+      return false;
     }
     return true;
   }

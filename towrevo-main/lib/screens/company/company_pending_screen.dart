@@ -64,22 +64,27 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
     );
   }
 
-  @override
-  void initState() {
-    Future.delayed(Duration.zero).then((value) async {
-      await CompanySideNotificationHandler()
-          .notificationHandler(context, getData);
-      await Utilities().setUpRequestNotification();
-      // await checkPayment();
-      await getData();
-    });
-
-    super.initState();
-  }
-
   Future<void> getData() async {
     await Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
         .getRequests(context);
+  }
+
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((value) async {
+      await Utilities().setUpRequestNotification();
+      await CompanySideNotificationHandler()
+          .notificationHandler(context, getData);
+
+      await getData();
+      // await CompanySideNotificationHandler()
+      //     .notificationHandler(context, getData);
+      // await Utilities().setUpRequestNotification();
+      // // await checkPayment();
+      // await getData();
+    });
+
+    super.initState();
   }
 
   // Future<void> checkPayment() async {

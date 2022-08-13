@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 Container userEmptyProfile(BuildContext context) {
   return Container(
     width: 45.w,
-    height: 40.h,
+    height: 42.h,
     decoration: BoxDecoration(
       color: Theme.of(context).primaryColor,
       border: Border.all(color: AppColors.primaryColor2, width: 2),

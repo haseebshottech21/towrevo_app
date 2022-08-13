@@ -12,8 +12,8 @@ class UserSideNotificationHandler {
     final provider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
 
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
+    // RemoteMessage? initialMessage =
+    //     await FirebaseMessaging.instance.getInitialMessage();
 
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       _handleMessage(event, context);

@@ -5,9 +5,13 @@ import 'package:towrevo/widgets/show_snackbar.dart';
 
 class CompanySideNotificationHandler {
   Future<void> notificationHandler(
-      BuildContext context, Function getData) async {
+    BuildContext context,
+    Function getData,
+  ) async {
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
+
+    // print(initialMessage);
 
     if (initialMessage != null) {
       getData();
@@ -59,13 +63,27 @@ class CompanySideNotificationHandler {
     // final bytes = await file.readAsBytes();
     // audioCache.playBytes(bytes, loop: true);
 
-    Future.delayed(const Duration(seconds: 15)).then((value) {
+    Future.delayed(const Duration(seconds: 5)).then((value) {
       advancedPlayer.stop();
     });
+
+    // await FlutterRingtonePlayer.play(
+    //   android: AndroidSounds.notification,
+    //   ios: const IosSound(1023),
+    //   looping: true,
+    //   volume: 0.1,
+    // );
+
+    // await Future.delayed(const Duration(seconds: 5)).then((value) {
+    //   FlutterRingtonePlayer.stop();
+    // });
   }
 
   void _handleMessage(
-      RemoteMessage message, BuildContext context, Function getData) {
+    RemoteMessage message,
+    BuildContext context,
+    Function getData,
+  ) {
     if (message.data['screen'] == 'decline_from_user') {
       showSnackBar(
         context: context,
