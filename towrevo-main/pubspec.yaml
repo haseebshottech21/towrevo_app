@@ -36,8 +36,10 @@ dependencies:
   # flutter_verification_code: ^1.1.0
   animate_do: ^2.0.0
   expandable: ^5.0.1
-  google_maps_flutter: ^2.0.9
-  geolocator: ^8.2.0
+  # google_maps_flutter: ^2.0.9
+  google_maps_flutter: ^2.1.10
+  # geolocator: ^8.2.0
+  geolocator: ^9.0.1
   provider: ^6.0.1
   geocoding: ^2.0.1
   time_range_picker: ^2.2.0
@@ -54,7 +56,8 @@ dependencies:
   url_launcher: ^6.0.17
   connectivity_plus: ^2.2.0
   audioplayers: ^0.20.1
-  flutter_ringtone_player: ^3.2.0
+  # assets_audio_player: ^3.0.5
+  # flutter_ringtone_player: ^3.2.0
   flutter_dotenv: ^5.0.2
   flutter_native_splash: ^2.0.1+1
   flutter_screenutil: ^5.5.2
@@ -111,7 +114,7 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
+  assets:  
      - assets/images/
      - assets/sounds/
      - .env.production

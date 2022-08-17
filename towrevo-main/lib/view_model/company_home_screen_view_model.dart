@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/main.dart';
 import 'package:towrevo/models/models.dart';
+import 'package:towrevo/screens/company/company_notification_utility/company_side_notification_handler.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/web_services/company_web_service.dart';
@@ -14,6 +15,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   final companyWebService = CompanyWebService();
   final userWebService = UserWebService();
   final utilities = Utilities();
+  final compnayNotifiction = CompanySideNotificationHandler();
   bool isLoading = false;
   bool isSwitched = true;
   String isOnline = '0';
@@ -125,6 +127,8 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     changeLoadingStatus(false);
   }
 
+  // bool soundStop = false;
+
   Future<void> acceptDeclineOrDone(
     String type,
     String requestId,
@@ -146,26 +150,37 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
       if (type == '3') {
         companyProvider.getOnGoingRequests(context);
         notifyListeners();
-        await userWebService.sendNotification('Job Complete',
-            'Your Job Has Been Compataed', notificationId, 'complete',
-            requestId: requestId);
+        await userWebService.sendNotification(
+          'Job Complete',
+          'Your Job Has Been Compataed',
+          notificationId,
+          'complete',
+          requestId: requestId,
+        );
         Navigator.of(context).pop();
       } else {
         if (getData) {
           companyProvider.getRequests(context);
           notifyListeners();
         } else if (!getData) {
-          userWebService.sendNotification('Decline', 'Request Time Over',
-              notificationId, 'decline_from_user');
+          userWebService.sendNotification(
+            'Decline',
+            'Request Time Over',
+            notificationId,
+            'decline_from_user',
+          );
         }
         if (type == '2') {
+          CompanySideNotificationHandler().stopNotification();
           userWebService.sendNotification(
-              'Decline',
-              'Company Declined Your Request',
-              notificationId,
-              'decline_from_company');
+            'Decline',
+            'Company Declined Your Request',
+            notificationId,
+            'decline_from_company',
+          );
         } else if (type == '1') {
-          userWebService.sendNotification(
+          CompanySideNotificationHandler().stopNotification();
+          await userWebService.sendNotification(
             'Accepted',
             'Your Request has been accepted',
             notificationId,

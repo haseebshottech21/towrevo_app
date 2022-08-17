@@ -45,7 +45,9 @@ class UserSideNotificationHandler {
             onPress: () {},
           );
           Navigator.of(context).pushNamedAndRemoveUntil(
-              UsersHomeScreen.routeName, (route) => false);
+            UsersHomeScreen.routeName,
+            (route) => false,
+          );
         }
         if (message.data['screen'] == 'request') {
           showSnackBar(

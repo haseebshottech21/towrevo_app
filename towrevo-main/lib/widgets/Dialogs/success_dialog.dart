@@ -119,7 +119,7 @@ showSuccessDialog(
                 ),
               ),
               child: Text(
-                'OKAY!',
+                'OK',
                 style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.w500,
                   fontSize: 13.0.sp,
@@ -192,7 +192,7 @@ showCancelDialog(
                 ),
               ),
               child: Text(
-                'OKAY!',
+                'OK',
                 style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.w500,
                   fontSize: 13.0.sp,

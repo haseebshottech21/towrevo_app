@@ -153,20 +153,24 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                           Consumer<GetLocationViewModel>(
                             builder: (ctx, getLocation, neverBuildChild) {
                               return FromToLocation(
-                                fromLocationText:
-                                    getLocation.getMyAddress.isEmpty
-                                        ? 'Pickup Location'
-                                        : getLocation.getMyAddress,
+                                fromLocationText: getLocation
+                                        .myCurrentLocation.placeAddress.isEmpty
+                                    ? 'Pickup Location'
+                                    : getLocation
+                                        .myCurrentLocation.placeAddress,
                                 fromOnTap: () {
                                   Navigator.of(context).pushNamed(
                                     UserLocationScreen.routeName,
                                     arguments: true,
                                   );
                                 },
-                                toLocationText:
-                                    getLocation.getDestinationAddress.isEmpty
-                                        ? 'Drop Location'
-                                        : getLocation.getDestinationAddress,
+                                toLocationText: getLocation
+                                        .myDestinationLocation
+                                        .placeAddress
+                                        .isEmpty
+                                    ? 'Drop Location'
+                                    : getLocation
+                                        .myDestinationLocation.placeAddress,
                                 toOnTap: () {
                                   Navigator.of(context).pushNamed(
                                     UserLocationScreen.routeName,
@@ -302,6 +306,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       serviceProvider.getServices();
       final locationProvider =
           Provider.of<GetLocationViewModel>(context, listen: false);
+      locationProvider.getStoreLocationIfExist(context);
       // locationProvider.myCurrentLocation.placeAddress = '';
       locationProvider.myDestinationLocation.placeAddress = '';
 
@@ -309,7 +314,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       //     .getStoreLocationIfExist(context);
 
       // get current location
-      await locationProvider.getStoreLocationIfExist(context);
+      // await locationProvider.getStoreLocationIfExist(context);
     }
     _init = false;
     super.didChangeDependencies();

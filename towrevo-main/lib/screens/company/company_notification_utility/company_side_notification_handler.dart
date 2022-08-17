@@ -16,9 +16,11 @@ class CompanySideNotificationHandler {
     if (initialMessage != null) {
       getData();
     }
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      _handleMessage(event, context, getData);
-    });
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (event) {
+        _handleMessage(event, context, getData);
+      },
+    );
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) async {
         if (message.data['screen'] == 'decline_from_user') {
@@ -32,7 +34,8 @@ class CompanySideNotificationHandler {
         }
 
         if (message.data['screen'] == 'request') {
-          await playSound();
+          // logic();
+          playLoopedNotification();
           showSnackBar(
             context: context,
             title: 'User Send Request',
@@ -45,45 +48,30 @@ class CompanySideNotificationHandler {
     );
   }
 
-  // bool close = false;
+  static AudioCache? musicCache;
+  static AudioPlayer? instance;
 
-  // closeAudio() {
-  //   // print('ok');
-  //   close = true;
-  //   // advancedPlayer.stop();
-  //   // // audioCache.clearAll();
-  //   // advancedPlayer.stop();
-  // }
+  void playLoopedNotification() async {
+    musicCache = AudioCache(prefix: "assets/sounds/");
+    instance = await musicCache!.loop("sound_new.mp3");
+    // await instance.setVolume(0.5); you can even set the volume
 
-  AudioCache audioCache = AudioCache();
-  AudioPlayer advancedPlayer = AudioPlayer();
-  playSound() async {
-    advancedPlayer = await audioCache.loop('sounds/sound_new.mp3');
-    // await advancedPlayer.setUrl(file.toString());
-    // final bytes = await file.readAsBytes();
-    // audioCache.playBytes(bytes, loop: true);
-
-    Future.delayed(const Duration(seconds: 5)).then((value) {
-      advancedPlayer.stop();
+    await Future.delayed(const Duration(seconds: 15)).then((value) {
+      stopNotification();
     });
+  }
 
-    // await FlutterRingtonePlayer.play(
-    //   android: AndroidSounds.notification,
-    //   ios: const IosSound(1023),
-    //   looping: true,
-    //   volume: 0.1,
-    // );
-
-    // await Future.delayed(const Duration(seconds: 5)).then((value) {
-    //   FlutterRingtonePlayer.stop();
-    // });
+  void stopNotification() {
+    if (instance != null) {
+      instance!.stop();
+    }
   }
 
   void _handleMessage(
     RemoteMessage message,
     BuildContext context,
     Function getData,
-  ) {
+  ) async {
     if (message.data['screen'] == 'decline_from_user') {
       showSnackBar(
         context: context,

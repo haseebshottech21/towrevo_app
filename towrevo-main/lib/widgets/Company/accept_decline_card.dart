@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:towrevo/screens/company/company_notification_utility/company_side_notification_handler.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/view_model/company_home_screen_view_model.dart';
 import '../../models/service_request_model.dart';
@@ -29,6 +30,9 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
 
   bool flag = true;
 
+  // CompanySideNotificationHandler notificationHandler =
+  //     CompanySideNotificationHandler();
+
   @override
   void initState() {
     super.initState();
@@ -43,6 +47,8 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
     }
   }
 
+  // final compnayNotifiction = CompanySideNotificationHandler();
+
   double animHeight = 0.0;
   double animHeightmain = 160.h;
   double heightMain = 200.h;
@@ -51,6 +57,12 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
   double animHeightmainIos = 220.0.h;
   double heightMainIos = 240.0.h;
   bool anim = false;
+
+  // @override
+  // void dispose() {
+  //   CompanySideNotificationHandler().audioPlayer.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -282,7 +294,10 @@ class _AcceptDeclineCardItemState extends State<AcceptDeclineCardItem> {
                               primary: Colors.red[50],
                             ),
                             onPressed: () async {
-                              // CompanySideNotificationHandler().closeAudio();
+                              // setState(() {
+                              //   CompanySideNotificationHandler().stopSound();
+                              // });
+
                               await CompanyHomeScreenViewModel()
                                   .acceptDeclineOrDone(
                                 '2',

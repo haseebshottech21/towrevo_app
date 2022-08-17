@@ -74,7 +74,11 @@ class UserWebService {
 
       if (response.statusCode == 200) {
         await sendNotification(
-            'Request', 'Requested For Tow', notificationId, 'request');
+          'Request',
+          'Requested For Tow',
+          notificationId,
+          'request',
+        );
         return json.decode(response.body);
       } else if (response.statusCode == 401) {
         utilities.unauthenticatedLogout(context);
@@ -89,8 +93,12 @@ class UserWebService {
   }
 
   Future<void> sendNotification(
-      String title, String body, String fcmToken, String data,
-      {String requestId = ''}) async {
+    String title,
+    String body,
+    String fcmToken,
+    String data, {
+    String requestId = '',
+  }) async {
     try {
       const String fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 

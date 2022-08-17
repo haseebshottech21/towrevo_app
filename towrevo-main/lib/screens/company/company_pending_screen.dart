@@ -73,8 +73,10 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
   void initState() {
     Future.delayed(Duration.zero).then((value) async {
       await Utilities().setUpRequestNotification();
-      await CompanySideNotificationHandler()
-          .notificationHandler(context, getData);
+      await CompanySideNotificationHandler().notificationHandler(
+        context,
+        getData,
+      );
 
       await getData();
       // await CompanySideNotificationHandler()

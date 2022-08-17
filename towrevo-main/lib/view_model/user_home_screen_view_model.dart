@@ -261,8 +261,12 @@ class UserHomeScreenViewModel with ChangeNotifier {
       ).then((value) async {
         if (value == true) {
           await CompanyHomeScreenViewModel().acceptDeclineOrDone(
-              '2', response['data']['id'].toString(), context,
-              getData: false, notificationId: notificationId);
+            '2',
+            response['data']['id'].toString(),
+            context,
+            getData: false,
+            notificationId: notificationId,
+          );
 
           showSnackBar(
             context: context,
