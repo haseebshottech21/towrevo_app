@@ -99,6 +99,10 @@ class PhoneField extends StatelessWidget {
       onSaved: (newValue) {
         textEditingController.text = newValue!;
       },
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(10),
+      ],
       validator: (value) => errorGetter(value),
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(

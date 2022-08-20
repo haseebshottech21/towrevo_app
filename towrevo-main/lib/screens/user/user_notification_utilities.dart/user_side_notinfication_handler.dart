@@ -169,7 +169,9 @@ class UserSideNotificationHandler {
       Future.delayed(Duration.zero).then(
         (value) async {
           Map<String, String> map = await provider.getRequestStatusData(
-              provider.bottomSheetData['requestedId'].toString());
+            provider.bottomSheetData['requestedId'].toString(),
+            context,
+          );
           if (map.isNotEmpty) {
             await openBottomSheet(
               context,
@@ -192,6 +194,7 @@ class UserSideNotificationHandler {
         (value) async {
           Map<String, String> map = await provider.getRequestStatusData(
             provider.ratingData['requestedId'].toString(),
+            context,
           );
           await showDialog(
             context: context,

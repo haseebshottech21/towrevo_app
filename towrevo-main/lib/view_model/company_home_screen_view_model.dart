@@ -4,6 +4,7 @@ import 'package:towrevo/main.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/screens/company/company_notification_utility/company_side_notification_handler.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
+import 'package:towrevo/screens/screens.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/web_services/company_web_service.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
@@ -18,6 +19,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   final compnayNotifiction = CompanySideNotificationHandler();
   bool isLoading = false;
   bool isSwitched = true;
+
   String isOnline = '0';
   changeLoadingStatus(bool loadingStatus) {
     isLoading = loadingStatus;
@@ -55,7 +57,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     }
     changeLoadingStatus(true);
     requestServiceList = [];
-    print(requestServiceList);
+    // print(requestServiceList);
     final loadedResponse = await companyWebService.requestsOfUser('0', context);
     if (loadedResponse.isNotEmpty) {
       requestServiceList = loadedResponse;
@@ -171,7 +173,11 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
           );
         }
         if (type == '2') {
-          CompanySideNotificationHandler().stopNotification();
+          await Future.delayed(const Duration(seconds: 1)).then(
+            (value) {
+              CompanySideNotificationHandler.player.stop();
+            },
+          );
           userWebService.sendNotification(
             'Decline',
             'Company Declined Your Request',
@@ -179,7 +185,11 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
             'decline_from_company',
           );
         } else if (type == '1') {
-          CompanySideNotificationHandler().stopNotification();
+          await Future.delayed(const Duration(seconds: 1)).then(
+            (value) {
+              CompanySideNotificationHandler.player.stop();
+            },
+          );
           await userWebService.sendNotification(
             'Accepted',
             'Your Request has been accepted',

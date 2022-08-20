@@ -1,6 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,8 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 import 'package:towrevo/view_model/register_company_view_model.dart';
 import 'package:towrevo/widgets/Dialogs/success_dialog.dart';
-
-// import '../screens/authentication/login/login_screen.dart';
 
 class Utilities {
   Future<Map<String, String>?> setTimer(BuildContext context) async {

@@ -68,7 +68,8 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                     onTap: () {
                       textSearchController.clear();
                       placeViewModel.getPlaceDetail(
-                          placeViewModel.placesList[index].placeId,);
+                        placeViewModel.placesList[index].placeId,
+                      );
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),

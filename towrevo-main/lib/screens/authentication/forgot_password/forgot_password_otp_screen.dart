@@ -179,20 +179,21 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
                   ),
                   SizedBox(height: 15.h),
                   Consumer<RegisterUserViewModel>(
-                      builder: (ctx, registerUserViewModel, neverBuildChild) {
-                    return TextFormIconWidget(
-                      errorGetter: ErrorGetter().passwordErrorGetter,
-                      textEditingController: password,
-                      obscureText: registerUserViewModel.obscurePassword,
-                      hint: 'Password',
-                      prefixIcon: const Icon(
-                        FontAwesomeIcons.qrcode,
-                        color: Color(0xFF019aff),
-                        size: 20.0,
-                      ),
-                      onPress: registerUserViewModel.toggleObscure,
-                    );
-                  }),
+                    builder: (ctx, registerUserViewModel, neverBuildChild) {
+                      return TextFormIconWidget(
+                        errorGetter: ErrorGetter().passwordErrorGetter,
+                        textEditingController: password,
+                        obscureText: registerUserViewModel.obscurePassword,
+                        hint: 'Password',
+                        prefixIcon: const Icon(
+                          FontAwesomeIcons.qrcode,
+                          color: Color(0xFF019aff),
+                          size: 20.0,
+                        ),
+                        onPress: registerUserViewModel.toggleObscure,
+                      );
+                    },
+                  ),
                   SizedBox(height: 10.h),
                   Consumer<RegisterUserViewModel>(
                       builder: (ctx, registerUserViewModel, neverBuildChild) {

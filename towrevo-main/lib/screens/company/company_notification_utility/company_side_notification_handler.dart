@@ -1,6 +1,6 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:towrevo/widgets/show_snackbar.dart';
 
 class CompanySideNotificationHandler {
@@ -11,60 +11,75 @@ class CompanySideNotificationHandler {
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
 
-    // print(initialMessage);
-
     if (initialMessage != null) {
       getData();
     }
+
     FirebaseMessaging.onMessageOpenedApp.listen(
       (event) {
         _handleMessage(event, context, getData);
       },
     );
+
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) async {
-        if (message.data['screen'] == 'decline_from_user') {
-          showSnackBar(
-            context: context,
-            title: 'Time Delayed Request Decline',
-            labelText: '',
-            onPress: () {},
-          );
-          getData();
-        }
-
-        if (message.data['screen'] == 'request') {
-          // logic();
-          playLoopedNotification();
-          showSnackBar(
-            context: context,
-            title: 'User Send Request',
-            labelText: '',
-            onPress: () {},
-          );
-          getData();
-        }
+        onMessageListen(message, context, getData);
+        // Future.delayed(const Duration(seconds: 1)).then(
+        //   (value) {
+        //   },
+        // );
       },
     );
   }
 
-  static AudioCache? musicCache;
-  static AudioPlayer? instance;
+  onMessageListen(
+    RemoteMessage message,
+    BuildContext context,
+    Function getData,
+  ) {
+    // if (message != null) {
+    // print("it will work");
 
-  void playLoopedNotification() async {
-    musicCache = AudioCache(prefix: "assets/sounds/");
-    instance = await musicCache!.loop("sound_new.mp3");
-    // await instance.setVolume(0.5); you can even set the volume
+    if (message.data['screen'] == 'decline_from_user') {
+      showSnackBar(
+        context: context,
+        title: 'Time Delayed Request Decline',
+        labelText: '',
+        onPress: () {},
+      );
+      getData();
+    }
 
-    await Future.delayed(const Duration(seconds: 15)).then((value) {
-      stopNotification();
-    });
+    if (message.data['screen'] == 'request') {
+      play();
+      showSnackBar(
+        context: context,
+        title: 'User Send Request',
+        labelText: '',
+        onPress: () {},
+      );
+      getData();
+    }
+    // }
   }
 
-  void stopNotification() {
-    if (instance != null) {
-      instance!.stop();
-    }
+  static AudioPlayer player = AudioPlayer();
+
+  void play() async {
+    await player.setLoopMode(LoopMode.all);
+    await player.setAsset('assets/sounds/sound_new.mp3');
+
+    player.play();
+
+    await Future.delayed(const Duration(seconds: 15)).then(
+      (value) {
+        player.stop();
+      },
+    );
+  }
+
+  void stop() async {
+    player.stop();
   }
 
   void _handleMessage(
@@ -82,6 +97,7 @@ class CompanySideNotificationHandler {
       getData();
     }
     if (message.data['screen'] == 'decline_from_company') {
+      // clearNoti();
       showSnackBar(
         context: context,
         title: 'Time Delayed Request Decline',

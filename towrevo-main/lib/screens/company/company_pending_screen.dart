@@ -71,6 +71,7 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
 
   @override
   void initState() {
+    super.initState();
     Future.delayed(Duration.zero).then((value) async {
       await Utilities().setUpRequestNotification();
       await CompanySideNotificationHandler().notificationHandler(
@@ -85,8 +86,6 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
       // // await checkPayment();
       // await getData();
     });
-
-    super.initState();
   }
 
   // Future<void> checkPayment() async {

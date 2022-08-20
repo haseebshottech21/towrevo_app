@@ -244,6 +244,7 @@ class GetLocationViewModel with ChangeNotifier {
   updateMyLocation(context) {
     if (placeDetailModel.placeAddress.isNotEmpty) {
       myCurrentLocation = placeDetailModel;
+      setLocalCoordinates(placeDetailModel);
       notifyListeners();
       Navigator.of(context).pop();
     } else {
@@ -297,32 +298,40 @@ class GetLocationViewModel with ChangeNotifier {
         ', ' +
         address.country.toString();
     setAddress = this.address.replaceAll(', ,', ',');
-    setLocalCoordinates(coordinate, getAddress);
+    // setLocalCoordinates(PlaceDetailModel(placeAddress: getAddress, placeLocation: coordinate));
   }
 
-  setLocalCoordinates(LatLng coordinate, String address) {
-    placeDetailModel = PlaceDetailModel(
-      placeAddress: getAddress,
-      placeLocation: coordinate,
+  setLocalCoordinates(PlaceDetailModel placeModel) async {
+    // placeDetailModel = PlaceDetailModel(
+    //   placeAddress: getAddress,
+    //   placeLocation: coordinate,
+    // );
+    await utilities.setSharedPrefValue(
+      'longitude',
+      placeModel.placeLocation.longitude.toString(),
     );
-    utilities.setSharedPrefValue('longitude', coordinate.longitude.toString());
-    utilities.setSharedPrefValue('latitude', coordinate.latitude.toString());
-    utilities.setSharedPrefValue('address', address);
+    await utilities.setSharedPrefValue(
+      'latitude',
+      placeModel.placeLocation.latitude.toString(),
+    );
+    await utilities.setSharedPrefValue('address', placeModel.placeAddress);
     // notifyListeners();
-    getLocalCoordinates();
+    // getLocalCoordinates();
   }
 
   Future<void> getLocalCoordinates() async {
     final longitude = await utilities.getSharedPreferenceValue('longitude');
     final latitude = await utilities.getSharedPreferenceValue('latitude');
     final address = await utilities.getSharedPreferenceValue('address');
-    placeDetailModel = PlaceDetailModel(
+
+    myCurrentLocation = PlaceDetailModel(
       placeAddress: address.toString(),
       placeLocation: LatLng(
         double.parse(latitude.toString()),
         double.parse(longitude.toString()),
       ),
     );
+    notifyListeners();
   }
 
   final utilities = Utilities();
@@ -372,14 +381,13 @@ class GetLocationViewModel with ChangeNotifier {
     // if (!(await Utilities().isInternetAvailable())) {
     //   return;
     // }
-    // print(query);
     placesList = await placeWebService.getPlaces(query);
     notifyListeners();
   }
 
+//cleared function
   Future<void> getPlaceDetail(String placeId) async {
-    final detailModel = await placeWebService.getPlaceDetail(placeId);
-    setLocalCoordinates(detailModel.placeLocation, detailModel.placeAddress);
+    placeDetailModel = await placeWebService.getPlaceDetail(placeId);
     notifyListeners();
   }
 }

@@ -40,6 +40,7 @@ class DescribeProblemField extends StatelessWidget {
               ),
             ),
             textAlignVertical: TextAlignVertical.center,
+            textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,

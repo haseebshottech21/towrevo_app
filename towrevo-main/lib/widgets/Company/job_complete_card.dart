@@ -243,7 +243,7 @@ class _JobCompleteCardState extends State<JobCompleteCard> {
                                               .length <
                                           50 &&
                                       widget.serviceRequestModel.destAddress
-                                          .isNotEmpty) animHeightmain = 160.h;
+                                          .isNotEmpty) animHeightmain = 310.h;
                                   // widget.serviceRequestModel.description
                                   //             .length >
                                   //         50

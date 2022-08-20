@@ -217,6 +217,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
   Widget build(BuildContext context) {
     final provider = Provider.of<EditProfileViewModel>(context, listen: true);
 
+    // final locationProvider =
+    //     Provider.of<GetLocationViewModel>(context, listen: false);
+
+    // print(locationProvider.getMyAddress.toString());
+
     // if (_init) {
     //   setFields(provider);
     //   _init = false;

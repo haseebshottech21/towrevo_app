@@ -157,7 +157,7 @@ class CompanyItem extends StatelessWidget {
                   companyModel.image.isNotEmpty
                       ? companyModel.email.isEmpty
                           ? Container(
-                              height: 40.h,
+                              height: 44.h,
                               width: 45.w,
                               decoration: BoxDecoration(
                                 border: Border.all(

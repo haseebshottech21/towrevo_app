@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -95,6 +96,9 @@ class _RegisterationLocationAndStateState
                           color: Color(0xFF019aff),
                           size: 20.0,
                         ),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         textEditingController: startAmountController,
                         textInputType: TextInputType.number,
                       ),
@@ -109,9 +113,10 @@ class _RegisterationLocationAndStateState
                         return SelectLocation(
                           context: context,
                           delayMilliseconds: 570,
-                          title: getLocation.getMyAddress.isEmpty
-                              ? 'Company Location'
-                              : getLocation.getMyAddress,
+                          title:
+                              getLocation.myCurrentLocation.placeAddress.isEmpty
+                                  ? 'Company Location'
+                                  : getLocation.myCurrentLocation.placeAddress,
                           height: 50.h,
                           maxlines: 2,
                           icon: Icons.location_on,
@@ -244,7 +249,7 @@ class _RegisterationLocationAndStateState
       // final serviceProvider =
       //     Provider.of<ServicesAndDaysViewModel>(context, listen: false);
 
-      locationProvider.myCurrentLocation.placeAddress = '';
+      // locationProvider.myCurrentLocation.placeAddress = '';
       provider.initializeValues();
       provider.initStateAndCountry();
       // serviceProvider.initializeValues();
@@ -253,6 +258,13 @@ class _RegisterationLocationAndStateState
 
       // get current location
       await locationProvider.getCurrentLocation(context);
+
+      //         await getLocation.getLocationFromCoordinates(
+      //   getLocation.myCurrentLocation.placeLocation,
+      // );
+      // getLocation.myCurrentLocation.placeAddress = getLocation.getAddress;
+
+      // print('loc ' + locationProvider.getMyAddress.toString());
     }
 
     _init = false;

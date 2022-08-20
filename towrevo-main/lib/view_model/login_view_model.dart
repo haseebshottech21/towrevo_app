@@ -46,8 +46,13 @@ class LoginViewModel with ChangeNotifier {
     final loadedData = await authenticationWebService.logout();
     changeLoadingStatus(false);
     if (loadedData) {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
+      // CompanySideNotificationHandler.musicCache.clearAll();
+      // CompanySideNotificationHandler.instance.stop();
+      // CompanySideNotificationHandler.instance.dispose();
+      Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(
+        LoginScreen.routeName,
+        (route) => false,
+      );
     }
   }
 

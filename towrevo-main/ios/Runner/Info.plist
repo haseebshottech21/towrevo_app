@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -34,6 +36,8 @@
 	<string>This app requires to get current location of both sides user side and company side as well to calculate the distance between origin and destination and distance will be shown to each other.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app requires to get current location of both sides user side and company side as well to calculate the distance between origin and destination and distance will be shown to each other.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app requires to access Microphone to allow for requests ringtone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires to access your photo library to pick image for user profile picture at the time of register account.</string>
 	<key>UIBackgroundModes</key>

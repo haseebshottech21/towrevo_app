@@ -20,7 +20,7 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
     Future.delayed(Duration.zero).then(
       (value) {
         Provider.of<UserHomeScreenViewModel>(context, listen: false)
-            .getUserHistory();
+            .getUserHistory(context);
       },
     );
     super.initState();

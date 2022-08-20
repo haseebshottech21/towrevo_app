@@ -71,7 +71,8 @@ class EditProfileViewModel with ChangeNotifier {
         await serviceProvider.getServices();
 
         registerCompanyViewModel.updateDescription(
-            loadedData['company_info']['description'].toString());
+          loadedData['company_info']['description'].toString(),
+        );
         if (loadedData['company_info']['description']
             .toString()
             .contains('Other')) {
@@ -85,8 +86,11 @@ class EditProfileViewModel with ChangeNotifier {
           double.parse(loadedData['company_info']['latitude']),
           double.parse(loadedData['company_info']['longitude']),
         );
+
         await getLocation.getLocationFromCoordinates(
-            getLocation.myCurrentLocation.placeLocation);
+          getLocation.myCurrentLocation.placeLocation,
+        );
+        getLocation.myCurrentLocation.placeAddress = getLocation.getAddress;
         await setTimerFieldsAfterGetRequestScucceed(
           loadedData['company_info']['from'],
           loadedData['company_info']['to'],
@@ -191,9 +195,13 @@ class EditProfileViewModel with ChangeNotifier {
       final Map companyInfo = loadedData['data']['user']['company_info'] ?? {};
       if (companyInfo.isNotEmpty) {
         utilities.setSharedPrefValue(
-            'longitude', companyInfo['longitude'].toString());
+          'longitude',
+          companyInfo['longitude'].toString(),
+        );
         utilities.setSharedPrefValue(
-            'latitude', companyInfo['latitude'].toString());
+          'latitude',
+          companyInfo['latitude'].toString(),
+        );
       }
     }
     changeLoadingStatus(false);

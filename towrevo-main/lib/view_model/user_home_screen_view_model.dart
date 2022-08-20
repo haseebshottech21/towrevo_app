@@ -75,13 +75,13 @@ class UserHomeScreenViewModel with ChangeNotifier {
 
   List<UserHistoryModel> userHistoryList = [];
 
-  Future<void> getUserHistory() async {
+  Future<void> getUserHistory(BuildContext context) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
     changeLoadingStatus(true);
     userHistoryList = [];
-    final loadedResponse = await userWebService.requestsOfUserHistory();
+    final loadedResponse = await userWebService.requestsOfUserHistory(context);
     if (loadedResponse.isNotEmpty) {
       userHistoryList = loadedResponse.reversed.toList();
     }
@@ -96,7 +96,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
     changeLoadingStatus(true);
     userHistoryList = [];
     final loadedResponse =
-        await userWebService.payNowRequest(transactionId, amount);
+        await userWebService.payNowRequest(transactionId, amount, context);
     if (loadedResponse != null) {
       await getCompanies(body, context);
       Navigator.of(context).pop();
@@ -131,6 +131,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
       reqId,
       rate,
       '',
+      context,
     );
 
     if (loadedData != null) {
@@ -139,9 +140,13 @@ class UserHomeScreenViewModel with ChangeNotifier {
     }
   }
 
-  Future<Map<String, String>> getRequestStatusData(String reqId) async {
+  Future<Map<String, String>> getRequestStatusData(
+    String reqId,
+    BuildContext context,
+  ) async {
     changeLoadingStatus(true);
-    final loadedData = await UserWebService().getRequestStatusData(reqId);
+    final loadedData =
+        await UserWebService().getRequestStatusData(reqId, context);
     changeLoadingStatus(false);
     if (loadedData != null) {
       return {

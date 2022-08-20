@@ -124,7 +124,11 @@ class UserWebService {
   }
 
   Future<dynamic> submitRating(
-      String serviceRequestId, String rate, String review) async {
+    String serviceRequestId,
+    String rate,
+    String review,
+    BuildContext context,
+  ) async {
     try {
       final response = await http.post(
         Uri.parse(Utilities.baseUrl + 'submit-rating'),
@@ -139,6 +143,9 @@ class UserWebService {
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200) {
         return loadedData;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
         return null;
@@ -149,7 +156,11 @@ class UserWebService {
     }
   }
 
-  Future<dynamic> payNowRequest(String transactionId, String amount) async {
+  Future<dynamic> payNowRequest(
+    String transactionId,
+    String amount,
+    BuildContext context,
+  ) async {
     try {
       final response = await http.post(
         Uri.parse(Utilities.baseUrl + 'payment'),
@@ -164,6 +175,9 @@ class UserWebService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
         return loadedData;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
       }
@@ -172,7 +186,8 @@ class UserWebService {
     }
   }
 
-  Future<List<UserHistoryModel>> requestsOfUserHistory() async {
+  Future<List<UserHistoryModel>> requestsOfUserHistory(
+      BuildContext context) async {
     try {
       final response = await http.post(Uri.parse(Utilities.baseUrl + 'history'),
           headers: await Utilities().headerWithAuth());
@@ -183,6 +198,9 @@ class UserWebService {
             .map((request) => UserHistoryModel.fromJson(request))
             .toList();
         return list;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
         return [];
@@ -193,7 +211,10 @@ class UserWebService {
     }
   }
 
-  Future<dynamic> getRequestStatusData(String requestId) async {
+  Future<dynamic> getRequestStatusData(
+    String requestId,
+    BuildContext context,
+  ) async {
     try {
       final response = await http.post(
         Uri.parse(
@@ -205,6 +226,9 @@ class UserWebService {
       final loadedData = json.decode(response.body);
       if (response.statusCode == 200) {
         return loadedData;
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return [];
       } else {
         return null;
       }

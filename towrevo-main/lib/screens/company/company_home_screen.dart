@@ -21,8 +21,6 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
     super.initState();
   }
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
