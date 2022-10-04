@@ -148,7 +148,7 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                     },
                                     child: Container(
                                       width: 120.w,
-                                      height: 105.h,
+                                      height: 110.h,
                                       decoration: BoxDecoration(
                                         color: const Color(0xFF09365f),
                                         borderRadius:
@@ -163,26 +163,28 @@ class _RegisterUserScreenState extends State<RegisterUserScreen> {
                                             )
                                           : ClipRRect(
                                               borderRadius: BorderRadius.all(
-                                                Radius.circular(20.r),
+                                                Radius.circular(10.r),
                                               ),
                                               child: Image.file(
                                                 File(imagePicker.imagePath),
-                                                fit: BoxFit.fill,
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
                                     ),
                                   ),
                                   Positioned(
                                     left: 85.w,
-                                    top: 75.h,
+                                    top: 80.h,
                                     child: Container(
                                       width: 35.w,
                                       height: 30.h,
                                       decoration: BoxDecoration(
                                         color: const Color(0xFF019aff)
                                             .withOpacity(0.8),
-                                        borderRadius:
-                                            BorderRadius.circular(8.r),
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10.r),
+                                          bottomRight: Radius.circular(10.r),
+                                        ),
                                       ),
                                       child: Icon(
                                         FontAwesomeIcons.camera,

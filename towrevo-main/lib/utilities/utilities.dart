@@ -117,9 +117,18 @@ class Utilities {
     }
   }
 
-  unauthenticatedLogout(BuildContext context) async {
+  Future<void> removeAll() async {
     await removeSharedPreferenceValue('token');
     await removeSharedPreferenceValue('type');
+    await removeSharedPreferenceValue('email');
+    await removeSharedPreferenceValue('image');
+    await removeSharedPreferenceValue('name');
+    await removeSharedPreferenceValue('longitude');
+    await removeSharedPreferenceValue('latitude');
+  }
+
+  unauthenticatedLogout(BuildContext context) async {
+    await removeAll();
     showCancelDialog(context);
   }
 

@@ -15,6 +15,9 @@ class CompanyPendingScreen extends StatefulWidget {
 }
 
 class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
+
   @override
   Widget build(BuildContext context) {
     final provider =
@@ -72,17 +75,20 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
   @override
   void initState() {
     super.initState();
+    checkCompanyVerification();
     Future.delayed(Duration.zero).then((value) async {
       await Utilities().setUpRequestNotification();
       await CompanySideNotificationHandler().notificationHandler(
         context,
         getData,
+        scaffoldMessengerKey,
       );
-
       await getData();
+      // await checkCompanyVerification();
       // await CompanySideNotificationHandler()
       //     .notificationHandler(context, getData);
       // await Utilities().setUpRequestNotification();
+      // // await checkPayment();
       // // await checkPayment();
       // await getData();
     });
@@ -92,4 +98,9 @@ class _CompanyPendingScreenState extends State<CompanyPendingScreen> {
   //   Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
   //       .paymentStatusCheck(context);
   // }
+
+  Future<void> checkCompanyVerification() async {
+    Provider.of<CompanyHomeScreenViewModel>(context, listen: false)
+        .verifiedStatusCheck(context, 0);
+  }
 }

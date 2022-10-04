@@ -8,7 +8,10 @@ import '../../../widgets/User/user_rating_dialogbox.dart';
 import '../../../widgets/show_snackbar.dart';
 
 class UserSideNotificationHandler {
-  Future<void> notificationHandler(BuildContext context) async {
+  Future<void> notificationHandler(
+    BuildContext context,
+    GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey,
+  ) async {
     final provider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
 
@@ -23,7 +26,7 @@ class UserSideNotificationHandler {
         if (message!.data['screen'] == 'accept') {
           showSnackBar(
             context: context,
-            title: 'Request Accept From Company',
+            title: 'Company accept your request',
             labelText: '',
             onPress: () {},
           ).then((value) {
@@ -40,8 +43,9 @@ class UserSideNotificationHandler {
         if (message.data['screen'] == 'decline_from_company') {
           showSnackBar(
             context: context,
-            title: 'Decline From Company',
+            title: 'Company declined your request',
             labelText: 'Ok',
+            seconds: 10,
             onPress: () {},
           );
           Navigator.of(context).pushNamedAndRemoveUntil(
@@ -101,7 +105,7 @@ class UserSideNotificationHandler {
     if (message.data['screen'] == 'decline_from_company') {
       showSnackBar(
         context: context,
-        title: 'Decline From Company',
+        title: 'Company declined your request',
         labelText: '',
         onPress: () {},
       );

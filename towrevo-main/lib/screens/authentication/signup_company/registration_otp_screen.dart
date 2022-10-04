@@ -7,7 +7,7 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/view_model/view_model.dart';
-import 'package:towrevo/widgets/Dialogs/success_dialog.dart';
+// import 'package:towrevo/widgets/Dialogs/success_dialog.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,19 +42,23 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
         final provider = Provider.of<OTPViewModel>(context, listen: false);
 
         bool response = await provider.validateOTP(
-            provider.resendUniqueId, inputOTP, context);
+          provider.resendUniqueId,
+          inputOTP,
+          context,
+        );
 
         if (!requestFromCompany && response) {
           //user entry
           Navigator.of(context).pushNamedAndRemoveUntil(
-              UsersHomeScreen.routeName, (route) => false);
+            UsersHomeScreen.routeName,
+            (route) => false,
+          );
         } else if (requestFromCompany && response) {
           //company entry
-          // Navigator.of(context).pushNamedAndRemoveUntil(
-          //     CompanyHomeScreen.routeName, (route) => false);
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil(LoginScreen.routeName, (route) => false);
-          showSuccessDialog(context);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            CompanyHomeScreen.routeName,
+            (route) => false,
+          );
         } else if (!response) {
           if (provider.otpExpire == true) {
             isTimeAvailable = false;
@@ -86,157 +90,185 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
   Widget build(BuildContext context) {
     bool reqFromCompany = ModalRoute.of(context)!.settings.arguments as bool;
     final otpViewModel = Provider.of<OTPViewModel>(context, listen: true);
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            // Background Image
-            const BackgroundImage(),
-            // Back Icon
-            backIcon(context, () {
-              Navigator.pop(context);
-            }),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.w,
-                vertical: 30.h,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: 5.h),
-                  const TowrevoLogo(),
-                  SizedBox(height: 35.h),
-                  Text(
-                    'OTP \nVERIFICATION',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 32.sp,
-                      letterSpacing: 1.w,
+    return WillPopScope(
+      onWillPop: () async {
+        final shouldPop = await showDialog<bool>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Do you want to leave OTP screen?'),
+              actionsAlignment: MainAxisAlignment.spaceBetween,
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, true);
+                  },
+                  child: const Text('Yes'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: const Text('No'),
+                ),
+              ],
+            );
+          },
+        );
+        return shouldPop!;
+      },
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              // Background Image
+              const BackgroundImage(),
+              // Back Icon
+              // backIcon(context, () {
+              //   Navigator.pop(context);
+              // }),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.w,
+                  vertical: 30.h,
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 5.h),
+                    const TowrevoLogo(),
+                    SizedBox(height: 35.h),
+                    Text(
+                      'OTP \nVERIFICATION',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.montserrat(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 32.sp,
+                        letterSpacing: 1.w,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10.h),
-                  Column(
-                    children: [
-                      Text(
-                        'We have sent you an email with a code of the number',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.montserrat(
-                          color: const Color(0xFF0c355a),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 11.sp,
-                          letterSpacing: 0.2.w,
+                    SizedBox(height: 10.h),
+                    Column(
+                      children: [
+                        Text(
+                          'We have sent you an email with a code of the number',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.montserrat(
+                            color: const Color(0xFF0c355a),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 11.sp,
+                            letterSpacing: 0.2.w,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'on Your Email',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.montserrat(
-                          color: const Color(0xFF0c355a),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18.sp,
-                          letterSpacing: 0.5.w,
+                        Text(
+                          'on Your Email',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.montserrat(
+                            color: const Color(0xFF0c355a),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18.sp,
+                            letterSpacing: 0.5.w,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 30.h),
-                  OTPTextField(
-                    length: 5,
-                    width: MediaQuery.of(context).size.width,
-                    textFieldAlignment: MainAxisAlignment.spaceAround,
-                    fieldWidth: 55,
-                    fieldStyle: FieldStyle.box,
-                    otpFieldStyle: OtpFieldStyle(
-                      backgroundColor: Colors.white,
+                      ],
                     ),
-                    outlineBorderRadius: 10.r,
-                    style: GoogleFonts.montserrat(
-                      color: const Color(0xFF092e52),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17.sp,
-                      letterSpacing: 1.0.w,
+                    SizedBox(height: 30.h),
+                    OTPTextField(
+                      length: 5,
+                      width: MediaQuery.of(context).size.width,
+                      textFieldAlignment: MainAxisAlignment.spaceAround,
+                      fieldWidth: 55,
+                      fieldStyle: FieldStyle.box,
+                      otpFieldStyle: OtpFieldStyle(
+                        backgroundColor: Colors.white,
+                      ),
+                      outlineBorderRadius: 10.r,
+                      style: GoogleFonts.montserrat(
+                        color: const Color(0xFF092e52),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17.sp,
+                        letterSpacing: 1.0.w,
+                      ),
+                      onChanged: (pin) {
+                        // print("Changed: " + pin);
+                      },
+                      onCompleted: (pin) {
+                        inputOTP = pin;
+                        // print(inputOTP);
+                      },
                     ),
-                    onChanged: (pin) {
-                      // print("Changed: " + pin);
-                    },
-                    onCompleted: (pin) {
-                      inputOTP = pin;
-                      // print(inputOTP);
-                    },
-                  ),
-                  SizedBox(height: 20.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Expiring in',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.montserrat(
-                          color: const Color(0xFF0c355a),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp,
-                          letterSpacing: 0.5.w,
+                    SizedBox(height: 20.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Expiring in',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.montserrat(
+                            color: const Color(0xFF0c355a),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                            letterSpacing: 0.5.w,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 5.w),
-                      Countdown(
-                        animation: StepTween(
-                          begin: levelClock, // THIS IS A USER ENTERED NUMBER
-                          end: 0,
-                        ).animate(_controller),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 18.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't received the OTP ?",
-                        style: GoogleFonts.montserrat(
-                          color: const Color(0xFF0c355a),
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13.sp,
+                        SizedBox(width: 5.w),
+                        Countdown(
+                          animation: StepTween(
+                            begin: levelClock, // THIS IS A USER ENTERED NUMBER
+                            end: 0,
+                          ).animate(_controller),
                         ),
-                      ),
-                      SizedBox(width: 5.w),
-                      RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'RESEND OTP',
-                              style: GoogleFonts.montserrat(
-                                color: const Color(0xFF0c355a),
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15.sp,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  resendOTPRequest();
-                                },
-                            )
-                          ],
+                      ],
+                    ),
+                    SizedBox(height: 18.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Don't received the OTP ?",
+                          style: GoogleFonts.montserrat(
+                            color: const Color(0xFF0c355a),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13.sp,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 35.h),
-                  FormButtonWidget(
-                    formBtnTxt: 'VERIFY',
-                    onPressed: otpViewModel.isLoading
-                        ? null
-                        : () {
-                            // print(reqFromCompany);
-                            sendOTPRequest(reqFromCompany);
-                          },
-                    isLoading: otpViewModel.isLoading ? true : false,
-                  ),
-                ],
-              ),
-            )
-          ],
+                        SizedBox(width: 5.w),
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'RESEND OTP',
+                                style: GoogleFonts.montserrat(
+                                  color: const Color(0xFF0c355a),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 15.sp,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    resendOTPRequest();
+                                  },
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 35.h),
+                    FormButtonWidget(
+                      formBtnTxt: 'VERIFY',
+                      onPressed: otpViewModel.isLoading
+                          ? null
+                          : () {
+                              // print(reqFromCompany);
+                              sendOTPRequest(reqFromCompany);
+                            },
+                      isLoading: otpViewModel.isLoading ? true : false,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

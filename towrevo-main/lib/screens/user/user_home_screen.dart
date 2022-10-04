@@ -24,6 +24,8 @@ class UsersHomeScreen extends StatefulWidget {
 class _UsersHomeScreenState extends State<UsersHomeScreen> {
   final getLocation = GetLocationViewModel();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   TextEditingController describeController = TextEditingController();
   UserSideNotificationHandler userSideNotificationHandler =
@@ -298,7 +300,8 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   void didChangeDependencies() async {
     if (_init) {
       await Utilities().setUpRequestNotification();
-      await UserSideNotificationHandler().notificationHandler(context);
+      await UserSideNotificationHandler()
+          .notificationHandler(context, scaffoldMessengerKey);
 
       final serviceProvider =
           Provider.of<ServicesAndDaysViewModel>(context, listen: false);

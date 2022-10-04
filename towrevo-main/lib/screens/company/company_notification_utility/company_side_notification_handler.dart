@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:towrevo/widgets/show_snackbar.dart';
 
@@ -7,6 +8,7 @@ class CompanySideNotificationHandler {
   Future<void> notificationHandler(
     BuildContext context,
     Function getData,
+    GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey,
   ) async {
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
@@ -43,8 +45,9 @@ class CompanySideNotificationHandler {
     if (message.data['screen'] == 'decline_from_user') {
       showSnackBar(
         context: context,
-        title: 'Time Delayed Request Decline',
-        labelText: '',
+        title: 'Missed Customer Request',
+        labelText: 'Ok',
+        seconds: 10,
         onPress: () {},
       );
       getData();

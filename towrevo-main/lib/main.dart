@@ -6,6 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/authentication/signup_company/signup_compnay_screen.dart';
+import 'package:towrevo/screens/company/company_unverified_screen.dart';
+import 'package:towrevo/screens/company/compnay_verification_form_screen.dart';
 import 'package:towrevo/screens/payment/user_paymnets.dart';
 import 'package:towrevo/utilities/env_settings.dart';
 import 'package:towrevo/utilities/utilities.dart';
@@ -70,6 +73,7 @@ class _MyAppState extends State<MyApp> {
     messaging.getToken().then(
       (value) {
         MyApp.notifyToken = value.toString();
+        print(MyApp.notifyToken.toString());
       },
     );
 
@@ -78,6 +82,22 @@ class _MyAppState extends State<MyApp> {
 
     // _checkNewVersion();
   }
+
+//  checkFCMToken() {
+//            FirebaseMessaging.instance.getToken().then((value){
+
+//            });
+
+//            {
+
+//                 if(it.isSuccessful) {
+//                     println("->> token: ${it.result}")
+//                 } else {
+//                     println("->> error: ${it.exception}")
+//                     getToken()
+//                 }
+//             }
+// }
 
   // appInfo() async {
   //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -169,18 +189,24 @@ class _MyAppState extends State<MyApp> {
               LoginScreen.routeName: (ctx) => const LoginScreen(),
               RegistrationNameAndDescScreen.routeName: (ctx) =>
                   const RegistrationNameAndDescScreen(),
-              RegistrationCredentialScreen.routeName: (ctx) =>
-                  const RegistrationCredentialScreen(),
-              RegisterationLocationAndState.routeName: (ctx) =>
-                  const RegisterationLocationAndState(),
-              RegisterationCompleteScreen.routeName: (ctx) =>
-                  const RegisterationCompleteScreen(),
+              // RegistrationCredentialScreen.routeName: (ctx) =>
+              //     const RegistrationCredentialScreen(),
+              // RegisterationLocationAndState.routeName: (ctx) =>
+              //     const RegisterationLocationAndState(),
+              // RegisterationCompleteScreen.routeName: (ctx) =>
+              //     const RegisterationCompleteScreen(),
+              SignupCompanyScreen.routeName: (context) =>
+                  const SignupCompanyScreen(),
               UserMonthlyPaymentScreen.routeName: (ctx) =>
                   const UserMonthlyPaymentScreen(),
               CompanyPaymentScreen.routeName: (ctx) =>
                   const CompanyPaymentScreen(),
               RegistrationOTPScreen.routeName: (ctx) =>
                   const RegistrationOTPScreen(),
+              CompanyVerificationRequest.routeName: (ctx) =>
+                  const CompanyVerificationRequest(),
+              CompanyVerificationFormScreen.routeName: (ctx) =>
+                  const CompanyVerificationFormScreen(),
               CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
               RegisterUserScreen.routeName: (ctx) => const RegisterUserScreen(),
               UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),

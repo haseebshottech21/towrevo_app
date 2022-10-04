@@ -298,7 +298,9 @@ class GetLocationViewModel with ChangeNotifier {
         ', ' +
         address.country.toString();
     setAddress = this.address.replaceAll(', ,', ',');
-    // setLocalCoordinates(PlaceDetailModel(placeAddress: getAddress, placeLocation: coordinate));
+
+    // setLocalCoordinates(
+    //     PlaceDetailModel(placeAddress: getAddress, placeLocation: coordinate));
   }
 
   setLocalCoordinates(PlaceDetailModel placeModel) async {
@@ -347,6 +349,7 @@ class GetLocationViewModel with ChangeNotifier {
       //     Provider.of<RegisterCompanyViewModel>(context, listen: false);
 
       await getLocationFromCoordinates(latLng);
+      return latLng;
     }
     return null;
   }
@@ -359,7 +362,10 @@ class GetLocationViewModel with ChangeNotifier {
     // print('$latitude lat');
     // print('$address address');
     if (longitude == null) {
-      await getCurrentLocation(context);
+      LatLng currentCordinates =
+          await getCurrentLocation(context) ?? const LatLng(0.0, 0.0);
+      myCurrentLocation = PlaceDetailModel(
+          placeAddress: getAddress, placeLocation: currentCordinates);
     }
     if (longitude != null) {
       await getLocalCoordinates();

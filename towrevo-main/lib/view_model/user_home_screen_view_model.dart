@@ -7,6 +7,7 @@ import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import '../request_timer.dart';
+import '../screens/user/user_home_screen.dart';
 
 class UserHomeScreenViewModel with ChangeNotifier {
   Utilities utilities = Utilities();
@@ -180,6 +181,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
     String serviceId,
     String companyId,
     String notificationId,
+    GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey,
   ) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
@@ -271,13 +273,20 @@ class UserHomeScreenViewModel with ChangeNotifier {
             context,
             getData: false,
             notificationId: notificationId,
+            notRespond: true,
           );
 
           showSnackBar(
             context: context,
             title: 'Company not responded send request again',
-            labelText: '',
+            labelText: 'Ok',
+            seconds: 10,
             onPress: () {},
+          );
+
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            UsersHomeScreen.routeName,
+            (route) => false,
           );
         }
         isAlive = false;

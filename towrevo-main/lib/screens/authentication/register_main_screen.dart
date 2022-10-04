@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:towrevo/screens/authentication/signup_company/signup_compnay_screen.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -73,8 +74,8 @@ class RegisterMainScreen extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.of(context).pushNamed(
-                                RegistrationNameAndDescScreen.routeName);
+                            Navigator.of(context)
+                                .pushNamed(SignupCompanyScreen.routeName);
                           },
                           child: Container(
                             decoration: BoxDecoration(

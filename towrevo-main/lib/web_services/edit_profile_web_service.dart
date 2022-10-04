@@ -17,7 +17,7 @@ class EditProfileWebService {
       if (response.statusCode == 200) {
         return loadedData;
       } else if (response.statusCode == 401) {
-        utilities.unauthenticatedLogout(context);
+        // utilities.unauthenticatedLogout(context);
         return [];
       } else {
         return null;
@@ -46,7 +46,7 @@ class EditProfileWebService {
         Fluttertoast.showToast(msg: 'Successfully Updated');
         return loadedData;
       } else if (response.statusCode == 401) {
-        utilities.unauthenticatedLogout(context);
+        // utilities.unauthenticatedLogout(context);
         return [];
       } else {
         Fluttertoast.showToast(msg: loadedData['errors'].toString());
@@ -73,7 +73,7 @@ class EditProfileWebService {
 
         return loadedData;
       } else if (response.statusCode == 401) {
-        utilities.unauthenticatedLogout(context);
+        // utilities.unauthenticatedLogout(context);
         return [];
       } else {
         Fluttertoast.showToast(msg: 'Failed');

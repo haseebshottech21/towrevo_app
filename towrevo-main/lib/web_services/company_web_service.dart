@@ -12,6 +12,7 @@ class CompanyWebService {
       String type, BuildContext context,
       {bool history = false}) async {
     try {
+      // print(await Utilities().headerWithAuth());
       final response = await http.post(
           Uri.parse(
               Utilities.baseUrl + 'service-requests${history ? '' : '/$type'}'),
@@ -24,6 +25,7 @@ class CompanyWebService {
             .toList();
         return list;
       } else if (response.statusCode == 401) {
+        // print('logout');
         utilities.unauthenticatedLogout(context);
         return [];
       } else {
@@ -95,7 +97,7 @@ class CompanyWebService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         return loadedData;
       } else if (response.statusCode == 401) {
-        utilities.unauthenticatedLogout(context);
+        // utilities.unauthenticatedLogout(context);
         return [];
       } else {
         Fluttertoast.showToast(msg: loadedData['message'].toString());
@@ -126,7 +128,7 @@ class CompanyWebService {
       if (response.statusCode == 200) {
         return responseData;
       } else if (response.statusCode == 401) {
-        utilities.unauthenticatedLogout(context);
+        // utilities.unauthenticatedLogout(context);
         return [];
       } else {
         return null;

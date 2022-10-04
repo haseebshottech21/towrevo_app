@@ -14,8 +14,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompanyItem extends StatelessWidget {
   final CompanyModel companyModel;
+  final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
 
-  const CompanyItem({Key? key, required this.companyModel}) : super(key: key);
+  const CompanyItem({
+    Key? key,
+    required this.companyModel,
+    this.scaffoldMessengerKey,
+  }) : super(key: key);
+
+  // final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+  //     GlobalKey<ScaffoldMessengerState>();
 
   sendRequest(
     String companyId,
@@ -40,6 +48,7 @@ class CompanyItem extends StatelessWidget {
         provider.body['service']!,
         companyId,
         notificationId,
+        scaffoldMessengerKey!,
       );
     } else {
       Navigator.of(context).pushNamed(
@@ -86,7 +95,7 @@ class CompanyItem extends StatelessWidget {
         margin: EdgeInsets.only(
           left: 10.w,
           right: 10.w,
-          top: 10.h,
+          top: 8.h,
         ),
         child: Padding(
           padding: EdgeInsets.only(

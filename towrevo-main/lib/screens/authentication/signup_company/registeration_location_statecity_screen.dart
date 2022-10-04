@@ -257,7 +257,7 @@ class _RegisterationLocationAndStateState
       // serviceProvider.getServices();
 
       // get current location
-      await locationProvider.getCurrentLocation(context);
+      await locationProvider.getStoreLocationIfExist(context);
 
       //         await getLocation.getLocationFromCoordinates(
       //   getLocation.myCurrentLocation.placeLocation,

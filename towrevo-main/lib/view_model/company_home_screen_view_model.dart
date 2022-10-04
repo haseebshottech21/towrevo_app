@@ -4,6 +4,7 @@ import 'package:towrevo/main.dart';
 import 'package:towrevo/models/models.dart';
 import 'package:towrevo/screens/company/company_notification_utility/company_side_notification_handler.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
+import 'package:towrevo/screens/company/company_unverified_screen.dart';
 import 'package:towrevo/screens/screens.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/web_services/company_web_service.dart';
@@ -84,6 +85,30 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     }
   }
 
+  Future<void> verifiedStatusCheck(BuildContext context, int response) async {
+    if (!(await utilities.isInternetAvailable())) {
+      return;
+    }
+
+    // int response = 0;
+
+    if (response == 0) {
+      Navigator.of(context).pushNamed(CompanyVerificationRequest.routeName);
+    }
+
+    // int? loadedResponseCode =
+    //     await companyWebService.paymentStatusCheckRequest();
+
+    // if (loadedResponseCode != null) {
+    //   if (loadedResponseCode == 403 || loadedResponseCode == 401) {
+    //     Navigator.of(context).pushNamed(
+    //       CompanyPaymentScreen.routeName,
+    //       arguments: loadedResponseCode,
+    //     );
+    //   }
+    // }
+  }
+
   Future<void> paymentStatusCheck(BuildContext context) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
@@ -94,8 +119,10 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
     if (loadedResponseCode != null) {
       if (loadedResponseCode == 403 || loadedResponseCode == 401) {
-        Navigator.of(context).pushNamed(CompanyPaymentScreen.routeName,
-            arguments: loadedResponseCode);
+        Navigator.of(context).pushNamed(
+          CompanyPaymentScreen.routeName,
+          arguments: loadedResponseCode,
+        );
       }
     }
   }
@@ -132,10 +159,11 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
   // bool soundStop = false;
 
   Future<void> acceptDeclineOrDone(
-    String type,
+    String status,
     String requestId,
     BuildContext context, {
     bool getData = true,
+    bool notRespond = false,
     required String notificationId,
   }) async {
     if (!(await utilities.isInternetAvailable())) {
@@ -146,15 +174,15 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
     changeLoadingStatus(true);
     final loadedData =
-        await companyWebService.acceptDeclineOrDone(type, requestId, context);
+        await companyWebService.acceptDeclineOrDone(status, requestId, context);
     changeLoadingStatus(false);
     if (loadedData != null) {
-      if (type == '3') {
+      if (status == '3') {
         companyProvider.getOnGoingRequests(context);
         notifyListeners();
         await userWebService.sendNotification(
           'Job Complete',
-          'Your Job Has Been Compataed',
+          'Your Job has been Completed',
           notificationId,
           'complete',
           requestId: requestId,
@@ -165,34 +193,36 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
           companyProvider.getRequests(context);
           notifyListeners();
         } else if (!getData) {
-          userWebService.sendNotification(
-            'Decline',
-            'Request Time Over',
-            notificationId,
-            'decline_from_user',
-          );
+          if (notRespond) {
+            userWebService.sendNotification(
+              'Time Delayed',
+              'Request Time Over',
+              notificationId,
+              'decline_from_user',
+            );
+          }
         }
-        if (type == '2') {
-          await Future.delayed(const Duration(seconds: 1)).then(
-            (value) {
-              CompanySideNotificationHandler.player.stop();
-            },
-          );
-          userWebService.sendNotification(
-            'Decline',
-            'Company Declined Your Request',
-            notificationId,
-            'decline_from_company',
-          );
-        } else if (type == '1') {
+        if (status == '2' && !notRespond) {
           await Future.delayed(const Duration(seconds: 1)).then(
             (value) {
               CompanySideNotificationHandler.player.stop();
             },
           );
           await userWebService.sendNotification(
-            'Accepted',
-            'Your Request has been accepted',
+            'Request Decline',
+            'Company Declined Your Request',
+            notificationId,
+            'decline_from_company',
+          );
+        } else if (status == '1') {
+          await Future.delayed(const Duration(seconds: 1)).then(
+            (value) {
+              CompanySideNotificationHandler.player.stop();
+            },
+          );
+          await userWebService.sendNotification(
+            'Request Accepted',
+            'Company Accepted Your Request',
             notificationId,
             'accept',
             requestId: requestId,

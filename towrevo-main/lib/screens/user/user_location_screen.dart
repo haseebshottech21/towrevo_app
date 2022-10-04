@@ -232,6 +232,10 @@ class _GmapState extends State<Gmap> {
           if (marker != null) marker!,
         },
         myLocationEnabled: true,
+        // buildingsEnabled: true,
+        // mapToolbarEnabled: false,
+        // myLocationEnabled: true,
+        // zoomControlsEnabled: true,
         initialCameraPosition: CameraPosition(
           target: placeViewModel.placeDetailModel.placeLocation,
           zoom: 15,

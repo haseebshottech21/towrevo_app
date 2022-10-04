@@ -43,7 +43,9 @@ class FullBackgroundImage extends StatelessWidget {
       width: ScreenUtil().screenWidth,
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/fullbg.jpg'), fit: BoxFit.fill),
+          image: AssetImage('assets/images/fullbg.jpg'),
+          fit: BoxFit.fitWidth,
+        ),
       ),
     );
   }

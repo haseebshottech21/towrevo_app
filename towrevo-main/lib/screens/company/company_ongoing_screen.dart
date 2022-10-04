@@ -21,9 +21,7 @@ class _CompanyOngoingScreenState extends State<CompanyOngoingScreen> {
         SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               (provider.isLoading || provider.onGoingRequestsList.isEmpty)
                   ? Align(
                       alignment: Alignment.center,

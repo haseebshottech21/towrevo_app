@@ -83,15 +83,8 @@ class AuthenticationWebService {
           headers: await Utilities().headerWithAuth());
       final loadedResponse = json.decode(response.body);
       if (response.statusCode == 200) {
-        await utilities.removeSharedPreferenceValue('token');
-        await utilities.removeSharedPreferenceValue('type');
-        await utilities.removeSharedPreferenceValue('email');
-        await utilities.removeSharedPreferenceValue('image');
-        await utilities.removeSharedPreferenceValue('name');
-        await utilities.removeSharedPreferenceValue('longitude');
-        await utilities.removeSharedPreferenceValue('latitude');
         Fluttertoast.showToast(msg: 'Successfully Logout');
-
+        await utilities.removeAll();
         return true;
       } else {
         Fluttertoast.showToast(msg: loadedResponse['message'].toString());

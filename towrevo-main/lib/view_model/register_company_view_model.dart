@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/main.dart';
+// import 'package:towrevo/main.dart';
 import 'package:towrevo/models/service_description.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/authentication.dart';
@@ -97,27 +97,56 @@ class RegisterCompanyViewModel with ChangeNotifier {
   }
 
   Map<String, dynamic> body = {
-    'state': '',
-    'city': '',
+    // 'state': '',
+    // 'city': '',
     'first_name': '',
-    'description': '',
+    // 'description': '',
     'type': '2',
     'email': '',
     'phone': '',
     'password': '',
     'password_confirmation': '',
+    // 'starting_price': '',
+    // 'ein_number': '',
+    // 'latitude': '',
+    // 'longitude': '',
+    // 'from': '',
+    // 'to': '',
+    'extension': '',
+    // 'days': [],
+    // 'services': [],
+    // 'notification_id': MyApp.notifyToken,
+    'notification_id': '871268123',
+    'image': '',
+  };
+
+  verificationInitalize() {
+    timerValues = {
+      'from': '',
+      'to': '',
+    };
+    timeRadioValue = null;
+    // verificationBody = {
+    //   'days': [],
+    //   'services': [],
+    // };
+    clearServiceDescriptionList();
+  }
+
+  Map<String, dynamic> verificationBody = {
     'starting_price': '',
+    'description': '',
     'ein_number': '',
     'latitude': '',
     'longitude': '',
     'from': '',
     'to': '',
-    'extension': '',
     'days': [],
     'services': [],
-    'notification_id': MyApp.notifyToken,
-    'image': '',
+    'state': '',
+    'city': '',
   };
+
   final Utilities utilities = Utilities();
 
   Future<bool> registerCompany(BuildContext context) async {
@@ -167,7 +196,7 @@ class RegisterCompanyViewModel with ChangeNotifier {
     imagePath = '';
     body['image'] = '';
     body['extension'] = '';
-    clearServiceDescriptionList();
+    // clearServiceDescriptionList();
   }
 
   bool obscurePassword = true;

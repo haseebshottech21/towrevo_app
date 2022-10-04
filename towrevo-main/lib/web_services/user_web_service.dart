@@ -26,7 +26,6 @@ class UserWebService {
         for (var company in loadedData['data']) {
           companiesList.add(CompanyModel.fromJson(company));
         }
-
         return companiesList;
       } else if (response.statusCode == 401) {
         utilities.unauthenticatedLogout(context);
@@ -75,7 +74,7 @@ class UserWebService {
       if (response.statusCode == 200) {
         await sendNotification(
           'Request',
-          'Requested For Tow',
+          'Customer Send Request !!',
           notificationId,
           'request',
         );

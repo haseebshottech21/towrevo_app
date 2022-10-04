@@ -39,130 +39,128 @@ class _OnBoardTowrevoState extends State<OnBoardTowrevo> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            const FullBackgroundImage(),
-            PageView.builder(
-              controller: controller,
-              onPageChanged: (value) {
-                setState(() {
-                  currentPage = value;
-                });
-              },
-              itemCount: splashData.length,
-              itemBuilder: (context, index) => OnBoardWidget(
-                backimg: splashData[index]["image"].toString(),
-                title: splashData[index]["text"].toString(),
-                desc: splashData[index]["descripttion"].toString(),
-              ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          const FullBackgroundImage(),
+          PageView.builder(
+            controller: controller,
+            onPageChanged: (value) {
+              setState(() {
+                currentPage = value;
+              });
+            },
+            itemCount: splashData.length,
+            itemBuilder: (context, index) => OnBoardWidget(
+              backimg: splashData[index]["image"].toString(),
+              title: splashData[index]["text"].toString(),
+              desc: splashData[index]["descripttion"].toString(),
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WelcomeScreen(),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 18.w, vertical: 6.h),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                    child: Text(
-                      'SKIP',
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        fontSize: 13.sp,
-                      ),
+          ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: TextButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WelcomeScreen(),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 25.h),
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 7.h),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20.r),
+                  ),
+                  child: Text(
+                    'SKIP',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      fontSize: 13.sp,
                     ),
                   ),
                 ),
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                    vertical: 15.h,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: List.generate(
-                          splashData.length,
-                          (index) => builDot(index),
-                        ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20.w,
+                  vertical: 15.h,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: List.generate(
+                        splashData.length,
+                        (index) => builDot(index),
                       ),
-                      currentPage == 2
-                          ? ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const WelcomeScreen(),
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color(0xFF092848),
-                                minimumSize: Size(120.w, 40.h),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    currentPage == 2
+                        ? ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const WelcomeScreen(),
                                 ),
-                              ),
-                              child: Text(
-                                'Get Started',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15.sp,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                            )
-                          : ElevatedButton(
-                              onPressed: () {
-                                if (currentPage == 0) {
-                                  controller.jumpToPage(1);
-                                } else if (currentPage == 1) {
-                                  controller.jumpToPage(2);
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: const Color(0xFF092848),
-                                minimumSize: Size(45.w, 40.h),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                ),
-                              ),
-                              child: const Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color(0xFF092848),
+                              minimumSize: Size(120.w, 40.h),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.r),
                               ),
                             ),
-                    ],
-                  ),
+                            child: Text(
+                              'Get Started',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15.sp,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          )
+                        : ElevatedButton(
+                            onPressed: () {
+                              if (currentPage == 0) {
+                                controller.jumpToPage(1);
+                              } else if (currentPage == 1) {
+                                controller.jumpToPage(2);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color(0xFF092848),
+                              minimumSize: Size(45.w, 40.h),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.white,
+                            ),
+                          ),
+                  ],
                 ),
-                SizedBox(height: 15.h)
-              ],
-            )
-          ],
-        ),
+              ),
+              SizedBox(height: 15.h)
+            ],
+          )
+        ],
       ),
     );
   }

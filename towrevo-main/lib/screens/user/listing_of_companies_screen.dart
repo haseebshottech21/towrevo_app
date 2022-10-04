@@ -13,6 +13,9 @@ class ListingOfCompaniesScreen extends StatefulWidget {
 }
 
 class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
+
   @override
   Widget build(BuildContext context) {
     final userHomeProvider =
@@ -46,6 +49,7 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                   )
                 ],
               ),
+              SizedBox(height: 5.h),
               (userHomeProvider.isLoading || userHomeProvider.list.isEmpty)
                   ? Align(
                       alignment: Alignment.center,
@@ -70,12 +74,13 @@ class _ListingOfCompaniesScreenState extends State<ListingOfCompaniesScreen> {
                       child: RefreshIndicator(
                         onRefresh: () => getRequestList(),
                         child: ListView.builder(
-                          padding: EdgeInsets.zero,
+                          padding: const EdgeInsets.only(bottom: 10),
                           shrinkWrap: true,
                           itemCount: userHomeProvider.list.length,
                           itemBuilder: (ctx, index) {
                             return CompanyItem(
                               companyModel: userHomeProvider.list[index],
+                              scaffoldMessengerKey: scaffoldMessengerKey,
                             );
                           },
                         ),
