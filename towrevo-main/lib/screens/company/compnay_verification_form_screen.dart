@@ -7,9 +7,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/company/compnay_location_screen.dart';
+// import 'package:towrevo/screens/screens.dart';
 import '../../error_getter.dart';
 import '../../utilities/state_city_utility.dart';
 import '../../utilities/utilities.dart';
+import '../../view_model/get_location_view_model.dart';
 import '../../view_model/register_company_view_model.dart';
 import '../../view_model/services_and_day_view_model.dart';
 import '../../widgets/back_icon.dart';
@@ -17,6 +20,8 @@ import '../../widgets/background_image.dart';
 import '../../widgets/services_days_and_description_check_box/selector_widget.dart';
 import '../../widgets/services_days_and_description_check_box/show_check_box_dialog.dart';
 import '../../widgets/text_form_fields.dart';
+import 'company_home_screen.dart';
+// import '../user/user_location_screen.dart';
 // import '../user/user_location_screen.dart';
 
 class CompanyVerificationFormScreen extends StatefulWidget {
@@ -50,56 +55,65 @@ class _CompanyVerificationFormScreenState
     final provider =
         Provider.of<RegisterCompanyViewModel>(context, listen: false);
     provider.verificationInitalize();
-    // final locationProvider =
-    //     Provider.of<GetLocationViewModel>(context, listen: false);
+    final locationProvider =
+        Provider.of<GetLocationViewModel>(context, listen: false);
     // locationProvider.myCurrentLocation.placeAddress = '';
+
     provider.initStateAndCountry();
     serviceProvider.initializeValues();
     serviceProvider.getServices();
-    // await locationProvider.getStoreLocationIfExist(context);
+    await locationProvider.getStoreLocationIfExist(context);
   }
 
   void validateAndVerify() async {
-    final _companySignUpProvider =
+    final companySignUpProvider =
         Provider.of<RegisterCompanyViewModel>(context, listen: false);
     final daysAndServiceProvider =
         Provider.of<ServicesAndDaysViewModel>(context, listen: false);
+    final locationProvider =
+        Provider.of<GetLocationViewModel>(context, listen: false);
     if (!_formKey.currentState!.validate()) {
       return;
-    } else if (_companySignUpProvider.servicesDescription().isEmpty) {
+    } else if (companySignUpProvider.servicesDescription().isEmpty) {
       Fluttertoast.showToast(msg: 'Please Select Company Service');
       return;
-    } else if (_companySignUpProvider.selectedState == null ||
-        _companySignUpProvider.selectedCity == null) {
+    } else if (locationProvider.myCurrentLocation.placeAddress == 'null') {
+      Fluttertoast.showToast(msg: 'Please Select Location');
+      return;
+    } else if (companySignUpProvider.selectedState == null ||
+        companySignUpProvider.selectedCity == null) {
       Fluttertoast.showToast(msg: 'Please Select State And City');
       return;
     } else {
-      _companySignUpProvider.verificationBody['starting_price'] =
+      companySignUpProvider.verificationBody['starting_price'] =
           companyStartAmountController.text;
-      _companySignUpProvider.verificationBody['ein_number'] =
+      companySignUpProvider.verificationBody['ein_number'] =
           companyEINNumberController.text;
-      _companySignUpProvider.verificationBody['description'] =
-          _companySignUpProvider.servicesDescription().trim() +
+      companySignUpProvider.verificationBody['description'] =
+          companySignUpProvider.servicesDescription().trim() +
               (companyDescriptionController.text.isNotEmpty
                   ? 'Other' + companyDescriptionController.text.trim()
                   : '');
-      _companySignUpProvider.verificationBody['services'] =
+      companySignUpProvider.verificationBody['services'] =
           json.encode(daysAndServiceProvider.servicesId);
-      _companySignUpProvider.verificationBody['days'] =
+      companySignUpProvider.verificationBody['latitude'] =
+          locationProvider.myCurrentLocation.placeLocation.latitude.toString();
+      companySignUpProvider.verificationBody['longitude'] =
+          locationProvider.myCurrentLocation.placeLocation.longitude.toString();
+      companySignUpProvider.verificationBody['days'] =
           json.encode(daysAndServiceProvider.daysId);
-      _companySignUpProvider.verificationBody['state'] =
-          _companySignUpProvider.selectedState;
-      _companySignUpProvider.verificationBody['city'] =
-          _companySignUpProvider.selectedCity;
+      companySignUpProvider.verificationBody['state'] =
+          companySignUpProvider.selectedState;
+      companySignUpProvider.verificationBody['city'] =
+          companySignUpProvider.selectedCity;
 
-      print(_companySignUpProvider.verificationBody);
-      // bool response = await _companySignUpProvider.registerCompany(context);
-      // if (response) {
-      //   Navigator.of(context).pushNamed(
-      //     RegistrationOTPScreen.routeName,
-      //     arguments: true,
-      //   );
-      // }
+      // print(companySignUpProvider.verificationBody);
+      // print(locationProvider.myCurrentLocation.placeAddress);
+      bool response = await companySignUpProvider.updateVerfiedCompany(context);
+      // print(response);
+      if (response) {
+        Navigator.of(context).pushNamed(CompanyHomeScreen.routeName);
+      }
     }
   }
 
@@ -211,62 +225,66 @@ class _CompanyVerificationFormScreenState
                           },
                         ),
                         SizedBox(height: 8.h),
-                        // Consumer<GetLocationViewModel>(
-                        //   builder: (ctx, getLocation, neverBuildChild) {
-                        //     return SelectLocation(
-                        //       context: context,
-                        //       delayMilliseconds: 570,
-                        //       title: getLocation
-                        //               .myCurrentLocation.placeAddress.isEmpty
-                        //           ? 'Company Location'
-                        //           : getLocation.myCurrentLocation.placeAddress,
-                        //       height: 50.h,
-                        //       maxlines: 2,
-                        //       icon: Icons.location_on,
-                        //       trailingIcon: Icons.my_location,
-                        //       onTap: () {
-                        //         Navigator.of(context).pushNamed(
-                        //           UserLocationScreen.routeName,
-                        //           arguments: true,
-                        //         );
-                        //       },
-                        //     );
-                        //   },
-                        // ),
-                        SelectorWidget(
-                          context: context,
-                          delayMilliseconds: 570,
-                          title: registerViewModel.timeRadioValue == 0
-                              ? '24 Hours'
-                              : registerViewModel.timeRadioValue == 1
-                                  ? 'Custom'
-                                  : 'Select Time',
-                          height: 50.h,
-                          icon: FontAwesomeIcons.solidClock,
-                          onTap: () {
-                            showTimeDialog();
+                        Consumer<GetLocationViewModel>(
+                          builder: (ctx, getLocation, neverBuildChild) {
+                            // print(
+                            //     'loc ${getLocation.myCurrentLocation.placeAddress}');
+                            return SelectLocation(
+                              context: context,
+                              delayMilliseconds: 570,
+                              title: getLocation
+                                          .myCurrentLocation.placeAddress ==
+                                      ''
+                                  ? 'Company Location'
+                                  : getLocation.myCurrentLocation.placeAddress,
+                              height: 50.h,
+                              maxlines: 2,
+                              icon: Icons.location_on,
+                              trailingIcon: Icons.my_location,
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  CompanyLocationScreen.routeName,
+                                  // arguments: true,
+                                );
+                              },
+                            );
                           },
                         ),
                         SizedBox(height: 8.h),
-                        if (registerViewModel.timeRadioValue == 1)
-                          SelectorWidget(
-                            context: context,
-                            delayMilliseconds: 570,
-                            title: (registerViewModel.timerValues['from'] !=
-                                        '' ||
-                                    registerViewModel.timerValues['to'] != '')
-                                ? '${(registerViewModel.timerValues['from'])} - ${(registerViewModel.timerValues['to'])}'
-                                : 'Select Custom Time',
-                            height: 50.h,
-                            icon: FontAwesomeIcons.solidClock,
-                            onTap: () {
-                              registerViewModel.setTimer(context);
-                            },
-                          ),
-                        if (registerViewModel.timeRadioValue != 1)
-                          const SizedBox(),
-                        if (registerViewModel.timeRadioValue == 1)
-                          SizedBox(height: 8.h),
+                        // SelectorWidget(
+                        //   context: context,
+                        //   delayMilliseconds: 570,
+                        //   title: registerViewModel.timeRadioValue == 0
+                        //       ? '24 Hours'
+                        //       : registerViewModel.timeRadioValue == 1
+                        //           ? 'Custom'
+                        //           : 'Select Time',
+                        //   height: 50.h,
+                        //   icon: FontAwesomeIcons.solidClock,
+                        //   onTap: () {
+                        //     showTimeDialog();
+                        //   },
+                        // ),
+                        // SizedBox(height: 8.h),
+                        // if (registerViewModel.timeRadioValue == 1)
+                        //   SelectorWidget(
+                        //     context: context,
+                        //     delayMilliseconds: 570,
+                        //     title: (registerViewModel.timerValues['from'] !=
+                        //                 '' ||
+                        //             registerViewModel.timerValues['to'] != '')
+                        //         ? '${(registerViewModel.timerValues['from'])} - ${(registerViewModel.timerValues['to'])}'
+                        //         : 'Select Custom Time',
+                        //     height: 50.h,
+                        //     icon: FontAwesomeIcons.solidClock,
+                        //     onTap: () {
+                        //       registerViewModel.setTimer(context);
+                        //     },
+                        //   ),
+                        // if (registerViewModel.timeRadioValue != 1)
+                        //   const SizedBox(),
+                        // if (registerViewModel.timeRadioValue == 1)
+                        //   SizedBox(height: 8.h),
                         Consumer<ServicesAndDaysViewModel>(
                           builder: (ctx, days, neverBuildChild) {
                             return SelectorWidget(
@@ -371,6 +389,10 @@ class _CompanyVerificationFormScreenState
                           ),
                         ),
                         SizedBox(height: 16.h),
+                        // Consumer<RegisterCompanyViewModel>(
+                        //     builder: (context, viewModel, _) {
+                        //   print(viewModel.isLoading);
+                        //   return
                         Container(
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
@@ -402,7 +424,7 @@ class _CompanyVerificationFormScreenState
                                 top: 10,
                                 bottom: 10,
                               ),
-                              child: signupComplete == true
+                              child: registerViewModel.isLoading
                                   ? const SizedBox(
                                       height: 20,
                                       width: 20,
@@ -423,6 +445,7 @@ class _CompanyVerificationFormScreenState
                             ),
                           ),
                         ),
+                        // }),
                         SizedBox(height: 20.h),
                       ],
                     ),

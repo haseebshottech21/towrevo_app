@@ -125,6 +125,7 @@ class Utilities {
     await removeSharedPreferenceValue('name');
     await removeSharedPreferenceValue('longitude');
     await removeSharedPreferenceValue('latitude');
+    await removeSharedPreferenceValue('verified');
   }
 
   unauthenticatedLogout(BuildContext context) async {
@@ -190,9 +191,11 @@ class Utilities {
     final Map companyInfo = loadedData['user']['company_info'] ?? {};
 
     if (companyInfo.isNotEmpty) {
-      await setSharedPrefValue(
-          'longitude', companyInfo['longitude'].toString());
-      await setSharedPrefValue('latitude', companyInfo['latitude'].toString());
+      // await setSharedPrefValue(
+      //     'longitude', companyInfo['longitude'].toString());
+      // await setSharedPrefValue('latitude', companyInfo['latitude'].toString());
+      // Company Verification Status
+      await setSharedPrefValue('verified', companyInfo['status'].toString());
     }
     await setSharedPrefValue(
       'name',
@@ -203,17 +206,21 @@ class Utilities {
   }
 
   Future<void> setUpRequestNotification() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    try {
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
+      await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+    } catch (e) {
+      print(e);
+    }
 
     // print('User granted permission: ${settings.authorizationStatus}');
   }

@@ -241,12 +241,14 @@ class GetLocationViewModel with ChangeNotifier {
 
   final GeolocatorPlatform _geoLocatorPlatform = GeolocatorPlatform.instance;
 
-  updateMyLocation(context) {
+  updateMyLocation(context, bool setValue) {
     if (placeDetailModel.placeAddress.isNotEmpty) {
       myCurrentLocation = placeDetailModel;
-      setLocalCoordinates(placeDetailModel);
+      if (setValue) {
+        setLocalCoordinates(placeDetailModel);
+      }
       notifyListeners();
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     } else {
       Fluttertoast.showToast(msg: "Please select a location");
     }
@@ -394,6 +396,7 @@ class GetLocationViewModel with ChangeNotifier {
 //cleared function
   Future<void> getPlaceDetail(String placeId) async {
     placeDetailModel = await placeWebService.getPlaceDetail(placeId);
+    // print(placeDetailModel.placeAddress);
     notifyListeners();
   }
 }

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/models/service_description.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/authentication.dart';
+import '../main.dart';
 import '../utilities/utilities.dart';
 
 class RegisterCompanyViewModel with ChangeNotifier {
@@ -115,8 +116,8 @@ class RegisterCompanyViewModel with ChangeNotifier {
     'extension': '',
     // 'days': [],
     // 'services': [],
-    // 'notification_id': MyApp.notifyToken,
-    'notification_id': '871268123',
+    'notification_id': MyApp.notifyToken,
+    // 'notification_id': '871268123',
     'image': '',
   };
 
@@ -139,8 +140,8 @@ class RegisterCompanyViewModel with ChangeNotifier {
     'ein_number': '',
     'latitude': '',
     'longitude': '',
-    'from': '',
-    'to': '',
+    'from': '12:12',
+    'to': '14:12',
     'days': [],
     'services': [],
     'state': '',
@@ -166,6 +167,40 @@ class RegisterCompanyViewModel with ChangeNotifier {
       return true;
     } else {
       otpProvider.resendUniqueId = '';
+      return false;
+    }
+  }
+
+  Future<bool> updateVerfiedCompany(BuildContext context) async {
+    if (!(await utilities.isInternetAvailable())) {
+      return false;
+    }
+
+    // setLoad(true);
+    changeLoadingStatus(true);
+    final responseBody = await AuthenticationWebService()
+        .updateVerificationCompany(verificationBody);
+    // final loadedData = await serviceRepo.createService(data);
+    // print(loadedData);
+    if (responseBody != null) {
+      changeLoadingStatus(false);
+      return true;
+    } else {
+      changeLoadingStatus(false);
+      // Future.delayed(const Duration(seconds: 1)).then(
+      //   (value) {
+      //     // print(value);
+      //     setLoad(false);
+      //     if (kDebugMode) {
+      //       Provider.of<BottomNavigationViewModel>(context, listen: false)
+      //           .bottomIndex = 1;
+      //       Navigator.of(context).pop();
+      //       Navigator.of(context).pop();
+      //       Navigator.of(context).pop();
+      //       Utils.toastMessage('Service Create Successfully!');
+      //     }
+      //   },
+      // );
       return false;
     }
   }

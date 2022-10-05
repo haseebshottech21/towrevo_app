@@ -32,10 +32,27 @@ class AuthenticationWebService {
       Fluttertoast.showToast(msg: signUpErrorHandle(loadedData));
       return null;
     }
-    // } catch (e) {
-    //   // print(e.toString());
-    //   Fluttertoast.showToast(msg: e.toString());
-    // }
+  }
+
+  Future<dynamic> updateVerificationCompany(Map<String, dynamic> body) async {
+    // try {
+    final response = await http.post(
+      Uri.parse(Utilities.baseUrl + 'update-complete-info'),
+      body: body,
+      headers: await Utilities().headerWithAuth(),
+    );
+    // print(response.body);
+    final loadedData = json.decode(response.body);
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(msg: loadedData['message'].toString());
+
+      return loadedData;
+    } else {
+      Fluttertoast.showToast(msg: loadedData['message'].toString());
+      return null;
+    }
   }
 
   Future<bool> login(String email, String password, bool remember) async {

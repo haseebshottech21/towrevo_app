@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/authentication/signup_company/signup_compnay_screen.dart';
 import 'package:towrevo/screens/company/company_unverified_screen.dart';
+import 'package:towrevo/screens/company/compnay_location_screen.dart';
 import 'package:towrevo/screens/company/compnay_verification_form_screen.dart';
 import 'package:towrevo/screens/payment/user_paymnets.dart';
 import 'package:towrevo/utilities/env_settings.dart';
@@ -73,83 +74,15 @@ class _MyAppState extends State<MyApp> {
     messaging.getToken().then(
       (value) {
         MyApp.notifyToken = value.toString();
-        print(MyApp.notifyToken.toString());
+        // print('hey ${MyApp.notifyToken.toString()}');
       },
-    );
-
+    ).catchError((e) {
+      // print(e.toString());
+    });
     super.initState();
     // appInfo();
-
     // _checkNewVersion();
   }
-
-//  checkFCMToken() {
-//            FirebaseMessaging.instance.getToken().then((value){
-
-//            });
-
-//            {
-
-//                 if(it.isSuccessful) {
-//                     println("->> token: ${it.result}")
-//                 } else {
-//                     println("->> error: ${it.exception}")
-//                     getToken()
-//                 }
-//             }
-// }
-
-  // appInfo() async {
-  //   PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-  //   String appName = packageInfo.appName;
-  //   String packageName = packageInfo.packageName;
-  //   String version = packageInfo.version;
-  //   String buildNumber = packageInfo.buildNumber;
-
-  //   print(appName);
-  //   print(packageName);
-  //   print(version);
-  //   print(buildNumber);
-  // }
-
-  // void _checkNewVersion() {
-  //   final newVersion = NewVersion(
-  //     // iOSId: 'com.google.Vespa',
-  //     androidId: 'com.towrevoapp.towrevo',
-  //   );
-
-  //   // You can let the plugin handle fetching the status and showing a dialog,
-  //   // or you can fetch the status and display your own dialog, or no dialog.
-  //   const simpleBehavior = true;
-
-  //   if (simpleBehavior) {
-  //     basicStatusCheck(newVersion);
-  //   } else {
-  //     advancedStatusCheck(newVersion);
-  //   }
-  // }
-
-  // basicStatusCheck(NewVersion newVersion) {
-  //   newVersion.showAlertIfNecessary(context: context);
-  // }
-
-  // advancedStatusCheck(NewVersion newVersion) async {
-  //   final status = await newVersion.getVersionStatus();
-  //   if (status != null) {
-  //     debugPrint(status.releaseNotes);
-  //     debugPrint(status.appStoreLink);
-  //     debugPrint(status.localVersion);
-  //     debugPrint(status.storeVersion);
-  //     debugPrint(status.canUpdate.toString());
-  //     newVersion.showUpdateDialog(
-  //       context: context,
-  //       versionStatus: status,
-  //       dialogTitle: 'Custom Title',
-  //       dialogText: 'Custom Text',
-  //     );
-  //   }
-  // }
 
   // This widget is the root of your application.
   @override
@@ -207,6 +140,8 @@ class _MyAppState extends State<MyApp> {
                   const CompanyVerificationRequest(),
               CompanyVerificationFormScreen.routeName: (ctx) =>
                   const CompanyVerificationFormScreen(),
+              CompanyLocationScreen.routeName: (ctx) =>
+                  const CompanyLocationScreen(),
               CompanyHomeScreen.routeName: (ctx) => const CompanyHomeScreen(),
               RegisterUserScreen.routeName: (ctx) => const RegisterUserScreen(),
               UsersHomeScreen.routeName: (ctx) => const UsersHomeScreen(),

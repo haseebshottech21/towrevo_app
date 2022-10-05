@@ -85,28 +85,35 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> verifiedStatusCheck(BuildContext context, int response) async {
+  Future<void> verifiedStatusCheck(BuildContext context) async {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
 
-    // int response = 0;
-
-    if (response == 0) {
-      Navigator.of(context).pushNamed(CompanyVerificationRequest.routeName);
+    final loadResponse = await companyWebService.verificationStatus();
+    if (loadResponse != null) {
+      // print('status: ${loadResponse['status']}');
+      if (loadResponse['status'] == '0' || loadResponse['status'] == '3') {
+        Navigator.of(context).pushNamed(
+          CompanyVerificationRequest.routeName,
+          arguments: loadResponse['status'],
+        );
+      } else if (loadResponse['status'] == '1') {
+        Utilities().setSharedPrefValue('verified', loadResponse['status']);
+      }
     }
+  }
 
-    // int? loadedResponseCode =
-    //     await companyWebService.paymentStatusCheckRequest();
+  getVerified(BuildContext context) async {
+    final verified = await Utilities().getSharedPreferenceValue('verified');
+    print('Company Status: $verified');
 
-    // if (loadedResponseCode != null) {
-    //   if (loadedResponseCode == 403 || loadedResponseCode == 401) {
-    //     Navigator.of(context).pushNamed(
-    //       CompanyPaymentScreen.routeName,
-    //       arguments: loadedResponseCode,
-    //     );
-    //   }
-    // }
+    if (verified == null || verified == '' || verified == '0') {
+      verifiedStatusCheck(context);
+    } else {
+      print('Verified Success!');
+    }
+    notifyListeners();
   }
 
   Future<void> paymentStatusCheck(BuildContext context) async {

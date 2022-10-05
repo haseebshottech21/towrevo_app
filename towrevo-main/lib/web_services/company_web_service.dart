@@ -38,6 +38,44 @@ class CompanyWebService {
     }
   }
 
+  Future<dynamic> verificationStatus() async {
+    // CompanyModel companyInfo;
+    try {
+      final request = await http.get(
+        Uri.parse(Utilities.baseUrl + 'user'),
+        headers: await Utilities().headerWithAuth(),
+      );
+
+      final response = jsonDecode(request.body);
+      return response['company_info'];
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+      return null;
+    }
+  }
+
+  // Future<UserModel?> getUserData() async {
+  //   UserModel? user;
+  //   try {
+  //     http.Response response = await http.get(
+  //       Uri.parse(AppUrl.showUserEndPoint),
+  //       headers: await AppUrl().headerWithAuth(),
+  //     );
+  //     // final response = await Dio().get(url);
+  //     final responseLoaded = jsonDecode(response.body);
+
+  //     if (response.statusCode == 200) {
+  //       user = UserModel.fromJson(responseLoaded['data']);
+  //       return user;
+  //     } else {
+  //       print("error");
+  //     }
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  //   return user;
+  // }
+
   Future<int?> paymentStatusCheckRequest() async {
     try {
       final response = await http.get(
