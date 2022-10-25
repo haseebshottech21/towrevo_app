@@ -10,9 +10,11 @@ import 'package:towrevo/screens/authentication/signup_company/signup_compnay_scr
 import 'package:towrevo/screens/company/company_unverified_screen.dart';
 import 'package:towrevo/screens/company/compnay_location_screen.dart';
 import 'package:towrevo/screens/company/compnay_verification_form_screen.dart';
+import 'package:towrevo/screens/delete_my_account.dart';
 import 'package:towrevo/screens/payment/user_paymnets.dart';
 import 'package:towrevo/utilities/env_settings.dart';
 import 'package:towrevo/utilities/utilities.dart';
+import 'package:towrevo/view_model/delete_reason_view_model.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -107,6 +109,7 @@ class _MyAppState extends State<MyApp> {
             ChangeNotifierProvider(create: (ctx) => EditProfileViewModel()),
             ChangeNotifierProvider(create: (ctx) => SplashViewModel()),
             ChangeNotifierProvider(create: (ctx) => PaymentViewModel()),
+            ChangeNotifierProvider(create: (ctx) => DeleteViewModel()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -120,8 +123,8 @@ class _MyAppState extends State<MyApp> {
             routes: {
               RegisterMainScreen.routeName: (ctx) => const RegisterMainScreen(),
               LoginScreen.routeName: (ctx) => const LoginScreen(),
-              RegistrationNameAndDescScreen.routeName: (ctx) =>
-                  const RegistrationNameAndDescScreen(),
+              // RegistrationNameAndDescScreen.routeName: (ctx) =>
+              //     const RegistrationNameAndDescScreen(),
               // RegistrationCredentialScreen.routeName: (ctx) =>
               //     const RegistrationCredentialScreen(),
               // RegisterationLocationAndState.routeName: (ctx) =>
@@ -164,6 +167,7 @@ class _MyAppState extends State<MyApp> {
                   const ForgotPasswordOTPScreen(),
               UpdateProfile.routeName: (ctx) => const UpdateProfile(),
               ContactUs.routeName: (ctx) => const ContactUs(),
+              DeleteMyAccount.routeName: (ctx) => const DeleteMyAccount(),
             },
           ),
         );

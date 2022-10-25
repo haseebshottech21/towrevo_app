@@ -140,8 +140,8 @@ class RegisterCompanyViewModel with ChangeNotifier {
     'ein_number': '',
     'latitude': '',
     'longitude': '',
-    'from': '12:12',
-    'to': '14:12',
+    'from': '',
+    'to': '',
     'days': [],
     'services': [],
     'state': '',
@@ -260,6 +260,21 @@ class RegisterCompanyViewModel with ChangeNotifier {
     if (time != null) {
       provider.body['from'] = time['from']!;
       provider.body['to'] = time['to']!;
+      timerValues = {
+        'from': time['fromUtilize']!,
+        'to': time['toUtilize']!,
+      };
+      notifyListeners();
+    }
+  }
+
+  Future<void> setTimerVerification(BuildContext context) async {
+    final provider =
+        Provider.of<RegisterCompanyViewModel>(context, listen: false);
+    final time = await Utilities().setTimer(context);
+    if (time != null) {
+      provider.verificationBody['from'] = time['from']!;
+      provider.verificationBody['to'] = time['to']!;
       timerValues = {
         'from': time['fromUtilize']!,
         'to': time['toUtilize']!,

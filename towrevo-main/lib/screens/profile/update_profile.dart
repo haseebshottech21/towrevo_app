@@ -7,12 +7,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/company/compnay_location_screen.dart';
 import 'package:towrevo/utilities/state_city_utility.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import '/error_getter.dart';
-import 'package:towrevo/screens/screens.dart';
+// import 'package:towrevo/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UpdateProfile extends StatefulWidget {
@@ -184,7 +185,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       if (imagePicker.body['image'] != null) {
         return ClipRRect(
           borderRadius: BorderRadius.all(
-            Radius.circular(15.r),
+            Radius.circular(4.r),
           ),
           child: Image.network(
             Utilities.imageBaseUrl + imagePicker.body['image'].toString(),
@@ -216,7 +217,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EditProfileViewModel>(context, listen: true);
-
+    print(provider.isLoading);
+    print('type $type');
     // final locationProvider =
     //     Provider.of<GetLocationViewModel>(context, listen: false);
 
@@ -293,24 +295,24 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       children: [
                                         Container(
                                           width: 120.w,
-                                          height: 105.h,
+                                          height: 110.h,
                                           decoration: BoxDecoration(
                                             color: const Color(0xFF09365f),
                                             borderRadius:
-                                                BorderRadius.circular(15.r),
+                                                BorderRadius.circular(6.r),
                                           ),
                                           child: image(imagePicker),
                                         ),
                                         Positioned(
                                           left: 85.w,
-                                          top: 75.h,
+                                          top: 80.h,
                                           child: Container(
                                             width: 35.w,
                                             height: 30.h,
                                             decoration: BoxDecoration(
                                               color: const Color(0xFF019aff),
                                               borderRadius:
-                                                  BorderRadius.circular(5.0),
+                                                  BorderRadius.circular(4.r),
                                             ),
                                             child: Icon(
                                               FontAwesomeIcons.camera,
@@ -455,7 +457,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                       trailingIcon: Icons.my_location,
                                       onTap: () {
                                         Navigator.of(context).pushNamed(
-                                          UserLocationScreen.routeName,
+                                          CompanyLocationScreen.routeName,
                                           arguments: true,
                                         );
                                       },
@@ -650,7 +652,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   },
                                 ),
                               ),
-                              SizedBox(height: 30.h),
+                              SizedBox(height: 25.h),
                               FadeInUp(
                                 from: 20,
                                 duration: const Duration(milliseconds: 1200),

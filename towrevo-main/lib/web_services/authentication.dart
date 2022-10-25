@@ -194,6 +194,27 @@ class AuthenticationWebService {
     }
   }
 
+  Future<dynamic> deleteMyAccount(String reason) async {
+    try {
+      final response = await http.post(
+        Uri.parse(Utilities.baseUrl + 'delete-user'),
+        body: {'reason': reason},
+        headers: await Utilities().headerWithAuth(),
+      );
+
+      final loadedData = json.decode(response.body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Fluttertoast.showToast(msg: loadedData['message'].toString());
+
+        return loadedData;
+      } else {
+        Fluttertoast.showToast(msg: loadedData['message'].toString());
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
+
   String signUpErrorHandle(Map<String, dynamic> body) {
     var errorMessage = '';
     if (body['errors']['email'] != null) {

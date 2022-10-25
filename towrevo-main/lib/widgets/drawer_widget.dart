@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:towrevo/screens/delete_my_account.dart';
 import 'package:towrevo/screens/payment/user_paymnets.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/widgets/widgets.dart';
@@ -49,6 +51,15 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     });
   }
 
+  checkVerification() async {
+    final isVerify = await Utilities().getSharedPreferenceValue('verified');
+    if (isVerify == '1') {
+      Navigator.of(context).pushNamed(UpdateProfile.routeName);
+    } else {
+      Fluttertoast.showToast(msg: 'Complete Your Profile Detail');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -78,9 +89,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         drawer.drawerInfo['email'].toString().isNotEmpty
                             ? drawer.drawerInfo['email'].toString()
                             : 'example@gmail.com',
-                    editOnPressed: () {
-                      Navigator.of(context).pushNamed(UpdateProfile.routeName);
-                    },
+                    editOnPressed: type == '2'
+                        ? checkVerification
+                        : () {
+                            Navigator.of(context)
+                                .pushNamed(UpdateProfile.routeName);
+                          },
                   );
                 }),
                 Consumer<UserHomeScreenViewModel>(
@@ -242,7 +256,49 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     ),
                   ),
                 ),
-                SizedBox(height: 12.h),
+                SizedBox(height: 16.h),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: [0.0, 1.0],
+                        colors: [
+                          Color(0xFF0195f7),
+                          Color(0xFF083054),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(DeleteMyAccount.routeName);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.transparent,
+                        primary: Colors.transparent,
+                        padding: const EdgeInsets.only(
+                          left: 12,
+                          right: 12,
+                          top: 2,
+                          bottom: 2,
+                        ),
+                      ),
+                      child: Text(
+                        'Delete Account',
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 12.sp,
+                          letterSpacing: 0.5,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.h),
               ],
             )
           ],

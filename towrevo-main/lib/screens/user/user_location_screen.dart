@@ -31,15 +31,15 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final reqFromMyLocation =
-    //     ModalRoute.of(context)!.settings.arguments as bool;
+    final reqFromMyLocation =
+        ModalRoute.of(context)!.settings.arguments as bool;
     // print('reqLoc $reqFromMyLocation');
     // final placeViewModel =
     //     Provider.of<GetLocationViewModel>(context, listen: true);
 
     final placeViewModel = context.watch<GetLocationViewModel>();
     final size = MediaQuery.of(context).size;
-    print('location ${placeViewModel.placeDetailModel.placeAddress}');
+    // print('location ${placeViewModel.placeDetailModel.placeAddress}');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomSheet: placeViewModel.placeDetailModel.placeAddress.isNotEmpty
@@ -78,11 +78,18 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                       ),
                       child: TextButton(
                         onPressed: () {
-                          placeViewModel.updateMyLocation(context, false);
+                          // placeViewModel.updateMyLocation(context, true);
                           // if (placeViewModel
                           //     .placeDetailModel.placeAddress.isNotEmpty) {
-                          Navigator.of(context).pop();
+
                           // }
+
+                          if (reqFromMyLocation) {
+                            placeViewModel.updateMyLocation(context, true);
+                          } else {
+                            placeViewModel.updatDestinationLoaction(context);
+                          }
+                          Navigator.of(context).pop();
                         },
                         style: TextButton.styleFrom(
                           padding: EdgeInsets.zero,

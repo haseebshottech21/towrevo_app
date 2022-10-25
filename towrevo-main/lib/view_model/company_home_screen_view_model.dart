@@ -108,7 +108,10 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
     final verified = await Utilities().getSharedPreferenceValue('verified');
     print('Company Status: $verified');
 
-    if (verified == null || verified == '' || verified == '0') {
+    if (verified == null ||
+        verified == '' ||
+        verified == '0' ||
+        verified == '3') {
       verifiedStatusCheck(context);
     } else {
       print('Verified Success!');

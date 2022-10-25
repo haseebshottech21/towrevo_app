@@ -176,6 +176,7 @@ showCancelDialog(
         ),
         actionsPadding: const EdgeInsets.symmetric(
           horizontal: 12.0,
+          vertical: 6.0,
         ),
         actions: [
           SizedBox(

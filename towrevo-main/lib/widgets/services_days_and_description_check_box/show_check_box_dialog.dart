@@ -230,10 +230,11 @@ Future<void> showCategories(
 }
 
 Future<void> showServiceDescription(
-    RegisterCompanyViewModel registerViewModel,
-    BuildContext context,
-    bool fromSignUp,
-    TextEditingController descriptionController) async {
+  RegisterCompanyViewModel registerViewModel,
+  BuildContext context,
+  bool fromSignUp,
+  TextEditingController descriptionController,
+) async {
   final formKey = GlobalKey<FormState>();
 
   await showDialog(

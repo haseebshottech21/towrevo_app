@@ -134,21 +134,25 @@ class CompanyItem extends StatelessWidget {
                             // SizedBox(width: 5.w),
                             Container(
                               alignment: Alignment.centerLeft,
-                              child: Text(
-                                companyModel.email.isEmpty
-                                    ? 'Request Company'
-                                    : companyModel.firstName,
-                                style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.bold,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.60,
+                                child: Text(
+                                  companyModel.email.isEmpty
+                                      ? 'Request Company'
+                                      : companyModel.firstName,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(width: 4.w),
+                            // SizedBox(width: 4.w),
                             Icon(
                               Icons.star,
                               color: Colors.orangeAccent,
-                              size: 18.sp,
+                              size: 16.sp,
                             ),
                             SizedBox(width: 3.w),
                             Text(

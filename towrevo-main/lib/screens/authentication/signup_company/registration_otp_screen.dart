@@ -23,7 +23,7 @@ class RegistrationOTPScreen extends StatefulWidget {
 class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
     with TickerProviderStateMixin {
   late AnimationController _controller;
-  int levelClock = 300;
+  int levelClock = 600;
   bool isTimeAvailable = true;
   String inputOTP = '';
 
@@ -32,7 +32,7 @@ class _RegistrationOTPScreenState extends State<RegistrationOTPScreen>
     super.initState();
 
     _controller = AnimationController(
-        duration: const Duration(seconds: 300), vsync: this);
+        duration: const Duration(seconds: 600), vsync: this);
     _controller.forward().whenComplete(() => isTimeAvailable = false);
   }
 

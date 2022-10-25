@@ -258,7 +258,7 @@ class GetLocationViewModel with ChangeNotifier {
     if (placeDetailModel.placeAddress.isNotEmpty) {
       myDestinationLocation = placeDetailModel;
       notifyListeners();
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     } else {
       Fluttertoast.showToast(msg: 'Please select a destination');
     }

@@ -8,6 +8,20 @@ import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/edit_profile_web_service.dart';
 
+class CancelReasonModel with ChangeNotifier {
+  final String title;
+  bool isActive;
+  CancelReasonModel({
+    required this.title,
+    required this.isActive,
+  });
+
+  // toggleRadio() async {
+  //   isActive = !isActive;
+  //   notifyListeners();
+  // }
+}
+
 class EditProfileViewModel with ChangeNotifier {
   Map body = {};
   Utilities utilities = Utilities();
@@ -223,4 +237,18 @@ class EditProfileViewModel with ChangeNotifier {
     body['city'] = newValue.toString();
     notifyListeners();
   }
+
+  // List<CancelReasonModel> selectReasons = [
+  //   CancelReasonModel(title: 'I get too many emails', isActive: false),
+  //   // CancelReasonModel(title: 'I don\'t feel safe on TowRevo', isActive: false),
+  //   // CancelReasonModel(title: 'I have another TowRevo Account', isActive: false),
+  //   // CancelReasonModel(
+  //   //     title: 'I don\'t understand how to use TowRevo', isActive: false),
+  //   CancelReasonModel(
+  //       title: 'Others - please tell us a bit more', isActive: false),
+  // ];
+
+  // notify() {
+  //   notifyListeners();
+  // }
 }

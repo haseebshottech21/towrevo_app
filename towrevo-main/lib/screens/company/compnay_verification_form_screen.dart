@@ -80,41 +80,57 @@ class _CompanyVerificationFormScreenState
     } else if (locationProvider.myCurrentLocation.placeAddress == 'null') {
       Fluttertoast.showToast(msg: 'Please Select Location');
       return;
+    } else if (companySignUpProvider.timeRadioValue == null) {
+      Fluttertoast.showToast(msg: 'Please Select Time');
+      return;
+    } else if (companySignUpProvider.timeRadioValue == 1 &&
+        companySignUpProvider.verificationBody['from'] == '' &&
+        companySignUpProvider.verificationBody['to'] == '') {
+      Fluttertoast.showToast(msg: 'Please Select Custom Time');
+      // print('object 1');
+      return;
+    } else if (companySignUpProvider.timeRadioValue == 0) {
+      companySignUpProvider.verificationBody.remove('from');
+      companySignUpProvider.verificationBody.remove('to');
+      // print('object 2');
     } else if (companySignUpProvider.selectedState == null ||
         companySignUpProvider.selectedCity == null) {
       Fluttertoast.showToast(msg: 'Please Select State And City');
       return;
-    } else {
-      companySignUpProvider.verificationBody['starting_price'] =
-          companyStartAmountController.text;
-      companySignUpProvider.verificationBody['ein_number'] =
-          companyEINNumberController.text;
-      companySignUpProvider.verificationBody['description'] =
-          companySignUpProvider.servicesDescription().trim() +
-              (companyDescriptionController.text.isNotEmpty
-                  ? 'Other' + companyDescriptionController.text.trim()
-                  : '');
-      companySignUpProvider.verificationBody['services'] =
-          json.encode(daysAndServiceProvider.servicesId);
-      companySignUpProvider.verificationBody['latitude'] =
-          locationProvider.myCurrentLocation.placeLocation.latitude.toString();
-      companySignUpProvider.verificationBody['longitude'] =
-          locationProvider.myCurrentLocation.placeLocation.longitude.toString();
-      companySignUpProvider.verificationBody['days'] =
-          json.encode(daysAndServiceProvider.daysId);
-      companySignUpProvider.verificationBody['state'] =
-          companySignUpProvider.selectedState;
-      companySignUpProvider.verificationBody['city'] =
-          companySignUpProvider.selectedCity;
-
-      // print(companySignUpProvider.verificationBody);
-      // print(locationProvider.myCurrentLocation.placeAddress);
-      bool response = await companySignUpProvider.updateVerfiedCompany(context);
-      // print(response);
-      if (response) {
-        Navigator.of(context).pushNamed(CompanyHomeScreen.routeName);
-      }
     }
+    // else {
+    companySignUpProvider.verificationBody['starting_price'] =
+        companyStartAmountController.text;
+    companySignUpProvider.verificationBody['ein_number'] =
+        companyEINNumberController.text;
+    companySignUpProvider.verificationBody['description'] =
+        companySignUpProvider.servicesDescription().trim() +
+            (companyDescriptionController.text.isNotEmpty
+                ? 'Other' + companyDescriptionController.text.trim()
+                : '');
+    companySignUpProvider.verificationBody['services'] =
+        json.encode(daysAndServiceProvider.servicesId);
+    companySignUpProvider.verificationBody['latitude'] =
+        locationProvider.myCurrentLocation.placeLocation.latitude.toString();
+    companySignUpProvider.verificationBody['longitude'] =
+        locationProvider.myCurrentLocation.placeLocation.longitude.toString();
+    companySignUpProvider.verificationBody['days'] =
+        json.encode(daysAndServiceProvider.daysId);
+    companySignUpProvider.verificationBody['state'] =
+        companySignUpProvider.selectedState;
+    companySignUpProvider.verificationBody['city'] =
+        companySignUpProvider.selectedCity;
+
+    // print('object');
+    print(companySignUpProvider.verificationBody);
+    // print(companySignUpProvider.timeRadioValue);
+    // print(locationProvider.myCurrentLocation.placeAddress);
+    bool response = await companySignUpProvider.updateVerfiedCompany(context);
+    if (response) {
+      Navigator.of(context).pushNamed(CompanyHomeScreen.routeName);
+    }
+    // print(response);
+    // }
   }
 
   @override
@@ -147,7 +163,7 @@ class _CompanyVerificationFormScreenState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'VERIFCATION FORM',
+                          'COMPANY PROFILE',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.montserrat(
                             color: Colors.white,
@@ -251,40 +267,40 @@ class _CompanyVerificationFormScreenState
                           },
                         ),
                         SizedBox(height: 8.h),
-                        // SelectorWidget(
-                        //   context: context,
-                        //   delayMilliseconds: 570,
-                        //   title: registerViewModel.timeRadioValue == 0
-                        //       ? '24 Hours'
-                        //       : registerViewModel.timeRadioValue == 1
-                        //           ? 'Custom'
-                        //           : 'Select Time',
-                        //   height: 50.h,
-                        //   icon: FontAwesomeIcons.solidClock,
-                        //   onTap: () {
-                        //     showTimeDialog();
-                        //   },
-                        // ),
-                        // SizedBox(height: 8.h),
-                        // if (registerViewModel.timeRadioValue == 1)
-                        //   SelectorWidget(
-                        //     context: context,
-                        //     delayMilliseconds: 570,
-                        //     title: (registerViewModel.timerValues['from'] !=
-                        //                 '' ||
-                        //             registerViewModel.timerValues['to'] != '')
-                        //         ? '${(registerViewModel.timerValues['from'])} - ${(registerViewModel.timerValues['to'])}'
-                        //         : 'Select Custom Time',
-                        //     height: 50.h,
-                        //     icon: FontAwesomeIcons.solidClock,
-                        //     onTap: () {
-                        //       registerViewModel.setTimer(context);
-                        //     },
-                        //   ),
-                        // if (registerViewModel.timeRadioValue != 1)
-                        //   const SizedBox(),
-                        // if (registerViewModel.timeRadioValue == 1)
-                        //   SizedBox(height: 8.h),
+                        SelectorWidget(
+                          context: context,
+                          delayMilliseconds: 570,
+                          title: registerViewModel.timeRadioValue == 0
+                              ? '24 Hours'
+                              : registerViewModel.timeRadioValue == 1
+                                  ? 'Custom'
+                                  : 'Select Time',
+                          height: 50.h,
+                          icon: FontAwesomeIcons.solidClock,
+                          onTap: () {
+                            showTimeDialog();
+                          },
+                        ),
+                        SizedBox(height: 8.h),
+                        if (registerViewModel.timeRadioValue == 1)
+                          SelectorWidget(
+                            context: context,
+                            delayMilliseconds: 570,
+                            title: (registerViewModel.timerValues['from'] !=
+                                        '' ||
+                                    registerViewModel.timerValues['to'] != '')
+                                ? '${(registerViewModel.timerValues['from'])} - ${(registerViewModel.timerValues['to'])}'
+                                : 'Select Custom Time',
+                            height: 50.h,
+                            icon: FontAwesomeIcons.solidClock,
+                            onTap: () {
+                              registerViewModel.setTimerVerification(context);
+                            },
+                          ),
+                        if (registerViewModel.timeRadioValue != 1)
+                          const SizedBox(),
+                        if (registerViewModel.timeRadioValue == 1)
+                          SizedBox(height: 8.h),
                         Consumer<ServicesAndDaysViewModel>(
                           builder: (ctx, days, neverBuildChild) {
                             return SelectorWidget(
