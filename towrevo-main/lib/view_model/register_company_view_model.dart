@@ -113,12 +113,12 @@ class RegisterCompanyViewModel with ChangeNotifier {
     // 'longitude': '',
     // 'from': '',
     // 'to': '',
-    'extension': '',
+    // 'extension': '',
     // 'days': [],
     // 'services': [],
     'notification_id': MyApp.notifyToken,
     // 'notification_id': '871268123',
-    'image': '',
+    // 'image': '',
   };
 
   verificationInitalize() {
@@ -160,6 +160,7 @@ class RegisterCompanyViewModel with ChangeNotifier {
     final otpProvider = Provider.of<OTPViewModel>(context, listen: false);
 
     // print(body['to']);
+    print(responseBody);
     changeLoadingStatus(false);
 
     if (responseBody != null) {
@@ -231,6 +232,7 @@ class RegisterCompanyViewModel with ChangeNotifier {
     imagePath = '';
     body['image'] = '';
     body['extension'] = '';
+    isLoading = false;
     // clearServiceDescriptionList();
   }
 

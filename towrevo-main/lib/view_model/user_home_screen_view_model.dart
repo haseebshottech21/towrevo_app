@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:new_version_plus/new_version_plus.dart';
+import 'package:towrevo/main.dart';
 import 'package:towrevo/models/models.dart';
+import 'package:towrevo/screens/screens.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/web_services/user_web_service.dart';
@@ -12,6 +15,19 @@ import '../screens/user/user_home_screen.dart';
 class UserHomeScreenViewModel with ChangeNotifier {
   Utilities utilities = Utilities();
   UserWebService userWebService = UserWebService();
+
+  dynamic totalCount;
+
+  bool isPaid = false;
+  bool? isPayFirst;
+
+  // bool isLoading = false;
+  dynamic trialLeft = 2;
+  chnageFreeTrial(dynamic freeTrial) {
+    trialLeft = freeTrial;
+    notifyListeners();
+  }
+
   Map<String, dynamic> ratingData = {
     'requestedId': '',
     'requested': false,
@@ -42,8 +58,6 @@ class UserHomeScreenViewModel with ChangeNotifier {
     drawerInfo['email'] =
         await utilities.getSharedPreferenceValue('email') ?? '';
 
-    // print(drawerInfo['name']);
-
     notifyListeners();
   }
 
@@ -72,9 +86,25 @@ class UserHomeScreenViewModel with ChangeNotifier {
     'address': '',
   };
 
-  List<CompanyModel> list = [];
+  List<CompanyModel> companyList = [];
+  List<CompanyModel> sortedCompanies = [];
+  List<CompanyModel> companyListFree = [];
 
   List<UserHistoryModel> userHistoryList = [];
+
+  // dynamic requestTrial;
+
+  Future<void> getRequestCount(BuildContext context, int type) async {
+    if (!(await utilities.isInternetAvailable())) {
+      return;
+    }
+    // changeLoadingStatus(true);
+    // final counData =
+    await userWebService.getCount(context: context, type: type);
+    // await utilities.setSharedPrefIntValue('count', counData['data']['counts']);
+    // await utilities.setSharedPrefValue('isPaid', counData['data']['is_paid']);
+    // changeLoadingStatus(false);
+  }
 
   Future<void> getUserHistory(BuildContext context) async {
     if (!(await utilities.isInternetAvailable())) {
@@ -99,6 +129,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
     final loadedResponse =
         await userWebService.payNowRequest(transactionId, amount, context);
     if (loadedResponse != null) {
+      // await getRequestCount(context);
       await getCompanies(body, context);
       Navigator.of(context).pop();
     }
@@ -112,10 +143,35 @@ class UserHomeScreenViewModel with ChangeNotifier {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
-    list = [];
+    companyList = [];
     changeLoadingStatus(true);
+    // serviceModel = ServiceModel.emptyServiceModel();
+    Map<String, dynamic> response = await userWebService.getCompaniesList(
+      requestedBody,
+      context,
+    );
+    if (response.isNotEmpty) {
+      companyList = response['compaines'] as List<CompanyModel>;
+      companyList.sort((a, b) => a.distance.compareTo(b.distance));
+      isPaid = response['paidStatus'] == '1' ? true : false;
+      isPayFirst = response['payFirst'] == 1 ? true : false;
+      totalCount = response['counts'];
+      // print("Paid: $isPaid, Count: $totalCount, PayFirst $isPayFirst");
 
-    list = await userWebService.getCompaniesList(requestedBody, context);
+      if (isPaid == false) {
+        if (totalCount == 0) {
+          chnageFreeTrial(2);
+        } else if (totalCount == 1) {
+          chnageFreeTrial(1);
+        } else if (totalCount == 2) {
+          chnageFreeTrial(0);
+        } else {
+          trialLeft == '';
+          notifyListeners();
+        }
+        // print('free trial $trialLeft');
+      }
+    }
     changeLoadingStatus(false);
   }
 
@@ -219,7 +275,7 @@ class UserHomeScreenViewModel with ChangeNotifier {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Request Send Please Wait..',
+                        'Request Sent Please Wait..',
                         style: GoogleFonts.montserrat(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -293,4 +349,96 @@ class UserHomeScreenViewModel with ChangeNotifier {
       });
     }
   }
+
+  bool? checker;
+
+  checkAppUpdateValue(BuildContext context) async {
+    final newVersion = NewVersionPlus(
+      // iOSAppStoreCountry: 'us',
+      iOSId: 'com.iOS.towrevoapp',
+      androidId: 'com.towrevoapp.towrevo',
+      // iOSId: 'com.google.Vespa',
+      // androidId: 'com.user.towr',
+    );
+
+    final version = await newVersion.getVersionStatus();
+    if (MyApp.updateChecker == false) {
+      if (version != null) {
+        checker = version.canUpdate;
+        // print('Update Check: $checker');
+
+        if (checker == true) {
+          newVersion.showAlertIfNecessary(
+            context: context,
+            launchModeVersion: LaunchModeVersion.normal,
+          );
+          await utilities.setSharedPrefBoolValue('update', checker!);
+          checker = await utilities.getSharedPreferenceBoolValue('update');
+          MyApp.updateChecker = true;
+        }
+        notifyListeners();
+      }
+    }
+  }
+
+  // bool simpleBehavior = true;
+  // String? release;
+  // appUpdateChecker(BuildContext context) async {
+  //   final newVersion = NewVersionPlus(
+  //     iOSId: 'com.google.Vespa',
+  //     androidId: 'com.towrevoapp.towrevo',
+  //   );
+
+  //   final version = await newVersion.getVersionStatus();
+  //   if (version != null) {
+  //     // debugPrint(version.releaseNotes);
+  //     debugPrint(version.appStoreLink);
+  //     debugPrint(version.localVersion);
+  //     debugPrint(version.storeVersion);
+  //     // debugPrint(status.releaseNotes);
+  //     debugPrint(version.canUpdate.toString());
+  //     release = "Fix bugs and improvements";
+  //     // setState(() {});
+  //     notifyListeners();
+  //   }
+  //   if (version!.canUpdate == true) {
+  //     newVersion.showAlertIfNecessary(
+  //       context: context,
+  //       launchModeVersion: LaunchModeVersion.normal,
+  //     );
+  //   }
+  // }
+
+  // basicStatusCheck(NewVersionPlus newVersion, BuildContext context) async {
+  //   final version = await newVersion.getVersionStatus();
+  //   if (version != null) {
+  //     release = "Fix bugs and improvements";
+  //     // setState(() {});
+  //     notifyListeners();
+  //   }
+  //   newVersion.showAlertIfNecessary(
+  //     context: context,
+  //     launchModeVersion: LaunchModeVersion.normal,
+  //   );
+  // }
+
+  // advancedStatusCheck(NewVersionPlus newVersion, BuildContext context) async {
+  //   final status = await newVersion.getVersionStatus();
+  //   if (status != null) {
+  //     debugPrint(status.releaseNotes);
+  //     debugPrint(status.appStoreLink);
+  //     debugPrint(status.localVersion);
+  //     debugPrint(status.storeVersion);
+  //     // debugPrint(status.releaseNotes);
+  //     debugPrint(status.canUpdate.toString());
+  //     newVersion.showUpdateDialog(
+  //       updateButtonText: 'UPDATE',
+  //       dismissButtonText: 'LATER',
+  //       context: context,
+  //       versionStatus: status,
+  //       dialogTitle: 'Custom Title',
+  //       dialogText: 'Custom Text',
+  //     );
+  //   }
+  // }
 }

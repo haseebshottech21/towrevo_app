@@ -96,6 +96,11 @@ class _TermAndConditionState extends State<TermAndCondition> {
       'description':
           'We may terminate your access to the Site or the App \n\n1. Without cause or notice at our own discretion. \n2. If you are the valuation of any of terms of this Agreement. \n\nTermination of access may result in the forfeiture and destruction of all information associated with you.'
     },
+    {
+      'title': 'New Account verification',
+      'description':
+          'By using the TowRevo App to verify and activate your new account, you agree to use the provided text code for personal use only and are responsible for any data charges that may apply. Please be aware that message and data rates may apply, check with your operator for more information.'
+    },
   ];
 
   @override

@@ -32,11 +32,47 @@ class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final reqFromMyLocation =
+        ModalRoute.of(context)!.settings.arguments as bool;
     final placeViewModel = context.watch<GetLocationViewModel>();
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text(reqFromMyLocation ? 'Update Location' : 'Add Location'),
+        backgroundColor: AppColors.primaryColor,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(45.h),
+          child: SizedBox(
+            height: 60.h,
+            child: Row(
+              children: [
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.of(context).pop();
+                //   },
+                //   child: Container(
+                //     height: 38.h,
+                //     width: 45.w,
+                //     decoration: BoxDecoration(
+                //       color: Colors.white.withOpacity(0.8),
+                //       borderRadius: BorderRadius.circular(5.r),
+                //     ),
+                //     child: const Icon(Icons.arrow_back),
+                //   ),
+                // ),
+                Expanded(
+                  child: LocationSearchBox(
+                    searchController: textSearchController,
+                    onChange: placeViewModel.getPlaces,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
       bottomSheet: placeViewModel.placeDetailModel.placeAddress.isNotEmpty
           ? Container(
               height: size.height * 0.16,
@@ -126,27 +162,34 @@ class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
           // const Expanded(
           //   child: Gmap(),
           // ),
-          Expanded(
-            child: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: const Gmap(),
-              ),
-            ),
+          // Expanded(
+          //   child: SingleChildScrollView(
+          //     physics: const NeverScrollableScrollPhysics(),
+          //     child: SizedBox(
+          //       width: MediaQuery.of(context).size.width,
+          //       height: MediaQuery.of(context).size.height,
+          //       child: const Gmap(),
+          //     ),
+          //   ),
+          // ),
+          const SizedBox(
+            height: 1000,
+            child: Gmap(),
           ),
           if (placeViewModel.placesList.isNotEmpty &&
               textSearchController.text.isNotEmpty)
             Container(
-              margin: EdgeInsets.only(
-                top: 90.h,
-                left: 20.w,
-                right: 20.w,
-              ),
+              // margin: EdgeInsets.only(
+              //   top: 90.h,
+              //   left: 20.w,
+              //   right: 20.w,
+              // ),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.6),
-                borderRadius: BorderRadius.circular(10.r),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8.r),
+                  bottomRight: Radius.circular(8.r),
+                ),
               ),
               width: double.infinity,
               child: ListView.builder(
@@ -166,9 +209,9 @@ class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
                           );
                     },
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      padding: EdgeInsets.symmetric(horizontal: 6.w),
                       child: Container(
-                        padding: const EdgeInsets.all(6),
+                        padding: const EdgeInsets.all(8),
                         margin: EdgeInsets.only(bottom: 5.h),
                         decoration: BoxDecoration(
                           border: Border(
@@ -191,7 +234,7 @@ class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
                               child: Text(
                                 placeViewModel.placesList[index].description,
                                 style: TextStyle(
-                                  fontSize: 13.sp,
+                                  fontSize: 14.sp,
                                   color: Colors.white,
                                 ),
                               ),
@@ -204,38 +247,38 @@ class _CompanyLocationScreenState extends State<CompanyLocationScreen> {
                 },
               ),
             ),
-          Positioned(
-            top: 25.h,
-            right: 20.w,
-            left: 20.w,
-            child: SizedBox(
-              height: 80.h,
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      height: 38.h,
-                      width: 45.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(5.r),
-                      ),
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                  Expanded(
-                    child: LocationSearchBox(
-                      searchController: textSearchController,
-                      onChange: placeViewModel.getPlaces,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // Positioned(
+          //   top: 25.h,
+          //   right: 20.w,
+          //   left: 20.w,
+          //   child: SizedBox(
+          //     height: 80.h,
+          //     child: Row(
+          //       children: [
+          //         GestureDetector(
+          //           onTap: () {
+          //             Navigator.of(context).pop();
+          //           },
+          //           child: Container(
+          //             height: 38.h,
+          //             width: 45.w,
+          //             decoration: BoxDecoration(
+          //               color: Colors.white.withOpacity(0.8),
+          //               borderRadius: BorderRadius.circular(5.r),
+          //             ),
+          //             child: const Icon(Icons.arrow_back),
+          //           ),
+          //         ),
+          //         Expanded(
+          //           child: LocationSearchBox(
+          //             searchController: textSearchController,
+          //             onChange: placeViewModel.getPlaces,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

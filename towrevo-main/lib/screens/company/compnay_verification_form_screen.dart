@@ -122,7 +122,7 @@ class _CompanyVerificationFormScreenState
         companySignUpProvider.selectedCity;
 
     // print('object');
-    print(companySignUpProvider.verificationBody);
+    // print(companySignUpProvider.verificationBody);
     // print(companySignUpProvider.timeRadioValue);
     // print(locationProvider.myCurrentLocation.placeAddress);
     bool response = await companySignUpProvider.updateVerfiedCompany(context);
@@ -260,7 +260,7 @@ class _CompanyVerificationFormScreenState
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                   CompanyLocationScreen.routeName,
-                                  // arguments: true,
+                                  arguments: false,
                                 );
                               },
                             );

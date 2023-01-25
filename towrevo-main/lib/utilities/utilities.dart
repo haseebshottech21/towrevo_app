@@ -49,6 +49,13 @@ class Utilities {
     return DateFormat("HH:mm").format(date);
   }
 
+  String dateFormat(String date) {
+    var parsedDate = DateTime.parse(date);
+    // final inputDate = DateFormat.parse(date);
+    // return DateFormat('d MMM, yyyy').format(parsedDate);
+    return DateFormat('dd-MMM-yyy').format(parsedDate);
+  }
+
   static const stripeBaseUrl = 'https://api.stripe.com';
   static const baseUrl = 'https://api.towrevo.com/public/api/';
   static const imageBaseUrl = 'https://api.towrevo.com/public/uploads/user/';
@@ -74,9 +81,29 @@ class Utilities {
     pref.setString(key, value);
   }
 
+  Future<void> setSharedPrefIntValue(String key, int value) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt(key, value);
+  }
+
+  Future<void> setSharedPrefBoolValue(String key, bool value) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setBool(key, value);
+  }
+
   Future<dynamic> getSharedPreferenceValue(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString(key);
+  }
+
+  Future<dynamic> getSharedPreferenceIntValue(String key) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getInt(key);
+  }
+
+  Future<dynamic> getSharedPreferenceBoolValue(String key) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getBool(key);
   }
 
   Future<dynamic> removeSharedPreferenceValue(String key) async {
@@ -123,6 +150,7 @@ class Utilities {
     await removeSharedPreferenceValue('email');
     await removeSharedPreferenceValue('image');
     await removeSharedPreferenceValue('name');
+    await removeSharedPreferenceValue('count');
     await removeSharedPreferenceValue('longitude');
     await removeSharedPreferenceValue('latitude');
     await removeSharedPreferenceValue('verified');
@@ -185,8 +213,10 @@ class Utilities {
   Future<void> setUserDataToLocalStorage(Map loadedData) async {
     await setSharedPrefValue('token', loadedData['token']);
     await setSharedPrefValue('type', loadedData['user']['type']);
-
     await setSharedPrefValue('email', loadedData['user']['email']);
+    // await setSharedPrefIntValue(
+    //     'count', loadedData['user']['counts']['counts']);
+    // await setSharedPrefValue('isPaid', loadedData['user']['counts']['is_paid']);
     await setSharedPrefValue('image', loadedData['user']['image'] ?? '');
     final Map companyInfo = loadedData['user']['company_info'] ?? {};
 
@@ -219,7 +249,7 @@ class Utilities {
         sound: true,
       );
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
     // print('User granted permission: ${settings.authorizationStatus}');

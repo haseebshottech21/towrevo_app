@@ -39,7 +39,7 @@ class DeleteViewModel extends ChangeNotifier {
       reason = controller.text;
     }
     notifyListeners();
-    print(reason);
+    // print(reason);
   }
 
   Future<void> deleteMyAccount({
@@ -48,18 +48,19 @@ class DeleteViewModel extends ChangeNotifier {
     if (!(await utilities.isInternetAvailable())) {
       return;
     }
+    // Navigator.of(context).pop();
     changeLoadingStatus(true);
     if (reason != null) {
       final loadedData = await authRepo.deleteMyAccount(reason!);
       if (loadedData != null) {
-        changeLoadingStatus(false);
-        Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(
-          LoginScreen.routeName,
-          (route) => false,
-        );
+        Future.delayed(Duration.zero).then((value) {
+          changeLoadingStatus(false);
+          Navigator.of(context, rootNavigator: true).pushNamedAndRemoveUntil(
+            LoginScreen.routeName,
+            (route) => false,
+          );
+        });
       }
-    } else {
-      print('reason null hai');
-    }
+    } else {}
   }
 }

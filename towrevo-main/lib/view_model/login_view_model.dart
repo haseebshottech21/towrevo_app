@@ -33,7 +33,10 @@ class LoginViewModel with ChangeNotifier {
     }
     changeLoadingStatus(true);
     bool result = await authenticationWebService.login(
-        email, password, isRememberChecked);
+      email,
+      password,
+      isRememberChecked,
+    );
     changeLoadingStatus(false);
     return result;
   }

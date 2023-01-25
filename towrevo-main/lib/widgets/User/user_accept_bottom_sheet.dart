@@ -5,7 +5,8 @@ import 'package:towrevo/widgets/Loaders/glow_circle.dart';
 
 Future openBottomSheet(BuildContext context, String companyName) {
   return showModalBottomSheet(
-    isDismissible: true,
+    isDismissible: false,
+    enableDrag: false,
     context: context,
     // color is applied to main screen when modal bottom screen is displayed
     // barrierColor: Colors.greenAccent,

@@ -106,7 +106,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
 
   getVerified(BuildContext context) async {
     final verified = await Utilities().getSharedPreferenceValue('verified');
-    print('Company Status: $verified');
+    // print('Company Status: $verified');
 
     if (verified == null ||
         verified == '' ||
@@ -114,7 +114,7 @@ class CompanyHomeScreenViewModel with ChangeNotifier {
         verified == '3') {
       verifiedStatusCheck(context);
     } else {
-      print('Verified Success!');
+      // print('Verified Success!');
     }
     notifyListeners();
   }

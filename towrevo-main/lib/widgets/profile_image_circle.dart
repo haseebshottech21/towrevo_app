@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Container profileImageCircle(BuildContext context, String image) {
   return Container(
-    width: 45.w,
-    height: 44.h,
+    width: 50,
+    height: 50,
     decoration: BoxDecoration(
       border: Border.all(
         color: Theme.of(context).primaryColor,

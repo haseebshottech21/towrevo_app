@@ -21,9 +21,14 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
       (value) {
         Provider.of<UserHomeScreenViewModel>(context, listen: false)
             .getUserHistory(context);
+        getPaymentHistory();
       },
     );
     super.initState();
+  }
+
+  getPaymentHistory() {
+    Provider.of<PaymentViewModel>(context, listen: false).checkPaymentExpire();
   }
 
   @override
@@ -32,6 +37,17 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
       context,
       listen: true,
     );
+
+    final paymentViewModel = Provider.of<PaymentViewModel>(
+      context,
+      listen: true,
+    );
+
+    // print(provider.userPaymet);
+
+    // final int? statusCode = ModalRoute.of(context)!.settings.arguments as int;
+
+    // print(paymentViewModel.paymentExpired);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -100,6 +116,8 @@ class _UserHistoryTowState extends State<UserHistoryTow> {
                                     return UserHistoryList(
                                       userHistoryModel:
                                           provider.userHistoryList[index],
+                                      paymentExpired:
+                                          paymentViewModel.paymentExpired,
                                     );
                                   },
                                 ),

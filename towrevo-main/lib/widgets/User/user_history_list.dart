@@ -6,9 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserHistoryList extends StatelessWidget {
   final UserHistoryModel userHistoryModel;
+  final bool paymentExpired;
 
   const UserHistoryList({
     required this.userHistoryModel,
+    required this.paymentExpired,
     Key? key,
   }) : super(key: key);
 
@@ -37,7 +39,9 @@ class UserHistoryList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          userHistoryModel.companyName.toUpperCase(),
+                          paymentExpired
+                              ? '* * * * * * * * * * *'
+                              : userHistoryModel.companyName.toUpperCase(),
                           style: GoogleFonts.montserrat(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,

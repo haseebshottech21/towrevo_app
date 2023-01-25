@@ -102,7 +102,7 @@ class FromToLocation extends StatelessWidget {
                   ),
                   Icon(
                     FontAwesomeIcons.retweet,
-                    size: 15.sp,
+                    size: 14.sp,
                     color: AppColors.primaryColor2,
                   )
                 ],
@@ -114,6 +114,7 @@ class FromToLocation extends StatelessWidget {
                 location: toLocationText,
                 onTap: toOnTap,
               ),
+              SizedBox(height: 4.h),
             ],
           ),
         ),
@@ -147,7 +148,7 @@ class FromToLocation extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(height: 2.h),
+                  SizedBox(height: 4.h),
                   Text(
                     location,
                     style: GoogleFonts.montserrat(

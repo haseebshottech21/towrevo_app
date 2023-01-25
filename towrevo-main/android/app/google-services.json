@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "453468732727-48kvr0kvgah9j1i9gsbkedvt91al1oso.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.towrevoapp.towrevo",
+            "certificate_hash": "35c6dabf903a8120ec5fc77fcc8b214a2e99717a"
+          }
+        },
+        {
+          "client_id": "453468732727-kvbkaku5bgqdducbl98oa2qf0jtkn27n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.towrevoapp.towrevo",
+            "certificate_hash": "66421ea1e69874f20bdc7d72eafb569acf901160"
+          }
+        },
+        {
           "client_id": "453468732727-vupei0tg3sf5ik7bp4c3hho9cni8n64e.apps.googleusercontent.com",
           "client_type": 3
         }

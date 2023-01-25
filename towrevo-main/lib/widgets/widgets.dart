@@ -16,7 +16,7 @@ export 'package:towrevo/widgets/User/user_accept_bottom_sheet.dart';
 export 'package:towrevo/widgets/User/user_empty_icon.dart';
 export 'package:towrevo/widgets/User/user_history_list.dart';
 export 'package:towrevo/widgets/User/user_rating_dialogbox.dart';
-export 'package:towrevo/widgets/company_item.dart';
+export 'package:towrevo/widgets/User/near_by_company_item.dart';
 
 // Services And Days
 

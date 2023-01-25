@@ -6,9 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:towrevo/utilities/towrevo_appcolor.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import '../view_model/delete_reason_view_model.dart';
-// import '../widgets/back_icon.dart';
-// import '../widgets/background_image.dart';
-// import '../widgets/circular_progress_indicator.dart';
 
 class CancelReasonModel with ChangeNotifier {
   final String title;
@@ -58,6 +55,7 @@ class _DeleteMyAccountState extends State<DeleteMyAccount> {
               SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(height: 4.h),
                     Row(
                       children: [
                         Align(
@@ -71,7 +69,7 @@ class _DeleteMyAccountState extends State<DeleteMyAccount> {
                             top: 32.h,
                             left: Platform.isAndroid
                                 ? screenSize.width * 0.10.w
-                                : 50.w,
+                                : 30.w,
                           ),
                           child: Text(
                             'DELETE ACCOUNT',
@@ -88,14 +86,14 @@ class _DeleteMyAccountState extends State<DeleteMyAccount> {
                     ),
                     SizedBox(height: 16.h),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Column(
                         children: [
                           Text(
                             'Are you sure you want to delete your account? Your profile will be disabled, but any reviews you\'ve given can still be seen.',
                             style: GoogleFonts.montserrat(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
                             ),
                             textAlign: TextAlign.center,
@@ -105,7 +103,7 @@ class _DeleteMyAccountState extends State<DeleteMyAccount> {
                     ),
                     SizedBox(height: 12.h),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -116,7 +114,7 @@ class _DeleteMyAccountState extends State<DeleteMyAccount> {
                               'Tell us reason why you leaving : ',
                               style: GoogleFonts.montserrat(
                                 color: AppColors.primaryColor,
-                                fontSize: 16,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.w500,
                               ),
                               textAlign: TextAlign.center,
@@ -145,7 +143,7 @@ class _DeleteMyAccountState extends State<DeleteMyAccount> {
                                       provider.selectReasons[index].title,
                                       style: GoogleFonts.montserrat(
                                         color: Colors.white,
-                                        fontSize: 14,
+                                        fontSize: 13.sp,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     )
@@ -159,23 +157,27 @@ class _DeleteMyAccountState extends State<DeleteMyAccount> {
                             key: _formKey,
                             child: provider.reason ==
                                     'Others - please tell us a bit more'
-                                ? TextFormField(
-                                    controller: otherController,
-                                    maxLines: 3,
-                                    validator: (val) {
-                                      if (val.toString().isEmpty) {
-                                        return 'Reason Required';
-                                      }
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      hintText: 'Other Reason',
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                        borderSide: BorderSide.none,
+                                ? Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 4.w),
+                                    child: TextFormField(
+                                      controller: otherController,
+                                      maxLines: 3,
+                                      validator: (val) {
+                                        if (val.toString().isEmpty) {
+                                          return 'Reason Required';
+                                        }
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintText: 'Other Reason',
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.r),
+                                          borderSide: BorderSide.none,
+                                        ),
                                       ),
                                     ),
                                   )
@@ -246,6 +248,8 @@ class _DeleteMyAccountState extends State<DeleteMyAccount> {
                                                       ),
                                                     ),
                                                     onPressed: () {
+                                                      // Navigator.of(context)
+                                                      //     .pop();
                                                       context
                                                           .read<
                                                               DeleteViewModel>()

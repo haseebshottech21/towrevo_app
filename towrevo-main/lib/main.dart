@@ -12,6 +12,7 @@ import 'package:towrevo/screens/company/compnay_location_screen.dart';
 import 'package:towrevo/screens/company/compnay_verification_form_screen.dart';
 import 'package:towrevo/screens/delete_my_account.dart';
 import 'package:towrevo/screens/payment/user_paymnets.dart';
+import 'package:towrevo/screens/test_location.dart';
 import 'package:towrevo/utilities/env_settings.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/delete_reason_view_model.dart';
@@ -40,8 +41,8 @@ Future<void> main() async {
   Stripe.publishableKey = ENVSettings.stripePublishableKey;
   try {
     if (Platform.isIOS) {
-      // Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
-      Stripe.merchantIdentifier = 'merchant.thegreatestmarkeplace';
+      Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+      // Stripe.merchantIdentifier = 'merchant.thegreatestmarkeplace';
       Stripe.urlScheme = 'flutterstripe';
       await Stripe.instance.applySettings();
     }
@@ -62,6 +63,7 @@ class MyApp extends StatefulWidget {
   static String notifyToken = '';
   static String onBoard = '';
   static String type = '';
+  static bool updateChecker = false;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -117,7 +119,9 @@ class _MyAppState extends State<MyApp> {
             // You can use the library anywhere in the app even in theme
             theme: ThemeData(
               primarySwatch: Colors.blue,
-              // textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
+              bottomSheetTheme: const BottomSheetThemeData(
+                backgroundColor: Colors.transparent,
+              ),
             ),
             home: getScreen(),
             routes: {
@@ -152,6 +156,7 @@ class _MyAppState extends State<MyApp> {
                   const ListingOfCompaniesScreen(),
               DistanceScreen.routeName: (ctx) => const DistanceScreen(),
               UserLocationScreen.routeName: (ctx) => const UserLocationScreen(),
+              TestLocation.routeName: (ctx) => const TestLocation(),
               AboutUsScreen.routeName: (ctx) => const AboutUsScreen(),
               FAQs.routeName: (ctx) => const FAQs(),
               ChangePasswordScreen.routeName: (ctx) =>

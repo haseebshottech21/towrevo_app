@@ -217,8 +217,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EditProfileViewModel>(context, listen: true);
-    print(provider.isLoading);
-    print('type $type');
+    // print(provider.isLoading);
+    // print('type $type');
     // final locationProvider =
     //     Provider.of<GetLocationViewModel>(context, listen: false);
 
@@ -331,8 +331,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                 from: 10,
                                 delay: const Duration(milliseconds: 650),
                                 child: TextFieldForAll(
-                                  errorGetter:
-                                      ErrorGetter().firstNameErrorGetter,
+                                  errorGetter: type == '1'
+                                      ? ErrorGetter().firstNameErrorGetter
+                                      : ErrorGetter().companyNameErrorGetter,
                                   hintText: 'First Name',
                                   prefixIcon: const Icon(
                                     FontAwesomeIcons.userAlt,

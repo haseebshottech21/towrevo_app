@@ -9,7 +9,7 @@ import '../utilities/env_settings.dart';
 class UserWebService {
   final utilities = Utilities();
 
-  Future<List<CompanyModel>> getCompaniesList(
+  Future<Map<String, dynamic>> getCompaniesList(
     Map<String, String> body,
     BuildContext context,
   ) async {
@@ -20,22 +20,66 @@ class UserWebService {
         headers: await Utilities().headerWithAuth(),
       );
       List<CompanyModel> companiesList = [];
+
+      // if (response.statusCode == 200) {
+      //   // print(response.body);
+      //   for (var company in loadedData['data']) {
+      //     companiesList.add(CompanyModel.fromJson(company));
+      //   }
+      //   return companiesList;
+      // }
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // List<Comment> list = (loadedData['data']['comments'] as List)
+        //     .map((e) => Comment.fromJson(e))
+        //     .toList();
+        final loadedData = json.decode(response.body);
+        for (var company in loadedData['data']['companies']) {
+          companiesList.add(CompanyModel.fromJson(company));
+        }
+        // print(companiesList);
+        // print(loadedData['data']['pay_status']['is_paid'].toString());
+        return {
+          'compaines': companiesList,
+          'paidStatus': loadedData['data']['pay_status']['is_paid'].toString(),
+          'payFirst': loadedData['data']['pay_status']['pay'],
+          'counts': loadedData['data']['pay_status']['counts'],
+        };
+      } else if (response.statusCode == 401) {
+        utilities.unauthenticatedLogout(context);
+        return {};
+      } else {
+        return {};
+      }
+    } catch (e) {
+      // print('object');
+      Fluttertoast.showToast(msg: e.toString());
+      return {};
+    }
+  }
+
+  Future<dynamic> getCount({
+    required BuildContext context,
+    required int type,
+  }) async {
+    try {
+      final response = await http.get(
+        Uri.parse(Utilities.baseUrl + 'get-count?type=$type'),
+        headers: await Utilities().headerWithAuth(),
+      );
       if (response.statusCode == 200) {
         // print(response.body);
         final loadedData = json.decode(response.body);
-        for (var company in loadedData['data']) {
-          companiesList.add(CompanyModel.fromJson(company));
-        }
-        return companiesList;
+        // print(loadedData);
+        return loadedData;
       } else if (response.statusCode == 401) {
         utilities.unauthenticatedLogout(context);
-        return [];
+        return null;
       } else {
-        return [];
+        return null;
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
-      return [];
+      return null;
     }
   }
 
@@ -178,6 +222,7 @@ class UserWebService {
         utilities.unauthenticatedLogout(context);
         return [];
       } else {
+        // print(loadedData['message']);
         Fluttertoast.showToast(msg: loadedData['message'].toString());
       }
     } catch (e) {

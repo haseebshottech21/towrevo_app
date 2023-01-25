@@ -4,9 +4,10 @@ class ErrorGetter {
       return 'Please Enter First Name';
     } else if (value.length > 30) {
       return 'First Name length Should be less than 30';
-    } else if (value.length < 3) {
-      return 'First Name must at least 3 characters';
     }
+    // else if (value.length < 2) {
+    //   return 'First Name must at least 1 characters';
+    // }
     return null;
   }
 
@@ -15,9 +16,10 @@ class ErrorGetter {
       return 'Please Enter Last Name';
     } else if (value.length > 30) {
       return 'Last Name length Should be less than 30';
-    } else if (value.length < 3) {
-      return 'Last Name must at least 3 characters';
     }
+    // else if (value.length < 3) {
+    //   return 'Last Name must at least 3 characters';
+    // }
     return null;
   }
 

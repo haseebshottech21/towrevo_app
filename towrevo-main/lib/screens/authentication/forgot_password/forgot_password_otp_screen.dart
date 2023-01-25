@@ -25,7 +25,7 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
     with TickerProviderStateMixin {
   late AnimationController _controller;
 
-  int levelClock = 120;
+  int levelClock = 300;
   bool isTimeAvailable = true;
   String inputOTP = '';
   final password = TextEditingController();
@@ -37,7 +37,7 @@ class _ForgotPasswordOTPScreenState extends State<ForgotPasswordOTPScreen>
     super.initState();
 
     _controller = AnimationController(
-        duration: const Duration(seconds: 120), vsync: this);
+        duration: const Duration(seconds: 300), vsync: this);
     _controller.forward().whenComplete(() => isTimeAvailable = false);
   }
 

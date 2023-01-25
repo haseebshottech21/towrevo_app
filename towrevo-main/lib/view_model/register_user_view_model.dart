@@ -29,7 +29,9 @@ class RegisterUserViewModel with ChangeNotifier {
   }
 
   Future<bool> userSignUp(
-      Map<String, String> body, BuildContext context) async {
+    Map<String, String> body,
+    BuildContext context,
+  ) async {
     if (!(await Utilities().isInternetAvailable())) {
       return false;
     }

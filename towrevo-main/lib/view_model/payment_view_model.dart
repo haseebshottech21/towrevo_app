@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:towrevo/models/coupan_model.dart';
 import 'package:towrevo/models/payment.dart';
 import 'package:towrevo/screens/company/company_payment_screen.dart';
@@ -47,11 +48,32 @@ class PaymentViewModel with ChangeNotifier {
     }
   }
 
+  bool paymentExpired = true;
+
+  void checkPaymentExpire() async {
+    await paymentHistory();
+    var todayDate = DateTime.now();
+    DateFormat format = DateFormat("dd-MMM-yyy");
+    var expireDate = format.parse(dates['expire_date'].toString());
+
+    // print(todayDate);
+    // print(expireDate);
+
+    if (todayDate.isAfter(expireDate)) {
+      // print('true');
+      paymentExpired = true;
+    } else {
+      // print('false');
+      paymentExpired = false;
+    }
+  }
+
   List<Payment> paymentHistoryList = [];
-  Map<String, String> dates = {
+  Map<String, dynamic> dates = {
     'difference': '',
     'last_payment_date': '',
-    'expire_date': '',
+    'expire_date': null,
+    // 'payment_status': ''
   };
 
   Future<void> paymentHistory() async {
@@ -66,7 +88,8 @@ class PaymentViewModel with ChangeNotifier {
       dates = {
         'difference': loadedData['difference'].toString(),
         'last_payment_date': loadedData['last_payment_date'].toString(),
-        'expire_date': loadedData['expire_date'].toString(),
+        'expire_date': loadedData['expire_date'],
+        // 'payment_status': loadedData['expire_date'].toString(),
       };
       paymentHistoryList = loadedData['payment'] as List<Payment>;
       isLoading = false;

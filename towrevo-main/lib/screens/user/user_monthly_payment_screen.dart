@@ -28,6 +28,7 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
     await userViewModel.payNow(paymentIntentData['id'], '1.99', context);
     paymentIntentData = {};
+    // userViewModel.userPaySuccess();
   }
 
   displayPaymentSheet(BuildContext context) async {
@@ -41,6 +42,7 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
       // print(a);
 
       paynow(context);
+      // print('b');
     } on StripeException catch (e) {
       Fluttertoast.showToast(msg: '${e.error.localizedMessage}');
     }
@@ -67,14 +69,17 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
         );
 
         displayPaymentSheet(context);
+        // print('c');
       }
     } catch (e) {
       // print(e);
     }
   }
 
-  Future createPaymentIntent(
-      {required String price, required String currencyType}) async {
+  Future createPaymentIntent({
+    required String price,
+    required String currencyType,
+  }) async {
     try {
       Map<String, dynamic> body = {
         'amount': price,
@@ -90,6 +95,8 @@ class _UserMonthlyPaymentScreenState extends State<UserMonthlyPaymentScreen> {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
       );
+      // print('d');
+
       return jsonDecode(response.body);
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());

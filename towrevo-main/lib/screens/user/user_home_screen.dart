@@ -1,15 +1,19 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+// import 'package:flutter_app_version_checker/flutter_app_version_checker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+// import 'package:new_version/new_version.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:towrevo/screens/user/user_notification_utilities.dart/user_side_notinfication_handler.dart';
 import 'package:towrevo/utilities/utilities.dart';
 import 'package:towrevo/view_model/view_model.dart';
 import 'package:towrevo/widgets/widgets.dart';
 import 'package:towrevo/screens/screens.dart';
+// import 'package:url_launcher/url_launcher.dart';
 import '../../../utilities/towrevo_appcolor.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,6 +34,76 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   TextEditingController describeController = TextEditingController();
   UserSideNotificationHandler userSideNotificationHandler =
       UserSideNotificationHandler();
+
+  // final _checker = AppVersionChecker(
+  //   appId: 'com.towrevoapp.towrevo',
+  //   androidStore: AndroidStore.apkPure,
+  // );
+  // // final _snapChatChecker = AppVersionChecker(appId: "com.snapchat.android");
+  // // String? snapValue;
+  // // String? youtubeValue;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   checkVersion();
+  // }
+
+  // void checkVersion() async {
+  //   await Future.wait(
+  //     [
+  //       _checker.checkUpdate().then((value) {
+  //         // value.newVersion;
+  //         // value.toString();
+  //         print(value.toString());
+  //       }),
+
+  //       // _youtubeChecker
+  //       //     .checkUpdate()
+  //       //     .then((value) => youtubeValue = value.toString()),
+  //     ],
+  //   );
+
+  //   setState(() {});
+  // }
+
+  // final _checker = AppVersionChecker(
+  //   appId: 'com.towrevoapp.towrevo',
+  //   androidStore: AndroidStore.googlePlayStore,
+  // );
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   checkVersion();
+  // }
+
+  // void checkVersion() async {
+  //   _checker.checkUpdate().then((value) {
+  //     print(value.canUpdate); //return true if update is available
+  //     print(value.currentVersion); //return current app version
+  //     print(value.newVersion); //return the new app version
+  //     print(value.appURL); //return the app url
+  //     print(value
+  //         .errorMessage); //return error message if found else it will return null
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  //   _checkVersion();
+  // }
+  String release = "";
+  @override
+  void initState() {
+    super.initState();
+
+    Provider.of<UserHomeScreenViewModel>(context, listen: false)
+        .checkAppUpdateValue(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     userSideNotificationHandler.checkRatingStatus(context);
@@ -182,6 +256,13 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
                               );
                             },
                           ),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Navigator.pushNamed(
+                          //         context, TestLocation.routeName);
+                          //   },
+                          //   child: Text('Test Location'),
+                          // ),
                           SizedBox(height: 8.h),
                           DescribeProblemField(
                             describeController: describeController,
@@ -253,6 +334,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
   void navigateUserHomeScreen() async {
     final userHomeScreenProvider =
         Provider.of<UserHomeScreenViewModel>(context, listen: false);
+    // userHomeScreenProvider.trialCount();
     DateTime now = DateTime.now();
     final lngLatProvider =
         Provider.of<GetLocationViewModel>(context, listen: false);
@@ -292,6 +374,7 @@ class _UsersHomeScreenState extends State<UsersHomeScreen> {
       'dest_address': lngLatProvider.myDestinationLocation.placeAddress,
       'description': describeController.text.trim()
     };
+    // print(userHomeScreenProvider.body);
     Navigator.of(context).pushNamed(ListingOfCompaniesScreen.routeName);
   }
 

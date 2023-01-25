@@ -7,30 +7,34 @@ import 'package:towrevo/utilities/utilities.dart';
 class AuthenticationWebService {
   final utilities = Utilities();
   Future<dynamic> signUpCompany(Map<String, dynamic> body) async {
-    // try {
-    final response = await http.post(
-      Uri.parse(Utilities.baseUrl + 'register'),
-      body: body,
-      headers: Utilities.header,
-    );
-    // print(response.body);
-    final loadedData = json.decode(response.body);
-
-    if (response.statusCode == 200) {
-      Fluttertoast.showToast(
-        msg: loadedData['message'].toString(),
+    try {
+      final response = await http.post(
+        Uri.parse(Utilities.baseUrl + 'register'),
+        body: body,
+        headers: Utilities.header,
       );
 
-      // print(loadedData);
-      await utilities.setSharedPrefValue(
-          'uniqueId', loadedData['data']['uniqueId']);
-      await utilities.setSharedPrefValue('validate', '0');
-      await utilities.setSharedPrefValue('resendOTP', '0');
+      final loadedData = json.decode(response.body);
 
-      return loadedData;
-    } else {
-      Fluttertoast.showToast(msg: signUpErrorHandle(loadedData));
-      return null;
+      print(response);
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+          msg: loadedData['message'].toString(),
+        );
+
+        print(loadedData);
+        await utilities.setSharedPrefValue(
+            'uniqueId', loadedData['data']['uniqueId']);
+        await utilities.setSharedPrefValue('validate', '0');
+        await utilities.setSharedPrefValue('resendOTP', '0');
+
+        return loadedData;
+      } else {
+        Fluttertoast.showToast(msg: signUpErrorHandle(loadedData));
+        return null;
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 
@@ -44,7 +48,7 @@ class AuthenticationWebService {
     // print(response.body);
     final loadedData = json.decode(response.body);
 
-    print(response.statusCode);
+    // print(response.statusCode);
     if (response.statusCode == 200) {
       Fluttertoast.showToast(msg: loadedData['message'].toString());
 

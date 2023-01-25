@@ -16,9 +16,15 @@ class CompanyHomeScreen extends StatefulWidget {
 class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
   @override
   void initState() {
-    Provider.of<UserHomeScreenViewModel>(context, listen: false)
-        .updateDrawerInfo();
+    init();
     super.initState();
+  }
+
+  init() {
+    final provider =
+        Provider.of<UserHomeScreenViewModel>(context, listen: false);
+    provider.updateDrawerInfo();
+    provider.checkAppUpdateValue(context);
   }
 
   @override

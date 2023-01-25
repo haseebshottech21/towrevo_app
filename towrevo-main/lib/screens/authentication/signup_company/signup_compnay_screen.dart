@@ -42,10 +42,12 @@ class _SignupCompanyScreenState extends State<SignupCompanyScreen> {
         Provider.of<RegisterCompanyViewModel>(context, listen: false);
     if (!_formKey.currentState!.validate()) {
       return;
-    } else if (_companySignUpProvider.body['image'].toString().isEmpty) {
-      Fluttertoast.showToast(msg: 'Please Enter Image');
-      return;
-    } else {
+    } 
+    // else if (_companySignUpProvider.body['image'].toString().isEmpty) {
+    //   Fluttertoast.showToast(msg: 'Please Enter Image');
+    //   return;
+    // } 
+    else {
       _companySignUpProvider.body['first_name'] = companyNameController.text;
       _companySignUpProvider.body['email'] =
           companyEmailController.text.trim().toLowerCase();
@@ -57,6 +59,7 @@ class _SignupCompanyScreenState extends State<SignupCompanyScreen> {
 
       // print(_companySignUpProvider.body);
       bool response = await _companySignUpProvider.registerCompany(context);
+      // print('response: $response');
       if (response) {
         Navigator.of(context).pushNamed(
           RegistrationOTPScreen.routeName,

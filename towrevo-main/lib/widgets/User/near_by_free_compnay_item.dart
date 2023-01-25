@@ -1,29 +1,25 @@
 import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:towrevo/models/company_model.dart';
-import 'package:towrevo/screens/user/user_monthly_payment_screen.dart';
-import 'package:towrevo/utilities/towrevo_appcolor.dart';
-import 'package:towrevo/view_model/user_home_screen_view_model.dart';
-import 'package:towrevo/widgets/profile_image_circle.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../utilities/utilities.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../models/company_model.dart';
+// import '../../screens/user/user_monthly_payment_screen.dart';
+import '../../utilities/towrevo_appcolor.dart';
+import '../../utilities/utilities.dart';
+import '../../view_model/user_home_screen_view_model.dart';
+import '../profile_image_circle.dart';
 
-class CompanyItem extends StatelessWidget {
+class NearByFreeCompanyItem extends StatelessWidget {
   final CompanyModel companyModel;
   final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
-
-  const CompanyItem({
+  const NearByFreeCompanyItem({
     Key? key,
     required this.companyModel,
     this.scaffoldMessengerKey,
   }) : super(key: key);
-
-  // final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-  //     GlobalKey<ScaffoldMessengerState>();
 
   sendRequest(
     String companyId,
@@ -32,34 +28,35 @@ class CompanyItem extends StatelessWidget {
     String phoneNumber,
     String email,
   ) async {
-    if (email.isNotEmpty) {
-      final provider =
-          Provider.of<UserHomeScreenViewModel>(context, listen: false);
+    // if (email.isNotEmpty) {
+    final provider =
+        Provider.of<UserHomeScreenViewModel>(context, listen: false);
+    provider.getRequestCount(context, 0);
 
-      provider.requestToCompany(
-        context,
-        provider.body['longitude']!,
-        provider.body['latitude']!,
-        provider.body['address']!,
-        provider.body['dest_longitude']!,
-        provider.body['dest_latitude']!,
-        provider.body['dest_address']!,
-        provider.body['description']!,
-        provider.body['service']!,
-        companyId,
-        notificationId,
-        scaffoldMessengerKey!,
-      );
-    } else {
-      Navigator.of(context).pushNamed(
-        UserMonthlyPaymentScreen.routeName,
-        arguments: (phoneNumber.isEmpty && email.isEmpty)
-            ? 404
-            : email.isEmpty
-                ? 401
-                : 0,
-      );
-    }
+    provider.requestToCompany(
+      context,
+      provider.body['longitude']!,
+      provider.body['latitude']!,
+      provider.body['address']!,
+      provider.body['dest_longitude']!,
+      provider.body['dest_latitude']!,
+      provider.body['dest_address']!,
+      provider.body['description']!,
+      provider.body['service']!,
+      companyId,
+      notificationId,
+      scaffoldMessengerKey!,
+    );
+    // } else {
+    //   Navigator.of(context).pushNamed(
+    //     UserMonthlyPaymentScreen.routeName,
+    //     arguments: (phoneNumber.isEmpty && email.isEmpty)
+    //         ? 404
+    //         : email.isEmpty
+    //             ? 401
+    //             : 0,
+    //   );
+    // }
   }
 
   openDialPad(
@@ -67,23 +64,31 @@ class CompanyItem extends StatelessWidget {
     String email,
     BuildContext context,
   ) {
-    if (email.isNotEmpty) {
-      launch("tel://+1$phoneNumber");
-    } else {
-      Navigator.of(context).pushNamed(
-        UserMonthlyPaymentScreen.routeName,
-        arguments: (phoneNumber.isEmpty && email.isEmpty)
-            ? 404
-            : email.isEmpty
-                ? 401
-                : 0,
-      );
-    }
+    // if (email.isNotEmpty) {
+    final provider =
+        Provider.of<UserHomeScreenViewModel>(context, listen: false);
+
+    provider.getRequestCount(context, 1);
+    launch("tel://+1$phoneNumber");
+    // } else {
+    //   Navigator.of(context).pushNamed(
+    //     UserMonthlyPaymentScreen.routeName,
+    //     arguments: (phoneNumber.isEmpty && email.isEmpty)
+    //         ? 404
+    //         : email.isEmpty
+    //             ? 401
+    //             : 0,
+    //   );
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
+
+    // print('Email: ${companyModel.email}');
+    // print('Phone Number: ${companyModel.phoneNumber}');
+
     return FadeInUp(
       from: 50,
       child: Card(
@@ -269,34 +274,36 @@ class CompanyItem extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            companyModel.email.isEmpty ||
-                                    companyModel.distance.contains('ft')
-                                ? const SizedBox()
-                                : IconButton(
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                    onPressed: companyModel.isCompanyAvailable
-                                        ? () {
-                                            sendRequest(
-                                              companyModel.userId,
-                                              context,
-                                              companyModel.notificationId,
-                                              companyModel.phoneNumber,
-                                              companyModel.email,
-                                            );
-                                          }
-                                        : null,
-                                    icon: FaIcon(
-                                      FontAwesomeIcons.paperPlane,
-                                      color: companyModel.isCompanyAvailable
-                                          ? primaryColor
-                                          : Colors.grey,
-                                      size: 20.sp,
-                                    ),
-                                  ),
-                            companyModel.email.isEmpty
-                                ? const SizedBox()
-                                : SizedBox(width: 18.w),
+                            // companyModel.email.isEmpty ||
+                            //         companyModel.distance.contains('ft')
+                            //     ? const SizedBox()
+                            //     :
+                            IconButton(
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: companyModel.isCompanyAvailable
+                                  ? () {
+                                      sendRequest(
+                                        companyModel.userId,
+                                        context,
+                                        companyModel.notificationId,
+                                        companyModel.phoneNumber,
+                                        companyModel.email,
+                                      );
+                                    }
+                                  : null,
+                              icon: FaIcon(
+                                FontAwesomeIcons.paperPlane,
+                                color: companyModel.isCompanyAvailable
+                                    ? primaryColor
+                                    : Colors.grey,
+                                size: 20.sp,
+                              ),
+                            ),
+                            // companyModel.email.isEmpty
+                            //     ? const SizedBox()
+                            //     :
+                            SizedBox(width: 18.w),
                             IconButton(
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
